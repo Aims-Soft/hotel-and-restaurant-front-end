@@ -1,1 +1,455 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "reddit-sans";
+  src: url(assets/Reddit_Sans/RedditSans-VariableFont_wght.ttf)
+    format("truetype");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Hanken_grostek";
+  src: url(assets/Hanken_Grotesk/HankenGrotesk-VariableFont_wght.ttf)
+    format("truetype");
+  font-style: normal;
+}
+@font-face {
+  font-family: "poppins";
+  src: url(assets/Poppins/Poppins-Regular.ttf) format("truetype");
+  font-style: normal;
+}
+
+:root {
+  --primary-text: #0d0125;
+  --secondary: #8e7fff;
+  --dark-blue: #1a0052;
+  --primary-background: #301963;
+  --secondary-background: #f4f3ff;
+  --register-btn-border:#dddedf;
+  --secondary-text: #0f1d1f;
+  --footer-text: #b6b2bd;
+  --search-border: #7680c0;
+  --search-background: #270f5c;
+  --box-shadow:#c3c0c0;
+  --login-form:#828282;
+  --listing-bg:#f2f1fe;
+  --company-bg:#F7F7F7;
+  --login-input-border:#d8d8d8;
+  --primary-border:#EAECF0;
+  --dashboard-searchBox:#F2F2F2;
+  --prcentage-background:#F0F4F7;
+  --create-job-font:#667085;
+  --add-job-font:#6B6E77;
+  --add-job-label-font:#344054;
+  --strip-background:#F8F9FA;
+  --black:black;
+  --signIn-header:#333333;
+}
+
+/* NavBar */
+.nav-styling {
+  font-family: reddit-sans;
+  position: relative;
+  z-index: 10;
+}
+.custom-link {
+  font-size: 1.1em;
+  color: var(--primary-text);
+}
+.registar-btn {
+  border: 1px solid var(--register-btn-border);
+  color: var(--secondary);
+}
+.btns {
+  background-color: var(--dark-blue);
+  &:hover{
+   background-color: var(--dark-blue);
+  }
+}
+
+/* intro(HERO) section  */
+.hero {
+  margin-top: -5.6em;
+  background-color: var(--dark-blue);
+  padding-bottom: 4em;
+  font-family: Hanken_grostek;
+}
+.searching-site {
+  color: var(--secondary);
+  background-color: var(--primary-background);
+}
+.span-style {
+  color: var(--secondary);
+}
+.search-box {
+  background-color: var(--search-background);
+  border-radius: 30px;
+  border: 1px solid var(--search-border);
+}
+.search-box-btn {
+  background-color: var(--secondary);
+  color: var(--primary-text);
+  border-radius: 21px;
+}
+.left-border {
+  border-left: 2px solid var(--secondary);
+}
+.hero-sec-img {
+  background-color: var(--secondary);
+  border-radius: 2.2em;
+}
+/* Catagaories Component */
+
+.trending-catagory-text{
+  color: var(--dark-blue);
+  font-size: 1.1em;
+}
+.catagory-header{
+  color: var(--primary-text);
+  font-size: 56px;
+  font-weight: 700;
+}
+.catagory-box{
+  background-color: var(--company-bg);
+}
+.catagory-box-HeadText
+{
+  color: var(--primary-text);
+  font-size: 24px;
+  font-weight: 600;
+}
+.catagory-box-jobNbr{
+  color: var(--primary-text);
+  font-size: 18px;
+}
+
+/* featured companies */
+
+.featured-company {
+  font-family: reddit-sans;
+  background-color: var(--secondary-background);
+}
+.featured-company-header {
+  color: var(--dark-blue);
+}
+.company-title {
+  font-size: 48px;
+  color: var(--primary-text);
+}
+.company-discription {
+  color: var(--secondary-text);
+}
+.open-jobs {
+  color: var(--secondary-text);
+}
+.hiring-rate {
+  color: var(--secondary-text);
+}
+
+/* Dream-job */
+.dream-job-font {
+  font-family: reddit-sans;
+}
+.job {
+  color: var(--dark-blue);
+}
+.dream-job-header {
+  font-size: 56px;
+  color: var(--primary-text);
+}
+.more-jobs {
+  background-color: var(--dark-blue);
+}
+
+/* Footer */
+.footer-background {
+  background-color: var(--primary-text);
+}
+.footer-info,
+.quick-links a,
+.legal a,
+.copyrights {
+  color: var(--footer-text);
+}
+/* JOB Display */
+.box-shadow {
+  box-shadow: 0 0 2px var(--box-shadow);
+}
+.title {
+  color: var(--primary-text);
+  font-size: 1.2em;
+}
+.experience {
+  color: var(--primary-text);
+  border: 1px solid var(--secondary);
+  border-radius: 1.3em;
+}
+.companyName {
+  color: var(--primary-text);
+  font-size: 1.4em;
+}
+.duration {
+  color: var(--secondary);
+}
+.duration-font{
+  font-size: 1em;
+}
+.stipend {
+  color: var(--primary-text);
+  font-size: 1.2em;
+  margin-top: -0.6em;
+}
+.city {
+  color: var(--secondary-text);
+  margin-top: -0.3em;
+}
+.applyBtn {
+  background-color: var(--secondary);
+}
+
+/* Job Listing */
+.font {
+  font-family: reddit-sans;
+}
+.listing-bg {
+  background-color:var(--listing-bg) ;
+}
+
+.job-listing-title {
+  color: var(--primary-text);
+  font-size: 4.7em;
+}
+.job-listing-para {
+  color: var(--secondary-text);
+  font-size: 1.1em;
+}
+.search-btn {
+  background-color: var(--secondary);
+  color: var(--primary-text);
+  font-size: 1.1em;
+  border-radius: 1.3em;
+}
+.popular-catagories {
+  color: var(--secondary);
+  transform: scaleX(2);
+  font-size: 1.1em;
+}
+
+.loadMoreBtn {
+  background-color: var(--dark-blue);
+}
+
+/* SignIn BTN */
+.login-form-para {
+  color: var(--login-form);
+}
+.login-input-style {
+  width: 25em;
+  height: 43px;
+  border: 1px solid var(--login-input-border);
+  margin-left: 7em;
+}
+.login-btn {
+  width: 25em;
+  margin-left: 7em;
+  height: 58px;
+  background-color: var(--secondary);
+  &:hover{
+background-color: var(--secondary);
+  }
+}
+.signIn-header{
+  color: var(--signIn-header);
+}
+.select-login-div{
+  background-color: var(--secondary-background);
+  margin-left: 10em;
+}
+.selected-btn{
+  background-color: var(--secondary);
+}
+
+
+
+/* Company */
+
+.company-box{
+background-color: var(--company-bg);
+}
+.company-title-font-color{
+  color: var(--secondary-text);
+}
+.company-title-font-size{
+  font-size: 1.1em;
+}
+
+/* Vertical NavBar */
+.right-border{
+  font-family: poppins;
+  border-right: 1.5px solid var(--primary-border);
+}
+
+.nav-item-style{
+ background-color: var(--secondary);
+}
+.icon-size{
+  font-size: 1.2em;
+}
+.top-margin{
+  margin-top: 12em;
+}
+
+
+
+/* Candidate Dashboard */
+  .dashborad-position{
+    font-family: reddit-sans;
+    position: absolute;
+    top: 0;
+    left: 13.15em;
+    width: 82.5%;
+  }
+  .profile-border{
+    border: 2px solid var(--black);
+    border-radius: 25px;
+  }
+  .bottom-border{
+    border-bottom: 1.5px solid var(--primary-border) ;
+    
+  }
+  .box-border{
+    border: 1.5px solid  var(--primary-border) ;
+  }
+  .custom-font{
+    font-size: 1.15em;
+    font-weight: 500;
+  }
+  .custom-bg{
+    background-color:var(--prcentage-background);
+    color: var(--secondary);
+    border-radius: 12px;
+  }
+  .total-job-font-size{
+    font-size: 1.3em;
+  }
+  .dashboard-searchBox{
+    background-color: var(--dashboard-searchBox);
+  }
+  .dashboard-input:focus{
+    border: 0;
+    outline:0;
+  }
+  .company-dashboard-stippend{
+    font-size: 1.2em;
+  }
+  .edit-delete{
+    border: 1px solid var(--primary-border);
+    border-radius: 20px;
+    margin-left: 10.3em;
+  }
+  .btn-border{
+    border: 1.4px solid var(--primary-border);
+  }
+  /* Apply Form */
+  .go-back{
+    background-color: var(--dark-blue)
+  }
+  .apply-job{
+    color:var(--signIn-header) ;
+  }
+  .detailApply-jobText{
+color: #828282;
+  }
+  .pic-border{
+    border: 1px dashed #dbd3d3
+  }
+  .pic-border-inner{
+    color: #6e6e6e;
+  }
+.input-border{
+  border: 1.5px solid var(--login-input-border)
+}
+.cancel-btn-border{
+  border: 1px solid #eae6e6;
+}
+
+.apply-btn-style{
+  background-color: var(--secondary);
+}
+  /* create jobs */
+
+  .add-you-job{
+    color: var(--add-job-font);
+    font-size: 0.9em;
+  }
+  .label-font{
+    color: var(--add-job-label-font);
+    font-size: 1.1em;
+  }
+  .label-font-input{
+    border: 1.5px solid var(--primary-border) ;
+    height: 2.7em;
+  }
+  .label-font-input[type="text"] {
+        font-size: 1.2em;
+        color: var(--create-job-font);
+    }
+  
+  .preffered-skills{
+    border: 1px solid var(--primary-border) ;
+    color: var(--create-job-font);
+  }
+  .new-benefit-color{
+    color: var(--create-job-font);
+  }
+  .btn-color{ 
+    background-color: var(--dark-blue);
+  }
+
+  /* Application */
+
+  .head-row{
+    color:var(--create-job-font);
+    font-size: 1.2em;
+  }
+  .negative-margin{
+     color: var(--create-job-font);
+     font-size: 12px;
+  }
+  .application-custom-btn{
+    background-color: var(--secondary);
+  }
+  .stripped-background{
+    background-color: var(--strip-background);
+  }
+
+  /* Privacy Component */
+
+  .header-font{
+    color:#101828;
+    font-size: 1.75em;
+    font-weight: 600;
+
+  }
+  .question-font{
+    color: #344054;
+    font-size: 1.25em;
+  }
+  .time-font{
+    color: #84818A;
+  }
+  .download-text{
+    color: #344054;
+    font-weight: 600;
+  }
+  .download-fontSize{
+    font-size: 10.53px;
+  }
+  .kb-size{
+    font-size: 8px;
+  }
+  
+  /* SETTINGs */
+  .edit-profile-border{
+    border-bottom: 3px solid var(--black);
+  }
+
+  /* Admin Dashbord */

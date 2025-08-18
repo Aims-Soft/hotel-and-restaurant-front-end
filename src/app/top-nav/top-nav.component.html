@@ -1,0 +1,62 @@
+<div class="container bg-white px-2 rounded nav-styling">
+  <div class="row ms-4 mt-3 py-3 d-md-flex align-items-center">
+    <div class="col-md-2">
+      <a routerLink="/">
+        <img
+          src="../../assets/images/Career.logo.svg"
+          class="img-fluid"
+          alt="logo"
+      /></a>
+    </div>
+    <div class="col-md-4 offset-md-2">
+      <a
+        href="#"
+        class="text-decoration-none custom-link"
+        routerLink="/jobListing"
+        >Jobs</a
+      >
+      <a href="#" class="text-decoration-none ms-5 custom-link" routerLink="/companies">Companies</a>
+      <a
+        href="#"
+        class="text-decoration-none ms-5 custom-link"
+        routerLink="/contact"
+        >Contact</a
+      >
+    </div>
+    <div class="col-md-3 offset-md-1">
+      <button
+        class="ms-4 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
+       data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+      >
+        Register
+      </button>
+      <button
+        class="ms-3 px-3 py-2 border-0 rounded text-white fw-bold btns"
+        routerLink="/signIn"
+      >
+        Sign In
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+   <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your modal content goes here.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>

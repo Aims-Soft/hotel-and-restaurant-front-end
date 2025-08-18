@@ -1,0 +1,129 @@
+<div class="container" style="margin-top: 5em; font-family: poppins">
+  <div class="container">
+    <div class="row ms-5">
+      <div class="col-md-4">
+        <button class="btn px-3 py-2 text-white mt-3 go-back">Go Back</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <h1 class="fw-bold apply-job">Apply For Job</h1>
+        <p class="detailApply-jobText">Enter Detail to Apply for Job</p>
+      </div>
+    </div>
+    <div class="row mt-4 mx-5">
+      <div class="col-md-6">
+        <p>Profile Image</p>
+        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
+          <div>
+            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
+            <p class="mt-3 pic-border-inner">
+              Supported Formats: PDF, PNG, JPG
+            </p>
+          </div>
+        </label>
+        <input type="file" id="image" class="d-none" />
+      </div>
+      <div class="col-md-6">
+        <p>Upload Resume</p>
+        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
+          <div>
+            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
+            <p class="mt-3 pic-border-inner">
+              Supported Formats: PDF, PNG, JPG
+            </p>
+          </div>
+        </label>
+        <input type="file" id="image" class="d-none" accept=".png, .jpg, .jpeg, .pdf" />
+      </div>
+    </div>
+    <!-- FORM -->
+    <form action="" class="mx-5 my-4">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="name">User Name</label>
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="Amad" name="" id="name" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="Profession">Profession</label>
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="Teaching" name=""
+              id="Profession" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="name">Study Level</label>
+            <select name="cars" id="cars" class="rounded px-2 py-2 mt-2 input-border text-secondary">
+              <option value="volvo">BSCS</option>
+              <option value="saab">MSCS</option>
+              <option value="opel">M-PHIL</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="Experience">Experience</label>
+            <select name="cars" id="Experience" class="rounded px-2 py-2 mt-2 input-border text-secondary">
+              <option value="volvo">1 year</option>
+              <option value="saab">2 years</option>
+              <option value="opel" selected>3 years</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="Country">Country</label>
+            <select name="cars" id="Country" class="rounded px-2 py-2 mt-2 input-border text-secondary">
+              <option value="volvo">Pakistan</option>
+              <option value="saab">USA</option>
+              <option value="opel">Turkey</option>
+            </select>
+          </div>
+        </div>
+       <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="City">City</label>
+            <select name="cars" id="City" class="rounded px-2 py-2 mt-2 input-border text-secondary">
+              <option value="volvo">Islamabad</option>
+              <option value="saab">Lahore</option>
+              <option value="opel">Karachi</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="nbr">Contact No</label>
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="0000-00000000" name=""
+              id="nbr" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="mail">Email</label>
+            <input type="email" class="rounded px-2 py-2 mt-2 input-border" placeholder="name@gmail.com" name=""
+              id="mail" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column">
+            <label for="Address">Profession</label>
+            <input type="text" class="rounded px-2 py-2 mt-2 form-control input-border" placeholder="Address goes here"
+              name="" id="Address" />
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Bottom Button -->
+    <div class="text-end mx-5 mb-4">
+      <button class="btn me-3 cancel-btn-border">Cancel</button>
+      <button class="btn text-white px-3 apply-btn-style">Apply</button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
