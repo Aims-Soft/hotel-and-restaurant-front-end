@@ -15,7 +15,12 @@
         routerLink="/jobListing"
         >Jobs</a
       >
-      <a href="#" class="text-decoration-none ms-5 custom-link" routerLink="/companies">Companies</a>
+      <a
+        href="#"
+        class="text-decoration-none ms-5 custom-link"
+        routerLink="/companies"
+        >Companies</a
+      >
       <a
         href="#"
         class="text-decoration-none ms-5 custom-link"
@@ -26,7 +31,8 @@
     <div class="col-md-3 offset-md-1">
       <button
         class="ms-4 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
-       data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+        data-bs-toggle="modal"
+        data-bs-target="#registerModal"
       >
         Register
       </button>
@@ -38,25 +44,50 @@
       </button>
     </div>
   </div>
-
-  <!-- Modal -->
-   <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Your modal content goes here.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
+</div>
+<!-- Register Modal -->
+<div
+  class="modal fade"
+  id="registerModal"
+  tabindex="-1"
+  aria-labelledby="registerModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header border-0 pb-2">
+        <h5
+          class="fw-bold custom-modal-title m-0 text-center"
+          id="registerModalLabel"
+        >
+          Register As
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex gap-2 w-100">
+          <button
+            type="button"
+            class="btn btn-outline flex-fill rounded-3 border border-1"
+          
+          >
+            Candidate
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline flex-fill rounded-3 border border-1"
+              routerLink="/registercompany"
+                data-bs-dismiss="modal"
+          >
+            Company
+          </button>
         </div>
+      </div>
     </div>
-
-  
+  </div>
 </div>

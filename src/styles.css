@@ -249,7 +249,7 @@
 }
 .login-btn {
   width: 25em;
-  margin-left: 7em;
+  margin-left: 0;
   height: 58px;
   background-color: var(--secondary);
   &:hover{

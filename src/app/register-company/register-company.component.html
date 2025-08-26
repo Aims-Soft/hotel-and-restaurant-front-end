@@ -1,0 +1,298 @@
+<div class="registration-container">
+  <div class="registration-header">
+    <h2>Register your Company</h2>
+    <p>Enter Details to register Company</p>
+  </div>
+
+  <div class="registration-body">
+    <form>
+      <!-- Logo Upload Section -->
+      <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Company Logo</label>
+          <!-- <div class="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p>Drag & drop or click to upload</p>
+                            <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+                        </div> -->
+          <div class="upload-area" (click)="fileInput.click()">
+            <!-- Show preview if file is selected -->
+            <ng-container *ngIf="previewUrl; else uploadPlaceholder">
+              <img
+                *ngIf="isImage; else pdfBlock"
+                [src]="previewUrl"
+                alt="Preview"
+              />
+              <ng-template #pdfBlock>
+                <div class="pdf-preview">
+                  <i class="fas fa-file-pdf"></i> {{ selectedFile?.name }}
+                </div>
+              </ng-template>
+            </ng-container>
+
+            <!-- Placeholder when nothing is selected -->
+            <ng-template #uploadPlaceholder>
+              <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <p>Drag & drop or click to upload</p>
+              <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+            </ng-template>
+          </div>
+
+          <!-- Hidden file input -->
+          <input
+            type="file"
+            #fileInput
+            style="display: none"
+            accept=".pdf,.png,.jpg,.jpeg"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+        <!-- <div class="col-md-6 mb-3">
+          <label class="form-label">Company Banner</label>
+          <div class="upload-area">
+            <div class="upload-icon">
+              <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <p>Drag & drop or click to upload</p>
+            <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+          </div>
+        </div>
+      </div> -->
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Company Banner</label>
+          <div class="upload-area" (click)="bannerInput.click()">
+            <!-- Show preview if file is selected -->
+            <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
+              <img
+                *ngIf="isBannerImage; else bannerPdfBlock"
+                [src]="bannerPreviewUrl"
+                alt="Banner Preview"
+              />
+              <ng-template #bannerPdfBlock>
+                <div class="pdf-preview">
+                  <i class="fas fa-file-pdf"></i> {{ selectedBannerFile?.name }}
+                </div>
+              </ng-template>
+            </ng-container>
+
+            <!-- Placeholder when nothing is selected -->
+            <ng-template #bannerPlaceholder>
+              <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <p>Drag & drop or click to upload</p>
+              <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+            </ng-template>
+          </div>
+
+          <!-- Hidden file input -->
+          <input
+            type="file"
+            #bannerInput
+            style="display: none"
+            accept=".pdf,.png,.jpg,.jpeg"
+            (change)="onBannerSelected($event)"
+          />
+        </div>
+
+        <!-- Basic Information Section -->
+        <!-- <h4 class="section-title">Basic Information</h4> -->
+        <div class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Company Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter company name"
+              [(ngModel)]="companyName"
+              name="companyName"
+            />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Industry Type</label>
+            <select class="form-select" (change)="onIndustryChange($event)">
+              <option selected disabled>Select Industry Type</option>
+              <option
+                *ngFor="let type of UniTypes"
+                [value]="type.companyTypeID"
+              >
+                {{ type.companyTypeTitle }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Company Employees</label>
+            <select class="form-select" (change)="onEmployeeChange($event)">
+              <option selected disabled>Select Employee Range</option>
+              <option *ngFor="let emp of employees" [value]="emp.employeeID">
+                {{ emp.employeeRange }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Location Information -->
+        <!-- <h4 class="section-title">Location Information</h4> -->
+        <div class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Founded In</label>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="foundedIn"
+              name="foundedIn"
+              placeholder="select Date"
+            />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Country</label>
+            <select class="form-select" (change)="onCountryChange($event)">
+              <option selected disabled>Select Country</option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryID"
+              >
+                {{ country.countryName }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">City</label>
+            <select class="form-select" (change)="onCityChange($event)">
+              <option selected disabled>Select City</option>
+              <option *ngFor="let city of filteredCities" [value]="city.cityID">
+                {{ city.cityName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <!-- <h4 class="section-title">Contact Information</h4> -->
+        <div class="contact-info mb-4">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Website Link</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="www.example.com"
+                [(ngModel)]="websiteLink"
+                name="websiteLink"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Contact No</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone number"
+                [(ngModel)]="contactNo"
+                name="contactNo"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Address"
+                [(ngModel)]="address"
+                name="address"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                [(ngModel)]="companyEmail"
+                name="companyEmail"
+              />
+            </div>
+            <!-- Account Security -->
+            <!-- <h4 class="section-title">Account Security</h4> -->
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="password"
+                name="password"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills & Technologies -->
+        <!-- <h4 class="section-title">Skills & Technologies</h4> -->
+        <!-- 
+      <div class="mb-4">
+        <p class="form-label">Company domains</p>
+        <div class="skills-container">
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">.NET</span>
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">Flutter</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">UI/UX</span>
+          <span class="skill-tag">WordPress</span>
+        </div>
+      </div> -->
+        <div class="mb-4">
+          <p class="form-label">Company domains</p>
+          <div class="skills-container">
+            <span
+              *ngFor="let domain of companyDomains"
+              class="skill-tag flex-wrap"
+              [class.selected]="selectedDomains.includes(domain.domainID)"
+              (click)="toggleDomain(domain.domainID)"
+            >
+              {{ domain.domainTitle }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <!-- <h4 class="section-title">Company Description</h4> -->
+        <div class="mb-4">
+          <label class="form-label">Company Description</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            placeholder="Description goes here"
+            [(ngModel)]="description"
+            name="description"
+          ></textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-end gap-2 mt-5">
+          <button type="button" class="btn btn-cancel">Cancel</button>
+          <button type="button" class="btn btn-register" (click)="onRegister()">
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

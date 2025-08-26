@@ -16,6 +16,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import{RegisterCompanyComponent} from './register-company/register-company.component';
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'contact', component: ContactComponent },
@@ -33,8 +34,8 @@ const routes: Routes = [
   {path:'settings', component:SettingsComponent},
   {path:'adminDashboard',component:AdminDashbordComponent},
   {path:'companyDashboard',component:CompanyDashboardComponent},
-  {path:'adminDashboard',component:AdminDashbordComponent}
-  
+  {path:'adminDashboard',component:AdminDashbordComponent},
+  {path:'registercompany',component:RegisterCompanyComponent}
 ];
 
 @NgModule({

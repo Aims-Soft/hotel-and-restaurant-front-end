@@ -3,6 +3,14 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
+// import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { AuthInterceptor } from './interceptors/auth.interceptor';
+// import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,11 +37,44 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.component';
 import { CatagoriesComponent } from './home-page/catagories/catagories.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
 
 @NgModule({
-  declarations: [AppComponent, TopNavComponent, HomePageComponent, IntroPageComponent, FeaturedCompanyComponent, SignInComponent, FooterComponent, ContactComponent, DreamJobComponent, JobDisplayComponent, JobListingComponent,  CompaniesComponent, CompanyDetailsComponent, CompanyDiscriptionComponent, ApplyFormComponent, VerticalNavComponent, CreateJobsComponent, ApplicationsComponent,  ApplicationDetailsComponent, PrivacyComponent, SettingsComponent, AdminDashbordComponent, CatagoriesComponent, CompanyDashboardComponent],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [provideClientHydration()],
+  declarations: [
+    AppComponent,
+     TopNavComponent,
+      HomePageComponent, 
+      IntroPageComponent, 
+      FeaturedCompanyComponent, 
+      SignInComponent, 
+      FooterComponent, 
+      ContactComponent,
+       DreamJobComponent, 
+       JobDisplayComponent, 
+       JobListingComponent,  
+       CompaniesComponent, 
+       CompanyDetailsComponent, 
+       CompanyDiscriptionComponent, 
+       ApplyFormComponent, 
+       VerticalNavComponent,
+        CreateJobsComponent, 
+        ApplicationsComponent, 
+         ApplicationDetailsComponent,
+          PrivacyComponent,
+           SettingsComponent, 
+           AdminDashbordComponent,
+            CatagoriesComponent,
+             CompanyDashboardComponent,
+             RegisterCompanyComponent
+            ],
+  imports: [
+    BrowserModule,
+     AppRoutingModule,
+     HttpClientModule,
+     ReactiveFormsModule,
+      FormsModule
+    ],
+  providers: [provideClientHydration(),provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
