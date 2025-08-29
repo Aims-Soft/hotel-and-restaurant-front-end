@@ -38,6 +38,7 @@ import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.componen
 import { CatagoriesComponent } from './home-page/catagories/catagories.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
+import { RegisterYourselfComponent } from './register-yourself/register-yourself.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { RegisterCompanyComponent } from './register-company/register-company.co
            AdminDashbordComponent,
             CatagoriesComponent,
              CompanyDashboardComponent,
-             RegisterCompanyComponent
+             RegisterCompanyComponent,
+             RegisterYourselfComponent
             ],
   imports: [
     BrowserModule,

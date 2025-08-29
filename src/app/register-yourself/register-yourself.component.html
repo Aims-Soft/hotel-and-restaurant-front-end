@@ -1,7 +1,7 @@
 <div class="registration-container">
   <div class="registration-header">
-    <h2>Register your Company</h2>
-    <p>Enter Details to register Company</p>
+    <h2>Register yourself</h2>
+    <p>Enter Details to Apply for Job</p>
   </div>
 
   <div class="registration-body">
@@ -9,8 +9,8 @@
       <!-- Logo Upload Section -->
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Company Logo</label>
-        
+          <label class="form-label">Profile Image</label>
+
           <div class="upload-area" (click)="fileInput.click()">
             <!-- Show preview if file is selected -->
             <ng-container *ngIf="previewUrl; else uploadPlaceholder">
@@ -45,10 +45,9 @@
             (change)="onFileSelected($event)"
           />
         </div>
-  
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Company Banner</label>
+          <label class="form-label">Upload Resume</label>
           <div class="upload-area" (click)="bannerInput.click()">
             <!-- Show preview if file is selected -->
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
@@ -88,50 +87,64 @@
         <!-- <h4 class="section-title">Basic Information</h4> -->
         <div class="row mb-4">
           <div class="col-md-4 mb-3">
-            <label class="form-label">Company Name</label>
+            <label class="form-label">User Name</label>
             <input
               type="text"
               class="form-control"
-              placeholder="Enter company name"
-              [(ngModel)]="companyName"
-              name="companyName"
+              placeholder="Enter User Name"
+              [(ngModel)]="userName"
+              name="userName"
             />
           </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Industry Type</label>
-            <select class="form-select" (change)="onIndustryChange($event)">
-              <option selected disabled>Select Industry Type</option>
-              <option
-                *ngFor="let type of UniTypes"
-                [value]="type.companyTypeID"
-              >
-                {{ type.companyTypeTitle }}
-              </option>
-            </select>
+           <div class="col-md-4 mb-3">
+            <label class="form-label">User Cnic</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter User Name"
+              [(ngModel)]="cnic"
+              name="userName"
+            />
           </div>
+          
+          
           <div class="col-md-4 mb-3">
-            <label class="form-label">Company Employees</label>
-            <select class="form-select" (change)="onEmployeeChange($event)">
-              <option selected disabled>Select Employee Range</option>
-              <option *ngFor="let emp of employees" [value]="emp.employeeID">
-                {{ emp.employeeRange }}
-              </option>
-            </select>
+            <label class="form-label">Profession</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter profession"
+              [(ngModel)]="profession"
+              name="profession"
+            />
           </div>
+          
         </div>
+        
 
         <!-- Location Information -->
         <!-- <h4 class="section-title">Location Information</h4> -->
         <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+            <label class="form-label">Study Level </label>
+            <select class="form-select" (change)=" onStudyChange($event)">
+              <option selected disabled>Select Study Level </option>
+              <option *ngFor="let item of DegreeLevel" [value]="item.studyLevelID">
+                {{ item.studyLevelTitle}}
+              </option>
+            </select>
+          </div>
           <div class="col-md-4 mb-3">
-            <label class="form-label">Founded In</label>
-            <input
-              type="date"
-              class="form-control"
-              [(ngModel)]="foundedIn"
-              name="foundedIn"
-              placeholder="select Date"
-            />
+            <label class="form-label">Experience</label>
+           <select class="form-select" (change)="onExperienceChange($event)">
+              <option selected disabled>Select Experience</option>
+              <option
+                *ngFor="let item of experience"
+                [value]="item.experienceID"
+              >
+                {{ item.experienceRange }}
+              </option>
+            </select>
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label">Country</label>
@@ -145,7 +158,15 @@
               </option>
             </select>
           </div>
-          <div class="col-md-4 mb-3">
+        
+        </div>
+
+        <!-- Contact Information -->
+        <!-- <h4 class="section-title">Contact Information</h4> -->
+        <div class="contact-info mb-4">
+          <div class="row">
+
+              <div class="col-md-4 mb-3">
             <label class="form-label">City</label>
             <select class="form-select" (change)="onCityChange($event)">
               <option selected disabled>Select City</option>
@@ -154,22 +175,7 @@
               </option>
             </select>
           </div>
-        </div>
-
-        <!-- Contact Information -->
-        <!-- <h4 class="section-title">Contact Information</h4> -->
-        <div class="contact-info mb-4">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Website Link</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="www.example.com"
-                [(ngModel)]="websiteLink"
-                name="websiteLink"
-              />
-            </div>
+          
             <div class="col-md-4 mb-3">
               <label class="form-label">Contact No</label>
               <input
@@ -224,36 +230,12 @@
           </div>
         </div>
 
-     
-        <div class="mb-4">
-          <p class="form-label">Company domains</p>
-          <div class="skills-container">
-            <span
-              *ngFor="let domain of companyDomains"
-              class="skill-tag flex-wrap"
-              [class.selected]="selectedDomains.includes(domain.domainID)"
-              (click)="toggleDomain(domain.domainID)"
-            >
-              {{ domain.domainTitle }}
-            </span>
-          </div>
-        </div>
+       
 
-        <!-- Description -->
-        <!-- <h4 class="section-title">Company Description</h4> -->
-        <div class="mb-4">
-          <label class="form-label">Company Description</label>
-          <textarea
-            class="form-control"
-            rows="5"
-            placeholder="Description goes here"
-            [(ngModel)]="description"
-            name="description"
-          ></textarea>
-        </div>
+      
 
         <!-- Form Actions -->
-        <div class="d-flex justify-content-end gap-2 mt-5">
+        <div class="d-flex justify-content-end gap-2 mt-0">
           <button type="button" class="btn btn-cancel">Cancel</button>
           <button type="button" class="btn btn-register" (click)="onRegister()">
             Register
@@ -261,5 +243,6 @@
         </div>
       </div>
     </form>
+    
   </div>
 </div>

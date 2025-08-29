@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,25 +6,37 @@ import { environment } from '../../../environmentts/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class CompanyRegistrationService {
+export class JobService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getIndustriesTypes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/company/getIndustryType`);
+  getJobCategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Job/getJobCategory`);
+  }
+  getJobType(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Job/getJobType`);
+  }
+  getWorkSpace(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Job/getWorkspaceType`);
   }
 
-  getEmployees(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCompanyEmpolyee`);
+    getExperience(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Job/getExperience`);
+  }
+
+  
+
+   getBenefits(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Job/getBenefit`);
   }
 
   getCountries(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCountry`);
   }
 
-  getCompanyDomain(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCompanyDomain`);
+  getSkills(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/job/getskills`);
   }
 
  
@@ -34,13 +44,13 @@ export class CompanyRegistrationService {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCity`);
   }
 
-saveCompany(payload: any): Observable<any> {
+saveJob(payload: any): Observable<any> {
   const headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
   
   return this.http.post<any>(
-    `${this.apiUrl}job-api/company/saveCompanyUser`, 
+    `${this.apiUrl}job-api/Job/saveJob`, 
     payload, 
     { headers }
   );

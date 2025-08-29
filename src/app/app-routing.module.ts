@@ -17,6 +17,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import{RegisterCompanyComponent} from './register-company/register-company.component';
+import{RegisterYourselfComponent } from './register-yourself/register-yourself.component'
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'contact', component: ContactComponent },
@@ -28,14 +29,17 @@ const routes: Routes = [
   {path:'applyForm',component:ApplyFormComponent},
   {path:'verticalNav',component:VerticalNavComponent},
   {path: 'createJobs', component:CreateJobsComponent},
+  // { path: 'create-job/:jobId', component: CreateJobsComponent },
   {path: 'applications', component:ApplicationsComponent},
   {path: 'applicationDetails', component:ApplicationDetailsComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path:'settings', component:SettingsComponent},
   {path:'adminDashboard',component:AdminDashbordComponent},
   {path:'companyDashboard',component:CompanyDashboardComponent},
-  {path:'adminDashboard',component:AdminDashbordComponent},
-  {path:'registercompany',component:RegisterCompanyComponent}
+  // {path:'adminDashboard',component:AdminDashbordComponent},
+  {path:'registercompany',component:RegisterCompanyComponent},
+  {path:'registeryourself',component:RegisterYourselfComponent }
+
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
@@ -12,7 +12,7 @@ import { AuthService } from '../Services/auth/auth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'] 
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   showPassword: boolean = false;
   loginForm: FormGroup;
   isLoading = false;
@@ -37,6 +37,10 @@ export class SignInComponent {
     }, {});
   }
 
+
+  ngOnInit(): void {
+
+}
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
@@ -56,7 +60,7 @@ export class SignInComponent {
   const authData = {
     email: this.loginForm.value.email,
     password: this.loginForm.value.password,
-    roleID: 3
+   
     
   };
 
@@ -73,7 +77,15 @@ export class SignInComponent {
         this.successMessage = 'Login successful! Redirecting...';
         this.showSuccess = true;
 
-       this.router.navigate(['/companyDashboard']);
+         const roleId = this.sessionService.getRoleId();
+
+      if (response.roleId === 2) {
+          this.router.navigate(['/companyDashboard']);
+        } else if (response.roleId === 3) {
+          this.router.navigate(['/adminDashboard']);
+        } else {
+          this.router.navigate(['/home']); // default page if roleId not matched
+        }
 
 
       } else {

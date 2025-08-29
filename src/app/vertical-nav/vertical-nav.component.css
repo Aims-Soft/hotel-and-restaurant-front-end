@@ -1,0 +1,9 @@
+.active-link {
+  background-color: var(--secondary); /* same as .nav-item-style */
+  color: white !important;
+}
+
+.active-link i,
+.active-link p {
+  color: white !important;
+}

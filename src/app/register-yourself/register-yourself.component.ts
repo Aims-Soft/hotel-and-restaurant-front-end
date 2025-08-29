@@ -1,24 +1,27 @@
 import { Component , OnInit } from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import{CompanyRegistrationService  }from '../Services/Company registration/company-registration.service'
+import { RegisterUserService } from '../Services/register user/register-user.service';
 
 @Component({
-  selector: 'app-register-company',
-  templateUrl: './register-company.component.html',
-  styleUrl: './register-company.component.css'
+  selector: 'app-register-yourself',
+  templateUrl: './register-yourself.component.html',
+  styleUrl: './register-yourself.component.css'
 })
-export class RegisterCompanyComponent  implements OnInit  {
+export class RegisterYourselfComponent implements OnInit  {
+
 
   isLoading: boolean = false;
-   UniTypes: any[] = [];
-   employees: any[] = [];
-   companyDomains: any[] = [];
-   selectedDomains: number[] = [];
-selectedEmployee: number | null = null;
+   DegreeLevel: any[] = [];
+  
+companyDomains: any[] = [];
+selectedDomains: number[] = [];
+experience: any[] = [];
+selectedExperience: number | null = null;
 selectedFile: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
   isImage = false;
-selectedIndustry: number | null = null;
+selectedDegree: number | null = null;
 countries: any[] = [];
 selectedCountry: number | null = null;
 cities: any[] = [];
@@ -29,30 +32,32 @@ bannerPreviewUrl: string | ArrayBuffer | null = null;
 isBannerImage = false;
 
 userName: string = '';
+cnic:string ='';
 companyName: string = '';
 password: string = '';
 confirmPassword: string = '';
 companyEmail: string = '';
-websiteLink: string = '';
+
 contactNo: string = '';
 address: string = '';
 description: string = '';
-location: string = '';
+profession: string = '';
 
 
 
   
    constructor(
     private userSessionService: UserSessionService,
-    private CompanyRegistrationService :CompanyRegistrationService 
+    private CompanyRegistrationService :CompanyRegistrationService,
+    private RegisterUserService: RegisterUserService
   ) {}
 
     ngOnInit(): void {
-    this.getIndustriesTypes(); 
-    this.getEmployees();
+    this.getDegreeLevel(); 
+    this.getExperience();
      this.getCountries(); 
      this.getCities();
-     this.getCompanyDomain(); 
+   
   }
 
   onFileSelected(event: Event): void {
@@ -102,13 +107,13 @@ location: string = '';
 
 
 
-   getIndustriesTypes(): void {
+   getDegreeLevel(): void {
     this.isLoading = true;
-    this.CompanyRegistrationService.getIndustriesTypes().subscribe(
+    this.RegisterUserService.getDegreeLevel().subscribe(
       (response) => {
          
         this.isLoading = false;
-        this.UniTypes = response; 
+        this.DegreeLevel = response; 
          console.log(response,'types')
       
       },
@@ -119,30 +124,30 @@ location: string = '';
     );
   }
 
-  onIndustryChange(event: Event): void {
+  onStudyChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    this.selectedIndustry = Number(select.value);
-    console.log("Selected Industry ID:", this.selectedIndustry);
+    this.selectedDegree = Number(select.value);
+    console.log("Selected Industry ID:", this.selectedDegree);
   }
 
-  getEmployees(): void {
+  getExperience(): void {
   this.isLoading = true;
-  this.CompanyRegistrationService.getEmployees().subscribe(
+  this.RegisterUserService.getExperience().subscribe(
     (response) => {
       this.isLoading = false;
-      this.employees = response;
-      console.log("Employees:", response);
+      this.experience = response;
+      console.log("Experience:", response);
     },
     (error) => {
       this.isLoading = false;
-      console.error("Error fetching Employees:", error);
+      console.error("Error fetching Experience:", error);
     }
   );
 }
-onEmployeeChange(event: Event): void {
+onExperienceChange(event: Event): void {
   const select = event.target as HTMLSelectElement;
-  this.selectedEmployee = Number(select.value);
-  console.log("Selected Employee ID:", this.selectedEmployee);
+  this.selectedExperience = Number(select.value);
+  console.log("Selected Exerperience ID:", this.selectedExperience);
 }
 
 getCountries(): void {
@@ -159,11 +164,7 @@ getCountries(): void {
     }
   );
 }
-// onCountryChange(event: Event): void {
-//   const select = event.target as HTMLSelectElement;
-//   this.selectedCountry = Number(select.value);
-//   console.log("Selected Country ID:", this.selectedCountry);
-// }
+
 filteredCities: any[] = [];
 
 getCities(): void {
@@ -203,56 +204,37 @@ onCityChange(event: Event): void {
 
 
 
- getCompanyDomain(): void {
-  this.isLoading = true;
-  this.CompanyRegistrationService.getCompanyDomain().subscribe(
-    (response) => {
-      this.isLoading = false;
-      this.companyDomains = response;  // [{id:1,name:"PHP"},...]
-      console.log("Company Domains:", response);
-    },
-    (error) => {
-      this.isLoading = false;
-      console.error("Error fetching company domains:", error);
-    }
-  );
-}
 
-toggleDomain(domainId: number): void {
-  if (this.selectedDomains.includes(domainId)) {
-    // remove if already selected
-    this.selectedDomains = this.selectedDomains.filter(id => id !== domainId);
-  } else {
-    // add if not selected
-    this.selectedDomains.push(domainId);
-  }
-  console.log("Selected Domains:", this.selectedDomains);
-}
+
 onRegister(): void {
   const payload: any = {
     userID: 0,
     userName: this.userName,
+    cnic:this.cnic,
     companyName: this.companyName,
     password: this.password,
     companyEmail: this.companyEmail,
     foundedIn: this.foundedIn,
-    websiteLink: this.websiteLink,
+    // websiteLink: this.websiteLink,
     address: this.address,
-    description: this.description,
-    location: this.location,
-    eLogo: null,       
-    eLogoPath: "",
-    eLogoExt: "",
+    // description: this.description,
+    profession: this.profession,
+    // eLogo: null,    
+    // eLogoPath: "",
+    // eLogoExt: "",
+    eResume: null,   
+    eResumePath: "",
+    eResumeExt: "",
     eDoc: null,        
     eDocPath: "",
     eDocExt: "",
-    employeeID: this.selectedEmployee,
-    companyTypeID: this.selectedIndustry,
+    experienceID: this.selectedExperience,
+    studyLevelID: this.selectedDegree,
     companyStatusID: 1,
     cityID: this.selectedCity,
     roleID: 2,         
     userTypeID: 2,      
-    json: JSON.stringify(this.selectedDomains), 
+    // json: JSON.stringify(this.selectedDomains), 
     spType: "insert"
   };
 
@@ -264,15 +246,15 @@ onRegister(): void {
       const reader = new FileReader();
       reader.onload = () => {
         const base64 = reader.result as string;
-        payload.eLogo = base64.split(',')[1]; // Remove data:image/... prefix
-        payload.eLogoExt = this.selectedFile?.name.split('.').pop() || '';
+        payload.eDoc = base64.split(',')[1]; 
+        payload.eDocExt = this.selectedFile?.name.split('.').pop() || '';
         resolve();
       };
-      // Add null check before calling readAsDataURL
+      
       if (this.selectedFile) {
         reader.readAsDataURL(this.selectedFile);
       } else {
-        resolve(); // Resolve immediately if file is null
+        resolve(); 
       }
     });
     filePromises.push(filePromise);
@@ -283,8 +265,8 @@ onRegister(): void {
       const reader = new FileReader();
       reader.onload = () => {
         const base64 = reader.result as string;
-        payload.eDoc = base64.split(',')[1]; // Remove data:image/... prefix
-        payload.eDocExt = this.selectedBannerFile?.name.split('.').pop() || '';
+        payload.eResume = base64.split(',')[1]; // Remove data:image/... prefix
+        payload.eResumeExt = this.selectedBannerFile?.name.split('.').pop() || '';
         resolve();
       };
       // Add null check before calling readAsDataURL
@@ -300,14 +282,14 @@ onRegister(): void {
   Promise.all(filePromises).then(() => {
     console.log("Final payload:", payload); 
     
-    this.CompanyRegistrationService.saveCompany(payload).subscribe({
+    this.RegisterUserService.saveUser(payload).subscribe({
       next: (res) => {
         console.log("Company registered:", res);
         alert("Company registered successfully!");
       },
       error: (err) => {
         console.error("Error:", err);
-        console.error("Error details:", err.error); // Check server response
+        console.error("Error details:", err.error); 
         alert("Failed to register company.");
       }
     });
@@ -318,3 +300,4 @@ onRegister(): void {
 
 
 }
+
