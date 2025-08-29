@@ -1,36 +1,127 @@
 <div class="row">
-    <div class="col-md-2 d-flex ms-2 justify-content-center right-border">  
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <img src="../../assets/images/Career.logo.svg" class="img-fluid mt-5" width="181px"  alt="">
-            <div class=" mt-5">
-                <a href="" class="d-flex align-items-center text-decoration-none px-3 rounded " routerLink="companyDashboard" routerLinkActive="active-link"   [routerLinkActiveOptions]="{ exact: true }">
-                    <i class="bi bi-house icon-size text-black" ></i>
-                    <p class="mt-3 ms-3 text-black">Dashboard</p>
-                </a>
-                <a href="" class="d-flex align-items-center  text-decoration-none mt-2  px-3 rounded" routerLink="/createJobs"  routerLinkActive="active-link">
-                    <i class="bi bi-printer icon-size text-black"></i>
-                    <p class="mt-3 ms-3 text-black">Create Jobs</p>
-                </a>
-                <a href="" class="d-flex align-items-center text-decoration-none mt-2 px-3 rounded" routerLink="/applications" routerLinkActive="active-link">
-                    <i class="bi bi-printer icon-size text-black"></i>
-                    <p class="mt-3 ms-3 text-black">Application</p>
-                 </a>
-                <a href="" class="d-flex align-items-center text-decoration-none mt-2 px-3 rounded" routerLink="/settings" routerLinkActive="active-link">
-                    <i class="bi bi-gear icon-size text-black"></i>
-                    <p class="mt-3 ms-3 text-black">Settings</p>
-                </a>
-            </div>
-            <div class="top-margin mb-3" >
-                <a href=""  class="d-flex align-items-center  text-decoration-none px-3 rounded" routerLink="/privacy" routerLinkActive="active-link">
-                    <i class="bi bi-book-half icon-size text-black"></i>
-                    <p class="mt-3 ms-3 text-black">Privacy Policy</p>
-                </a>
-                <a href="" class="d-flex align-items-center  text-decoration-none bg-danger px-3 rounded" routerLink="/signIn">
-                    <i class="bi bi-box-arrow-right icon-size text-white"></i>
-                    <p class="mt-3 ms-3 text-white">Logout</p>
-                </a>
-            </div>
-        </div> 
+  <div class="col-md-2 d-flex ms-2 justify-content-center right-border">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <img
+        src="../../assets/images/Career.logo.svg"
+        class="img-fluid mt-5"
+        width="181px"
+        alt=""
+      />
+      <div class="mt-2" *ngFor="let item of menuList">
+        <a
+          href=""
+          class="d-flex align-items-center text-decoration-none px-3 rounded justify-content-start"
+          routerLink="/{{ item.routeTitle }}"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bi bi-house icon-size text-black"></i>
+          <p class="mt-3 ms-3 text-black">{{ item.menuTitle }}</p>
+        </a>
+
+      
+      </div>
+      <div class="top-margin mb-3">
+        <a
+          href=""
+          class="d-flex align-items-center text-decoration-none px-3 rounded"
+          routerLink="/privacy"
+          routerLinkActive="active-link"
+        >
+          <i class="bi bi-book-half icon-size text-black"></i>
+          <p class="mt-3 ms-3 text-black">Privacy Policy</p>
+        </a>
+        <a
+          href=""
+          class="d-flex align-items-center text-decoration-none bg-danger px-3 rounded"
+          routerLink="/signIn"
+        >
+          <i class="bi bi-box-arrow-right icon-size text-white"></i>
+          <p class="mt-3 ms-3 text-white" (click)="logout()">Logout</p>
+        </a>
+      </div>
     </div>
-    
+  </div>
 </div>
+
+<!-- <div class="h-100 side-nav-default" mat-elevation-z10>
+
+  <div class="mt-4 mx-auto companyLogo"></div>
+  <div class="nav-header d-flex flex-column justify-content-end">
+    <div
+      class="border-top border-bottom nav-menu-heading ps-3 pt-1 pb-1 mb-3 mt-3"
+    >
+      {{ lblModuleTitle }}
+    </div>
+  </div>
+  <div
+    class="bg-light-grey"
+    style="height: 32em; max-width: 100%"
+  >
+    <div class="nav-item-container">
+     
+        *ngFor="let item of menuList; let i = index"
+        class="nav flex-column flex-nowrap overflow-hidden"
+      >
+        <li class="nav-item" *ngIf="item.children.length == 0">
+          <a
+            class="nav-link text-truncate"
+            href=""
+            routerLinkActive="active"
+            routerLink="/{{ item.parentRoute }}/{{ item.routeTitle }}"
+            (click)="openLink(item.menuTitle)"
+          >
+            <div class="row">
+              <div class="col-md-2">
+                <div [class]="item.menuIcon"></div>
+              </div>
+              <div class="col-md-3">
+                <span class="d-none d-sm-inline"
+                  ><b>{{ item.menuTitle }}</b></span
+                >
+              </div>
+            </div>
+           
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="item.children.length != 0">
+          <a
+            class="nav-link collapsed text-truncate"
+            data-bs-toggle="collapse"
+            [href]="'#collapseExample' + i"
+            role="button"
+            aria-expanded="false"
+            aria-controls="subMenuConfig"
+            ><span class="d-none d-sm-inline">{{ item.menuTitle }}</span></a
+          >
+          <div class="collapse" [id]="'collapseExample' + i">
+            <ul
+              class="nav flex-column dark-bg ps-4"
+              *ngFor="let data of item.children"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link text-truncate"
+                  href=""
+                  routerLinkActive="active"
+                  routerLink="/{{ data.parentRoute }}/{{ data.routeTitle }}"
+                  (click)="openLink(data.routeTitle)"
+                  ><div class="row">
+                    <div class="col-md-2">
+                      <div [class]="data.menuIcon"></div>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="d-none d-sm-inline"
+                        ><b>{{ data.menuTitle }}</b></span
+                      >
+                    </div>
+                  </div></a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div> -->
