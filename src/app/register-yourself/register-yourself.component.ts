@@ -42,6 +42,7 @@ contactNo: string = '';
 address: string = '';
 description: string = '';
 profession: string = '';
+selectedGender: number | null = null; 
 
 
 
@@ -59,6 +60,13 @@ profession: string = '';
      this.getCities();
    
   }
+
+  genders = [
+  { genderID: 1, genderName: 'Male' },
+  { genderID: 2, genderName: 'Female' },
+  { genderID: 3, genderName: 'Others' }
+];
+
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -232,6 +240,7 @@ onRegister(): void {
     studyLevelID: this.selectedDegree,
     companyStatusID: 1,
     cityID: this.selectedCity,
+   genderID: this.selectedGender,
     roleID: 2,         
     userTypeID: 2,      
     // json: JSON.stringify(this.selectedDomains), 

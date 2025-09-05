@@ -96,7 +96,7 @@
               name="userName"
             />
           </div>
-           <div class="col-md-4 mb-3">
+          <div class="col-md-4 mb-3">
             <label class="form-label">User Cnic</label>
             <input
               type="text"
@@ -106,8 +106,7 @@
               name="userName"
             />
           </div>
-          
-          
+
           <div class="col-md-4 mb-3">
             <label class="form-label">Profession</label>
             <input
@@ -118,25 +117,26 @@
               name="profession"
             />
           </div>
-          
         </div>
-        
 
         <!-- Location Information -->
         <!-- <h4 class="section-title">Location Information</h4> -->
         <div class="row mb-4">
-            <div class="col-md-4 mb-3">
+          <div class="col-md-4 mb-3">
             <label class="form-label">Study Level </label>
-            <select class="form-select" (change)=" onStudyChange($event)">
-              <option selected disabled>Select Study Level </option>
-              <option *ngFor="let item of DegreeLevel" [value]="item.studyLevelID">
-                {{ item.studyLevelTitle}}
+            <select class="form-select" (change)="onStudyChange($event)">
+              <option selected disabled>Select Study Level</option>
+              <option
+                *ngFor="let item of DegreeLevel"
+                [value]="item.studyLevelID"
+              >
+                {{ item.studyLevelTitle }}
               </option>
             </select>
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label">Experience</label>
-           <select class="form-select" (change)="onExperienceChange($event)">
+            <select class="form-select" (change)="onExperienceChange($event)">
               <option selected disabled>Select Experience</option>
               <option
                 *ngFor="let item of experience"
@@ -158,24 +158,25 @@
               </option>
             </select>
           </div>
-        
         </div>
 
         <!-- Contact Information -->
         <!-- <h4 class="section-title">Contact Information</h4> -->
         <div class="contact-info mb-4">
           <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">City</label>
+              <select class="form-select" (change)="onCityChange($event)">
+                <option selected disabled>Select City</option>
+                <option
+                  *ngFor="let city of filteredCities"
+                  [value]="city.cityID"
+                >
+                  {{ city.cityName }}
+                </option>
+              </select>
+            </div>
 
-              <div class="col-md-4 mb-3">
-            <label class="form-label">City</label>
-            <select class="form-select" (change)="onCityChange($event)">
-              <option selected disabled>Select City</option>
-              <option *ngFor="let city of filteredCities" [value]="city.cityID">
-                {{ city.cityName }}
-              </option>
-            </select>
-          </div>
-          
             <div class="col-md-4 mb-3">
               <label class="form-label">Contact No</label>
               <input
@@ -196,6 +197,21 @@
                 name="address"
               />
             </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Gender</label>
+              <select
+                class="form-select"
+                [(ngModel)]="selectedGender"
+                name="gender"
+              >
+                <option [ngValue]="null" disabled>Select Gender</option>
+                <option *ngFor="let g of genders" [value]="g.genderID">
+                  {{ g.genderName }}
+                </option>
+              </select>
+            </div>
+
             <div class="col-md-4 mb-3">
               <label class="form-label">Email</label>
               <input
@@ -216,23 +232,21 @@
                 class="form-control"
                 [(ngModel)]="password"
                 name="password"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Confirm Password</label>
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="confirmPassword"
-                name="confirmPassword"
+                placeholder="Enter Password"
               />
             </div>
           </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              placeholder="Enter Confrim Password"
+            />
+          </div>
         </div>
-
-       
-
-      
 
         <!-- Form Actions -->
         <div class="d-flex justify-content-end gap-2 mt-0">
@@ -243,6 +257,5 @@
         </div>
       </div>
     </form>
-    
   </div>
 </div>
