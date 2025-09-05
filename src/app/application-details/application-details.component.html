@@ -8,7 +8,7 @@
   </div>
 
   <div class="container my-3 px-4">
-      <!-- Search Area -->
+    <!-- Search Area -->
 
     <div class="box-border rounded">
       <div class="d-flex row align-items-center px-3 py-2">
@@ -31,13 +31,13 @@
             alt=""
           />
         </div>
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
           <button class="btn btn-border px-3">+ &nbsp; Add Group</button>
-        </div>
+        </div> -->
       </div>
-      
+
       <!-- Cards -->
-       <div class="mt-4 mx-3 row">
+      <!-- <div class="mt-4 mx-3 row">
          <div class="col-md-4 ">
             <div>
 
@@ -45,8 +45,322 @@
 
          </div>
      
+       </div> -->
+
+      <!-- Kanban Columns -->
+      <!-- <div class="row">
+      <div class="col-md-3" *ngFor="let group of groups">
+        <div class="kanban-column p-3 rounded shadow-sm bg-light">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold">{{ group.title }} ({{ group.items.length }})</h6>
+            <i class="fas fa-ellipsis-v"></i>
+          </div> -->
+
+      <!-- <div class="row">
+              <div class="col-md-3 bg-light rounded shadow-sm  d-flex justify-content-between align-items-center ms-2" >
+
+                 <div class="kanban-column p-3  ">
+                  <div class=" mb-3">
+            <h6 class="fw-bold">Applications</h6>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+
+                 </div>
+
+
+
+              </div>
+
+                 <div class="col-md-3" >
+
+                 <div class="kanban-column p-3 rounded shadow-sm bg-light ms-1">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold">Shortlisted</h6>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+
+                 </div>
+
+
+
+              </div>
+
+              <div class="col-md-3" >
+
+                 <div class="kanban-column p-3 rounded shadow-sm bg-light ms-1">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold">Rejected</h6>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+
+                 </div>
+
+
+
+              </div>
+
+              <div class="col-md-3" >
+
+                 <div class="kanban-column p-3 rounded shadow-sm bg-light ms-1">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold">Interview</h6>
+          
+          </div>
+
+                 </div>
+
+                 
+
+
+
+              </div>
+
+
+          </div> -->
+      <!-- 
+          <div class="row g-3"> 
+
+  <div class="col-md-4">
+    <div class="kanban-column p-3 bg-light rounded shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="fw-bold">Applications</h6>
+       
+      </div>
+
+       <div class="card bg-white"  style="height: 200px; width: 310px;" >
+        
+
+
+
        </div>
-      
+
+
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="kanban-column p-3 bg-light rounded shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="fw-bold">Shortlisted</h6>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4">
+    <div class="kanban-column p-3 bg-light rounded shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="fw-bold">Rejected</h6>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+    </div>
+  </div>
+
+
+</div> -->
+      <div class="row g-3">
+        <!-- Applications -->
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header fw-bold bg-light">Applications</div>
+            <div
+              class="card-body"
+              cdkDropList
+              #applicationsList="cdkDropList"
+              [cdkDropListData]="applications"
+              [cdkDropListConnectedTo]="[
+                shortlistedList,
+                rejectedList,
+                interviewList
+              ]"
+              (cdkDropListDropped)="drop($event, 'Application')"
+            >
+              <ng-container *ngIf="applications.length; else emptyApplications">
+                <div
+                  class="card mb-2"
+                  *ngFor="let user of applications"
+                  cdkDrag
+                >
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                      <img
+                        src="assets/images/profile.png"
+                        class="rounded"
+                        style="width: 50px; height: 50px; object-fit: cover"
+                      />
+                      <div class="ms-3">
+                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                        <small class="text-muted">{{ user.jobTitle }}</small>
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <p class="mb-1">{{ user.experience }} Experience</p>
+                    <p class="text-muted small mb-3">{{ user.email }}</p>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                      style="background-color: #8b5cf6"
+                    >
+                      Download CV
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyApplications>
+                <div class="text-muted text-center py-3">Drop here</div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shortlisted -->
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header fw-bold bg-light">Shortlisted</div>
+            <div
+              class="card-body"
+              cdkDropList
+              #shortlistedList="cdkDropList"
+              [cdkDropListData]="shortlisted"
+              [cdkDropListConnectedTo]="[
+                applicationsList,
+                rejectedList,
+                interviewList
+              ]"
+              (cdkDropListDropped)="drop($event, 'Shortlisted')"
+            >
+              <ng-container *ngIf="shortlisted.length; else emptyShortlisted">
+                <div class="card mb-2" *ngFor="let user of shortlisted" cdkDrag>
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                      <img
+                        src="assets/images/profile.png"
+                        class="rounded"
+                        style="width: 50px; height: 50px; object-fit: cover"
+                      />
+                      <div class="ms-3">
+                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                        <small class="text-muted">{{ user.jobTitle }}</small>
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <p class="mb-1">{{ user.experience }} Experience</p>
+                    <p class="text-muted small mb-3">{{ user.email }}</p>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                      style="background-color: #10b981"
+                    >
+                      Download CV
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyShortlisted>
+                <div class="text-muted text-center py-3">Drop here</div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rejected -->
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header fw-bold bg-light">Rejected</div>
+            <div
+              class="card-body"
+              cdkDropList
+              #rejectedList="cdkDropList"
+              [cdkDropListData]="rejected"
+              [cdkDropListConnectedTo]="[
+                applicationsList,
+                shortlistedList,
+                interviewList
+              ]"
+              (cdkDropListDropped)="drop($event, 'Rejected')"
+            >
+              <ng-container *ngIf="rejected.length; else emptyRejected">
+                <div class="card mb-2" *ngFor="let user of rejected" cdkDrag>
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                      <img
+                        src="assets/images/profile.png"
+                        class="rounded"
+                        style="width: 50px; height: 50px; object-fit: cover"
+                      />
+                      <div class="ms-3">
+                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                        <small class="text-muted">{{ user.jobTitle }}</small>
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <p class="mb-1">{{ user.experience }} Experience</p>
+                    <p class="text-muted small mb-3">{{ user.email }}</p>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                      style="background-color: #ef4444"
+                    >
+                      Download CV
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyRejected>
+                <div class="text-muted text-center py-3">Drop here</div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interview -->
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header fw-bold bg-light">Interview</div>
+            <div
+              class="card-body"
+              cdkDropList
+              #interviewList="cdkDropList"
+              [cdkDropListData]="interview"
+              [cdkDropListConnectedTo]="[
+                applicationsList,
+                shortlistedList,
+                rejectedList
+              ]"
+              (cdkDropListDropped)="drop($event, 'Interview')"
+            >
+              <ng-container *ngIf="interview.length; else emptyInterview">
+                <div class="card mb-2" *ngFor="let user of interview" cdkDrag>
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                      <img
+                        src="assets/images/profile.png"
+                        class="rounded"
+                        style="width: 50px; height: 50px; object-fit: cover"
+                      />
+                      <div class="ms-3">
+                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                        <small class="text-muted">{{ user.jobTitle }}</small>
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <p class="mb-1">{{ user.experience }} Experience</p>
+                    <p class="text-muted small mb-3">{{ user.email }}</p>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                      style="background-color: #3b82f6"
+                    >
+                      Download CV
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyInterview>
+                <div class="text-muted text-center py-3">Drop here</div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

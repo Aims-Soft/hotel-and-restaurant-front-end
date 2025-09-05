@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -39,6 +40,11 @@ import { CatagoriesComponent } from './home-page/catagories/catagories.component
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { RegisterYourselfComponent } from './register-yourself/register-yourself.component';
+import { AdminCompaniesComponent } from './admin-companies/admin-companies.component';
+import { AdminJobsComponent } from './admin-jobs/admin-jobs.component';
+import { CandidatesComponent } from './candidates/candidates.component';
+import { AdminSettingComponent } from './admin-setting/admin-setting.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +54,7 @@ import { RegisterYourselfComponent } from './register-yourself/register-yourself
     IntroPageComponent,
     FeaturedCompanyComponent,
     SignInComponent,
-    FooterComponent,
+    FooterComponent, 
     ContactComponent,
     DreamJobComponent,
     JobDisplayComponent,
@@ -68,9 +74,15 @@ import { RegisterYourselfComponent } from './register-yourself/register-yourself
     CompanyDashboardComponent,
     RegisterCompanyComponent,
     RegisterYourselfComponent,
+    AdminCompaniesComponent,
+    AdminJobsComponent,
+    CandidatesComponent,
+    AdminSettingComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
+     DragDropModule ,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,

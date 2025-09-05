@@ -16,11 +16,11 @@ export class AppComponent {
 });
   }
   showNav(): boolean {
-    return !['/signIn','/applyForm','/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard'].includes(this.router.url);
+    return !['/signIn','/applyForm','/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard','/admincompanies', '/adminjobs','/candidates', '/adminsettings','/registercompany','/registeryourself'].includes(this.router.url);
   }
 
   showSideNav(): boolean {
-    return ['/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard'].includes(this.router.url);
+    return ['/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard' ,'/admincompanies', '/adminjobs','/candidates', '/adminsettings','/privacy'].includes(this.router.url); 
   }
 
   

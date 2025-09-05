@@ -22,6 +22,7 @@ export class UserSessionService {
       fullName: userData.fullName,
       loginName: userData.loginName,
       roleTitle: userData.roleTitle,
+      companyID:userData.companyID,
     };
 
     localStorage.setItem(this.USER_KEY, JSON.stringify(userToStore));
@@ -59,6 +60,11 @@ export class UserSessionService {
     const user = localStorage.getItem(this.USER_KEY);
     return user ? JSON.parse(user).userLoginId : null;
   }
+  getCompanyID(): any {
+    const user = localStorage.getItem(this.USER_KEY);
+    return user ? JSON.parse(user).userLoginId : null;
+  }
+
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);

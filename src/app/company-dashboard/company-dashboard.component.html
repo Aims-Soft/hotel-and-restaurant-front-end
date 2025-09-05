@@ -89,12 +89,28 @@
         class="d-flex align-items-center justify-content-between px-2 py-2 bottom-border"
       >
         <p class="mt-2 custom-font text-black">Active Jobs</p>
+        <div
+          *ngIf="successMessage"
+          class="alert alert-success text-center"
+          role="alert"
+        >
+          {{ successMessage }}
+        </div>
+
+        <div
+          *ngIf="errorMessage"
+          class="alert alert-danger text-center"
+          role="alert"
+        >
+          {{ errorMessage }}
+        </div>
         <div class="d-flex align-items-center dashboard-searchBox px-2 rounded">
           <i class="bi bi-search fs-5"></i>
           <input
             type="search"
             class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
             placeholder="Search here..."
+              [(ngModel)]="searchText"
           />
           <img
             src="../../assets/images/Search Key.png"
@@ -108,7 +124,7 @@
         <div class="container">
           <div
             class="row mt-3 box-border rounded"
-            *ngFor="let job of Activejobs"
+            *ngFor="let job of Activejobs  | search:searchText:'jobTitle';"
           >
             <div class="col-md-5 p-2">
               <p class="duration ms-2">
@@ -127,7 +143,10 @@
 
             <div class="col-md-4 offset-md-3 mt-3 ps-5">
               <div class="d-inline me-4 px-2 pt-2 pb-1 edit-delete">
-                <i class="bi bi-trash fs-5 me-2 text-danger"></i>
+                <i
+                  class="bi bi-trash fs-5 me-2 text-danger"
+                  (click)="onDelete(job)"
+                ></i>
                 <i
                   class="bi bi-pencil-square fs-5 text-primary"
                   (click)="editJob(job)"

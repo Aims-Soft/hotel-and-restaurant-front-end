@@ -45,6 +45,11 @@ saveCompany(payload: any): Observable<any> {
     { headers }
   );
 }
+
+
+ getCompanyDetail(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/admin/getCompanyDetail`);
+  }
    
 //  saveCompany(payload: any): Observable<any> {
 //   return this.http.post<any>(`${this.apiUrl}job-api/company/saveCompanyUser`, payload);

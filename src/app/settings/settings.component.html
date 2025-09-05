@@ -1,218 +1,412 @@
 <div class="dashborad-position">
-<div class="py-3 d-flex align-items-center justify-content-end bottom-border">
+  <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
     <i class="bi bi-bell fs-4"></i>
     <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
       <img src="../../assets/images/profilePic.png" class="img-fluid" alt=""/>
       <i class="bi bi-chevron-down ms-2 fs-5"></i>
     </div>
   </div>
-    <div class="container mt-4 px-4" style="font-family: poppins;">
-        <h6 class="edit-profile-border d-inline px-2">Edit Profile</h6>
-        
-         <div class="row mt-4 mx-5">
-      <div class="col-md-6">
-        <p>Company Logo</p>
-        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
-          <div>
-            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
-            <p class="mt-3 pic-border-inner text-secondary">
-              Supported Formats: PDF, PNG, JPG
-            </p>
-          </div>
-        </label>
-        <input type="file" id="image" class="d-none" />
-      </div>
-      <div class="col-md-6">
-        <p>Company Profile Image</p>
-        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
-          <div>
-            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
-            <p class="mt-3 pic-border-inner text-secondary">
-              Supported Formats: PDF, PNG, JPG
-            </p>
-          </div>
-        </label>
-        <input
-          type="file"
-          id="image"
-          class="d-none"
-          accept=".png, .jpg, .jpeg, .pdf"
-        />
-      </div>
+
+  <div class="registration-container">
+    <!-- Debug information - remove this after testing -->
+    <div *ngIf="!hasData && !isLoading" class="alert alert-warning">
+      No company data found. Please check if you're logged in and have company permissions.
     </div>
-    <!-- FORM -->
-    <form action="" class="mx-5 my-4">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="companyName">Company Name</label>
+
+    <div *ngIf="isLoading" class="text-center p-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading company details...</p>
+    </div>
+
+    <div *ngIf="hasData" class="alert alert-info mb-3">
+      Company data loaded successfully!
+    </div>
+
+    <div class="registration-header">
+      <h2>Update Company Information</h2>
+      <p>Update your company details</p>
+    </div>
+
+    <div class="registration-body">
+      <form #companyForm="ngForm" (ngSubmit)="onRegister()">
+        <!-- Logo Upload Section -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <label class="form-label"
+              >Company Logo <span class="text-danger">*</span></label
+            >
+            <div class="upload-area" (click)="fileInput.click()">
+              <ng-container *ngIf="previewUrl; else uploadPlaceholder">
+                <img
+                  *ngIf="isImage; else pdfBlock"
+                  [src]="previewUrl"
+                  alt="Preview"
+                  class="preview-image"
+                  style="max-width: 100%; max-height: 200px;"
+                />
+                <ng-template #pdfBlock>
+                  <div class="pdf-preview">
+                    <i class="fas fa-file-pdf"></i> {{ selectedFile?.name || 'PDF File Selected' }}
+                  </div>
+                </ng-template>
+              </ng-container>
+              <ng-template #uploadPlaceholder>
+                <div class="upload-icon">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <p>Drag & drop or click to upload</p>
+                <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+              </ng-template>
+            </div>
             <input
-              type="text"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="Aimssoft"
-              id="companyName"
+              type="file"
+              #fileInput
+              style="display: none"
+              accept=".pdf,.png,.jpg,.jpeg"
+              (change)="onFileSelected($event)"
+            />
+            <small
+              class="text-danger"
+              *ngIf="!selectedFile && companyForm.submitted"
+            >
+              Company logo is required
+            </small>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Company Banner</label>
+            <div class="upload-area" (click)="bannerInput.click()">
+              <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
+                <img
+                  *ngIf="isBannerImage; else bannerPdfBlock"
+                  [src]="bannerPreviewUrl"
+                  alt="Banner Preview"
+                  class="preview-image"
+                  style="max-width: 100%; max-height: 200px;"
+                />
+                <ng-template #bannerPdfBlock>
+                  <div class="pdf-preview">
+                    <i class="fas fa-file-pdf"></i> {{ selectedBannerFile?.name || 'PDF File Selected' }}
+                  </div>
+                </ng-template>
+              </ng-container>
+              <ng-template #bannerPlaceholder>
+                <div class="upload-icon">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <p>Drag & drop or click to upload</p>
+                <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
+              </ng-template>
+            </div>
+            <input
+              type="file"
+              #bannerInput
+              style="display: none"
+              accept=".pdf,.png,.jpg,.jpeg"
+              (change)="onBannerSelected($event)"
             />
           </div>
         </div>
-        <div class="col-md-4">
-         <div class="d-flex flex-column">
-            <label for="industryType">Industry type</label>
-            <select name="cars" id="industryType" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">Marketing Agency</option>
-              <option value="saab">Marketing Agency</option>
-              <option value="opel">Marketing Agency</option>
+
+        <!-- Basic Information Section -->
+        <div class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Company Name <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter company name"
+              [(ngModel)]="companyName"
+              name="companyName"
+              required
+              #companyNameModel="ngModel"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                companyNameModel.invalid &&
+                (companyNameModel.touched || companyForm.submitted)
+              "
+            >
+              Company name is required
+            </small>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Industry Type <span class="text-danger">*</span></label
+            >
+            <select
+              class="form-select"
+              (change)="onIndustryChange($event)"
+              [(ngModel)]="selectedIndustry"
+              name="industry"
+              required
+              #industryModel="ngModel"
+            >
+              <option selected disabled value="">Select Industry Type</option>
+              <option *ngFor="let type of UniTypes" [value]="type.companyTypeID">
+                {{ type.companyTypeTitle }}
+              </option>
             </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                industryModel.invalid &&
+                (industryModel.touched || companyForm.submitted)
+              "
+            >
+              Industry type is required
+            </small>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Company Employees <span class="text-danger">*</span></label
+            >
+            <select
+              class="form-select"
+              (change)="onEmployeeChange($event)"
+              [(ngModel)]="selectedEmployee"
+              name="employee"
+              required
+              #employeeModel="ngModel"
+            >
+              <option selected disabled value="">Select Employee Range</option>
+              <option *ngFor="let emp of employees" [value]="emp.employeeID">
+                {{ emp.employeeRange }}
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                employeeModel.invalid &&
+                (employeeModel.touched || companyForm.submitted)
+              "
+            >
+              Employee range is required
+            </small>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="nbrOfEmployee">Company Employee</label>
-            <select name="cars" id="nbrOfEmployee" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">10-50 employees</option>
-              <option value="saab">100-200 employees</option>
-              <option value="opel">200-500 employees</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="name">Founded In</label>
+
+        <!-- Location Information -->
+        <div class="row mb-4">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Founded In</label>
             <input
               type="date"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="Amad"
-              name=""
-              id="name"
+              class="form-control"
+              [(ngModel)]="foundedIn"
+              name="foundedIn"
             />
           </div>
-        </div>
-        <div class="col-md-4">
-         <div class="d-flex flex-column">
-            <label for="companyCountry">Country</label>
-            <select name="cars" id="companyCountry" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">Pakistan</option>
-              <option value="saab">India</option>
-              <option value="opel">Afghanistan</option>
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Country <span class="text-danger">*</span></label
+            >
+            <select
+              class="form-select"
+              (change)="onCountryChange($event)"
+              [(ngModel)]="selectedCountry"
+              name="country"
+              required
+              #countryModel="ngModel"
+            >
+              <option selected disabled value="">Select Country</option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryID"
+              >
+                {{ country.countryName }}
+              </option>
             </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                countryModel.invalid &&
+                (countryModel.touched || companyForm.submitted)
+              "
+            >
+              Country is required
+            </small>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="City">City</label>
-            <select name="cars" id="City" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">Islamabad</option>
-              <option value="saab">Lahore</option>
-              <option value="opel">Karachi</option>
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >City <span class="text-danger">*</span></label
+            >
+            <select
+              class="form-select"
+              (change)="onCityChange($event)"
+              [(ngModel)]="selectedCity"
+              name="city"
+              required
+              #cityModel="ngModel"
+            >
+              <option selected disabled value="">Select City</option>
+              <option *ngFor="let city of filteredCities" [value]="city.cityID">
+                {{ city.cityName }}
+              </option>
             </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                cityModel.invalid && (cityModel.touched || companyForm.submitted)
+              "
+            >
+              City is required
+            </small>
           </div>
         </div>
-      </div>
 
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="siteLink">Website Link</label>
-            <input
-              type="text"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="www.aimssoft.com"
-              id="siteLink"
-            />
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="querty123"
-              name=""
-              id="password"
-            />
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              class="rounded px-2 py-2 mt-2 form-control input-border"
-              placeholder="querty123"
-              name=""
-              id="confirmPassword"
-            />
-          </div>
-        </div>
-      </div>
+        <!-- Contact Information -->
+        <div class="contact-info mb-4">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Website Link</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="www.example.com"
+                [(ngModel)]="websiteLink"
+                name="websiteLink"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Contact No</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone number"
+                [(ngModel)]="contactNo"
+                name="contactNo"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Address"
+                [(ngModel)]="address"
+                name="address"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                [(ngModel)]="companyEmail"
+                name="companyEmail"
+                required
+                email
+                #emailModel="ngModel"
+              />
+              <small
+                class="text-danger"
+                *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
+              >
+                Email is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
+              >
+                Enter a valid email
+              </small>
+            </div>
 
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="companyContact">Contact No</label>
-            <input
-              type="text"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="0000-00000000"
-              name=""
-              id="companyContact"
-            />
+            <div class="col-md-4 mb-3">
+              <label class="form-label">New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="password"
+                name="password"
+                minlength="6"
+                #passwordModel="ngModel"
+                placeholder="Enter new password (leave blank to keep current)"
+              />
+              <small
+                class="text-danger"
+                *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
+              >
+                Password must be at least 6 characters
+              </small>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                #confirmPasswordModel="ngModel"
+                placeholder="Confirm new password"
+              />
+              <small
+                class="text-danger"
+                *ngIf="confirmPassword !== password && companyForm.submitted"
+              >
+                Passwords do not match
+              </small>
+            </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="mail">Email</label>
-            <input
-              type="email"
-              class="rounded px-2 py-2 mt-2 input-border"
-              placeholder="name@gmail.com"
-              name=""
-              id="mail"
-            />
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex flex-column">
-            <label for="Address">Address</label>
-            <input
-              type="text"
-              class="rounded px-2 py-2 mt-2 form-control input-border"
-              placeholder="Address goes here"
-              name=""
-              id="Address"
-            />
-          </div>
-        </div>
-      </div>
 
+        <!-- Company Domains -->
+        <div class="mb-4">
+          <p class="form-label">Company domains</p>
+          <div class="skills-container">
+            <span
+              *ngFor="let domain of companyDomains"
+              class="skill-tag flex-wrap"
+              [class.selected]="selectedDomains.includes(domain.domainID)"
+              (click)="toggleDomain(domain.domainID)"
+            >
+              {{ domain.domainTitle }}
+            </span>
+          </div>
+        </div>
 
-    </form>
-    <div class="container mx-4 ps-4 mb-3" >
-        <p class="text-black">Company Domains</p>
-         <span class="px-3 py-2 rounded preffered-skills">PHP</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">AWS</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">Laraval</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">Flutter</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">JAVA</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">React Native</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">Python</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">UIUX</span>
-            <span class="px-3 py-2 rounded ms-2 preffered-skills">Wordpress</span>
+        <!-- Description -->
+        <div class="mb-4">
+          <label class="form-label">Company Description</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            placeholder="Description goes here"
+            [(ngModel)]="description"
+            name="description"
+          ></textarea>
+        </div>
+
+        <!-- Messages -->
+        <div *ngIf="successMessage" class="alert alert-success mt-3">
+          {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-end gap-2 mt-5">
+          <button type="button" class="btn btn-cancel" (click)="resetForm()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-register" [disabled]="isLoading">
+            {{ isLoading ? 'Updating...' : 'Update Company' }}
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div class="container mx-4 ps-4">
-        <p class="text-black">Discription</p>
-        <div class="px-4 me-5 py-2 mb-3 rounded input-border">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium veritatis eum nisi itaque a odio eius in eos, quo voluptate fuga cupiditate eveniet corrupti. Nostrum explicabo consequuntur, nulla odio eos officia temporibus reiciendis exercitationem! Laborum qui ea veritatis amet praesentium?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi deleniti nulla vel ducimus magnam possimus? Nulla facilis ipsa consequuntur magnam?
-        </div>
-    </div>
-    <!-- Bottom Button -->
-    <div class="text-end mx-5 mb-4">
-      <button class="btn me-3 cancel-btn-border">Cancel</button>
-      <button class="btn text-white px-3 apply-btn-style">Update</button>
-    </div>
-    </div>
+  </div>
 </div>

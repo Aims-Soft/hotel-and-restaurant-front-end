@@ -1,0 +1,52 @@
+/* .card {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  button {
+    border-radius: 10px;
+  }
+} */
+.kanban-column {
+  min-height: 400px;
+  /* background-color: #f8f9fa; */
+}
+
+.card {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+button {
+  border-radius: 10px;
+}
+  
+
+
+[cdkDrag] {
+  cursor: grab;
+}
+
+[cdkDragDragging] {
+  opacity: 0.6;
+}
+
+.min-drop-area {
+  min-height: 80px; /* allows dropping even if empty */
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  padding: 5px;
+}
+
+.min-drop-area.cdk-drop-list-dragging {
+  border-color: #007bff;
+}
+
+.empty-placeholder {
+  font-size: 0.85rem;
+  color: #999;
+}

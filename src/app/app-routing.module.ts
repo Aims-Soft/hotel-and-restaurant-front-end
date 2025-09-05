@@ -18,6 +18,10 @@ import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.componen
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import{RegisterCompanyComponent} from './register-company/register-company.component';
 import{RegisterYourselfComponent } from './register-yourself/register-yourself.component'
+import { AdminCompaniesComponent } from './admin-companies/admin-companies.component';
+import { AdminJobsComponent } from './admin-jobs/admin-jobs.component';
+import { CandidatesComponent } from './candidates/candidates.component';
+import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'contact', component: ContactComponent },
@@ -38,7 +42,12 @@ const routes: Routes = [
   {path:'companyDashboard',component:CompanyDashboardComponent},
   // {path:'adminDashboard',component:AdminDashbordComponent},
   {path:'registercompany',component:RegisterCompanyComponent},
-  {path:'registeryourself',component:RegisterYourselfComponent }
+  {path:'registeryourself',component:RegisterYourselfComponent },
+  {path: 'admincompanies', component:AdminCompaniesComponent},
+{path: 'adminjobs', component: AdminJobsComponent},
+{path:'candidates',component:CandidatesComponent},
+{path:'adminsettings',component:AdminSettingComponent}
+
 
 ];
 

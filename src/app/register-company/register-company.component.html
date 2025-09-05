@@ -5,14 +5,15 @@
   </div>
 
   <div class="registration-body">
-    <form>
+    <!--  Attach ngForm -->
+    <form #companyForm="ngForm" (ngSubmit)="onRegister()">
       <!-- Logo Upload Section -->
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Company Logo</label>
-        
+          <label class="form-label"
+            >Company Logo <span class="text-danger">*</span></label
+          >
           <div class="upload-area" (click)="fileInput.click()">
-            <!-- Show preview if file is selected -->
             <ng-container *ngIf="previewUrl; else uploadPlaceholder">
               <img
                 *ngIf="isImage; else pdfBlock"
@@ -25,8 +26,6 @@
                 </div>
               </ng-template>
             </ng-container>
-
-            <!-- Placeholder when nothing is selected -->
             <ng-template #uploadPlaceholder>
               <div class="upload-icon">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -35,8 +34,6 @@
               <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
             </ng-template>
           </div>
-
-          <!-- Hidden file input -->
           <input
             type="file"
             #fileInput
@@ -44,13 +41,17 @@
             accept=".pdf,.png,.jpg,.jpeg"
             (change)="onFileSelected($event)"
           />
+          <small
+            class="text-danger"
+            *ngIf="!selectedFile && companyForm.submitted"
+          >
+            Company logo is required
+          </small>
         </div>
-  
 
         <div class="col-md-6 mb-3">
           <label class="form-label">Company Banner</label>
           <div class="upload-area" (click)="bannerInput.click()">
-            <!-- Show preview if file is selected -->
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
               <img
                 *ngIf="isBannerImage; else bannerPdfBlock"
@@ -63,8 +64,6 @@
                 </div>
               </ng-template>
             </ng-container>
-
-            <!-- Placeholder when nothing is selected -->
             <ng-template #bannerPlaceholder>
               <div class="upload-icon">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -73,8 +72,6 @@
               <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
             </ng-template>
           </div>
-
-          <!-- Hidden file input -->
           <input
             type="file"
             #bannerInput
@@ -83,182 +80,323 @@
             (change)="onBannerSelected($event)"
           />
         </div>
+      </div>
 
-        <!-- Basic Information Section -->
-        <!-- <h4 class="section-title">Basic Information</h4> -->
-        <div class="row mb-4">
+      <!-- Basic Information Section -->
+      <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+          <label class="form-label"
+            >Company Name <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter company name"
+            [(ngModel)]="companyName"
+            name="companyName"
+            required
+            #companyNameModel="ngModel"
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              companyNameModel.invalid &&
+              (companyNameModel.touched || companyForm.submitted)
+            "
+          >
+            Company name is required
+          </small>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label"
+            >Industry Type <span class="text-danger">*</span></label
+          >
+          <select
+            class="form-select"
+            (change)="onIndustryChange($event)"
+            [(ngModel)]="selectedIndustry"
+            name="industry"
+            required
+            #industryModel="ngModel"
+          >
+            <option selected disabled value="">Select Industry Type</option>
+            <option *ngFor="let type of UniTypes" [value]="type.companyTypeID">
+              {{ type.companyTypeTitle }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="
+              industryModel.invalid &&
+              (industryModel.touched || companyForm.submitted)
+            "
+          >
+            Industry type is required
+          </small>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label"
+            >Company Employees <span class="text-danger">*</span></label
+          >
+          <select
+            class="form-select"
+            (change)="onEmployeeChange($event)"
+            [(ngModel)]="selectedEmployee"
+            name="employee"
+            required
+            #employeeModel="ngModel"
+          >
+            <option selected disabled value="">Select Employee Range</option>
+            <option *ngFor="let emp of employees" [value]="emp.employeeID">
+              {{ emp.employeeRange }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="
+              employeeModel.invalid &&
+              (employeeModel.touched || companyForm.submitted)
+            "
+          >
+            Employee range is required
+          </small>
+        </div>
+      </div>
+
+      <!-- Location Information -->
+      <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Founded In</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="foundedIn"
+            name="foundedIn"
+          />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label"
+            >Country <span class="text-danger">*</span></label
+          >
+          <select
+            class="form-select"
+            (change)="onCountryChange($event)"
+            [(ngModel)]="selectedCountry"
+            name="country"
+            required
+            #countryModel="ngModel"
+          >
+            <option selected disabled value="">Select Country</option>
+            <option
+              *ngFor="let country of countries"
+              [value]="country.countryID"
+            >
+              {{ country.countryName }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="
+              countryModel.invalid &&
+              (countryModel.touched || companyForm.submitted)
+            "
+          >
+            Country is required
+          </small>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label"
+            >City <span class="text-danger">*</span></label
+          >
+          <select
+            class="form-select"
+            (change)="onCityChange($event)"
+            [(ngModel)]="selectedCity"
+            name="city"
+            required
+            #cityModel="ngModel"
+          >
+            <option selected disabled value="">Select City</option>
+            <option *ngFor="let city of filteredCities" [value]="city.cityID">
+              {{ city.cityName }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="
+              cityModel.invalid && (cityModel.touched || companyForm.submitted)
+            "
+          >
+            City is required
+          </small>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="contact-info mb-4">
+        <div class="row">
           <div class="col-md-4 mb-3">
-            <label class="form-label">Company Name</label>
+            <label class="form-label">Website Link</label>
             <input
               type="text"
               class="form-control"
-              placeholder="Enter company name"
-              [(ngModel)]="companyName"
-              name="companyName"
+              placeholder="www.example.com"
+              [(ngModel)]="websiteLink"
+              name="websiteLink"
             />
           </div>
           <div class="col-md-4 mb-3">
-            <label class="form-label">Industry Type</label>
-            <select class="form-select" (change)="onIndustryChange($event)">
-              <option selected disabled>Select Industry Type</option>
-              <option
-                *ngFor="let type of UniTypes"
-                [value]="type.companyTypeID"
-              >
-                {{ type.companyTypeTitle }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Company Employees</label>
-            <select class="form-select" (change)="onEmployeeChange($event)">
-              <option selected disabled>Select Employee Range</option>
-              <option *ngFor="let emp of employees" [value]="emp.employeeID">
-                {{ emp.employeeRange }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Location Information -->
-        <!-- <h4 class="section-title">Location Information</h4> -->
-        <div class="row mb-4">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Founded In</label>
+            <label class="form-label">Contact No</label>
             <input
-              type="date"
+              type="text"
               class="form-control"
-              [(ngModel)]="foundedIn"
-              name="foundedIn"
-              placeholder="select Date"
+              placeholder="Phone number"
+              [(ngModel)]="contactNo"
+              name="contactNo"
             />
           </div>
           <div class="col-md-4 mb-3">
-            <label class="form-label">Country</label>
-            <select class="form-select" (change)="onCountryChange($event)">
-              <option selected disabled>Select Country</option>
-              <option
-                *ngFor="let country of countries"
-                [value]="country.countryID"
-              >
-                {{ country.countryName }}
-              </option>
-            </select>
+            <label class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Address"
+              [(ngModel)]="address"
+              name="address"
+            />
           </div>
           <div class="col-md-4 mb-3">
-            <label class="form-label">City</label>
-            <select class="form-select" (change)="onCityChange($event)">
-              <option selected disabled>Select City</option>
-              <option *ngFor="let city of filteredCities" [value]="city.cityID">
-                {{ city.cityName }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Contact Information -->
-        <!-- <h4 class="section-title">Contact Information</h4> -->
-        <div class="contact-info mb-4">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Website Link</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="www.example.com"
-                [(ngModel)]="websiteLink"
-                name="websiteLink"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Contact No</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phone number"
-                [(ngModel)]="contactNo"
-                name="contactNo"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Address"
-                [(ngModel)]="address"
-                name="address"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Email address"
-                [(ngModel)]="companyEmail"
-                name="companyEmail"
-              />
-            </div>
-            <!-- Account Security -->
-            <!-- <h4 class="section-title">Account Security</h4> -->
-
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="password"
-                name="password"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Confirm Password</label>
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="confirmPassword"
-                name="confirmPassword"
-              />
-            </div>
-          </div>
-        </div>
-
-     
-        <div class="mb-4">
-          <p class="form-label">Company domains</p>
-          <div class="skills-container">
-            <span
-              *ngFor="let domain of companyDomains"
-              class="skill-tag flex-wrap"
-              [class.selected]="selectedDomains.includes(domain.domainID)"
-              (click)="toggleDomain(domain.domainID)"
+            <label class="form-label"
+              >Email <span class="text-danger">*</span></label
             >
-              {{ domain.domainTitle }}
-            </span>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email address"
+              [(ngModel)]="companyEmail"
+              name="companyEmail"
+              required
+              email
+              #emailModel="ngModel"
+            />
+            <small
+              class="text-danger"
+              *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
+            >
+              Email is required
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
+            >
+              Enter a valid email
+            </small>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Password <span class="text-danger">*</span></label
+            >
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="password"
+              name="password"
+              required
+              minlength="6"
+              #passwordModel="ngModel"
+              placeholder="Enter Passord"
+            />
+            <small
+              class="text-danger"
+              *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
+            >
+              Password is required
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
+            >
+              Password must be at least 6 characters
+            </small>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label"
+              >Confirm Password <span class="text-danger">*</span></label
+            >
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              required
+              #confirmPasswordModel="ngModel"
+              placeholder="Enter Confirm Passord"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                confirmPasswordModel.invalid &&
+                (confirmPasswordModel.touched || companyForm.submitted)
+              "
+            >
+              Confirm password is required
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="confirmPassword !== password && companyForm.submitted"
+            >
+              Passwords do not match
+            </small>
           </div>
         </div>
+      </div>
 
-        <!-- Description -->
-        <!-- <h4 class="section-title">Company Description</h4> -->
-        <div class="mb-4">
-          <label class="form-label">Company Description</label>
-          <textarea
-            class="form-control"
-            rows="5"
-            placeholder="Description goes here"
-            [(ngModel)]="description"
-            name="description"
-          ></textarea>
+      <!-- Company Domains -->
+      <div class="mb-4">
+        <p class="form-label">Company domains</p>
+        <div class="skills-container">
+          <span
+            *ngFor="let domain of companyDomains"
+            class="skill-tag flex-wrap"
+            [class.selected]="selectedDomains.includes(domain.domainID)"
+            (click)="toggleDomain(domain.domainID)"
+          >
+            {{ domain.domainTitle }}
+          </span>
         </div>
+      </div>
 
-        <!-- Form Actions -->
-        <div class="d-flex justify-content-end gap-2 mt-5">
-          <button type="button" class="btn btn-cancel">Cancel</button>
-          <button type="button" class="btn btn-register" (click)="onRegister()">
-            Register
-          </button>
-        </div>
+      <!-- Description -->
+      <div class="mb-4">
+        <label class="form-label">Company Description</label>
+        <textarea
+          class="form-control"
+          rows="5"
+          placeholder="Description goes here"
+          [(ngModel)]="description"
+          name="description"
+        ></textarea>
+      </div>
+
+      <!-- Success Message -->
+      <!-- <div *ngIf="companyForm.submitted && companyForm.valid" class="alert alert-success">
+        ✅ Company registered successfully!
+      </div> -->
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Form Actions -->
+      <div class="d-flex justify-content-end gap-2 mt-5">
+        <button type="button" class="btn btn-cancel" (click)="resetForm()">Cancel</button>
+        <button type="submit" class="btn btn-register">Register</button>
       </div>
     </form>
   </div>

@@ -19,6 +19,8 @@ export class CompanyDashboardComponent implements OnInit {
   isLoading: boolean = false;
   Activejobs: any[] = [];
   job: any = {};
+  searchText: string = ''; 
+
 
   constructor(
     private JobService: JobService,
@@ -56,6 +58,63 @@ export class CompanyDashboardComponent implements OnInit {
       }
     );
   }
+
+
+successMessage: string | null = null;
+errorMessage: string | null = null;
+
+onDelete(job: any): void {
+  if (!job?.jobID) return;
+
+  const ok = window.confirm('Are you sure you want to delete this job?');
+  if (!ok) return;
+
+  this.isLoading = true;
+
+  const payload = {
+    jobTitle: '',
+    companyID: 0,
+    jobTypeID: 0,
+    jobSpaceID: 0,
+    experienceID: 0,
+    educationReq: '',
+    salaryRange: '',
+    postingDate: '',
+    expireDate: '',
+    cityID: 0,
+    countryID: 0,
+    jobStatusID: 0,
+    location: '',
+    responsibilities: '',
+    requirements: '',
+    benefitjson: '',
+    skilljson: '',
+    userID: this.userSessionService.getUserID(),
+    spType: 'DELETE',
+    jobID: Number(job.jobID),
+  };
+
+  this.JobService.saveJob(payload).subscribe({
+    next: (res) => {
+      this.isLoading = false;
+      this.successMessage = 'Job deleted successfully ✅';
+      this.errorMessage = null;
+
+      this.getActivejobs();
+      this.getTotalJobs(1);
+
+      // Auto hide message after 3s
+      setTimeout(() => this.successMessage = null, 3000);
+    },
+    error: (err) => {
+      this.isLoading = false;
+      this.successMessage = null;
+      this.errorMessage = '❌ Failed to delete job. Please try again.';
+
+      setTimeout(() => this.errorMessage = null, 3000);
+    }
+  });
+}
 
   getActivejobs(): void {
     this.isLoading = true;

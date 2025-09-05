@@ -11,14 +11,27 @@ export class CompanyDashboardService {
 
   constructor(private http: HttpClient) {}
 
-getTotalJobs(companyID: number): Observable<any> {
-  return this.http.get<any>(
-    `${this.apiUrl}job-api/Dashboard/getTotalJobCount?companyID=${companyID}`
-  );
-}
+  getTotalJobs(companyID: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}job-api/Dashboard/getTotalJobCount?companyID=${companyID}`
+    );
+  }
 
   getActivejobs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getActiveJob`);
   }
 
+  getJobApplications(): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}job-api/Dashboard/getJobApplications`
+    );
+  }
+  
+ updateJobStatus(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobStatus`, payload);
+}
+
+updatejobApplicationStatus(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobApplicationStatus`, payload);
+}
 }
