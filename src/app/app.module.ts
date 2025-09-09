@@ -45,6 +45,7 @@ import { AdminJobsComponent } from './admin-jobs/admin-jobs.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { AdminViewCompaniesComponent } from './admin-companies/admin-view-companies/admin-view-companies.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { SearchPipe } from './pipes/search.pipe';
     CandidatesComponent,
     AdminSettingComponent,
     SearchPipe,
+    AdminViewCompaniesComponent,
   ],
   imports: [
     BrowserModule,

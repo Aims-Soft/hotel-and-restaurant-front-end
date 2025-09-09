@@ -62,12 +62,25 @@
       </div>
 
       <!-- Job Category -->
-        <!-- (change)="onJobChange($event)" -->
+      <!-- (change)="onJobChange($event)" -->
       <div class="col-md-6">
         <label for="categoryName" class="d-block label-font"
           >Job Category</label
         >
+
         <select
+          name="categoryName"
+          class="form-select w-100 px-2 py-2 mt-2 label-font-input"
+          [(ngModel)]="selectedJob"
+          required
+        >
+          <option [ngValue]="null" disabled>Select Job Category</option>
+          <option *ngFor="let item of Job" [ngValue]="item.jobCategoryID">
+            {{ item.jobCategoryTitle }}
+          </option>
+        </select>
+
+        <!-- <select
         name="categoryName"
           class="form-select w-100 px-2 py-2 mt-2 label-font-input"
          [(ngModel)]="selectedJob"
@@ -77,7 +90,7 @@
           <option *ngFor="let item of Job" [value]="item.jobCategoryID">
             {{ item.jobCategoryTitle }}
           </option>
-        </select>
+        </select> -->
         <div *ngIf="fieldErrors['jobCategory']" class="text-danger small mt-1">
           {{ fieldErrors["jobCategory"] }}
         </div>
@@ -95,7 +108,7 @@
           [(ngModel)]="selectedJobType"
         >
           <option [value]="null" disabled>Select Job Type</option>
-         
+
           <option *ngFor="let item of JobType" [value]="item.jobTypeID">
             {{ item.jobTypeTitle }}
           </option>
@@ -112,9 +125,8 @@
         >
         <!-- (change)="ongetWorkSpace($event)" -->
         <select
-         name="workspaceType"
+          name="workspaceType"
           class="form-select w-100 px-2 py-2 mt-2 label-font-input"
-          
           [(ngModel)]="selectedWorkSpace"
           required
         >
@@ -129,13 +141,13 @@
       </div>
 
       <!-- Experience Level -->
-       <!-- (change)="onExperienceChange($event)" -->
+      <!-- (change)="onExperienceChange($event)" -->
       <div class="col-md-6 mt-3">
         <label for="experience" class="d-block label-font"
           >Experience Level</label
         >
         <select
-        name="experience"
+          name="experience"
           class="form-select w-100 px-2 py-2 mt-2 label-font-input"
           [(ngModel)]="selectedExperience"
           required
@@ -143,7 +155,6 @@
           <option [value]="null" selected disabled>Select Experience</option>
           <option *ngFor="let item of experience" [value]="item.experienceID">
             {{ item.experienceRange }}
-          
           </option>
         </select>
         <div *ngIf="fieldErrors['experience']" class="text-danger small mt-1">
@@ -201,14 +212,14 @@
       </div>
 
       <!-- Country -->
-         <!-- (change)="onCountryChange($event)" -->
+      <!-- (change)="onCountryChange($event)" -->
       <div class="col-md-6 mt-3">
         <label for="country" class="d-block label-font">Country</label>
         <select
-        name="country"
+          name="country"
           class="form-select w-100 px-2 py-2 mt-2 label-font-input"
-        [(ngModel)]="selectedCountry"
-        (change)="onCountryChange($event)" 
+          [(ngModel)]="selectedCountry"
+          (change)="onCountryChange($event)"
           required
         >
           <option [value]="null" selected disabled>Select Country</option>
@@ -220,14 +231,13 @@
           {{ fieldErrors["country"] }}
         </div>
       </div>
-  <!-- (change)="onCityChange($event)" -->
+      <!-- (change)="onCityChange($event)" -->
       <!-- City -->
       <div class="col-md-6 mt-3">
         <label for="city" class="d-block label-font">City</label>
         <select
-        name="city"
+          name="city"
           class="form-select w-100 px-2 py-2 mt-2 label-font-input"
-        
           required
           [(ngModel)]="selectedCity"
         >
@@ -319,7 +329,6 @@
             class="skill-tag flex-wrap"
             [class.selected]="selectedSkills.includes(skill.skillID)"
             (click)="toggleSkills(skill.skillID)"
-            
           >
             {{ skill.skillName }}
           </span>
@@ -338,7 +347,6 @@
             class="skill-tag flex-wrap"
             [class.selected]="selectedBenefits.includes(item.benefitID)"
             (click)="toggleBenefits(item.benefitID)"
-           
           >
             {{ item.benefitTitle }}
           </span>
@@ -356,8 +364,15 @@
           class="px-4 py-2 border-0 btn-color text-white rounded"
           [disabled]="isLoading"
         >
-        
-          {{ isLoading ? (isEdit ? "Updating..." : "Posting...") : (isEdit ? "Update Job" : "Post Job") }}
+          {{
+            isLoading
+              ? isEdit
+                ? "Updating..."
+                : "Posting..."
+              : isEdit
+              ? "Update Job"
+              : "Post Job"
+          }}
         </button>
       </div>
     </form>

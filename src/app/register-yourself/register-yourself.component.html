@@ -87,25 +87,37 @@
         <!-- <h4 class="section-title">Basic Information</h4> -->
         <div class="row mb-4">
           <div class="col-md-4 mb-3">
-            <label class="form-label">User Name</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter User Name"
-              [(ngModel)]="userName"
-              name="userName"
-            />
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">User Cnic</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter User Name"
-              [(ngModel)]="cnic"
-              name="userName"
-            />
-          </div>
+      <label class="form-label">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter User Name"
+        [(ngModel)]="userName"
+        name="userName"
+        required
+        #userNameCtrl="ngModel"
+      />
+      <div *ngIf="userNameCtrl.invalid && userNameCtrl.touched" class="text-danger small">
+        User name is required
+      </div>
+    </div>
+           <div class="col-md-4 mb-3">
+      <label class="form-label">User CNIC</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter CNIC"
+        [(ngModel)]="cnic"
+        name="cnic"
+        required
+        minlength="13"
+        maxlength="13"
+        #cnicCtrl="ngModel"
+      />
+      <div *ngIf="cnicCtrl.invalid && cnicCtrl.touched" class="text-danger small">
+        CNIC must be 13 digits
+      </div>
+    </div>
 
           <div class="col-md-4 mb-3">
             <label class="form-label">Profession</label>
@@ -213,15 +225,22 @@
             </div>
 
             <div class="col-md-4 mb-3">
-              <label class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Email address"
-                [(ngModel)]="companyEmail"
-                name="companyEmail"
-              />
-            </div>
+      <label class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email address"
+        [(ngModel)]="companyEmail"
+        name="companyEmail"
+        required
+        email
+        #emailCtrl="ngModel"
+      />
+      <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger small">
+        Enter a valid email address
+      </div>
+    </div>
+  
             <!-- Account Security -->
             <!-- <h4 class="section-title">Account Security</h4> -->
 

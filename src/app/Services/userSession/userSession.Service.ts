@@ -62,7 +62,7 @@ export class UserSessionService {
   }
   getCompanyID(): any {
     const user = localStorage.getItem(this.USER_KEY);
-    return user ? JSON.parse(user).userLoginId : null;
+    return user ? JSON.parse(user). companyID: null;
   }
 
 

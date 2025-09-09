@@ -22,6 +22,7 @@ import { AdminCompaniesComponent } from './admin-companies/admin-companies.compo
 import { AdminJobsComponent } from './admin-jobs/admin-jobs.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { AdminSettingComponent } from './admin-setting/admin-setting.component';
+import { AdminViewCompaniesComponent } from './admin-companies/admin-view-companies/admin-view-companies.component';
 const routes: Routes = [
   {path: '', component: HomePageComponent },
   {path: 'contact', component: ContactComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
   {path: 'admincompanies', component:AdminCompaniesComponent},
 {path: 'adminjobs', component: AdminJobsComponent},
 {path:'candidates',component:CandidatesComponent},
-{path:'adminsettings',component:AdminSettingComponent}
+{path:'adminsettings',component:AdminSettingComponent},
+{path:'adminviewcompanies',component: AdminViewCompaniesComponent}
 
 
 ];

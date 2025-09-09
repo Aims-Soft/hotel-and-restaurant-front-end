@@ -164,6 +164,14 @@ export class ApplicationDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getJobApplications();
+
+      const navigation = this.router.getCurrentNavigation();
+  const state = navigation?.extras?.state as { jobId: number };
+
+  if (state?.jobId) {
+    console.log('Received JobID:', state.jobId);
+    this.getJobApplications(state.jobId); // ✅ fetch only this job's applications
+  }
   }
 
  
@@ -210,55 +218,111 @@ export class ApplicationDetailsComponent implements OnInit {
     }
   }
 
+getJobApplications(jobId?: number): void {
+  this.isLoading = true;
+  this.CompanyDashboardService.getJobApplications().subscribe(
+    (response: any[]) => {
+      console.log(response, 'applications');
+      this.isLoading = false;
 
-  getJobApplications(): void {
-    this.isLoading = true;
-    this.CompanyDashboardService.getJobApplications().subscribe(
-      (response: any[]) => {
-        console.log(response,' applications')
-        this.isLoading = false;
+      // clear old lists
+      this.applications = [];
+      this.shortlisted = [];
+      this.rejected = [];
+      this.interview = [];
+
+      let jobsToProcess = response;
+
+      // ✅ if jobId is provided, filter to that job only
+      if (jobId) {
+        jobsToProcess = response.filter(job => job.jobID === jobId);
+      }
+
+      jobsToProcess.forEach((job) => {
+        const users = job.appliedUser ? JSON.parse(job.appliedUser) : [];
+
+        users.forEach((user: any) => {
+          const userCard = {
+            ...user,
+            jobID: job.jobID,
+            jobTitle: job.jobTitle,
+            experience: job.experienceRange
+          };
+
+          switch (user.jobApplicationStatusTitle) {
+            case 'Application':
+              this.applications.push(userCard);
+              break;
+            case 'Shortlisted':
+              this.shortlisted.push(userCard);
+              break;
+            case 'Rejected':
+              this.rejected.push(userCard);
+              break;
+            case 'Interview':
+              this.interview.push(userCard);
+              break;
+            default:
+              this.applications.push(userCard);
+          }
+        });
+      });
+    },
+    (error: any) => {
+      this.isLoading = false;
+      console.error('Error fetching Job Applications:', error);
+    }
+  );
+}
+
+  // getJobApplications(): void {
+  //   this.isLoading = true;
+  //   this.CompanyDashboardService.getJobApplications().subscribe(
+  //     (response: any[]) => {
+  //       console.log(response,' applications')
+  //       this.isLoading = false;
 
     
-        this.applications = [];
-        this.shortlisted = [];
-        this.rejected = [];
-        this.interview = [];
+  //       this.applications = [];
+  //       this.shortlisted = [];
+  //       this.rejected = [];
+  //       this.interview = [];
 
-        response.forEach((job) => {
-          const users = job.appliedUser ? JSON.parse(job.appliedUser) : [];
-          users.forEach((user: any) => {
-            const userCard = {
-              ...user,
-              jobID: job.jobID,
-              jobTitle: job.jobTitle,
-              experience: job.experienceRange
-            };
+  //       response.forEach((job) => {
+  //         const users = job.appliedUser ? JSON.parse(job.appliedUser) : [];
+  //         users.forEach((user: any) => {
+  //           const userCard = {
+  //             ...user,
+  //             jobID: job.jobID,
+  //             jobTitle: job.jobTitle,
+  //             experience: job.experienceRange
+  //           };
 
-            switch (user.jobApplicationStatusTitle) {
-              case 'Application':
-                this.applications.push(userCard);
-                break;
-              case 'Shortlisted':
-                this.shortlisted.push(userCard);
-                break;
-              case 'Rejected':
-                this.rejected.push(userCard);
-                break;
-              case 'Interview':
-                this.interview.push(userCard);
-                break;
-              default:
-                this.applications.push(userCard);
-            }
-          });
-        });
-      },
-      (error: any) => {
-        this.isLoading = false;
-        console.error('Error fetching Job Applications:', error);
-      }
-    );
-  }
+  //           switch (user.jobApplicationStatusTitle) {
+  //             case 'Application':
+  //               this.applications.push(userCard);
+  //               break;
+  //             case 'Shortlisted':
+  //               this.shortlisted.push(userCard);
+  //               break;
+  //             case 'Rejected':
+  //               this.rejected.push(userCard);
+  //               break;
+  //             case 'Interview':
+  //               this.interview.push(userCard);
+  //               break;
+  //             default:
+  //               this.applications.push(userCard);
+  //           }
+  //         });
+  //       });
+  //     },
+  //     (error: any) => {
+  //       this.isLoading = false;
+  //       console.error('Error fetching Job Applications:', error);
+  //     }
+  //   );
+  // }
 }
 
 

@@ -38,7 +38,7 @@ export class CompanyDashboardComponent implements OnInit {
   }
 
   editJob(job: any): void {
-    // console.log('Clicked Job:', job);
+    console.log('Clicked Job:', job);
     // this.router.navigate(['/createJobs'], { queryParams: { jobID: job.jobID } });
     this.router.navigate(['/createJobs'], { state: { job } });
   }
@@ -122,11 +122,11 @@ onDelete(job: any): void {
       (response: any[]) => {
         this.isLoading = false;
         this.Activejobs = response;
-        console.log(response, 'Job Category');
+        // console.log(response, 'Job Category');
       },
       (error: any) => {
         this.isLoading = false;
-        console.error('Error fetching JobCategory:', error);
+        // console.error('Error fetching JobCategory:', error);
       }
     );
   }

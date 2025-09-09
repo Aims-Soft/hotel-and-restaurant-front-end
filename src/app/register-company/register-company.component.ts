@@ -457,6 +457,7 @@ export class RegisterCompanyComponent implements OnInit {
       companyEmail: this.companyEmail,
       foundedIn: this.foundedIn,
       websiteLink: this.websiteLink,
+      contact:this.contactNo,
       address: this.address,
       description: this.description,
       location: this.location,
@@ -535,9 +536,11 @@ export class RegisterCompanyComponent implements OnInit {
     Promise.all(filePromises).then(() => {
       this.CompanyRegistrationService.saveCompany(payload).subscribe({
         next: (res) => {
+         
           if (Array.isArray(res) && res.length > 0) {
             const responseStr = res[0]; // "Success|||34"
-
+           
+  console.log(res,'save company');
             if (responseStr.split('|||')[0] === 'Success') {
               this.successMessage = 'Company registered successfully!';
               this.resetForm();

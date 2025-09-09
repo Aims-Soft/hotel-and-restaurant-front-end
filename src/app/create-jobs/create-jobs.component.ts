@@ -30,7 +30,7 @@ export class CreateJobsComponent implements OnInit {
   benefits: any[] = [];
   selectedBenefits: number[] = [];
   jobID: any;
-
+  
   jobTitle: string = '';
   educationReq: string = '';
   salaryRange: string = '';
@@ -87,6 +87,8 @@ export class CreateJobsComponent implements OnInit {
   jobTypeID: any = '';
 
   edit(job: any) {
+
+     
     this.isEdit = true;
     this.jobId = job.jobID;
     // alert('click here');
@@ -101,6 +103,8 @@ export class CreateJobsComponent implements OnInit {
     this.responsibilities = job.responsibilities;
 
     // this.onJobType(job.jobTypeID);
+   this.selectedJob = job.jobCategoryID;
+   console.log('Selected JobCategoryID:', this.selectedJob, typeof this.selectedJob);
     this.selectedJobType = job.jobTypeID;
     this.selectedWorkSpace = job.jobSpaceID;
     this.selectedCountry = job.countryID;
@@ -139,6 +143,12 @@ export class CreateJobsComponent implements OnInit {
         this.isLoading = false;
         this.Job = response;
         console.log(response, 'Job Category');
+           if (this.isEdit && this.jobId && this.selectedJob) {
+        const exists = this.Job.some(j => j.jobCategoryID === this.selectedJob);
+        if (!exists) {
+          this.selectedJob = null; 
+        }
+      }
       },
       (error) => {
         this.isLoading = false;
@@ -352,6 +362,7 @@ export class CreateJobsComponent implements OnInit {
       expireDate: this.expireDate,
       cityID: Number(this.selectedCity),
       countryID: Number(this.selectedCountry),
+      jobCategoryID: Number(this.selectedJob), 
       jobStatusID: 1,
       location: this.location,
       responsibilities: this.responsibilities,

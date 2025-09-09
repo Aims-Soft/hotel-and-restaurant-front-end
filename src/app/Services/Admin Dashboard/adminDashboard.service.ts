@@ -6,7 +6,7 @@ import { environment } from '../../../environmentts/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class CompanyDashboardService {
+export class AdminDashboardService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -18,8 +18,18 @@ export class CompanyDashboardService {
   }
 
   getActivejobs(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getActiveJob`);
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Admin/getJobCountAdmin`);
   }
+
+   getrecentjobs(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getActiveJob`);
+  } 
+  
+  getcompanies(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/admin/getCompanyDetailRequest`);
+  }
+  
+
 
   getJobApplications(): Observable<any[]> {
     return this.http.get<any[]>(
@@ -27,13 +37,11 @@ export class CompanyDashboardService {
     );
   }
   
- updateJobStatus(payload: any): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobStatus`, payload);
+ updateCompanyStatus(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}job-api/admin/CompanyRequestStatus`, payload);
 }
 
 updatejobApplicationStatus(payload: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobApplicationStatus`, payload);
 }
-
-
 }

@@ -6,14 +6,20 @@ import { environment } from '../../../environmentts/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class CompanyDashboardService {
+export class adminCompanyService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getTotalJobs(companyID: number): Observable<any> {
+  getcompanyDetails(): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}job-api/Dashboard/getTotalJobCount?companyID=${companyID}`
+      `${this.apiUrl}job-api/admin/getCompanyDetail`
+    );
+  }
+
+   getcandidates(): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}job-api/Admin/getApplicantInfo`
     );
   }
 

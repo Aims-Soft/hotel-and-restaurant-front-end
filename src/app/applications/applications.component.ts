@@ -19,6 +19,7 @@ export class ApplicationsComponent implements OnInit {
   searchText: string = '';
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  selectedJobApplicants: any[] | null = null;
 
   ngOnInit(): void {
     this.getJobApplications();
@@ -33,20 +34,7 @@ export class ApplicationsComponent implements OnInit {
     private router: Router
   ) {}
 
-  // getJobApplications(): void {
-  //   this.isLoading = true;
-  //   this.CompanyDashboardService.getJobApplications().subscribe(
-  //     (response: any[]) => {
-  //       this.isLoading = false;
-  //       this.jobApplications = response;
-  //       console.log(response, 'Job APllications');
-  //     },
-  //     (error: any) => {
-  //       this.isLoading = false;
-  //       console.error('Error fetching JobCategory:', error);
-  //     }
-  //   );
-  // }
+ 
 
   getJobApplications(): void {
     this.isLoading = true;
@@ -69,26 +57,13 @@ export class ApplicationsComponent implements OnInit {
     );
   }
 
-  //  onToggleStatus(job: any): void {
-  //   const payload = {
-  //     jobID: job.jobID,
-  //     jobTitle: job.jobTitle,
-  //     jobStatusID: job.toggleStatus ? 1 : 2, // toggle back to numeric
-  //      userID: this.userSessionService.getUserID(),
-  //     spType: 'update'
-  //   };
+onViewApplications(job: any): void {
+  this.router.navigate(['/applicationDetails'], {
+    state: { jobId: job.jobID }   // pass jobID to details page
+  });
+}
 
-  //   this.CompanyDashboardService.updateJobStatus(payload).subscribe(
-  //     (res) => {
-  //       console.log('Job status updated:', res);
-  //     },
-  //     (error) => {
-  //       console.error('Error updating status:', error);
-  //       // rollback UI if error
-  //       job.toggleStatus = !job.toggleStatus;
-  //     }
-  //   );
-  // }
+
 
   onToggleStatus(job: any): void {
     const payload = {
