@@ -1,5 +1,4 @@
-
-<div class="dashborad-position">
+<div class="dashborad-position" *ngIf="company">
   <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
     <i class="bi bi-bell fs-4"></i>
     <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
@@ -8,86 +7,85 @@
     </div>
   </div>
 
+  <div class="container my-4 col-md-11">
+    <div class="card shadow-sm rounded-3 border-0">
+      <!-- Header -->
+      <div class="card-header bg-light border-0 p-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <!-- Company Logo -->
+            <img
+              [src]="company?.eLogo || 'assets/images/default-logo.png'"
+              class="rounded-circle me-3"
+              alt="Company Logo"
+            />
 
-<div class="container my-4  col-md-11">
-  <div class="card shadow-sm rounded-3 border-0">
-    <!-- Header -->
-    <div class="card-header bg-light border-0 p-4">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center" *ngFor="let item of jobApplications">
-          <!-- Company Logo -->
-          <img src="https://via.placeholder.com/70" class="rounded-circle me-3" alt="Company Logo" />
-          <div>
-            <h5 class="fw-bold mb-0">{{item.companyName}}</h5>
-            <small class="text-muted">{{item.countryName}} | {{item.cityName}}</small>
-            <div class="d-flex align-items-center text-muted mt-2 small">
-              <i class="bi bi-globe me-2"></i>{{item.websiteLink}}
-              <span class="mx-3">|</span>
-              <i class="bi bi-envelope me-2"></i> {{item.email}}
-              <span class="mx-3">|</span>
-              <i class="bi bi-telephone me-2"></i> {{item.Contact}}
-              <span class="mx-3">|</span>
-              <i class="bi bi-key me-2"></i> qwerty123
+            <div>
+              <h5 class="fw-bold mb-0">{{ company.companyName }}</h5>
+              <small class="text-muted">
+                {{ company.countryName }} | {{ company.cityName }}
+              </small>
+              <div class="d-flex align-items-center text-muted mt-2 small">
+                <i class="bi bi-globe me-2"></i>{{ company.websiteLink }}
+                <span class="mx-3">|</span>
+                <i class="bi bi-envelope me-2"></i>{{ company.email }}
+                <span class="mx-3">|</span>
+                <i class="bi bi-telephone me-2"></i>{{ company.contact }}
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-outline-primary me-2">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Info -->
+      <div class="card-body">
+        <div class="row text-center mb-3">
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-layers fs-4 text-primary"></i>
+              <p class="fw-semibold mb-0">Industry Category</p>
+              <small class="text-muted">{{ company.companyTypeID }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-people fs-4 text-success"></i>
+              <p class="fw-semibold mb-0">Employees</p>
+              <small class="text-muted">{{ company.employeeRange }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-geo-alt fs-4 text-danger"></i>
+              <p class="fw-semibold mb-0">Address</p>
+              <small class="text-muted">{{ company.address }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-calendar fs-4 text-warning"></i>
+              <p class="fw-semibold mb-0">Founded</p>
+              <small class="text-muted">{{ company.foundedIn | date }}</small>
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center">
-          <button class="btn btn-sm btn-outline-primary me-2">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button class="btn btn-sm btn-outline-danger">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Company Info -->
-    <div class="card-body">
-      <div class="row text-center mb-3">
-        <div class="col-md-3 mb-3">
-          <div class="border rounded p-3 h-100">
-            <i class="bi bi-layers fs-4 text-primary"></i>
-            <p class="fw-semibold mb-0">Industry Category</p>
-            <small class="text-muted">Design Agency</small>
-          </div>
+        <!-- About -->
+        <div>
+          <h6 class="fw-bold">About The Company</h6>
+          <p class="text-muted small">
+            {{ company.description }}
+          </p>
         </div>
-        <div class="col-md-3 mb-3">
-          <div class="border rounded p-3 h-100">
-            <i class="bi bi-people fs-4 text-success"></i>
-            <p class="fw-semibold mb-0">Employees</p>
-            <small class="text-muted">1238+</small>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="border rounded p-3 h-100">
-            <i class="bi bi-geo-alt fs-4 text-danger"></i>
-            <p class="fw-semibold mb-0">Address</p>
-            <small class="text-muted">H-8 Blue Area, Islamabad</small>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="border rounded p-3 h-100">
-            <i class="bi bi-calendar fs-4 text-warning"></i>
-            <p class="fw-semibold mb-0">Founded</p>
-            <small class="text-muted">Feb 22, 2024</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- About -->
-      <div>
-        <h6 class="fw-bold">About The Company</h6>
-        <p class="text-muted small">
-          Our team of passionate designers, strategists, and innovators collaborate closely with
-          clients to translate their visions into compelling brand experiences. We specialize in
-          branding, digital design, UX/UI, and more. Our goal is to create unique solutions that
-          resonate with audiences, achieve business objectives, and empower businesses through the
-          power of design.
-        </p>
       </div>
     </div>
   </div>
 </div>
-</div>
-

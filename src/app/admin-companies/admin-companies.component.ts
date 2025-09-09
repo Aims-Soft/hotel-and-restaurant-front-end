@@ -68,9 +68,15 @@ export class AdminCompaniesComponent implements OnInit {
     );
   }
 
+// onViewApplications(company: any): void {
+//   this.router.navigate(['/adminviewcompanies'], {
+//        state: { companyID: company.companyID }  
+//   });
+// }
+
 onViewApplications(company: any): void {
   this.router.navigate(['/adminviewcompanies'], {
-       state: { companyID: company.companyID }  
+    state: { company }   
   });
 }
 

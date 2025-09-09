@@ -12,7 +12,7 @@ export class AdminViewCompaniesComponent implements OnInit {
 
   isLoading: boolean = false;
  jobApplications: any[] = [];
-  company: any = null; 
+  company: any ; 
   companyID: number | null = null;
  
 
@@ -22,10 +22,13 @@ export class AdminViewCompaniesComponent implements OnInit {
   }
 
   constructor( private  admincompanyService: adminCompanyService,
-    private Router: Router,
+    private router: Router,
     
 
-  ){}
+  ){
+     const nav = this.router.getCurrentNavigation();
+    this.company = nav?.extras.state?.['company'];
+  }
 
 
 
