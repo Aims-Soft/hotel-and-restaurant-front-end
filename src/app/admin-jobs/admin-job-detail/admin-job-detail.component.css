@@ -1,0 +1,13 @@
+.company-logo {
+  width: 60px;     
+  height: 60px;   
+  object-fit: cover; 
+  border-radius: 50%; 
+}
+
+
+.badge-outline {
+  border: 1px solid #8E7FFF; 
+  background-color: transparent !important;
+  color:#0F1D1F; 
+}

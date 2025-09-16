@@ -32,7 +32,7 @@ import { ApplyFormComponent } from './apply-form/apply-form.component';
 import { VerticalNavComponent } from './vertical-nav/vertical-nav.component';
 import { CreateJobsComponent } from './create-jobs/create-jobs.component';
 import { ApplicationsComponent } from './applications/applications.component';
-import { ApplicationDetailsComponent } from './application-details/application-details.component';
+
 import { PrivacyComponent } from './privacy/privacy.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.component';
@@ -46,6 +46,9 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { AdminViewCompaniesComponent } from './admin-companies/admin-view-companies/admin-view-companies.component';
+import { AdminJobDetailComponent } from './admin-jobs/admin-job-detail/admin-job-detail.component';
+import { ApplicationDetailComponent } from './applications/application-detail/application-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +58,7 @@ import { AdminViewCompaniesComponent } from './admin-companies/admin-view-compan
     IntroPageComponent,
     FeaturedCompanyComponent,
     SignInComponent,
-    FooterComponent, 
+    FooterComponent,
     ContactComponent,
     DreamJobComponent,
     JobDisplayComponent,
@@ -67,7 +70,7 @@ import { AdminViewCompaniesComponent } from './admin-companies/admin-view-compan
     VerticalNavComponent,
     CreateJobsComponent,
     ApplicationsComponent,
-    ApplicationDetailsComponent,
+   
     PrivacyComponent,
     SettingsComponent,
     AdminDashbordComponent,
@@ -81,10 +84,13 @@ import { AdminViewCompaniesComponent } from './admin-companies/admin-view-compan
     AdminSettingComponent,
     SearchPipe,
     AdminViewCompaniesComponent,
+    AdminJobDetailComponent,
+    ApplicationDetailComponent,
+  
   ],
   imports: [
     BrowserModule,
-     DragDropModule ,
+    DragDropModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,

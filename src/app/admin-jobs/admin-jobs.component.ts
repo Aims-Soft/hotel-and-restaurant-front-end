@@ -62,11 +62,18 @@ export class AdminJobsComponent implements OnInit {
       );
     }
   
+  // onViewApplications(job: any): void {
+  //   this.router.navigate(['/adminjobdetail'], {
+  //     state: { jobId: job.jobID }   
+  //   });
+  // }
+
+
   onViewApplications(job: any): void {
-    this.router.navigate(['/applicationDetails'], {
-      state: { jobId: job.jobID }   
-    });
-  }
+  this.router.navigate(['/adminjobdetail'], {
+    state: { job }   
+  });
+}
   
   
     onToggleStatus(job: any): void {

@@ -1,0 +1,133 @@
+<div class="dashborad-position" *ngIf="job">
+  <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
+    <i class="bi bi-bell fs-4"></i>
+    <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
+      <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
+      <i class="bi bi-chevron-down ms-2 fs-5"></i>
+    </div>
+  </div>
+
+  <div class="container my-4 col-md-11">
+    <div class="card shadow-sm rounded-3 border-0">
+      <!-- Header -->
+      <div class="card-header bg-light border-0 p-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <img
+              [src]="job?.eLogo || 'assets/'"
+              class="company-logo me-3"
+              alt=""
+            />
+
+            <div>
+              <h5 class="fw-bold mb-0">{{ job.companyName }}</h5>
+              <p class="mb-0 fw-semibold text-muted">{{ job.jobTitle }}</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-outline-primary me-2">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div class="text-end">
+          <small class="text-muted d-block">
+            <i class="bi bi-clock me-1"></i>{{ job.postedAt }}
+          </small>
+          <h6 class="fw-bold text-success mb-0">
+            PKR {{ job.salaryRange }} /Monthly
+          </h6>
+        </div>
+
+        <!-- Job Tags -->
+        <div class="row justify-content-center align-items-center g-2">
+          <div class="col">
+            <!-- <div class="px-4 ">
+          <span class="badge  badge-outline me-2">
+            {{ job.experienceRange }} Experience
+          </span>
+          <span class="badge  badge-outline me-2">
+            {{ job.jobTypeTitle }}
+          </span>
+          <span class="badge badge-outline">
+            {{ job.jobSpaceTitle }}
+          </span>
+       
+        </div> -->
+            <div class="d-flex mt-3">
+              <p class="px-3 py-2 experience">
+                {{ job.experienceRange }} Experience
+              </p>
+              <p class="ms-3 px-3 py-2 experience">{{ job.jobTypeTitle }}</p>
+              <p class="ms-3 px-3 py-2 experience">{{ job.jobSpaceTitle }}</p>
+            </div>
+          </div>
+          <!-- <div class="col">Column</div> -->
+          <div class="col">
+            <div class="text-end">{{ job.cityName }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Info -->
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3">
+            <div>
+              <h6 class="fw-bold">Responsibilities:</h6>
+              <p class="text-muted small">
+                {{ job.responsibilities }}
+              </p>
+            </div>
+            <div>
+              <h6 class="fw-bold">Requirements:</h6>
+              <p class="text-muted small">
+                {{ job.requirements }}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <!-- skills -->
+            <div>
+              <h6 class="fw-bold">Preferred Skills:</h6>
+              <div *ngIf="job.skills?.length; else noSkills"
+                  class="d-flex flex-wrap gap-2 ">
+                <span
+                  *ngFor="let skill of job.skills"
+                  class="experience ms-3 px-3 py-2  flex-wrap"
+                >
+                  {{ skill.skillName }}
+                </span>
+              </div>
+              <ng-template #noSkills>
+                <p class="text-muted small">No Preferred Skills mentioned</p>
+              </ng-template>
+
+              <!-- benefits -->
+              <div class="mt-3">
+                <h6 class="fw-bold">Benefits:</h6>
+                <div *ngIf="job.benefits?.length; else noBenefits"
+                    class="d-flex flex-wrap gap-2">
+                  <span
+                    *ngFor="let benefit of job.benefits"
+                    class="experience   ms-3 px-3 py-2 "
+                  >
+                    {{ benefit.benefitTitle }}
+                  </span>
+                </div>
+                <ng-template #noBenefits>
+                  <p class="text-muted small">No benefits provided</p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <!-- About -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

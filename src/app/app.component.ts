@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd} from '@angular/router' 
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +9,52 @@ import { Router, NavigationEnd} from '@angular/router'
 export class AppComponent {
   title = 'career';
   constructor(public router: Router) {
-    this.router.events.subscribe(event => {
-  if (event instanceof NavigationEnd && typeof window !== 'undefined') {
-    window.scrollTo(0, 0);
-  }
-});
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
+    });
   }
   showNav(): boolean {
-    return !['/signIn','/applyForm','/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard','/admincompanies', '/adminjobs','/candidates', '/adminsettings','/registercompany','/registeryourself','/adminviewcompanies'].includes(this.router.url);
+    return ![
+      '/signIn',
+      '/applyForm',
+      '/companyDashboard',
+      '/verticalNav',
+      '/createJobs',
+      '/applications',
+      '/applicationdetails',
+      '/privacy',
+      '/settings',
+      '/adminDashboard',
+      '/admincompanies',
+      '/adminjobs',
+      '/candidates',
+      '/adminsettings',
+      '/registercompany',
+      '/registeryourself',
+      '/adminviewcompanies',
+      '/adminjobdetail',
+    ].includes(this.router.url);
   }
 
   showSideNav(): boolean {
-    return ['/companyDashboard','/verticalNav','/createJobs','/applications','/privacy','/applicationDetails','/settings','/adminDashboard' ,'/admincompanies', '/adminjobs','/candidates', '/adminsettings','/privacy','/adminviewcompanies'].includes(this.router.url); 
+    return [
+      '/companyDashboard',
+      '/verticalNav',
+      '/createJobs',
+      '/applications',
+      '/applicationdetails',
+      '/privacy',
+      '/settings',
+      '/adminDashboard',
+      '/admincompanies',
+      '/adminjobs',
+      '/candidates',
+      '/adminsettings',
+      '/privacy',
+      '/adminviewcompanies',
+      '/adminjobdetail',
+    ].includes(this.router.url);
   }
-
-  
 }

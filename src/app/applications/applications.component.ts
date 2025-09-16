@@ -9,7 +9,7 @@ import { CompanyDashboardService } from '../Services/Company Dashboard/companyDa
 @Component({
   selector: 'app-applications',
   templateUrl: './applications.component.html',
-  styleUrl: './applications.component.css',
+ styleUrls: ['./applications.component.css'],
 })
 export class ApplicationsComponent implements OnInit {
   toggleStatus: boolean = true;
@@ -57,13 +57,17 @@ export class ApplicationsComponent implements OnInit {
     );
   }
 
+// onViewApplications(job: any): void {
+//   this.router.navigate(['/applicationDetails'], {
+//     state: { jobId: job.jobID }  
+//   });
+// }
+
 onViewApplications(job: any): void {
-  this.router.navigate(['/applicationDetails'], {
-    state: { jobId: job.jobID }   // pass jobID to details page
+  this.router.navigate(['/applicationdetails'], {
+    queryParams: { jobId: job.jobID }
   });
 }
-
-
 
   onToggleStatus(job: any): void {
     const payload = {
