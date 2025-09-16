@@ -1,23 +1,23 @@
-<div class="row mx-4 mt-3 px-3 py-2 rounded box-shadow" >
+<div class="row mx-4 mt-3 px-3 py-2 rounded box-shadow" *ngFor="let job of jobs" >
     <div class="col-md-5 mt-2">
-        <h2 class="ms-2 fw-bold title">Senior Motion Graphics Designer</h2>
+        <h2 class="ms-2 fw-bold title">{{job.jobTitle}}</h2>
         <div class="d-flex">
-            <p  class="px-3 py-2 experience">3 Years Experience</p>
-            <p class="ms-3 px-3 py-2 experience" >Full Time</p>
-            <p  class="ms-3 px-3 py-2 experience" >Remote</p>
+            <p  class="px-3 py-2 experience">{{job.experienceRange}} Years Experience</p>
+            <p class="ms-3 px-3 py-2 experience" >{{job.jobTypeTitle}}</p>
+            <p  class="ms-3 px-3 py-2 experience" >{{job.jobSpaceTitle}}</p>
         </div>
         <div class="d-flex align-items-center">
             <img src="../../../../assets/images/companylogo.svg" class="img-fluid" alt="logo">
-            <h2  class=" ms-3 companyName">Novacore Solutions</h2>
+            <h2  class=" ms-3 companyName">{{job.companyName}}</h2>
         </div>
     </div>
-    <div class="col-md-3 offset-md-4 ps-5">
+    <div class="col-md-4 offset-md-3 ps-5">
         <p class="ps-5 ms-4 duration">
             <i class="bi bi-alarm"></i>
-            <small class="ms-2" style="font-size: 1em;"> 5 days ago</small>
+            <small class="ms-2" style="font-size: 1em;"> {{job.displayTime}}</small>
         </p>
-        <p class="ps-2 fw-bold stipend">Pkr 50,000/Monthly</p>
-        <p class="ps-5 city">Islamabad, Pakistan</p>
+        <p class=" fw-bold stipend">Pkr{{job.salaryRange}}/Monthly</p>
+        <p class="ps-5 city">{{job.cityName}}</p>
         <div class="ms-4"><button class="px-3 py-2 ms-5 rounded border-0 applyBtn text-white"routerLink="/companyDiscription">Apply Now</button></div>
     </div>
 </div>

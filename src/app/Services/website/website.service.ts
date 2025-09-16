@@ -22,6 +22,9 @@ export class WebsiteService {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Website/getCompanies`);
   }
 
+    getAlljobs(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Admin/AllJobs`);
+  }
 
 saveCompany(payload: any): Observable<any> {
   const headers = new HttpHeaders({
