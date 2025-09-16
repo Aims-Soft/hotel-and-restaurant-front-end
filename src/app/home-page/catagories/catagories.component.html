@@ -1,92 +1,22 @@
 <div class="container mt-4">
 
-    <!-- category header -->
-    <div class="trending-catagory-text d-flex align-items-center mx-3">
-        <img src="../../../assets/images/featured-icon.svg" alt="">
-        <h4 class="ms-3 mt-2" >TRENDING CATEGORIES</h4>
-    </div>
-    <div class="mx-3"><h1 class="catagory-header">Explore By Category</h1></div>
+  <!-- category header -->
+  <div class="trending-catagory-text d-flex align-items-center mx-3">
+    <img src="../../../assets/images/featured-icon.svg" alt="">
+    <h4 class="ms-3 mt-2">TRENDING CATEGORIES</h4>
+  </div>
+  <div class="mx-3">
+    <h1 class="catagory-header">Explore By Category</h1>
+  </div>
 
-    <!-- categort boxes -->
-
-    <div class="row mx-3 my-5">
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText ">Development</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Real Estate</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Marketing</h5>
-                <p class="catagory-box-jobNbr"> 283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Teaching</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
+  <!-- category boxes -->
+  <div class="row mx-3 my-5 g-4 category-scroll">
+    <div class="col-md-3" *ngFor="let item of Job">
+      <div class="px-3 py-3 catagory-box rounded text-center">
+        <h6 class="catagory-box-HeadText">{{ item.jobTitle }}</h6>
+        <p class="catagory-box-jobNbr">{{ item.jobCount }} Jobs Available</p>
+      </div>
     </div>
+  </div>
 
-    <div class="row mx-3 my-5">
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText ">Development</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Real Estate</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Marketing</h5>
-                <p class="catagory-box-jobNbr"> 283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Teaching</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mx-3 my-5">
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText ">Development</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Real Estate</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Marketing</h5>
-                <p class="catagory-box-jobNbr"> 283 Jobs Available</p>
-            </div>
-        </div>
-        <div class="col-md-3 ">
-            <div class=" px-3 py-3 catagory-box rounded text-center" >
-                <h5 class="catagory-box-HeadText">Teaching</h5>
-                <p class="catagory-box-jobNbr">283 Jobs Available</p>
-            </div>
-        </div>
-    </div>
 </div>
