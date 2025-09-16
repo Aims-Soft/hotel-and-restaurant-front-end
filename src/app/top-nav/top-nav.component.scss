@@ -1,0 +1,9 @@
+.dropdown .btn img {
+  object-fit: cover;
+  border: 2px solid #ddd;
+  transition: 0.3s;
+}
+
+.dropdown .btn img:hover {
+  border-color: #007bff;
+}

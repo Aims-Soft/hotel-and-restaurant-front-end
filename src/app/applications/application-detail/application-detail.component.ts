@@ -25,7 +25,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-application-detail',
   templateUrl: './application-detail.component.html',
-  styleUrl: './application-detail.component.css'
+  styleUrl: './application-detail.component.css',
 })
 export class ApplicationDetailComponent implements OnInit {
   applications: any[] = [];
@@ -42,20 +42,15 @@ export class ApplicationDetailComponent implements OnInit {
     private RegisterUserService: RegisterUserService,
     private CompanyDashboardService: CompanyDashboardService,
     private router: Router,
-    private route:ActivatedRoute,
-
+    private route: ActivatedRoute
   ) {}
 
-
   ngOnInit(): void {
-  this.route.queryParams.subscribe(params => {
-    const jobId = +params['jobId']; // convert to number
-    if (jobId) {
-      console.log('Received JobID:', jobId);
+    this.route.paramMap.subscribe((params) => {
+      const jobId = +params.get('jobId')!;
       this.getJobApplications(jobId);
-    }
-  });
-}
+    });
+  }
   // ngOnInit(): void {
   //   this.getJobApplications();
 
@@ -222,5 +217,3 @@ export class ApplicationDetailComponent implements OnInit {
   //   );
   // }
 }
-
-

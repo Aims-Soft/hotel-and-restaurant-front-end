@@ -16,45 +16,50 @@ export class AppComponent {
     });
   }
   showNav(): boolean {
-    return ![
-      '/signIn',
-      '/applyForm',
-      '/companyDashboard',
-      '/verticalNav',
-      '/createJobs',
-      '/applications',
-      '/applicationdetails',
-      '/privacy',
-      '/settings',
-      '/adminDashboard',
-      '/admincompanies',
-      '/adminjobs',
-      '/candidates',
-      '/adminsettings',
-      '/registercompany',
-      '/registeryourself',
-      '/adminviewcompanies',
-      '/adminjobdetail',
-    ].includes(this.router.url);
+    const url = this.router.url;
+    return !(
+      url.startsWith('/applicationdetails') ||
+      [
+        '/signIn',
+        '/applyForm',
+        '/companyDashboard',
+        '/verticalNav',
+        '/createJobs',
+        '/applications',
+        '/privacy',
+        '/settings',
+        '/adminDashboard',
+        '/admincompanies',
+        '/adminjobs',
+        '/candidates',
+        '/adminsettings',
+        '/registercompany',
+        '/registeryourself',
+        '/adminviewcompanies',
+        '/adminjobdetail',
+      ].includes(url)
+    );
   }
 
   showSideNav(): boolean {
-    return [
-      '/companyDashboard',
-      '/verticalNav',
-      '/createJobs',
-      '/applications',
-      '/applicationdetails',
-      '/privacy',
-      '/settings',
-      '/adminDashboard',
-      '/admincompanies',
-      '/adminjobs',
-      '/candidates',
-      '/adminsettings',
-      '/privacy',
-      '/adminviewcompanies',
-      '/adminjobdetail',
-    ].includes(this.router.url);
+    const url = this.router.url;
+    return (
+      url.startsWith('/applicationdetails') ||
+      [
+        '/companyDashboard',
+        '/verticalNav',
+        '/createJobs',
+        '/applications',
+        '/privacy',
+        '/settings',
+        '/adminDashboard',
+        '/admincompanies',
+        '/adminjobs',
+        '/candidates',
+        '/adminsettings',
+        '/adminviewcompanies',
+        '/adminjobdetail',
+      ].includes(url)
+    );
   }
 }

@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'adminDashboard', component: AdminDashbordComponent },
   { path: 'companyDashboard', component: CompanyDashboardComponent },
-  {path:'applicationdetails', component:ApplicationDetailComponent},
+  {path:'applicationdetails/:jobId', component:ApplicationDetailComponent},
   { path: 'registercompany', component: RegisterCompanyComponent },
   { path: 'registeryourself', component: RegisterYourselfComponent },
   { path: 'admincompanies', component: AdminCompaniesComponent },

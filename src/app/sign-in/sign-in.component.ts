@@ -112,7 +112,7 @@ export class SignInComponent implements OnInit {
           } else if (response.roleId === 3) {
             this.router.navigate(['/adminDashboard']);
           } else {
-            this.router.navigate(['/home']); // default page if roleId not matched
+            this.router.navigate(['/']); 
           }
         } else {
           this.errorMessage =

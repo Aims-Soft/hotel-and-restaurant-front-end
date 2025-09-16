@@ -28,7 +28,62 @@
         >Contact</a
       >
     </div>
-    <div class="col-md-3 offset-md-1">
+
+       <div class="col-md-3 offset-md-1 text-end">
+      <!-- Show Register & Sign In if NOT logged in -->
+      <ng-container *ngIf="!isLoggedIn; else profileSection">
+        <button
+          class="ms-4 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#registerModal"
+        >
+          Register
+        </button>
+        <button
+          class="ms-3 px-3 py-2 border-0 rounded text-white fw-bold btns"
+          routerLink="/signIn"
+        >
+          Sign In
+        </button>
+      </ng-container>
+
+      <!-- Profile Section if Logged In -->
+      <ng-template #profileSection>
+       <div class="dropdown">
+  <!-- Profile Image Button -->
+  <button
+    class="btn p-0 border-0 bg-transparent"
+    type="button"
+    id="profileDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <img
+      src="../../assets/images/1.png"
+      alt="Profile"
+      class="rounded-5"
+      width="60"
+      height="40"
+    />
+  </button>
+
+  <!-- Dropdown Menu -->
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+    <!-- <li>
+      <a class="dropdown-item" routerLink="/profile">My Profile</a>
+    </li> -->
+    <!-- <li><hr class="dropdown-divider" /></li> -->
+    <li>
+      <button class="dropdown-item " (click)="logout()">
+        Logout
+      </button>
+    </li>
+  </ul>
+</div>
+
+      </ng-template>
+    </div>
+    <!-- <div class="col-md-3 offset-md-1">
       <button
         class="ms-4 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
         data-bs-toggle="modal"
@@ -42,7 +97,7 @@
       >
         Sign In
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 <!-- Register Modal -->

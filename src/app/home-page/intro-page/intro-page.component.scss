@@ -8,3 +8,14 @@ input {
 input:focus {
   outline: 0;
 }
+
+.hero-sec-img {
+  position: relative;
+}
+
+.small-card {
+  position: absolute;
+  bottom: 20px;   
+  right: -30px;    
+  width: 200px;
+}

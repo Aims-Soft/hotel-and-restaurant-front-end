@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import { AuthSharedService } from '../Services/auth-shared/authShared.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vertical-nav',
@@ -11,7 +12,8 @@ import { Subscription } from 'rxjs';
 export class VerticalNavComponent implements OnInit, OnDestroy {
   constructor(
     private userSessionService: UserSessionService,
-    private authSharedService: AuthSharedService
+    private authSharedService: AuthSharedService,
+    private router:Router,
   ) {}
 
   private subscription!: Subscription;
@@ -37,6 +39,8 @@ export class VerticalNavComponent implements OnInit, OnDestroy {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentMenus');
     localStorage.removeItem('authToken');
+
+      this.router.navigate(['/']);
   }
 
   ngOnDestroy() {

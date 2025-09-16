@@ -9,7 +9,7 @@ import { CompanyDashboardService } from '../Services/Company Dashboard/companyDa
 @Component({
   selector: 'app-applications',
   templateUrl: './applications.component.html',
- styleUrls: ['./applications.component.css'],
+  styleUrls: ['./applications.component.css'],
 })
 export class ApplicationsComponent implements OnInit {
   toggleStatus: boolean = true;
@@ -34,8 +34,6 @@ export class ApplicationsComponent implements OnInit {
     private router: Router
   ) {}
 
- 
-
   getJobApplications(): void {
     this.isLoading = true;
     this.CompanyDashboardService.getJobApplications().subscribe(
@@ -57,17 +55,19 @@ export class ApplicationsComponent implements OnInit {
     );
   }
 
-// onViewApplications(job: any): void {
-//   this.router.navigate(['/applicationDetails'], {
-//     state: { jobId: job.jobID }  
-//   });
-// }
+  // onViewApplications(job: any): void {
+  //   this.router.navigate(['/applicationDetails'], {
+  //     state: { jobId: job.jobID }
+  //   });
+  // }
 
-onViewApplications(job: any): void {
-  this.router.navigate(['/applicationdetails'], {
-    queryParams: { jobId: job.jobID }
-  });
-}
+  onViewApplications(job: any): void {
+    this.router.navigate(['/applicationdetails', job.jobID]);
+
+    // this.router.navigate(['/applicationdetails/:jobId'], {
+    //   queryParams: { jobId: job.jobID }
+    // });
+  }
 
   onToggleStatus(job: any): void {
     const payload = {
