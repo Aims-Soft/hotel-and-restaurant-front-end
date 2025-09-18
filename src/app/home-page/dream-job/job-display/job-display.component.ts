@@ -13,6 +13,9 @@ export class JobDisplayComponent implements OnInit {
     isLoading: boolean = false;
  jobs: any[] = [];
 
+  displayedJobs: any[] = [];  
+  showAll: boolean = false; 
+
 
   
 
@@ -30,6 +33,19 @@ export class JobDisplayComponent implements OnInit {
    }
 
 
+   goToApply(jobId: number): void {
+  const user = this.usersessionservice.getUserID(); 
+
+  if (user) {
+
+    this.router.navigate(['/companyDiscription', jobId]);
+  } else {
+  
+    this.router.navigate(['/signIn']);
+  }
+}
+
+
     getAlljobs(): void {
     this.isLoading = true;
     this.websiteservice.getAlljobs().subscribe(
@@ -43,6 +59,8 @@ export class JobDisplayComponent implements OnInit {
        
         }));
 
+         this.displayedJobs = this.jobs.slice(0, 5);
+
         console.log(this.jobs, ' ALL jobs');
       },
       (error: any) => {
@@ -51,5 +69,15 @@ export class JobDisplayComponent implements OnInit {
       }
     );
   }
+
+    toggleJobs(): void {
+    this.showAll = !this.showAll;
+    if (this.showAll) {
+      this.displayedJobs = this.jobs;  
+    } else {
+      this.displayedJobs = this.jobs.slice(0, 5); 
+    }
+  }
+
 
 }

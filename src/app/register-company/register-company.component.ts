@@ -199,7 +199,7 @@ export class RegisterCompanyComponent implements OnInit {
     this.CompanyRegistrationService.getCompanyDomain().subscribe(
       (response) => {
         this.isLoading = false;
-        this.companyDomains = response; // [{id:1,name:"PHP"},...]
+        this.companyDomains = response; 
         console.log('Company Domains:', response);
       },
       (error) => {
@@ -563,7 +563,7 @@ export class RegisterCompanyComponent implements OnInit {
     });
   }
 
-  // ✅ Reset form after success
+ 
   resetForm(): void {
     this.companyName = '';
     this.companyEmail = '';

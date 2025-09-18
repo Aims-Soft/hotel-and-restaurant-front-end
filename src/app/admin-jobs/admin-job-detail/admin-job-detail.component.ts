@@ -63,7 +63,7 @@ export class AdminJobDetailComponent  implements OnInit{
 
       getadminjobs(): void {
       this.isLoading = true;
-      this.adminjobService.getadminjobs().subscribe(
+      this.adminjobService.getAdminJobs(0).subscribe(
         (response: any[]) => {
        
           this.isLoading = false;

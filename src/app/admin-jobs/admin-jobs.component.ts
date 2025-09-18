@@ -24,7 +24,7 @@ export class AdminJobsComponent implements OnInit {
     ngOnInit(): void {
      
    
-      this.getadminjobs();
+      this. getAdminJobsList();
       
     }
     constructor(
@@ -38,29 +38,52 @@ export class AdminJobsComponent implements OnInit {
   
     }
   
+getAdminJobsList(companyID: number = 0): void {
+  this.isLoading = true;
+  this.adminjobService.getAdminJobs(companyID).subscribe(
+    (response: any[]) => {
+      this.isLoading = false;
+
+      this.jobApplications = response.map((job) => ({
+        ...job,
+        toggleStatus: job.jobStatusID === 1,
+      }));
+
+      console.log(
+        companyID === 0 ? 'All jobs:' : `Jobs for companyID: ${companyID}`,
+        this.jobApplications
+      );
+    },
+    (error: any) => {
+      this.isLoading = false;
+      console.error('Error fetching job Details:', error);
+    }
+  );
+}
+
       
   
-      getadminjobs(): void {
-      this.isLoading = true;
-      this.adminjobService.getadminjobs().subscribe(
-        (response: any[]) => {
+    //   getadminjobs(): void {
+    //   this.isLoading = true;
+    //   this.adminjobService.getAdminJobs(0).subscribe(
+    //     (response: any[]) => {
        
-          this.isLoading = false;
+    //       this.isLoading = false;
   
-          // map job status
-          this.jobApplications = response.map((job) => ({
-            ...job,
-            toggleStatus: job.jobStatusID === 1,
-          }));
+    //       // map job status
+    //       this.jobApplications = response.map((job) => ({
+    //         ...job,
+    //         toggleStatus: job.jobStatusID === 1,
+    //       }));
   
-          console.log(this.jobApplications, ' jobs with toggleStatus');
-        },
-        (error: any) => {
-          this.isLoading = false;
-          console.error('Error fetching job Details:', error);
-        }
-      );
-    }
+    //       console.log(this.jobApplications, ' jobs with toggleStatus');
+    //     },
+    //     (error: any) => {
+    //       this.isLoading = false;
+    //       console.error('Error fetching job Details:', error);
+    //     }
+    //   );
+    // }
   
   // onViewApplications(job: any): void {
   //   this.router.navigate(['/adminjobdetail'], {

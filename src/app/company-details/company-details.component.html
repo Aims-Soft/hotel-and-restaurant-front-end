@@ -8,7 +8,7 @@
   </p>
 </div>
 
-<div class="container mb-3">
+<div class="container mb-3" *ngIf="companydetails">
   <div class="mt-3 rounded" style="background-color: #f2f1fe">
     <div class="d-flex py-4 px-3">
       <img
@@ -18,28 +18,74 @@
       />
       <div class="ms-3">
         <h5 class="fw-bold" style="color: #0d0125; font-size: 1.4em">
-          Swift Haven
+          
+          {{companydetails.companyName}}
+       
         </h5>
-        <p style="color: #0f1d1f">Pakistan | Islamabad</p>
+        <p style="color: #0f1d1f"> {{companydetails.countryName}} | {{companydetails.cityName}}</p>
       </div>
     </div>
     <div class="d-flex row" style="margin-left: 3.5em; margin-top: -1.5em">
       <div class="d-flex ms-5 col-md-2" style="font-size: 1.1em">
         <i class="bi bi-globe"></i>
-        <p class="ms-2">www.swift.com</p>
+        <p class="ms-2">{{companydetails.websiteLink}}</p>
       </div>
       <div class="d-flex ms-5 col-md-2" style="font-size: 1.1em">
         <i class="bi bi-envelope"></i>
-        <p class="ms-2">swiftgmail.com</p>
+        <p class="ms-2">{{companydetails.email}}</p>
       </div>
       <div class="d-flex ms-5 col-md-2" style="font-size: 1.1em">
         <i class="bi bi-telephone"></i>
-        <p class="ms-2">921234567238</p>
+        <p class="ms-2">{{companydetails.contact}}</p>
       </div>
     </div>
   </div>
 
-  <div class="row mt-5">
+
+
+    <!-- Company Info -->
+      <div class="card-body mt-3">
+        <div class="row text-center mb-3">
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-layers fs-4 text-primary"></i>
+              <p class="fw-semibold mb-0">Industry Category</p>
+              <small class="text-muted">{{ companydetails.companyTypeID }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-people fs-4 text-success"></i>
+              <p class="fw-semibold mb-0">Employees</p>
+              <small class="text-muted">{{ companydetails.employeeRange }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-geo-alt fs-4 text-danger"></i>
+              <p class="fw-semibold mb-0">Address</p>
+              <small class="text-muted">{{ companydetails.address }}</small>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="border rounded p-3 h-100">
+              <i class="bi bi-calendar fs-4 text-warning"></i>
+              <p class="fw-semibold mb-0">Founded</p>
+              <small class="text-muted">{{ companydetails.foundedIn | date }}</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- About -->
+        <!-- <div>
+          <h6 class="fw-bold">About The Company</h6>
+          <p class="text-muted small">
+            {{ companydetails.description }}
+          </p>
+        </div>
+      </div> -->
+
+  <!-- <div class="row mt-5">
     <div class="col-md-3">
       <div class="d-flex align-items-center">
         <div class="p-3 rounded" style="background-color: #f2f1fe">
@@ -51,7 +97,7 @@
         </div>
         <div class="ms-3 d-flex flex-column">
           <span>Industry Catagory</span>
-          <span class="fw-bold fs-5" style="color: #0d0125">Design Agency</span>
+          <span class="fw-bold fs-5" style="color: #0d0125"></span>
         </div>
       </div>
     </div>
@@ -101,32 +147,16 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="mt-5">
     <h3 class="fw-bold" style="color: #0d0125;">About The Company</h3>
     <p class="mt-3" style="color: #0F1D1F;">
-      BestJob is a design agency that ignites brands with creativity. We believe
-      in the power of design to not only enhance aesthetics but also drive
-      meaningful impact. Our team of passionate designers, strategists, and
-      innovators collaborate closely with clients to translate their visions
-      into compelling brand experiences. We specialize in [mention key areas
-      like branding, digital design, UX/UI, etc.], crafting unique solutions
-      that resonate with audiences and achieve business objectives. helps
-      businesses achieve their goals through the power of design. We translate
-      brand strategies into compelling visual experiences that resonate with
-      audiences and drive measurable results. Whether it's increasing brand
-      awareness, boosting conversions, or enhancing customer loyalty, we have
-      the expertise and the passion to deliver impactful design solutions.
+
+       {{ companydetails.description }}
+     
     </p>
-    <p>
-      Our team of passionate designers, strategists, and innovators collaborate
-      closely with clients to translate their visions into compelling brand
-      experiences. We specialize in [mention key areas like branding, digital
-      design, UX/UI, etc.], crafting unique solutions that resonate with
-      audiences and achieve business objectives. helps businesses achieve their
-      goals through the power of design.
-    </p>
+ 
   </div>
 
   <button class="btn text-white px-3 py-2" style="background-color: #1A0052;">Go Back</button>
@@ -139,8 +169,37 @@
     <h3 class="fw-bold" style="font-size: 56px; color: #0D0125;">Jobs In this Company</h3>
    
   </div>
-  <app-job-display></app-job-display>
-  <app-job-display></app-job-display>
+  <!-- <app-job-display></app-job-display> -->
+
+
+
+  <div class="row mx-4 mt-3 px-3 py-2 rounded box-shadow" *ngFor="let job of jobs" >
+    <div class="col-md-5 mt-2">
+        <h2 class="ms-2 fw-bold title">{{job.jobTitle}}</h2>
+        <div class="d-flex">
+            <p  class="px-3 py-2 experience">{{job.experienceRange}} Years Experience</p>
+            <p class="ms-3 px-3 py-2 experience" >{{job.jobTypeTitle}}</p>
+            <p  class="ms-3 px-3 py-2 experience" >{{job.jobSpaceTitle}}</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <img src="../../../../assets/images/companylogo.svg" class="img-fluid" alt="logo">
+            <h2  class=" ms-3 companyName">{{job.companyName}}</h2>
+        </div>
+    </div>
+    <div class="col-md-4 offset-md-3 ps-5">
+        <p class="ps-5 ms-4 duration">
+            <i class="bi bi-alarm"></i>
+            <small class="ms-2" style="font-size: 1em;"> {{job.displayTime}}</small>
+        </p>
+        <p class=" fw-bold stipend">Pkr{{job.salaryRange}}/Monthly</p>
+        <p class="ps-5 city">{{job.cityName}}</p>
+        <div class="ms-4"><button class="px-3 py-2 ms-5 rounded border-0 applyBtn text-white"   (click)="goToApply(job.jobID)">Apply Now</button></div>
+    </div>
+</div>
+
+
+ 
+</div>
 </div>
 <app-footer></app-footer>
  

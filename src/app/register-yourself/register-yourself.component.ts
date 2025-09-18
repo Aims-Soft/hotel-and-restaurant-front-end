@@ -58,6 +58,7 @@ selectedGender: number | null = null;
     this.getExperience();
      this.getCountries(); 
      this.getCities();
+     this.getCompanyDomain();
    
   }
 
@@ -221,16 +222,11 @@ onRegister(): void {
     cnic:this.cnic,
     companyName: this.companyName,
     password: this.password,
-    companyEmail: this.companyEmail,
-    foundedIn: this.foundedIn,
-    // websiteLink: this.websiteLink,
-    address: this.address,
-    // description: this.description,
+    email: this.companyEmail,
+    address:this.address,
     profession: this.profession,
-    // eLogo: null,    
-    // eLogoPath: "",
-    // eLogoExt: "",
-    eResume: null,   
+    contactNo:this.contactNo,
+   eResume: null,   
     eResumePath: "",
     eResumeExt: "",
     eDoc: null,        
@@ -240,14 +236,18 @@ onRegister(): void {
     studyLevelID: this.selectedDegree,
     companyStatusID: 1,
     cityID: this.selectedCity,
-   genderID: this.selectedGender,
-    roleID: 2,         
-    userTypeID: 2,      
-    // json: JSON.stringify(this.selectedDomains), 
+  genderID: Number(this.selectedGender),
+   json: JSON.stringify(this.selectedDomains),
+    roleID: 1,         
+    userTypeID: 1,      
+   
     spType: "insert"
   };
 
-  // File conversion logic here...
+  //   console.log("Selected Domains:", this.selectedDomains);
+  // console.log("Payload JSON:", JSON.stringify(this.selectedDomains));
+
+
   const filePromises: Promise<void>[] = [];
 
   if (this.selectedFile) {
@@ -278,11 +278,11 @@ onRegister(): void {
         payload.eResumeExt = this.selectedBannerFile?.name.split('.').pop() || '';
         resolve();
       };
-      // Add null check before calling readAsDataURL
+   
       if (this.selectedBannerFile) {
         reader.readAsDataURL(this.selectedBannerFile);
       } else {
-        resolve(); // Resolve immediately if file is null
+        resolve(); 
       }
     });
     filePromises.push(bannerPromise);
@@ -293,17 +293,46 @@ onRegister(): void {
     
     this.RegisterUserService.saveUser(payload).subscribe({
       next: (res) => {
-        console.log("Company registered:", res);
-        alert("Company registered successfully!");
+        console.log("user registered:", res);
+        alert("User registered successfully!");
       },
       error: (err) => {
         console.error("Error:", err);
         console.error("Error details:", err.error); 
-        alert("Failed to register company.");
+        alert("Failed to register user.");
       }
     });
   });
 }
+
+
+  getCompanyDomain(): void {
+    this.isLoading = true;
+    this.CompanyRegistrationService.getCompanyDomain().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.companyDomains = response; 
+        console.log('Company Domains:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching company domains:', error);
+      }
+    );
+  }
+
+  toggleDomain(domainId: number): void {
+    if (this.selectedDomains.includes(domainId)) {
+      // remove if already selected
+      this.selectedDomains = this.selectedDomains.filter(
+        (id) => id !== domainId
+      );
+    } else {
+      // add if not selected
+      this.selectedDomains.push(domainId);
+    }
+    console.log('Selected Domains:', this.selectedDomains);
+  }
 
 
 

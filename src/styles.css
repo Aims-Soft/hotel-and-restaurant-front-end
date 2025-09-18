@@ -372,9 +372,23 @@ color: #828282;
   border: 1px solid #eae6e6;
 }
 
-.apply-btn-style{
+.apply-btn-style {
   background-color: var(--secondary);
+  color: #fff; 
+  border: none; 
 }
+
+.apply-btn-style:hover,
+.apply-btn-style:focus,
+.apply-btn-style:active {
+  background-color: var(--secondary) !important;
+  color: #fff !important;
+  box-shadow: none !important; 
+}
+
+/* .apply-btn-style{
+  background-color: var(--secondary);
+} */
   /* create jobs */
 
   .add-you-job{

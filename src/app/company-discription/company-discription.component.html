@@ -1,7 +1,7 @@
 <div style="font-family: Hanken_grostek">
   <div style="background-color: #f2f1fe" class="py-4 text-center">
     <h1 class="fw-bold" style="color: #0d0125; font-size: 4.5em">
-      Novacore Solution
+      {{ job?.companyName }}
     </h1>
     <p style="color: #0f1d1f; font-size: 1.1em">
       Emphasizes the value proposition for both job seekers and employers and
@@ -13,13 +13,10 @@
   <div class="container">
     <div
       class="row mx-4 mt-3 px-3 py-2 rounded"
-      style="box-shadow: 0 0 2px rgb(195, 192, 192);
-      background-color: #f2f1fe;"
+      style="box-shadow: 0 0 2px rgb(195, 192, 192); background-color: #f2f1fe"
     >
       <div class="col-md-5 mt-2">
-        <h2 style="color: #0d0125; font-size: 1.2em" class="ms-2 fw-bold">
-          Senior Motion Graphics Designer
-        </h2>
+        <h2 style="color: #0d0125; font-size: 1.2em" class="ms-2 fw-bold"></h2>
         <div class="d-flex">
           <p
             class="px-3 py-2"
@@ -30,7 +27,7 @@
               color: #0f1d1f;
             "
           >
-            3 Years Experience
+            {{ job?.experienceRange }} Years Experience
           </p>
           <p
             class="ms-3 px-3 py-2"
@@ -40,7 +37,7 @@
               color: #0f1d1f;
             "
           >
-            Full Time
+            {{ job?.jobTypeTitle }}
           </p>
           <p
             class="ms-3 px-3 py-2"
@@ -50,7 +47,7 @@
               color: #0f1d1f;
             "
           >
-            Remote
+            {{ job?.jobSpaceTitle }}
           </p>
         </div>
         <div class="d-flex align-items-center">
@@ -60,106 +57,87 @@
             alt="logo"
           />
           <h2 style="color: #0d0125; font-size: 1.4em" class="ms-3">
-            Novacore Solutions
+            {{ job?.companyName }}
           </h2>
         </div>
       </div>
-      <div class="col-md-3 offset-md-4 ps-5">
+      <div class="col-md-4 offset-md-3 ps-5">
         <p class="ps-5 ms-4" style="color: #8e7fff">
           <i class="bi bi-alarm"></i>
-          <small class="ms-2" style="font-size: 1em"> 5 days ago</small>
+          <small class="ms-2" style="font-size: 1em">
+            {{ job?.displayTime }}</small
+          >
         </p>
         <p
-          class="ps-2 fw-bold"
+          class=" fw-bold"
           style="color: #0d0125; font-size: 1.2em; margin-top: -0.6em"
         >
-          Pkr 50,000/Monthly
+          Pkr {{ job?.salaryRange }} /Monthly
         </p>
         <p class="ps-5" style="color: #0f1d1f; margin-top: -0.3em">
-          Islamabad, Pakistan
+          {{ job?.cityName }}
         </p>
         <div class="ms-4">
           <button
             class="px-3 py-2 ms-5 rounded border-0"
             style="background-color: #8e7fff; color: white"
-            routerLink="/applyForm"
+          (click)="goToApply(job.jobID)"
           >
+            <!-- routerLink="/applyForm" -->
             Apply Now
           </button>
         </div>
       </div>
     </div>
     <!-- All requirments & Detail -->
-     <div class="row mt-4">
-        <div class="col-md-6">
-            <h3 class="fw-bold" style="color: #192C2E;">Responsibilities</h3>
-            <ul style="font-size: 1.2em;">
-                <li>Develop, customize, and maintain CMS-based websites (WordPress, Joomla, Drupal, or others).</li>
-                <li>Collaborate with designers and content creators to implement visually appealing and responsive designs.</li>
-                <li>Optimize website performance and troubleshoot issues.</li>
-                <li>Integrate third-party tools, plugins, and APIs.</li>
-                <li>Ensure website security, backups, and regular updates.</li>
-                <li>Write clean, scalable, and well-documented code.</li>
-                <li>Stay updated with the latest CMS technologies, trends, and best practices.</li>
-                <li>Collaborate with cross-functional teams to deliver projects on time.</li>
-            </ul>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h3 class="fw-bold" style="color: #192c2e">Responsibilities</h3>
+        <ul style="font-size: 1.2em">
+          <li>{{ job?.responsibilities }}.</li>
+        </ul>
 
-            <!-- Requirments -->
-             <h3 class="fw-bold" style="color: #192C2E;">Requirments</h3>
-             <ul style="font-size: 1.2em;">
-                <li>Proven experience as a Web Developer, specifically working with CMS platforms.</li>
-                <li>Proficiency in HTML5, CSS3, JavaScript, PHP, and MySQL.</li>
-                <li>Experience with CMS platforms such as WordPress, Joomla, or Drupal.</li>
-                <li>Knowledge of custom theme and plugin development.</li>
-                <li>Strong problem-solving skills and attention to detail.</li>
-                <li>Familiarity with SEO principles and website optimization techniques.</li>
-                <li>Strong problem-solving skills and attention to detail.</li>
-                <li>Excellent communication and time-management skills.</li>
-             </ul>
-             <button class="btn text-white mb-2" style="background-color: #1A0052;">Go back</button>
-        </div>
-        <!-- Preffered skills -->
-        <div class="col-md-5 ms-4">
-            <h3  class="fw-bold" style="color: #192C2E;">Preferred Skills</h3>
+        <!-- Requirments -->
+        <h3 class="fw-bold" style="color: #192c2e">Requirments</h3>
+        <ul style="font-size: 1.2em">
+          <li>{{ job?.requirements }}.</li>
+        </ul>
+       
+      </div>
+      
+      <!-- Preffered skills -->
+      <div class="col-md-5 ms-4">
+        <!-- <h3  class="fw-bold" style="color: #192C2E;">Preferred Skills</h3>
             <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">PHP</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">AWS</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">.NET</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Laraval</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Flutter</span>
-        </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">JAVA</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">React Native</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Python</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">UI/UX</span>
-        </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">WordPress</span>
+                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">  {{ skill.skillName }}</span>
+            -->
+        <h3 class="fw-bold" style="color: #192c2e">Preferred Skills</h3>
+        <div class="mt-4 d-flex flex-wrap gap-2">
+          <span
+            *ngFor="let skill of job?.skills"
+            class="px-3 py-2 rounded ms-2"
+            style="border: 1px solid rgb(182, 182, 182)"
+          >
+            {{ skill.skillName }}
+          </span>
         </div>
 
         <!-- Benefits -->
-        <h3  class="fw-bold mt-5" style="color: #192C2E;">Benefits</h3>
-            <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">5 days a week</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Paid time off</span>
+        <h3 class="fw-bold mt-5" style="color: #192c2e">Benefits</h3>
+        <div class="mt-4 d-flex flex-wrap gap-1">
+          <span
+            *ngFor="let benefit of job?.benefits"
+            class="px-3 py-2 rounded ms-2 "
+            style="border: 1px solid rgb(182, 182, 182)"
+          >
+            {{ benefit.benefitTitle }}
+          </span>
         </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">Paid time off</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Profit sharing</span>
-        </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">Medical Insurance</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Foul Adjusments</span>
-        </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded" style="border: 1px solid rgb(182, 182, 182);">Foul Adjusments</span>
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Foul Adjusments</span>
-        </div>
-        <div class="mt-4">
-                <span class="px-3 py-2 rounded ms-2" style="border: 1px solid rgb(182, 182, 182);">Foul Adjusments</span>
-        </div>
-     </div>
+      </div>
+    </div>
+     <button class="btn text-white mb-2" style="background-color: #1a0052">
+          Go back
+        </button>
   </div>
 </div>
 <app-footer></app-footer>

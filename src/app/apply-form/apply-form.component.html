@@ -10,30 +10,37 @@
       </div>
     </div>
     <div class="row mt-4 mx-5">
-      <div class="col-md-6">
-        <p>Profile Image</p>
-        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
-          <div>
-            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
-            <p class="mt-3 pic-border-inner">
-              Supported Formats: PDF, PNG, JPG
-            </p>
-          </div>
-        </label>
-        <input type="file" id="image" class="d-none" />
-      </div>
-      <div class="col-md-6">
-        <p>Upload Resume</p>
-        <label for="image" class="mt-3 text-center py-1 d-block pic-border">
-          <div>
-            <i class="bi bi-file-earmark-image fs-4 apply-job"></i>
-            <p class="mt-3 pic-border-inner">
-              Supported Formats: PDF, PNG, JPG
-            </p>
-          </div>
-        </label>
-        <input type="file" id="image" class="d-none" accept=".png, .jpg, .jpeg, .pdf" />
-      </div>
+<div class="col-md-6">
+  <p>Profile Image</p>
+  <div class="mt-3 text-center py-1 d-block pic-border">
+    <div *ngIf="userData?.eDoc; else noProfile">
+      <img
+        [src]="userData?.eDoc"
+        alt="Profile Image"
+        class="img-fluid"
+        style="max-height: 150px; object-fit: contain;"
+      />
+    </div>
+    <ng-template #noProfile>
+      <p class="mt-3 pic-border-inner text-muted">No Profile Image</p>
+    </ng-template>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <p>Upload Resume</p>
+  <div class="mt-3 text-center py-1 d-block pic-border">
+    <div *ngIf="userData?.eResume; else noResume">
+      <a [href]="userData?.eResume" target="_blank" class="btn btn-outline-primary">
+        View Resume
+      </a>
+    </div>
+    <ng-template #noResume>
+      <p class="mt-3 pic-border-inner text-muted">No Resume Uploaded</p>
+    </ng-template>
+  </div>
+</div>
+
     </div>
     <!-- FORM -->
     <form action="" class="mx-5 my-4">
@@ -41,24 +48,35 @@
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="name">User Name</label>
-            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="Amad" name="" id="name" />
+            <!-- <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="NAME" name="" id="name"
+            [(ngModel)]="userData.userName" name="userName"  /> -->
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border"
+       [(ngModel)]="userData.userName" name="userName"  disabled/>
+
           </div>
         </div>
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="Profession">Profession</label>
-            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="Teaching" name=""
-              id="Profession" />
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border"
+             [(ngModel)]="userData.profession" name="profession" disabled />
           </div>
         </div>
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="name">Study Level</label>
-            <select name="cars" id="cars" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">BSCS</option>
-              <option value="saab">MSCS</option>
-              <option value="opel">M-PHIL</option>
+             <!-- <input class="rounded px-2 py-2 mt-2 input-border text-secondary"
+              [(ngModel)]="userData.studyLevelTitle" name="studyLevelTitle" disabled> -->
+                   <select class="form-select rounded px-2 py-2 mt-2 input-border text-secondary" (change)="onStudyChange($event)">
+              <option selected disabled>Select Study Level</option>
+              <option
+                *ngFor="let item of DegreeLevel"
+                [value]="item.studyLevelID"
+              >
+                {{ item.studyLevelTitle }}
+              </option>
             </select>
+           
           </div>
         </div>
       </div>
@@ -66,31 +84,31 @@
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="Experience">Experience</label>
-            <select name="cars" id="Experience" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">1 year</option>
-              <option value="saab">2 years</option>
-              <option value="opel" selected>3 years</option>
+              <!-- <input class="rounded px-2 py-2 mt-2 input-border text-secondary"
+              [(ngModel)]="userData.experienceRange" name="experienceRange" disabled> -->
+                 <select class="form-select rounded px-2 py-2 mt-2 input-border text-secondary" (change)="onExperienceChange($event)">
+              <option selected disabled>Select Experience</option>
+              <option
+                *ngFor="let item of experience"
+                [value]="item.experienceID"
+              >
+                {{ item.experienceRange }}
+              </option>
             </select>
           </div>
         </div>
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="Country">Country</label>
-            <select name="cars" id="Country" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">Pakistan</option>
-              <option value="saab">USA</option>
-              <option value="opel">Turkey</option>
-            </select>
+           <input class="rounded px-2 py-2 mt-2 input-border text-secondary"
+              [(ngModel)]="userData.countryName" name="countryName" disabled>
           </div>
         </div>
        <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="City">City</label>
-            <select name="cars" id="City" class="rounded px-2 py-2 mt-2 input-border text-secondary">
-              <option value="volvo">Islamabad</option>
-              <option value="saab">Lahore</option>
-              <option value="opel">Karachi</option>
-            </select>
+              <input class="rounded px-2 py-2 mt-2 input-border text-secondary"
+              [(ngModel)]="userData.cityName" name="cityName" disabled>
           </div>
         </div>
       </div>
@@ -99,22 +117,22 @@
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="nbr">Contact No</label>
-            <input type="text" class="rounded px-2 py-2 mt-2 input-border" placeholder="0000-00000000" name=""
-              id="nbr" />
+            <input type="text" class="rounded px-2 py-2 mt-2 input-border"
+       [(ngModel)]="userData.contactNo" name="contactNo"  disabled/>
           </div>
         </div>
         <div class="col-md-4">
           <div class="d-flex flex-column">
             <label for="mail">Email</label>
-            <input type="email" class="rounded px-2 py-2 mt-2 input-border" placeholder="name@gmail.com" name=""
-              id="mail" />
+            <input type="email" class="rounded px-2 py-2 mt-2 input-border"
+             [(ngModel)]="userData.email" name="email" disabled />
           </div>
         </div>
         <div class="col-md-4">
           <div class="d-flex flex-column">
-            <label for="Address">Profession</label>
-            <input type="text" class="rounded px-2 py-2 mt-2 form-control input-border" placeholder="Address goes here"
-              name="" id="Address" />
+            <label for="Address">Address</label>
+          <input type="email" class="rounded px-2 py-2 mt-2 input-border"
+             [(ngModel)]="userData.address" name="address" disabled />
           </div>
         </div>
       </div>
@@ -122,7 +140,7 @@
     <!-- Bottom Button -->
     <div class="text-end mx-5 mb-4">
       <button class="btn me-3 cancel-btn-border">Cancel</button>
-      <button class="btn text-white px-3 apply-btn-style">Apply</button>
+      <button class="btn text-white px-3 apply-btn-style" (click)="onRegister()">Apply</button>
     </div>
   </div>
 </div>

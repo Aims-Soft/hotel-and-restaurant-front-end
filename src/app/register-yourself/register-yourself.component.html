@@ -265,6 +265,20 @@
               placeholder="Enter Confrim Password"
             />
           </div>
+
+            <div class="mb-4">
+        <p class="form-label">Domains</p>
+        <div class="skills-container">
+          <span
+            *ngFor="let domain of companyDomains"
+            class="skill-tag flex-wrap"
+            [class.selected]="selectedDomains.includes(domain.domainID)"
+            (click)="toggleDomain(domain.domainID)"
+          >
+            {{ domain.domainTitle }}
+          </span>
+        </div>
+      </div>
         </div>
 
         <!-- Form Actions -->

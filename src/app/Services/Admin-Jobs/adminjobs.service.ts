@@ -11,11 +11,17 @@ export class adminJobsService {
 
   constructor(private http: HttpClient) {}
 
-  getadminjobs(): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}job-api/Admin/AllJobs`
-    );
-  }
+  // getadminjobs(): Observable<any> {
+  //   return this.http.get<any>(
+  //     `${this.apiUrl}job-api/Admin/AllJobs`
+  //   );
+  // }
+
+ getAdminJobs(companyID: number = 0): Observable<any> {
+  return this.http.get<any>(
+    `${this.apiUrl}job-api/Admin/AllJobs?companyID=${companyID}`
+  );
+}
 
   getActivejobs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getActiveJob`);

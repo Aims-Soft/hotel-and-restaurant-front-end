@@ -20,7 +20,21 @@
 
     <!-- Login Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-75">
+
+
+        <div *ngIf="showError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ errorMessage }}
+    <button type="button" class="btn-close" (click)="showError=false"></button>
+  </div>
+
+  <!-- Show Success Message -->
+  <div *ngIf="showSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="showSuccess=false"></button>
+  </div>
       
+
+
       <!-- Email Field -->
       <div class="mb-3">
         <div class="input-group">

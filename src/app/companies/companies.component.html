@@ -12,7 +12,7 @@
  <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
     <a
       href=""
-      routerLink="/companyDetails"
+      [routerLink]="['/companyDetails', item.companyID]"
       class="col-md-3 px-4 text-decoration-none company-title-font-color"
          *ngFor="let item of visibleCompanies"
     >
