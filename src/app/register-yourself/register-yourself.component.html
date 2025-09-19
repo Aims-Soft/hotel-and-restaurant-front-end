@@ -87,37 +87,44 @@
         <!-- <h4 class="section-title">Basic Information</h4> -->
         <div class="row mb-4">
           <div class="col-md-4 mb-3">
-      <label class="form-label">User Name</label>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter User Name"
-        [(ngModel)]="userName"
-        name="userName"
-        required
-        #userNameCtrl="ngModel"
-      />
-      <div *ngIf="userNameCtrl.invalid && userNameCtrl.touched" class="text-danger small">
-        User name is required
-      </div>
-    </div>
-           <div class="col-md-4 mb-3">
-      <label class="form-label">User CNIC</label>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter CNIC"
-        [(ngModel)]="cnic"
-        name="cnic"
-        required
-        minlength="13"
-        maxlength="13"
-        #cnicCtrl="ngModel"
-      />
-      <div *ngIf="cnicCtrl.invalid && cnicCtrl.touched" class="text-danger small">
-        CNIC must be 13 digits
-      </div>
-    </div>
+            <label class="form-label">User Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter User Name"
+              [(ngModel)]="userName"
+              name="userName"
+              required
+              #userNameCtrl="ngModel"
+            />
+            <div
+              *ngIf="userNameCtrl.invalid && userNameCtrl.touched"
+              class="text-danger small"
+            >
+              User name is required
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">User CNIC</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter CNIC"
+              [(ngModel)]="cnic"
+              name="cnic"
+              required
+              minlength="13"
+              maxlength="13"
+              #cnicCtrl="ngModel"
+              required
+            />
+            <div
+              *ngIf="cnicCtrl.invalid && cnicCtrl.touched"
+              class="text-danger small"
+            >
+              CNIC must be 13 digits
+            </div>
+          </div>
 
           <div class="col-md-4 mb-3">
             <label class="form-label">Profession</label>
@@ -127,7 +134,15 @@
               placeholder="Enter profession"
               [(ngModel)]="profession"
               name="profession"
+              required
+              #professionCtrl="ngModel"
             />
+            <div
+              *ngIf="professionCtrl.invalid && professionCtrl.touched"
+              class="text-danger small"
+            >
+              Enter Profession
+            </div>
           </div>
         </div>
 
@@ -197,7 +212,15 @@
                 placeholder="Phone number"
                 [(ngModel)]="contactNo"
                 name="contactNo"
+                required
+                #contactNoCtrl="ngModel"
               />
+              <div
+                *ngIf="contactNoCtrl.invalid && contactNoCtrl.touched"
+                class="text-danger small"
+              >
+                Enter Contact Number
+              </div>
             </div>
             <div class="col-md-4 mb-3">
               <label class="form-label">Address</label>
@@ -207,7 +230,15 @@
                 placeholder="Address"
                 [(ngModel)]="address"
                 name="address"
+                required
+                #addressCtrl="ngModel"
               />
+              <div
+                *ngIf="addressCtrl.invalid && addressCtrl.touched"
+                class="text-danger small"
+              >
+                Enter your Address
+              </div>
             </div>
 
             <div class="col-md-4 mb-3">
@@ -225,26 +256,60 @@
             </div>
 
             <div class="col-md-4 mb-3">
-      <label class="form-label">Email</label>
-      <input
-        type="email"
-        class="form-control"
-        placeholder="Email address"
-        [(ngModel)]="companyEmail"
-        name="companyEmail"
-        required
-        email
-        #emailCtrl="ngModel"
-      />
-      <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger small">
-        Enter a valid email address
-      </div>
-    </div>
-  
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                [(ngModel)]="companyEmail"
+                name="companyEmail"
+                required
+                email
+                #emailCtrl="ngModel"
+              />
+              <div
+                *ngIf="emailCtrl.invalid && emailCtrl.touched"
+                class="text-danger small"
+              >
+                Enter a valid email address
+              </div>
+            </div>
+
             <!-- Account Security -->
             <!-- <h4 class="section-title">Account Security</h4> -->
 
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3 position-relative">
+              <label class="form-label">Password</label>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-control"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="Enter Password"
+                required
+                #passwordCtrl="ngModel"
+                (input)="checkPasswordMatch()"
+              />
+              <div
+                *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
+                class="text-danger small"
+              >
+                Enter your Password
+              </div>
+
+              <i
+                class="fas"
+                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                (click)="showPassword = !showPassword"
+                style="
+                  position: absolute;
+                  top: 38px;
+                  right: 15px;
+                  cursor: pointer;
+                "
+              ></i>
+            </div>
+            <!-- <div class="col-md-4 mb-3">
               <label class="form-label">Password</label>
               <input
                 type="password"
@@ -253,9 +318,9 @@
                 name="password"
                 placeholder="Enter Password"
               />
-            </div>
+            </div> -->
           </div>
-          <div class="col-md-4 mb-3">
+          <!-- <div class="col-md-4 mb-3">
             <label class="form-label">Confirm Password</label>
             <input
               type="password"
@@ -264,23 +329,62 @@
               name="confirmPassword"
               placeholder="Enter Confrim Password"
             />
+          </div> -->
+
+          <div class="col-md-4 mb-3 position-relative">
+            <label class="form-label">Confirm Password</label>
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="form-control"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              placeholder="Enter Confirm Password"
+              required
+              #confrimpasswordCtrl="ngModel"
+              (input)="checkPasswordMatch()"
+            />
+            <div
+              *ngIf="confrimpasswordCtrl.invalid && confrimpasswordCtrl.touched"
+              class="text-danger small"
+            >
+              Enter your Confrim Password
+            </div>
+            <i
+              class="fas"
+              [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
+              (click)="showConfirmPassword = !showConfirmPassword"
+              style="
+                position: absolute;
+                top: 38px;
+                right: 15px;
+                cursor: pointer;
+              "
+            ></i>
+          </div>
+          <div *ngIf="passwordMismatch" class="text-danger small">
+            Password and Confirm Password do not match
           </div>
 
-            <div class="mb-4">
-        <p class="form-label">Domains</p>
-        <div class="skills-container">
-          <span
-            *ngFor="let domain of companyDomains"
-            class="skill-tag flex-wrap"
-            [class.selected]="selectedDomains.includes(domain.domainID)"
-            (click)="toggleDomain(domain.domainID)"
-          >
-            {{ domain.domainTitle }}
-          </span>
+          <div class="mb-4">
+            <p class="form-label">Domains</p>
+            <div class="skills-container">
+              <span
+                *ngFor="let domain of companyDomains"
+                class="skill-tag flex-wrap"
+                [class.selected]="selectedDomains.includes(domain.domainID)"
+                (click)="toggleDomain(domain.domainID)"
+              >
+                {{ domain.domainTitle }}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+        <div *ngIf="successMessage" class="alert alert-success mt-3">
+          {{ successMessage }}
         </div>
-
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
         <!-- Form Actions -->
         <div class="d-flex justify-content-end gap-2 mt-0">
           <button type="button" class="btn btn-cancel">Cancel</button>

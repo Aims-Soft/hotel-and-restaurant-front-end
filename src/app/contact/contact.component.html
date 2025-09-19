@@ -104,7 +104,8 @@
           </p>
 
           <div class="mt-4">
-            <form>
+            <!-- <form>
+        
               <div class="d-flex">
                 <div class="">
                   <label for="name" style="color: #0d0125; font-size: 18px"
@@ -174,6 +175,92 @@
                 ></textarea>
               </div>
               <button
+                class="px-3 py-2 text-white mt-2 border-0"
+                style="
+                  background-color: #8e7fff;
+                  border-radius: 2em;
+                  font-size: 1.1em;
+                "
+              >
+                Submit Request
+              </button>
+            </form> -->
+
+            <form (ngSubmit)="submitRequest()" #contactForm="ngForm">
+              <div class="d-flex">
+                <div>
+                  <label style="color: #0d0125; font-size: 18px"
+                    >Full Name</label
+                  ><br />
+                  <input
+                    type="text"
+                    [(ngModel)]="formData.userName"
+                    name="userName"
+                    placeholder="Your Name"
+                    required
+                    class="border-0 mt-2 rounded bg-white ps-3 py-3"
+                    style="width: 18em"
+                  />
+                </div>
+
+                <div class="ms-4">
+                  <label style="color: #0d0125; font-size: 18px"
+                    >Your Email</label
+                  ><br />
+                  <input
+                    type="email"
+                    [(ngModel)]="formData.email"
+                    name="email"
+                    placeholder="Your Email"
+                    required
+                    class="border-0 mt-2 rounded bg-white ps-3 py-3"
+                    style="width: 18em"
+                  />
+                </div>
+              </div>
+
+              <!-- <div class="d-flex mt-4"> -->
+                <!-- <div>
+                  <label style="color: #0d0125; font-size: 18px">Address</label
+                  ><br />
+                  <input
+                    type="text"
+                    [(ngModel)]="formData.contact"
+                    name="contact"
+                    placeholder="Address"
+                    class="border-0 mt-2 rounded bg-white ps-3 py-3"
+                    style="width: 18em"
+                  />
+                </div> -->
+
+               
+              <!-- </div> -->
+               <div class="m">
+                  <label style="color: #0d0125; font-size: 18px">Subject</label
+                  ><br />
+                  <input
+                    type="text"
+                    [(ngModel)]="formData.subject"
+                    name="subject"
+                    placeholder="Subject (Optional)"
+                    class="border-0 mt-2 rounded bg-white ps-3 py-3"
+                    style="width: 37.8em"
+                  />
+                </div>
+
+              <div class="mt-3">
+                <label>Message</label><br />
+                <textarea
+                  [(ngModel)]="formData.userMessage"
+                  name="userMessage"
+                  class="border-0 rounded mt-2 p-3"
+                  style="width: 37.5em"
+                  rows="6"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
                 class="px-3 py-2 text-white mt-2 border-0"
                 style="
                   background-color: #8e7fff;

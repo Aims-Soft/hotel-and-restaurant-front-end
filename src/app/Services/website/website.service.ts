@@ -42,6 +42,21 @@ export class WebsiteService {
   return this.http.get<any>(`${this.apiUrl}user-api/User/getUserInfo?userID=${userId}`);
 }
 
+contactus(payload: any): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+  
+  return this.http.post<any>(
+    `${this.apiUrl}user-api/saveContactUS`, 
+    payload, 
+    { headers }
+  );
+
+  
+}
+
+
 saveCompany(payload: any): Observable<any> {
   const headers = new HttpHeaders({
     'Content-Type': 'application/json'
