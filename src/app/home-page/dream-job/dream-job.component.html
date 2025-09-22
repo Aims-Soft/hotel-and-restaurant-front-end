@@ -8,7 +8,12 @@
             <h2  class="fw-bold dream-job-header">Find Your Dream Job</h2>
         </div>
     </div>
-    <app-job-display></app-job-display>
+    <!-- <app-job-display></app-job-display> -->
+
+    <app-catagories (categoriesSelected)="onCategoriesSelected($event)"></app-catagories>
+
+  <app-job-display [selectedCategories]="selectedCategories"></app-job-display>
+
   
 
     

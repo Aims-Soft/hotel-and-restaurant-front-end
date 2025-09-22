@@ -37,6 +37,10 @@ export class adminJobsService {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobStatus`, payload);
 }
 
+deleteJob(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJob`, payload);
+}
+
 updatejobApplicationStatus(payload: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobApplicationStatus`, payload);
 }

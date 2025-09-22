@@ -73,7 +73,7 @@ export class CandidatesComponent implements OnInit {
 
 onViewApplications(job: any): void {
   this.router.navigate(['/applicationDetails'], {
-    state: { jobId: job.jobID }   // pass jobID to details page
+    state: { jobId: job.jobID }  
   });
 }
 

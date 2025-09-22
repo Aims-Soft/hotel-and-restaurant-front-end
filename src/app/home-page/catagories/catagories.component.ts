@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit , EventEmitter, Output } from '@angular/core';
 import { UserSessionService } from '../../Services/userSession/userSession.Service';
 import { Router } from '@angular/router';
 import { WebsiteService } from '../../Services/website/website.service';
@@ -10,8 +10,11 @@ import { WebsiteService } from '../../Services/website/website.service';
 })
 export class CatagoriesComponent implements OnInit {
 
+    @Output() categoriesSelected = new EventEmitter<string[]>();  
+
     isLoading: boolean = false;
   Job: any[] = [];
+  selectedCategories: string[] = [];
 
 
 
@@ -25,6 +28,9 @@ export class CatagoriesComponent implements OnInit {
     private websiteservice : WebsiteService,
 
   ){}
+
+
+  
 
 
    getJobCategory(): void {
@@ -41,6 +47,19 @@ export class CatagoriesComponent implements OnInit {
         console.error('Error fetching JobCategory:', error);
       }
     );
+  }
+
+  goToCategory(jobTitle: string): void {
+  this.router.navigate(['/jobDisplay'], { queryParams: { title: jobTitle } });
+}
+
+ toggleCategory(category: string): void {
+    if (this.selectedCategories.includes(category)) {
+      this.selectedCategories = this.selectedCategories.filter(c => c !== category);
+    } else {
+      this.selectedCategories.push(category);
+    }
+    this.categoriesSelected.emit(this.selectedCategories);
   }
 
 }

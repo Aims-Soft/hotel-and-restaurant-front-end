@@ -3,6 +3,7 @@ import { adminJobsService } from '../Services/Admin-Jobs/adminjobs.service';
 import { CompanyDashboardService } from '../Services/Company Dashboard/companyDashboard.service';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-admin-jobs',
@@ -20,11 +21,20 @@ export class AdminJobsComponent implements OnInit {
     successMessage: string | null = null;
     errorMessage: string | null = null;
     selectedJobApplicants: any[] | null = null;
+
+     jobToDelete: any = null;        
+ 
+  deleteModal!: Modal;
   
     ngOnInit(): void {
      
    
       this. getAdminJobsList();
+
+      const modalEl = document.getElementById('deleteModal');
+  if (modalEl) {
+    this.deleteModal = new Modal(modalEl);
+  }
       
     }
     constructor(
@@ -38,6 +48,13 @@ export class AdminJobsComponent implements OnInit {
   
     }
   
+
+
+      openDeleteModal(job: any): void {
+    this.jobToDelete = job;
+    this.deleteModal.show();
+  }
+
 getAdminJobsList(companyID: number = 0): void {
   this.isLoading = true;
   this.adminjobService.getAdminJobs(companyID).subscribe(
@@ -129,5 +146,105 @@ getAdminJobsList(companyID: number = 0): void {
         }
       );
     }
+
+
+  //    confirmDelete(): void {
+  //   if (!this.jobToDelete) return;
+
+  //   const payload = {
+  //     jobID: this.jobToDelete.jobID,
+  //     jobTitle: "",
+  //     companyID: "",
+  //     jobTypeID: "",
+  //     experienceID: "",
+  //     educationReq: "",
+  //     salaryRange: "",
+  //     postingDate:"",
+  //     expireDate: "",
+  //     cityID: "",
+  //     countryID: "",
+  //     jobStatusID:  "",
+  //     jobSpaceID: "",
+  //     location: "",
+  //     responsibilities: "",
+  //     requirements: "",
+  //     benefitjson: "",
+  //     skilljson: "",
+  //     userID: this.userSessionService.getUserID(),
+  //     spType: 'delete',
+  //   };
+
+  //   this.adminjobService.deleteJob(payload).subscribe(
+  //     () => {
+
+  //       console.log(payload,'delete');
+  //       this.successMessage = `Job "${this.jobToDelete.jobTitle}" deleted successfully!`;
+  //       this.jobApplications = this.jobApplications.filter(
+  //         (j) => j.jobID !== this.jobToDelete.jobID
+  //       );
+  //       this.jobToDelete = null;
+  //       this.deleteModal.hide();
+
+  //       setTimeout(() => (this.successMessage = null), 3000);
+  //     },
+  //     (error) => {
+  //       console.error('Delete failed:', error);
+  //       this.errorMessage = 'Failed to delete job. Please try again.';
+  //       setTimeout(() => (this.errorMessage = null), 3000);
+  //     }
+  //   );
+  // }
+
+  confirmDelete(): void {
+  if (!this.jobToDelete) return;
+
+  const payload = {
+    jobID: this.jobToDelete.jobID,
+    jobTitle: "",
+    companyID: 0,
+    jobTypeID: 0,
+    experienceID: 0,
+    educationReq: "",
+    salaryRange: "",
+    postingDate: "",
+    expireDate: "",
+    cityID: 0,
+    countryID: 0,
+    jobStatusID: 0,
+    jobSpaceID: 0,
+    location: "",
+    responsibilities: "",
+    requirements: "",
+    benefitjson: "",
+    skilljson: "",
+    userID: this.userSessionService.getUserID(),
+    spType: 'delete',
+  };
+
+  console.log("Delete Request Payload:", payload);
+
+  this.adminjobService.deleteJob(payload).subscribe(
+    (res) => {
+      console.log("Delete API Success:", res);
+
+      this.successMessage = `Job "${this.jobToDelete.jobTitle}" deleted successfully!`;
+      this.jobApplications = this.jobApplications.filter(
+        (j) => j.jobID !== this.jobToDelete.jobID
+      );
+      this.jobToDelete = null;
+      this.deleteModal.hide();
+
+      setTimeout(() => (this.successMessage = null), 3000);
+    },
+    (error) => {
+      console.error('Delete failed:', error);
+      console.log("Error Body:", error.error);  // 👈 backend ka exact message
+
+      this.errorMessage = 'Failed to delete job. Please try again.';
+      setTimeout(() => (this.errorMessage = null), 3000);
+    }
+  );
+}
+
 
 }

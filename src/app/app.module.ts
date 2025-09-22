@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -50,6 +51,7 @@ import { AdminJobDetailComponent } from './admin-jobs/admin-job-detail/admin-job
 import { ApplicationDetailComponent } from './applications/application-detail/application-detail.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +89,7 @@ import { ApplicationDetailComponent } from './applications/application-detail/ap
     AdminJobDetailComponent,
     ApplicationDetailComponent,
   
+  
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ import { ApplicationDetailComponent } from './applications/application-detail/ap
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
   ],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],

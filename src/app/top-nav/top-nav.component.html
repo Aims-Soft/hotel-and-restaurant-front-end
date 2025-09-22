@@ -51,7 +51,7 @@
       <ng-template #profileSection>
        <div class="dropdown">
   <!-- Profile Image Button -->
-  <button
+  <!-- <button
     class="btn p-0 border-0 bg-transparent"
     type="button"
     id="profileDropdown"
@@ -65,20 +65,42 @@
       width="60"
       height="40"
     />
-  </button>
+  </button> -->
 
   <!-- Dropdown Menu -->
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+  <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown"> -->
     <!-- <li>
       <a class="dropdown-item" routerLink="/profile">My Profile</a>
     </li> -->
     <!-- <li><hr class="dropdown-divider" /></li> -->
-    <li>
+    <!-- <li>
       <button class="dropdown-item " (click)="logout()">
         Logout
       </button>
     </li>
-  </ul>
+  </ul> -->
+  <div ngbDropdown class="d-inline-block">
+  <!-- Profile Image Button -->
+  <button
+    class="btn p-0 border-0 bg-transparent"
+    id="profileDropdown"
+    ngbDropdownToggle
+  >
+    <img
+      src="../../assets/images/1.png"
+      alt="Profile"
+      class="rounded-5"
+      width="60"
+      height="40"
+    />
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div ngbDropdownMenu aria-labelledby="profileDropdown" class="dropdown-menu-end">
+    <!-- <button class="dropdown-item" routerLink="/profile">My Profile</button> -->
+    <button class="dropdown-item" (click)="logout()">Logout</button>
+  </div>
+</div>
 </div>
 
       </ng-template>

@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class DreamJobComponent {
 
+
+    selectedCategories: string[] = [];
+
+  onCategoriesSelected(categories: string[]) {
+    this.selectedCategories = categories;
+  }
+
 }
