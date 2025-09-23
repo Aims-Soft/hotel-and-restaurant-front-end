@@ -36,4 +36,8 @@ updatejobApplicationStatus(payload: any): Observable<any> {
 }
 
 
+deleteapplication(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobApplication`, payload);
+}
+
 }

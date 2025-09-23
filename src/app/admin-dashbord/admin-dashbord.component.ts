@@ -145,12 +145,25 @@ getCompanies(): void {
   );
 }
 
-  updatePaginatedJobs(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedJobs = this.Recentjob.slice(startIndex, endIndex);
-  }
+  // updatePaginatedJobs(): void {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   this.paginatedJobs = this.Recentjob.slice(startIndex, endIndex);
+  // }
 
+  updatePaginatedJobs(): void {
+  const filteredJobs = this.Recentjob.filter(job =>
+    job.jobTitle?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    job.jobCategoryTitle?.toLowerCase().includes(this.searchText.toLowerCase())
+  );
+
+  this.totalPages = Math.ceil(filteredJobs.length / this.itemsPerPage);
+
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+
+  this.paginatedJobs = filteredJobs.slice(startIndex, endIndex);
+}
 
 
 
@@ -182,10 +195,25 @@ getCompanies(): void {
   //   this.updatePaginatedJobs();
   // }
 
-  updatePaginatedCompanies(): void {
+//   updatePaginatedCompanies(): void {
+//   const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
+//   const endIndex = startIndex + this.companyItemsPerPage;
+//   this.paginatedCompanies = this.companies.slice(startIndex, endIndex);
+// }
+
+updatePaginatedCompanies(): void {
+  const filteredCompanies = this.companies.filter(company =>
+    company.companyName?.toLowerCase().includes(this.companySearchText.toLowerCase()) ||
+    company.email?.toLowerCase().includes(this.companySearchText.toLowerCase()) ||
+    company.countryName?.toLowerCase().includes(this.companySearchText.toLowerCase())
+  );
+
+  this.companyTotalPages = Math.ceil(filteredCompanies.length / this.companyItemsPerPage);
+
   const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
   const endIndex = startIndex + this.companyItemsPerPage;
-  this.paginatedCompanies = this.companies.slice(startIndex, endIndex);
+
+  this.paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
 }
 
 nextCompanyPage(): void {

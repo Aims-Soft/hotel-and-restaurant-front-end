@@ -9,9 +9,9 @@
 
   <div class="registration-container">
     <!-- Debug information - remove this after testing -->
-    <div *ngIf="!hasData && !isLoading" class="alert alert-warning">
-      No company data found. Please check if you're logged in and have company permissions.
-    </div>
+    <!-- <div *ngIf="!hasData && !isLoading" class="alert alert-warning">
+      No company data found. 
+    </div> -->
 
     <div *ngIf="isLoading" class="text-center p-4">
       <div class="spinner-border" role="status">
@@ -19,8 +19,8 @@
       </div>
       <p>Loading company details...</p>
     </div>
-
-    <div *ngIf="hasData" class="alert alert-info mb-3">
+     
+    <div *ngIf="hasData" class="alert alert-info mb-3 col-md-4 offset-md-4">
       Company data loaded successfully!
     </div>
 

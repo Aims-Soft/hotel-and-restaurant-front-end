@@ -61,17 +61,8 @@
               >Part time | {{ job.timeRemaining }}</small
             >
           </div>
-          <!-- <div class="py-2 d-flex">
-            <label class="switch">
-              <input type="checkbox" [(ngModel)]="toggleStatus" />
-              <span class="slider"></span>
-            </label>
-
-            <span class="ms-2">
-              {{ toggleStatus ? "Open" : "Closed" }}
-            </span>
-          </div> -->
-          <div class="py-2 d-flex col-md-2"  >
+       
+          <!-- <div class="py-2 d-flex col-md-2"  >
             <label class="switch">
               <input
                 type="checkbox"
@@ -84,7 +75,24 @@
             <span class="ms-2">
               {{ job.toggleStatus ? "Open" : "Closed" }}
             </span>
+          </div> -->
+
+                    <!-- Status Toggle Section -->
+          <div class="py-2 d-flex col-md-2">
+            <label class="switch">
+              <input
+                type="checkbox"
+                [checked]="job.toggleStatus"
+                (change)="onToggleStatus(job)"
+                readonly
+              />
+              <span class="slider"></span>
+            </label>
+            <span class="ms-2">
+              {{ job.toggleStatus ? "Open" : "Closed" }}
+            </span>
           </div>
+
           <div class="py-2 col-md-3">
             <p class="mt-3 ms-5">{{job.totalApplicants}} Applications</p>
           </div>
@@ -100,10 +108,273 @@
           <div class="py-2  ms-5 col-md-2">
             <div>
               <!-- <i class="bi bi-pencil-square fs-5 text-primary"></i> -->
-              <i class="bi bi-trash3 ms-4 fs-5 text-danger"></i>
+              <i class="bi bi-trash3 ms-4 fs-5 text-danger"
+               role="button"
+      (click)="openDeleteModal(job)"></i>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete
+        <strong>{{ jobToDelete?.jobTitle }}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="confirmDelete()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- delete Modal -->
+
+
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          <i class="bi bi-shield-lock text-warning me-2"></i>
+          Confirm Delete
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDeleteModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="bi bi-exclamation-triangle text-danger fs-1 mb-2"></i>
+          <p class="mb-2">
+            Are you sure you want to delete
+            <strong class="text-danger">{{ jobToDelete?.jobTitle }}</strong>?
+          </p>
+          <small class="text-muted">This action cannot be undone.</small>
+        </div>
+        
+        <!-- PIN Verification Section -->
+        <div class="border-top pt-3 mt-3">
+          <label for="pinCode" class="form-label fw-semibold">
+            <i class="bi bi-lock me-1"></i>
+            Enter your PIN to confirm:
+          </label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-key"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control"
+              id="pinCode"
+              [(ngModel)]="enteredPin"
+              placeholder="Enter PIN"
+              maxlength="6"
+              [class.is-invalid]="pinErrorMessage"
+              [disabled]="isPinValidating"
+              (keyup.enter)="validatePinAndDelete()"
+            />
+          </div>
+          
+          <!-- PIN Error Message -->
+          <div *ngIf="pinErrorMessage" class="alert alert-danger py-2 px-3 mt-2 small">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            {{ pinErrorMessage }}
+          </div>
+          
+          <!-- Loading indicator for PIN validation -->
+          <div *ngIf="isPinValidating" class="text-center mt-2">
+            <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <small class="text-muted">Validating PIN...</small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeDeleteModal()"
+          [disabled]="isPinValidating"
+        >
+          <i class="bi bi-x-circle me-1"></i>
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="validatePinAndDelete()"
+          [disabled]="!enteredPin.trim() || isPinValidating"
+        >
+          <i class="bi bi-trash3 me-1"></i>
+          <span *ngIf="!isPinValidating">Delete</span>
+          <span *ngIf="isPinValidating">
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            Deleting...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- toggle modal window -->
+
+<div
+  class="modal fade"
+  id="statusToggleModal"
+  tabindex="-1"
+  aria-labelledby="statusToggleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="statusToggleModalLabel">
+          <i class="bi bi-shield-lock text-info me-2"></i>
+          Confirm Status Change
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeStatusToggleModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i 
+            class="fs-1 mb-2"
+            [ngClass]="{
+              'bi bi-toggle-off text-secondary': !newToggleStatus,
+              'bi bi-toggle-on text-success': newToggleStatus
+            }"
+          ></i>
+          <p class="mb-2">
+            Change status of <strong class="text-primary">{{ jobToToggle?.jobTitle }}</strong> 
+            from <span class="badge" [ngClass]="jobToToggle?.toggleStatus ? 'bg-success' : 'bg-secondary'">
+              {{ jobToToggle?.toggleStatus ? 'Open' : 'Closed' }}
+            </span> 
+            to <span class="badge" [ngClass]="newToggleStatus ? 'bg-success' : 'bg-secondary'">
+              {{ newToggleStatus ? 'Open' : 'Closed' }}
+            </span>?
+          </p>
+          <small class="text-muted">
+            This will {{ newToggleStatus ? 'allow new applications' : 'stop accepting new applications' }}.
+          </small>
+        </div>
+        
+        <div class="border-top pt-3 mt-3">
+          <label for="statusPin" class="form-label fw-semibold">
+            <i class="bi bi-lock me-1"></i>
+            Enter your PIN to confirm:
+          </label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-key"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control"
+              id="statusPin"
+              [(ngModel)]="statusTogglePin"
+              placeholder="Enter PIN"
+              maxlength="6"
+              [class.is-invalid]="statusPinErrorMessage"
+              [disabled]="isStatusPinValidating"
+              (keyup.enter)="validatePinAndToggleStatus()"
+            />
+          </div>
+          
+          <div *ngIf="statusPinErrorMessage" class="alert alert-danger py-2 px-3 mt-2 small">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            {{ statusPinErrorMessage }}
+          </div>
+          
+          <div *ngIf="isStatusPinValidating" class="text-center mt-2">
+            <div class="spinner-border spinner-border-sm text-info me-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <small class="text-muted">Validating PIN...</small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeStatusToggleModal()"
+          [disabled]="isStatusPinValidating"
+        >
+          <i class="bi bi-x-circle me-1"></i>
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [ngClass]="newToggleStatus ? 'btn-success' : 'btn-warning'"
+          (click)="validatePinAndToggleStatus()"
+          [disabled]="!statusTogglePin.trim() || isStatusPinValidating"
+        >
+          <i class="me-1" [ngClass]="newToggleStatus ? 'bi bi-check-circle' : 'bi bi-pause-circle'"></i>
+          <span *ngIf="!isStatusPinValidating">
+            {{ newToggleStatus ? 'Open Job' : 'Close Job' }}
+          </span>
+          <span *ngIf="isStatusPinValidating">
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            Updating...
+          </span>
+        </button>
       </div>
     </div>
   </div>

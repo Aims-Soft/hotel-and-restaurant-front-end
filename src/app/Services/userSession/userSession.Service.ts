@@ -23,6 +23,8 @@ export class UserSessionService {
       loginName: userData.loginName,
       roleTitle: userData.roleTitle,
       companyID:userData.companyID,
+      pin:userData.pin,
+
     };
 
     localStorage.setItem(this.USER_KEY, JSON.stringify(userToStore));
@@ -59,6 +61,11 @@ export class UserSessionService {
   getUserID(): any {
     const user = localStorage.getItem(this.USER_KEY);
     return user ? JSON.parse(user).userLoginId : null;
+  }
+
+   getpin(): any {
+    const user = localStorage.getItem(this.USER_KEY);
+    return user ? JSON.parse(user).pin : null;
   }
   getCompanyID(): any {
     const user = localStorage.getItem(this.USER_KEY);

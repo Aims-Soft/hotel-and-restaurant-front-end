@@ -9,7 +9,7 @@
 
   <div class="container mt-3">
     <div class="container">
-      <div class="row px-3">
+      <div class="row px-3 ms-2">
         <div class="col-md-4 box-border pb-2 rounded">
           <div class="d-flex align-items-center">
             <div class="px-2 py-1">
@@ -85,7 +85,7 @@
   </div>
   <div class="container mt-3">
     <div class="container">
-      <div class="row px-3">
+      <div class="row px-3 ms-2">
         <div class="col-md-4 box-border pb-2 rounded">
           <div class="d-flex align-items-center">
             <div class="px-2 py-1">
@@ -160,7 +160,7 @@
     </div>
   </div>
   <!-- Recently Published Jobs -->
-  <div class="container my-3 px-4">
+  <div class="container my-3 px-5">
     <div class="box-border rounded">
       <!-- Header with search -->
       <div
@@ -178,11 +178,13 @@
         </div> -->
         <div class="d-flex align-items-center dashboard-searchBox px-2 rounded">
           <i class="bi bi-search fs-5"></i>
+      
           <input
             type="search"
             class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
             placeholder="Search here..."
             [(ngModel)]="searchText"
+            (ngModelChange)="updatePaginatedJobs()"
           />
           <img
             src="../../assets/images/Search Key.png"
@@ -229,10 +231,10 @@
                 <div
                   class="d-flex justify-content-center align-items-center gap-3"
                 >
-                  <i
+                  <!-- <i
                     class="bi bi-pencil-square fs-5 text-primary"
                     role="button"
-                  ></i>
+                  ></i> -->
                   <i class="bi bi-trash3 fs-5 text-danger" role="button"></i>
                 </div>
               </td>
@@ -242,9 +244,10 @@
       </div>
 
       <!-- Pagination -->
-      <div class="text-end mb-1">
+      <div class=" row mx-2 my-2 justify-content-between align-items-center">
+        <div class="col-auto">
         <a
-          class="me-3"
+          class="   "
           *ngFor="let page of [].constructor(totalPages); let i = index"
           (click)="goToPage(i + 1)"
           [class]="
@@ -255,20 +258,21 @@
         >
           <small class="ms-3">{{ i + 1 }}</small>
         </a>
-        <div class="col-auto">
+        </div>
+        <div class="col-auto text-end ">
           <button
-            class="btn btn-border me-2"
+            class="btn btn-border me-3"
             (click)="previousPage()"
             [disabled]="currentPage === 1"
           >
             <span class="fs-5">&#8592;</span> Previous
           </button>
           <button
-            class="btn btn-border"
+            class="btn btn-border me-2"
             (click)="nextPage()"
             [disabled]="currentPage === totalPages"
           >
-            Next <span class="fs-5">&#8594;</span>
+            Next <span class="fs-5 ">&#8594;</span>
           </button>
         </div>
       </div>
@@ -277,7 +281,7 @@
 
   <!-- Company request -->
 
-  <div class="container my-3 px-4">
+  <div class="container my-3 px-5">
     <div class="box-border rounded">
       <!-- Header with search -->
       <div
@@ -291,6 +295,7 @@
             class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
             placeholder="Search here..."
             [(ngModel)]="companySearchText"
+            (ngModelChange)="updatePaginatedCompanies()"
           />
           <img
             src="../../assets/images/Search Key.png"
@@ -359,10 +364,10 @@
                 <div
                   class="d-flex justify-content-center align-items-center gap-3"
                 >
-                  <i
+                  <!-- <i
                     class="bi bi-pencil-square fs-5 text-primary"
                     role="button"
-                  ></i>
+                  ></i> -->
                   <i class="bi bi-trash3 fs-5 text-danger" role="button"></i>
                 </div>
               </td>

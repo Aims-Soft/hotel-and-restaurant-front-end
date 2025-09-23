@@ -439,11 +439,12 @@ onBannerSelected(event: Event): void {
     Promise.all(filePromises).then(() => {
       this.CompanyRegistrationService.saveCompany(payload).subscribe({
         next: (res) => {
+          console.log(res,'update compnay');
           if (Array.isArray(res) && res.length > 0) {
             const responseStr = res[0];
             if (responseStr.split('|||')[0] === 'Success') {
               this.successMessage = 'Company Updated successfully!';
-              this.getCompanyDetail(); // Refresh data
+              this.getCompanyDetail();
             } else {
               this.errorMessage = responseStr;
             }
