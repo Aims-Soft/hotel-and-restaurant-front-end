@@ -177,9 +177,9 @@
           />
         </div>
         <div class="col-md-4 mb-3">
-          <label class="form-label"
-            >Country <span class="text-danger">*</span></label
-          >
+          <label class="form-label">
+            Country <span class="text-danger">*</span>
+          </label>
           <select
             class="form-select"
             (change)="onCountryChange($event)"
@@ -188,7 +188,7 @@
             required
             #countryModel="ngModel"
           >
-            <option selected disabled value="">Select Country</option>
+            <option disabled value="">Select Country</option>
             <option
               *ngFor="let country of countries"
               [value]="country.countryID"
@@ -232,123 +232,144 @@
             City is required
           </small>
         </div>
-      </div>
+        <!-- Contact Information -->
+        <div class="contact-info mb-4">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Website Link</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="www.example.com"
+                [(ngModel)]="websiteLink"
+                name="websiteLink"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Contact No</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone number"
+                [(ngModel)]="contactNo"
+                name="contactNo"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Address"
+                [(ngModel)]="address"
+                name="address"
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                [(ngModel)]="companyEmail"
+                name="companyEmail"
+                required
+                email
+                #emailModel="ngModel"
+              />
+              <small
+                class="text-danger"
+                *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
+              >
+                Email is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
+              >
+                Enter a valid email
+              </small>
+            </div>
 
-      <!-- Contact Information -->
-      <div class="contact-info mb-4">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Website Link</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="www.example.com"
-              [(ngModel)]="websiteLink"
-              name="websiteLink"
-            />
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Contact No</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Phone number"
-              [(ngModel)]="contactNo"
-              name="contactNo"
-            />
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Address</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Address"
-              [(ngModel)]="address"
-              name="address"
-            />
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label"
-              >Email <span class="text-danger">*</span></label
-            >
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Email address"
-              [(ngModel)]="companyEmail"
-              name="companyEmail"
-              required
-              email
-              #emailModel="ngModel"
-            />
-            <small
-              class="text-danger"
-              *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
-            >
-              Email is required
-            </small>
-            <small
-              class="text-danger"
-              *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
-            >
-              Enter a valid email
-            </small>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label"
-              >Password <span class="text-danger">*</span></label
-            >
-            <input
-              type="password"
-              class="form-control"
-              [(ngModel)]="password"
-              name="password"
-              required
-              minlength="6"
-              #passwordModel="ngModel"
-              placeholder="Enter Passord"
-            />
-            <small
-              class="text-danger"
-              *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
-            >
-              Password is required
-            </small>
-            <small
-              class="text-danger"
-              *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
-            >
-              Password must be at least 6 characters
-            </small>
+            <div class="col-md-4 mb-3">
+              <label class="form-label"
+                >Password <span class="text-danger">*</span></label
+              >
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="password"
+                name="password"
+                required
+                minlength="6"
+                #passwordModel="ngModel"
+                placeholder="Enter Passord"
+              />
+              <small
+                class="text-danger"
+                *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
+              >
+                Password is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
+              >
+                Password must be at least 6 characters
+              </small>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label"
+                >Confirm Password <span class="text-danger">*</span></label
+              >
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                required
+                #confirmPasswordModel="ngModel"
+                placeholder="Enter Confirm Passord"
+              />
+              <small
+                class="text-danger"
+                *ngIf="
+                  confirmPasswordModel.invalid &&
+                  (confirmPasswordModel.touched || companyForm.submitted)
+                "
+              >
+                Confirm password is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="confirmPassword !== password && companyForm.submitted"
+              >
+                Passwords do not match
+              </small>
+            </div>
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label"
-              >Confirm Password <span class="text-danger">*</span></label
+              >Pin Code <span class="text-danger">*</span></label
             >
             <input
-              type="password"
+              type="text"
               class="form-control"
-              [(ngModel)]="confirmPassword"
-              name="confirmPassword"
+              placeholder="Enter company name"
+              [(ngModel)]="pin"
+              name="pin"
               required
-              #confirmPasswordModel="ngModel"
-              placeholder="Enter Confirm Passord"
+              #pinModel="ngModel"
             />
             <small
               class="text-danger"
               *ngIf="
-                confirmPasswordModel.invalid &&
-                (confirmPasswordModel.touched || companyForm.submitted)
+                pinModel.invalid && (pinModel.touched || companyForm.submitted)
               "
             >
-              Confirm password is required
-            </small>
-            <small
-              class="text-danger"
-              *ngIf="confirmPassword !== password && companyForm.submitted"
-            >
-              Passwords do not match
+              Pin Code is required
             </small>
           </div>
         </div>
@@ -395,7 +416,9 @@
 
       <!-- Form Actions -->
       <div class="d-flex justify-content-end gap-2 mt-5">
-        <button type="button" class="btn btn-cancel" (click)="resetForm()">Cancel</button>
+        <button type="button" class="btn btn-cancel" (click)="resetForm()">
+          Cancel
+        </button>
         <button type="submit" class="btn btn-register">Register</button>
       </div>
     </form>

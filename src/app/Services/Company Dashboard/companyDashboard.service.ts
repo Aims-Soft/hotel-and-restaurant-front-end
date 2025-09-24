@@ -26,6 +26,26 @@ export class CompanyDashboardService {
       `${this.apiUrl}job-api/Dashboard/getJobApplications`
     );
   }
+
+// validatePin(payload: any): Observable<any> {
+//   return this.http.post<any>(`${this.apiUrl}pin-api/pin`, payload);
+// }
+
+
+validatePin(payload: any): Observable<any> {
+  
+  const token = localStorage.getItem('authToken'); 
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post<any>(`${this.apiUrl}pin-api/pin`, payload, { headers });
+}
   
  updateJobStatus(payload: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobStatus`, payload);

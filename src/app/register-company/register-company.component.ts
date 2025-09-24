@@ -37,6 +37,7 @@ export class RegisterCompanyComponent implements OnInit {
   address: string = '';
   description: string = '';
   location: string = '';
+  pin: string ='';
 
   successMessage: string = '';
   errorMessage: string = '';
@@ -461,6 +462,7 @@ export class RegisterCompanyComponent implements OnInit {
       address: this.address,
       description: this.description,
       location: this.location,
+      pin:this.pin,
       eLogo: null,
       eLogoPath: '',
       eLogoExt: '',
@@ -574,6 +576,7 @@ export class RegisterCompanyComponent implements OnInit {
     this.address = '';
     this.description = '';
     this.location = '';
+    this.pin='';
     this.foundedIn = '';
     this.selectedEmployee = null;
     this.selectedIndustry = null;

@@ -122,6 +122,7 @@ getCompanies(): void {
   this.adminDashbordService.updateCompanyStatus(payload).subscribe(
     (res) => {
       console.log(res,'company status')
+      console.log(payload,'payload')
       this.successMessage = `Company status updated to ${
         company.toggleStatus ? 'Approved' : 'Pending'
       } successfully!`;
