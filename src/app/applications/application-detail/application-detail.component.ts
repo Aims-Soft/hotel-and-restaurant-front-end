@@ -1,5 +1,3 @@
-
-
 // import { Component, OnInit } from '@angular/core';
 // import {
 //   CdkDragDrop,
@@ -383,7 +381,7 @@
 //     // Create workbook and worksheet
 //     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
 //     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    
+
 //     // Set column widths
 //     const colWidths = [
 //       { width: 20 }, // Name
@@ -398,7 +396,7 @@
 //     ws['!cols'] = colWidths;
 
 //     XLSX.utils.book_append_sheet(wb, ws, fileName);
-    
+
 //     // Save file
 //     XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().split('T')[0]}.xlsx`);
 //   }
@@ -429,8 +427,6 @@
 //     this.exportToExcel(allData, 'All_Applications');
 //   }
 // }
-
-
 
 import { Component, OnInit } from '@angular/core';
 import {
@@ -540,7 +536,6 @@ export class ApplicationDetailComponent implements OnInit {
 
         let jobsToProcess = response;
 
-        // ✅ if jobId is provided, filter to that job only
         if (jobId) {
           jobsToProcess = response.filter((job) => job.jobID === jobId);
         }
@@ -554,12 +549,13 @@ export class ApplicationDetailComponent implements OnInit {
               jobID: job.jobID,
               jobTitle: job.jobTitle,
               experience: job.experienceRange,
-              // Add job-level data to each user
-              cityName: job.cityName, // This comes from job level
-              countryName: job.countryName || '', // Add if available in API
+
+              cityName: job.cityName,
+              countryName: user.countryName || '',
+              contact: user.contact || '',
               salaryRange: job.salaryRange,
               jobSpaceTitle: job.jobSpaceTitle,
-              jobTypeTitle: job.jobTypeTitle
+              jobTypeTitle: job.jobTypeTitle,
             };
 
             switch (user.jobApplicationStatusTitle) {
@@ -596,26 +592,29 @@ export class ApplicationDetailComponent implements OnInit {
     }
 
     // Prepare data for Excel export
-    const exportData = data.map(user => ({
-      'Name': user.userName || '',
+    const exportData = data.map((user) => ({
+      Name: user.userName || '',
       'Job Title': user.jobTitle || '',
-      'Experience': user.experience || '',
-      'Email': user.email || '',
-      'CNIC': user.cnic || 'N/A', // Handle if CNIC is not in user data
-      'Country': user.countryName || 'N/A', // This might not be in API response
-      'City': user.cityName || '', // Now this should work
-      'Status': user.jobApplicationStatusTitle || '',
+      Experience: user.experience || '',
+      Email: user.email || '',
+      CNIC: user.cnic || 'N/A',
+      Contact: user.contact || 'N/A', 
+      Country: user.countryName || 'N/A', 
+      City: user.cityName || '',
+      Status: user.jobApplicationStatusTitle || '',
       'Salary Range': user.salaryRange || '',
       'Job Type': user.jobTypeTitle || '',
       'Job Space': user.jobSpaceTitle || '',
-      'Applied Date': user.appliedAt ? new Date(user.appliedAt).toLocaleDateString() : '',
-      'Study Level': user.studyLevelTitle || ''
+      'Applied Date': user.appliedAt
+        ? new Date(user.appliedAt).toLocaleDateString()
+        : '',
+      'Study Level': user.studyLevelTitle || '',
     }));
 
     // Create workbook and worksheet
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    
+
     // Set column widths
     const colWidths = [
       { width: 20 }, // Name
@@ -623,6 +622,7 @@ export class ApplicationDetailComponent implements OnInit {
       { width: 15 }, // Experience
       { width: 30 }, // Email
       { width: 20 }, // CNIC
+      { width: 15 }, //contact
       { width: 15 }, // Country
       { width: 15 }, // City
       { width: 15 }, // Status
@@ -630,14 +630,17 @@ export class ApplicationDetailComponent implements OnInit {
       { width: 15 }, // Job Type
       { width: 15 }, // Job Space
       { width: 15 }, // Applied Date
-      { width: 15 }  // Study Level
+      { width: 15 }, // Study Level
     ];
     ws['!cols'] = colWidths;
 
     XLSX.utils.book_append_sheet(wb, ws, fileName);
-    
+
     // Save file
-    XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(
+      wb,
+      `${fileName}_${new Date().toISOString().split('T')[0]}.xlsx`
+    );
   }
 
   exportApplications(): void {
@@ -661,7 +664,7 @@ export class ApplicationDetailComponent implements OnInit {
       ...this.applications,
       ...this.shortlisted,
       ...this.rejected,
-      ...this.interview
+      ...this.interview,
     ];
     this.exportToExcel(allData, 'All_Applications');
   }
