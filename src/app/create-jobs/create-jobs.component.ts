@@ -337,9 +337,6 @@ export class CreateJobsComponent implements OnInit {
 
   onSubmit(): void {
 
-
-
-    
     this.clearMessages();
     if (!this.validateForm()) {
       this.isLoading = false;
@@ -352,7 +349,7 @@ export class CreateJobsComponent implements OnInit {
     const payload = {
 
       jobTitle: this.jobTitle,
-      companyID: 1,
+      companyID: this.userSessionService.getCompanyID,
       jobTypeID: Number(this.selectedJobType),
       jobSpaceID: Number(this.selectedWorkSpace),
       experienceID: Number(this.selectedExperience),
