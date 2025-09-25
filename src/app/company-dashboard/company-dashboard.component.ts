@@ -20,6 +20,7 @@ export class CompanyDashboardComponent implements OnInit {
   Activejobs: any[] = [];
   job: any = {};
   searchText: string = ''; 
+   companyID: number = 0;
 
 
   constructor(
@@ -32,9 +33,10 @@ export class CompanyDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const companyID = 1;
-    this.getTotalJobs(companyID);
-    this.getActivejobs();
+     this.companyID = this.userSessionService.getCompanyID() || 1; 
+    
+    this.getTotalJobs(this.companyID);
+    this.getActivejobs(this.companyID);
   }
 
   editJob(job: any): void {
@@ -100,8 +102,8 @@ onDelete(job: any): void {
       this.successMessage = 'Job deleted successfully ✅';
       this.errorMessage = null;
 
-      this.getActivejobs();
-      this.getTotalJobs(1);
+      this.getActivejobs(this.companyID);
+        this.getTotalJobs(this.companyID);
 
       // Auto hide message after 3s
       setTimeout(() => this.successMessage = null, 3000);
@@ -116,18 +118,33 @@ onDelete(job: any): void {
   });
 }
 
-  getActivejobs(): void {
+getActivejobs(companyID: number): void {
     this.isLoading = true;
-    this.CompanyDashboardService.getActivejobs().subscribe(
+    this.CompanyDashboardService.getActivejobs(companyID).subscribe(
       (response: any[]) => {
         this.isLoading = false;
         this.Activejobs = response;
-        // console.log(response, 'Job Category');
+        console.log(`Active jobs for company ${companyID}:`, response);
       },
       (error: any) => {
         this.isLoading = false;
-        // console.error('Error fetching JobCategory:', error);
+        console.error('Error fetching Active Jobs:', error);
       }
     );
   }
+
+  // getActivejobs(): void {
+  //   this.isLoading = true;
+  //   this.CompanyDashboardService.getActivejobs(0).subscribe(
+  //     (response: any[]) => {
+  //       this.isLoading = false;
+  //       this.Activejobs = response;
+  //       // console.log(response, 'Job Category');
+  //     },
+  //     (error: any) => {
+  //       this.isLoading = false;
+  //       // console.error('Error fetching JobCategory:', error);
+  //     }
+  //   );
+  // }
 }

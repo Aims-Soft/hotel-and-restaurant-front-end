@@ -370,6 +370,7 @@ export class ApplicationsComponent implements OnInit {
 
   jobToDelete: any = null;
   deleteModal: any;
+    companyID: number = 0;
 
   constructor(
     private JobService: JobService,
@@ -381,7 +382,9 @@ export class ApplicationsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getJobApplications();
+    this.companyID = this.userSessionService.getCompanyID() || 1; 
+    
+    this.getJobApplications(this.companyID);
 
     // Initialize Bootstrap modal
     const modalElement = document.getElementById('deleteModal');
@@ -395,9 +398,9 @@ export class ApplicationsComponent implements OnInit {
     }
   }
 
-  getJobApplications(): void {
+  getJobApplications(companyID: number): void {
     this.isLoading = true;
-    this.CompanyDashboardService.getJobApplications().subscribe(
+    this.CompanyDashboardService.getJobApplications(companyID).subscribe(
       (response: any[]) => {
         this.isLoading = false;
 

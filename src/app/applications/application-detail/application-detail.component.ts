@@ -454,6 +454,7 @@ export class ApplicationDetailComponent implements OnInit {
   interview: any[] = [];
 
   isLoading: boolean = false;
+    companyID: number = 0;
 
   constructor(
     private JobService: JobService,
@@ -466,6 +467,9 @@ export class ApplicationDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+     this.companyID = this.userSessionService.getUserID() || 1;
+
     this.route.paramMap.subscribe((params) => {
       const jobId = +params.get('jobId')!;
       this.getJobApplications(jobId);
@@ -523,9 +527,10 @@ export class ApplicationDetailComponent implements OnInit {
 
   getJobApplications(jobId?: number): void {
     this.isLoading = true;
-    this.CompanyDashboardService.getJobApplications().subscribe(
+    this.CompanyDashboardService.getJobApplications(0).subscribe(
       (response: any[]) => {
         console.log(response, 'applications');
+        console.log('Company ID used:', this.companyID);
         this.isLoading = false;
 
         // clear old lists

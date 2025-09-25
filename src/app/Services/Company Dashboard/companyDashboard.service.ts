@@ -17,15 +17,28 @@ export class CompanyDashboardService {
     );
   }
 
-  getActivejobs(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getActiveJob`);
-  }
+ 
 
-  getJobApplications(): Observable<any[]> {
+   getActivejobs(companyID: number): Observable<any[]> {
+    console.log(`Fetching active jobs for company ID: ${companyID}`);
     return this.http.get<any[]>(
-      `${this.apiUrl}job-api/Dashboard/getJobApplications`
+      `${this.apiUrl}job-api/Dashboard/getActiveJob?companyID=${companyID}`
     );
   }
+
+   getJobApplications(companyID: number): Observable<any[]> {
+    console.log(`Fetching job application for company ID: ${companyID}`);
+    return this.http.get<any[]>(
+      `${this.apiUrl}job-api/Dashboard/getJobApplications?companyID=${companyID}`
+    );
+  }
+
+
+  // getJobApplications(): Observable<any[]> {
+  //   return this.http.get<any[]>(
+  //     `${this.apiUrl}job-api/Dashboard/getJobApplications`
+  //   );
+  // }
 
 // validatePin(payload: any): Observable<any> {
 //   return this.http.post<any>(`${this.apiUrl}pin-api/pin`, payload);
