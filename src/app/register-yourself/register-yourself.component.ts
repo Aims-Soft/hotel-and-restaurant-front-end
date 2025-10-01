@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import { CompanyRegistrationService } from '../Services/Company registration/company-registration.service';
 import { RegisterUserService } from '../Services/register user/register-user.service';
+import { adminCompanyService } from '../Services/Admin Companies/admincompanies.service';
 
 @Component({
   selector: 'app-register-yourself',
@@ -43,6 +44,9 @@ export class RegisterYourselfComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   companyEmail: string = '';
+  // cnicMask = this.global.cnicMask();
+  // cnicMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/];
+// cnic: string = '';
 
   contactNo: string = '';
   address: string = '';
@@ -53,7 +57,8 @@ export class RegisterYourselfComponent implements OnInit {
   constructor(
     private userSessionService: UserSessionService,
     private CompanyRegistrationService: CompanyRegistrationService,
-    private RegisterUserService: RegisterUserService
+    private RegisterUserService: RegisterUserService,
+    private global:adminCompanyService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +68,15 @@ export class RegisterYourselfComponent implements OnInit {
     this.getCities();
     this.getCompanyDomain();
   }
+
+
+    togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPasswordVisibility() {
+  this.showConfirmPassword = !this.showConfirmPassword;
+}
+
 
   genders = [
     { genderID: 1, genderName: 'Male' },

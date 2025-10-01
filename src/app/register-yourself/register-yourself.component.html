@@ -111,6 +111,7 @@
               class="form-control"
               placeholder="Enter CNIC"
               [(ngModel)]="cnic"
+              
               name="cnic"
               required
               minlength="13"
@@ -278,7 +279,37 @@
             <!-- Account Security -->
             <!-- <h4 class="section-title">Account Security</h4> -->
 
-            <div class="col-md-4 mb-3 position-relative">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Password</label>
+              <div class="position-relative">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  [(ngModel)]="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  required
+                  #passwordCtrl="ngModel"
+                  (input)="checkPasswordMatch()"
+                />
+                <span
+                  class="position-absolute top-50 end-0 translate-middle-y pe-3 cursor-pointer"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <i
+                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                  ></i>
+                </span>
+              </div>
+              <div
+                *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
+                class="text-danger small"
+              >
+                Enter your Password
+              </div>
+            </div>
+
+            <!-- <div class="col-md-4 mb-3 position-relative">
               <label class="form-label">Password</label>
               <input
                 [type]="showPassword ? 'text' : 'password'"
@@ -297,18 +328,15 @@
                 Enter your Password
               </div>
 
-              <i
-                class="fas"
-                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-                (click)="showPassword = !showPassword"
-                style="
-                  position: absolute;
-                  top: 38px;
-                  right: 15px;
-                  cursor: pointer;
-                "
-              ></i>
-            </div>
+              <span
+                  class="input-group-text cursor-pointer"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <i
+                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                  ></i>
+                </span>
+            </div> -->
             <!-- <div class="col-md-4 mb-3">
               <label class="form-label">Password</label>
               <input
@@ -331,7 +359,7 @@
             />
           </div> -->
 
-          <div class="col-md-4 mb-3 position-relative">
+          <!-- <div class="col-md-4 mb-3 position-relative">
             <label class="form-label">Confirm Password</label>
             <input
               [type]="showConfirmPassword ? 'text' : 'password'"
@@ -363,6 +391,44 @@
           </div>
           <div *ngIf="passwordMismatch" class="text-danger small">
             Password and Confirm Password do not match
+          </div> -->
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Confirm Password</label>
+            <div class="position-relative">
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                class="form-control"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                placeholder="Enter Confirm Password"
+                required
+                #confrimpasswordCtrl="ngModel"
+                (input)="checkPasswordMatch()"
+              />
+              <span
+                class="position-absolute top-50 end-0 translate-middle-y pe-3 cursor-pointer"
+                (click)="toggleConfirmPasswordVisibility()"
+              >
+                <i
+                  [class]="
+                    showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                  "
+                ></i>
+              </span>
+            </div>
+            <div
+              *ngIf="confrimpasswordCtrl.invalid && confrimpasswordCtrl.touched"
+              class="text-danger small"
+            >
+              Enter your Confirm Password
+            </div>
+            <div
+              *ngIf="passwordMismatch && !confrimpasswordCtrl.invalid"
+              class="text-danger small"
+            >
+              Password and Confirm Password do not match
+            </div>
           </div>
 
           <div class="mb-4">
@@ -396,3 +462,4 @@
     </form>
   </div>
 </div>
+<app-footer></app-footer>

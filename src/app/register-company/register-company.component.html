@@ -120,7 +120,8 @@
             required
             #industryModel="ngModel"
           >
-            <option selected disabled value="">Select Industry Type</option>
+            <option [ngValue]="null" disabled>Select Industry Type</option>
+
             <option *ngFor="let type of UniTypes" [value]="type.companyTypeID">
               {{ type.companyTypeTitle }}
             </option>
@@ -148,7 +149,8 @@
             required
             #employeeModel="ngModel"
           >
-            <option selected disabled value="">Select Employee Range</option>
+            <option [ngValue]="null" disabled>Select Employee Range</option>
+
             <option *ngFor="let emp of employees" [value]="emp.employeeID">
               {{ emp.employeeRange }}
             </option>
@@ -188,7 +190,8 @@
             required
             #countryModel="ngModel"
           >
-            <option disabled value="">Select Country</option>
+            <option [ngValue]="null" disabled>Select Country</option>
+
             <option
               *ngFor="let country of countries"
               [value]="country.countryID"
@@ -218,7 +221,8 @@
             required
             #cityModel="ngModel"
           >
-            <option selected disabled value="">Select City</option>
+            <option [ngValue]="null" disabled>Select City</option>
+
             <option *ngFor="let city of filteredCities" [value]="city.cityID">
               {{ city.cityName }}
             </option>
@@ -293,7 +297,7 @@
               </small>
             </div>
 
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
               <label class="form-label"
                 >Password <span class="text-danger">*</span></label
               >
@@ -307,6 +311,46 @@
                 #passwordModel="ngModel"
                 placeholder="Enter Passord"
               />
+              <span class="input-group-text input-icon cursor-pointer" (click)="togglePasswordVisibility()">
+            <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+          </span>
+              <small
+                class="text-danger"
+                *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
+              >
+                Password is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
+              >
+                Password must be at least 6 characters
+              </small>
+            </div> -->
+            <div class="col-md-4 mb-3">
+              <label class="form-label">
+                Password <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  [(ngModel)]="password"
+                  name="password"
+                  required
+                  minlength="6"
+                  #passwordModel="ngModel"
+                  placeholder="Enter Password"
+                />
+                <span
+                  class="input-group-text cursor-pointer"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <i
+                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                  ></i>
+                </span>
+              </div>
               <small
                 class="text-danger"
                 *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
@@ -320,7 +364,51 @@
                 Password must be at least 6 characters
               </small>
             </div>
+
             <div class="col-md-4 mb-3">
+              <label class="form-label">
+                Confirm Password <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  class="form-control"
+                  [(ngModel)]="confirmPassword"
+                  name="confirmPassword"
+                  required
+                  #confirmPasswordModel="ngModel"
+                  placeholder="Enter Confirm Password"
+                />
+                <span
+                  class="input-group-text cursor-pointer"
+                  (click)="toggleConfirmPasswordVisibility()"
+                >
+                  <i
+                    [class]="
+                      showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                    "
+                  ></i>
+                </span>
+              </div>
+              <small
+                class="text-danger"
+                *ngIf="
+                  confirmPasswordModel.invalid &&
+                  (confirmPasswordModel.touched || companyForm.submitted)
+                "
+              >
+                Confirm password is required
+              </small>
+              <small
+                class="text-danger"
+                *ngIf="
+                  confirmPassword !== password && confirmPassword && password
+                "
+              >
+                Passwords do not match
+              </small>
+            </div>
+            <!-- <div class="col-md-4 mb-3">
               <label class="form-label"
                 >Confirm Password <span class="text-danger">*</span></label
               >
@@ -348,7 +436,7 @@
               >
                 Passwords do not match
               </small>
-            </div>
+            </div> -->
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label"
@@ -424,3 +512,4 @@
     </form>
   </div>
 </div>
+<app-footer></app-footer>

@@ -42,4 +42,11 @@ updatejobApplicationStatus(payload: any): Observable<any> {
 }
 
 
+  getCompanyJobUser(jobID: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}job-api/admin/getCompanyJobUser?jobID=${jobID}`
+    );
+  }
+
+
 }

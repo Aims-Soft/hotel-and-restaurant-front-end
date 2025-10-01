@@ -25,6 +25,9 @@ import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 import { AdminViewCompaniesComponent } from './admin-companies/admin-view-companies/admin-view-companies.component';
 import { AdminJobDetailComponent } from './admin-jobs/admin-job-detail/admin-job-detail.component';
 import { ApplicationDetailComponent } from './applications/application-detail/application-detail.component';
+import { CandiateProfileComponent } from './candidates/candiate-profile/candiate-profile.component';
+import { ResumeComponent } from './candidates/candiate-profile/resume/resume.component';
+import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -52,6 +55,9 @@ const routes: Routes = [
   { path: 'adminsettings', component: AdminSettingComponent },
   { path: 'adminviewcompanies', component: AdminViewCompaniesComponent },
   { path: 'adminjobdetail', component: AdminJobDetailComponent },
+  {path:'candidateprofile', component:CandiateProfileComponent },
+  {path: 'resume',component:ResumeComponent},
+  {path:'companyjobuser',component:CompanyJobUserComponent}
  
 ];
 

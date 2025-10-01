@@ -1,0 +1,86 @@
+ .cv-card {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-weight: 600;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title i {
+            margin-right: 8px;
+        }
+        
+        .info-label {
+            color: #333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .info-label i {
+            color: #667eea;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .info-value {
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .skill-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 5px;
+        }
+        
+        .education-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .education-degree {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .education-institution {
+            color: #6c757d;
+            margin-bottom: 3px;
+        }
+        
+        .education-year {
+            color: #999;
+            font-size: 0.9rem;
+        }

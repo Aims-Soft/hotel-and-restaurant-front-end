@@ -119,4 +119,7 @@ onViewApplications(company: any): void {
       }
     );
   }
+
+
+  
 }

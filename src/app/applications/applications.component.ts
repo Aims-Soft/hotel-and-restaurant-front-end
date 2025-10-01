@@ -569,6 +569,7 @@ export class ApplicationsComponent implements OnInit {
   confirmDelete(): void {
     if (!this.jobToDelete) return;
 
+
     const payload = {
       userID: this.userSessionService.getUserID(),
       jobID: this.jobToDelete.jobID,
@@ -634,17 +635,25 @@ export class ApplicationsComponent implements OnInit {
   confirmToggleStatus(): void {
     if (!this.jobToToggle) return;
 
+     const jobApplicationID = this.jobToToggle.appliedUsers && this.jobToToggle.appliedUsers.length > 0 
+    ? this.jobToToggle.appliedUsers[0].jobApplicationID 
+    : 0;
+
     const payload = {
       jobID: this.jobToToggle.jobID,
       jobTitle: this.jobToToggle.jobTitle,
-      jobStatusID: this.newToggleStatus ? 1 : 2,
+       jobApplicationID: jobApplicationID,
+      jobApplicationStatusID: this.newToggleStatus ? 1 : 2,
       userID: this.userSessionService.getUserID(),
       spType: 'update',
     };
 
-    this.CompanyDashboardService.updateJobStatus(payload).subscribe(
+    this.CompanyDashboardService.updatejobApplicationStatus(payload).subscribe(
       (res) => {
         this.jobToToggle.toggleStatus = this.newToggleStatus;
+
+        console.log(payload,'payload');
+        console.log(res,'response')
 
         this.successMessage = `Status updated to ${
           this.newToggleStatus ? 'Open' : 'Closed'

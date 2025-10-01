@@ -467,4 +467,8 @@ color: #828282;
     border-bottom: 3px solid var(--black);
   }
 
-  /* Admin Dashbord */
+  /* Admin pointer */
+
+  .cursor-pointer {
+  cursor: pointer;
+}

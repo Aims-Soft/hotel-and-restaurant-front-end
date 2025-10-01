@@ -26,6 +26,10 @@ export class RegisterCompanyComponent implements OnInit {
   selectedBannerFile: File | null = null;
   bannerPreviewUrl: string | ArrayBuffer | null = null;
   isBannerImage = false;
+   showPassword: boolean = false;
+   showConfirmPassword: boolean = false;
+
+
 
   userName: string = '';
   companyName: string = '';
@@ -54,6 +58,16 @@ export class RegisterCompanyComponent implements OnInit {
     this.getCities();
     this.getCompanyDomain();
   }
+
+
+
+    togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPasswordVisibility() {
+  this.showConfirmPassword = !this.showConfirmPassword;
+}
+
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -565,6 +579,7 @@ export class RegisterCompanyComponent implements OnInit {
     });
   }
 
+ 
  
   resetForm(): void {
     this.companyName = '';

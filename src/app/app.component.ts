@@ -18,7 +18,7 @@ export class AppComponent {
   showNav(): boolean {
     const url = this.router.url;
     return !(
-      url.startsWith('/applicationdetails') ||
+      url.startsWith('/applicationdetails') || url.startsWith ('/candidateprofile') ||
       [
         '/signIn',
         '/applyForm',
@@ -33,10 +33,13 @@ export class AppComponent {
         '/adminjobs',
         '/candidates',
         '/adminsettings',
-        '/registercompany',
-        '/registeryourself',
+        // '/registercompany',
+        // '/registeryourself',
         '/adminviewcompanies',
         '/adminjobdetail',
+        '/cadidateprofile',
+        '/resume',
+        '/companyjobuser',
       ].includes(url)
     );
   }
@@ -44,7 +47,7 @@ export class AppComponent {
   showSideNav(): boolean {
     const url = this.router.url;
     return (
-      url.startsWith('/applicationdetails') ||
+      url.startsWith('/applicationdetails') || url.startsWith ('/candidateprofile') ||
       [
         '/companyDashboard',
         '/verticalNav',
@@ -59,6 +62,8 @@ export class AppComponent {
         '/adminsettings',
         '/adminviewcompanies',
         '/adminjobdetail',
+        '/companyjobuser',
+      
       ].includes(url)
     );
   }
