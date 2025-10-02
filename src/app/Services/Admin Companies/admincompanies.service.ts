@@ -49,4 +49,14 @@ updatejobApplicationStatus(payload: any): Observable<any> {
   }
 
 
+getCandidatesDetails(userID: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}job-api/admin/getUserJobDetails?userID=${userID}`
+    );
+  }
+  // getUserDomain(userID: number): Observable<any> {
+  //   return this.http.get<any>(
+  //     `${this.apiUrl}job-api/admin/getUserJobDomain?userID=${userID}`
+  //   );
+  // }
 }

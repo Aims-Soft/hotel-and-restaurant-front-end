@@ -1,24 +1,24 @@
-/* Custom responsive utilities */
+/* Custom responsive utilities
 .min-w-0 {
   min-width: 0;
 }
 
 /* Ensure proper spacing at all zoom levels */
-.container-fluid {
+/* .container-fluid {
   max-width: 100%;
   overflow-x: hidden;
-}
+} */
 
 /* Profile image responsive sizing */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .rounded-circle {
     width: 50px !important;
     height: 50px !important;
   }
-}
+} */
 
 /* Table responsive adjustments */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .table td {
     padding: 0.5rem 0.75rem;
   }
@@ -26,24 +26,125 @@
   .card-body {
     padding: 1rem !important;
   }
-}
+} */
 
 /* Prevent text overflow */
-.text-truncate {
+/* .text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
+} */
 
 /* Badge size adjustments for mobile */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .badge {
     font-size: 9px !important;
     padding: 0.2em 0.5em;
   }
-}
+} */
 
-/* Flexible spacing */
-.flex-shrink-0 {
+/* .flex-shrink-0 {
   flex-shrink: 0;
-}
+} */
+
+
+      .profile-header {
+            background-color: #e8e8f0;
+            padding: 25px 40px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50% ;
+            object-fit: relative;
+            border-color: #000 1px;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000;
+            margin: 0;
+        }
+        
+        .profile-profession {
+            font-size: 18px;
+            color: #000;
+            margin: 5px 0 8px 0;
+            font-weight: 400;
+        }
+        
+        .profile-email {
+            font-size: 15px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .profile-address {
+            font-size: 15px;
+            color: #666;
+            margin: 0;
+            text-align: right;
+        }
+        
+        .profile-phone {
+            font-size: 15px;
+            color: #666;
+            margin: 5px 0 0 0;
+            text-align: right;
+        }
+        
+        .action-icons {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .icon-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .icon-btn i {
+            font-size: 20px;
+        }
+        
+        .edit-icon {
+            color: #6366f1;
+        }
+        
+        .delete-icon {
+            color: #ef4444;
+        }
+        
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #8b8bd4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        
+        .time-badge i {
+            font-size: 12px;
+        }

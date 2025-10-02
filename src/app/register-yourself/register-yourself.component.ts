@@ -3,6 +3,7 @@ import { UserSessionService } from '../Services/userSession/userSession.Service'
 import { CompanyRegistrationService } from '../Services/Company registration/company-registration.service';
 import { RegisterUserService } from '../Services/register user/register-user.service';
 import { adminCompanyService } from '../Services/Admin Companies/admincompanies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-yourself',
@@ -17,9 +18,7 @@ export class RegisterYourselfComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-
   passwordMismatch: boolean = false;
-
 
   companyDomains: any[] = [];
   selectedDomains: number[] = [];
@@ -46,7 +45,7 @@ export class RegisterYourselfComponent implements OnInit {
   companyEmail: string = '';
   // cnicMask = this.global.cnicMask();
   // cnicMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/];
-// cnic: string = '';
+  // cnic: string = '';
 
   contactNo: string = '';
   address: string = '';
@@ -58,7 +57,8 @@ export class RegisterYourselfComponent implements OnInit {
     private userSessionService: UserSessionService,
     private CompanyRegistrationService: CompanyRegistrationService,
     private RegisterUserService: RegisterUserService,
-    private global:adminCompanyService
+    private global: adminCompanyService,
+    private router:Router,
   ) {}
 
   ngOnInit(): void {
@@ -69,14 +69,12 @@ export class RegisterYourselfComponent implements OnInit {
     this.getCompanyDomain();
   }
 
-
-    togglePasswordVisibility() {
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
   toggleConfirmPasswordVisibility() {
-  this.showConfirmPassword = !this.showConfirmPassword;
-}
-
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 
   genders = [
     { genderID: 1, genderName: 'Male' },
@@ -219,12 +217,11 @@ export class RegisterYourselfComponent implements OnInit {
   }
 
   onRegister(): void {
-
-      if (this.password !== this.confirmPassword) {
-    this.passwordMismatch = true;
-    return;
-  }
-  this.passwordMismatch = false;
+    if (this.password !== this.confirmPassword) {
+      this.passwordMismatch = true;
+      return;
+    }
+    this.passwordMismatch = false;
 
     const payload: any = {
       userID: 0,
@@ -256,8 +253,6 @@ export class RegisterYourselfComponent implements OnInit {
 
     //   console.log("Selected Domains:", this.selectedDomains);
     // console.log("Payload JSON:", JSON.stringify(this.selectedDomains));
-
-
 
     const filePromises: Promise<void>[] = [];
 
@@ -304,14 +299,39 @@ export class RegisterYourselfComponent implements OnInit {
       console.log('Final payload:', payload);
 
       this.RegisterUserService.saveUser(payload).subscribe({
-        next: (res) => {
-          console.log('user registered:', res);
-          this.successMessage = 'User registered successfully!';
-          this.errorMessage = '';
+        next: (res: any) => {
+          console.log('API Response:', res);
+
+          if (Array.isArray(res) && res.length > 0) {
+            const responseMessage = res[0];
+
+            
+            if (responseMessage.includes('User already Exist')) {
+              this.errorMessage = 'Cnic or Email already exists';
+              this.successMessage = '';
+              return;
+            }
+
+            
+            if (responseMessage.startsWith('Success')) {
+              const parts = responseMessage.split('|||');
+              const userId = parts[1]; 
+              console.log('New User ID:', userId);
+
+              this.successMessage = 'User registered successfully!';
+              this.errorMessage = '';
+              setTimeout(() => {
+                this.router.navigate(['/signIn']); 
+              }, 3000);
+              return;
+            }
+          }
+
+          this.errorMessage = 'Unexpected response from server';
+          this.successMessage = '';
         },
         error: (err) => {
           console.error('Error:', err);
-          console.error('Error details:', err.error);
           this.errorMessage = 'Failed to register user. Try again.';
           this.successMessage = '';
         },
@@ -320,8 +340,8 @@ export class RegisterYourselfComponent implements OnInit {
   }
 
   checkPasswordMatch(): void {
-  this.passwordMismatch = this.password !== this.confirmPassword;
-}
+    this.passwordMismatch = this.password !== this.confirmPassword;
+  }
   getCompanyDomain(): void {
     this.isLoading = true;
     this.CompanyRegistrationService.getCompanyDomain().subscribe(

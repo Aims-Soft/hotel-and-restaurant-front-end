@@ -71,11 +71,12 @@ export class CandidatesComponent implements OnInit {
     );
   }
 
-onViewApplications(job: any): void {
-  this.router.navigate(['/candidateprofile'], {
-    state: { jobId: job.jobID }  
-  });
-}
+ onViewApplications(job: any): void {
+    console.log('Navigating with userID:', job.userID);
+    this.router.navigate(['/candidateprofile'], {
+      state: { userID: job.userID }
+    });
+  }
 
 
 

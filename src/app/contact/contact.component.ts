@@ -10,6 +10,10 @@ import { Subject } from 'rxjs';
 })
 export class ContactComponent  implements OnInit{
 
+  successMessage: string = '';
+  errorMessage: string = '';
+  isSubmitting: boolean = false;
+
   ngOnInit(): void {
     
   }
@@ -25,7 +29,29 @@ export class ContactComponent  implements OnInit{
 
 
   submitRequest(): void {
-  // Construct payload manually here
+
+     this.successMessage = '';
+    this.errorMessage = '';
+    
+      if (!this.formData.userName || !this.formData.email || !this.formData.userMessage) {
+    this.errorMessage = 'Please fill in all required fields.';
+    return;
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(this.formData.email)) {
+    this.errorMessage = 'Please enter a valid email address.';
+    return;
+  }
+
+  // Validate message length
+  if (this.formData.userMessage.length < 10) {
+    this.errorMessage = 'Message must be at least 10 characters long.';
+    return;
+  }
+    this.isSubmitting = true;
+  
   const payload = {
     userName: this.formData.userName,
     email: this.formData.email,
@@ -40,16 +66,28 @@ export class ContactComponent  implements OnInit{
 
   this.websiteservice.contactus(payload).subscribe(
     (res: any) => {
-      console.log('Saved Successfully', res);
-      alert('Your request has been submitted!');
-      this.resetForm();
+       this.isSubmitting = false;
+        console.log('Saved Successfully', res);
+        this.successMessage = 'Your request has been submitted successfully!';
+        this.resetForm();
+        
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 5000);
     },
-    (err: any) => {
-      console.error('Error saving contact:', err);
-      alert('Something went wrong, try again!');
-    }
-  );
-}
+    (err: any) => { 
+      this.isSubmitting = false;
+        console.error('Error saving contact:', err);
+        this.errorMessage = 'Something went wrong. Please try again!';
+        
+        // Auto-hide error message after 5 seconds
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 5000);
+      }
+    );
+  }
 
 formData = {
   userName: '',
