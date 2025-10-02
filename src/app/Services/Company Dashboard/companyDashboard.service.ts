@@ -64,6 +64,7 @@ validatePin(payload: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobStatus`, payload);
 }
 
+
 updatejobApplicationStatus(payload: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}job-api/Job/saveJobApplicationStatus`, payload);
 }

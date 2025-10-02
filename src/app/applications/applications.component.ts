@@ -643,12 +643,12 @@ export class ApplicationsComponent implements OnInit {
       jobID: this.jobToToggle.jobID,
       jobTitle: this.jobToToggle.jobTitle,
        jobApplicationID: jobApplicationID,
-      jobApplicationStatusID: this.newToggleStatus ? 1 : 2,
+      jobStatusID: this.newToggleStatus ? 1 : 2,
       userID: this.userSessionService.getUserID(),
       spType: 'update',
     };
 
-    this.CompanyDashboardService.updatejobApplicationStatus(payload).subscribe(
+    this.CompanyDashboardService.updateJobStatus(payload).subscribe(
       (res) => {
         this.jobToToggle.toggleStatus = this.newToggleStatus;
 
@@ -679,5 +679,6 @@ export class ApplicationsComponent implements OnInit {
     this.statusPinErrorMessage = null;
     this.isStatusPinValidating = false;
     this.newToggleStatus = false;
+     this.getJobApplications(this.companyID);
   }
 }
