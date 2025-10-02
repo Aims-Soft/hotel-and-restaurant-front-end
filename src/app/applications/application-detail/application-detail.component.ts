@@ -588,6 +588,71 @@ export class ApplicationDetailComponent implements OnInit {
       }
     );
   }
+ downloadCV(user: any): void {
+    if (!user.eResume) {
+      alert('Resume not available for this user');
+      return;
+    }
+
+    console.log('Downloading CV from:', user.eResume);
+
+    // Method 1: Direct download using fetch (handles CORS better)
+    fetch(user.eResume)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        // Create a blob URL
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        // Create temporary link
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `${user.userName}_Resume.pdf`;
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
+      })
+      .catch(error => {
+        console.error('Error downloading CV via fetch:', error);
+        
+        // Fallback: Open in new tab if CORS blocks download
+        console.log('Attempting fallback method...');
+        window.open(user.eResume, '_blank');
+      });
+  }
+  //   downloadCV(user: any): void {
+  //   if (!user.eResume) {
+  //     alert('Resume not available for this user');
+  //     return;
+  //   }
+
+  //   try {
+  //     // Create a temporary anchor element
+  //     const link = document.createElement('a');
+  //     link.href = user.eResume;
+  //     link.download = `${user.userName}_Resume.pdf`;
+  //     link.target = '_blank';
+      
+  //     // Append to body, click, and remove
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+
+  //     console.log('Downloading CV from:', user.eResume);
+  //   } catch (error) {
+  //     console.error('Error downloading CV:', error);
+  //     alert('Failed to download CV. Please try again.');
+  //   }
+  // }
 
   // Excel Export Functions
   exportToExcel(data: any[], fileName: string): void {

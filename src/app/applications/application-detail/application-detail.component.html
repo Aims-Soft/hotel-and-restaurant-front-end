@@ -70,7 +70,15 @@
                     <hr class="my-2" />
                     <p class="mb-1">{{ user.experience }} Experience</p>
                     <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
+                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
+                      Download CV
+                    </button> -->
+                     <button 
+                      class="btn w-100 text-white fw-semibold" 
+                      style="background-color: #8b5cf6"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume">
+                      <i class="bi bi-download me-1"></i>
                       Download CV
                     </button>
                   </div>
@@ -120,7 +128,15 @@
                     <hr class="my-2" />
                     <p class="mb-1">{{ user.experience }} Experience</p>
                     <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
+                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
+                      Download CV
+                    </button> -->
+                       <button 
+                      class="btn w-100 text-white fw-semibold" 
+                      style="background-color: #10b981"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume">
+                      <i class="bi bi-download me-1"></i>
                       Download CV
                     </button>
                   </div>
@@ -170,7 +186,15 @@
                     <hr class="my-2" />
                     <p class="mb-1">{{ user.experience }} Experience</p>
                     <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
+                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
+                      Download CV
+                    </button> -->
+                        <button 
+                      class="btn w-100 text-white fw-semibold" 
+                      style="background-color: #ef4444"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume">
+                      <i class="bi bi-download me-1"></i>
                       Download CV
                     </button>
                   </div>
@@ -220,7 +244,15 @@
                     <hr class="my-2" />
                     <p class="mb-1">{{ user.experience }} Experience</p>
                     <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
+                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
+                      Download CV
+                    </button> -->
+                      <button 
+                      class="btn w-100 text-white fw-semibold" 
+                      style="background-color: #3b82f6"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume">
+                      <i class="bi bi-download me-1"></i>
                       Download CV
                     </button>
                   </div>

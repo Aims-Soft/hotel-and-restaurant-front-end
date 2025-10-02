@@ -561,8 +561,8 @@ export class ApplicationsComponent implements OnInit {
 
   openDeleteModal(job: any): void {
     this.jobToDelete = job;
-    this.enteredPin = ''; // Reset PIN field
-    this.pinErrorMessage = null; // Clear any previous PIN errors
+    this.enteredPin = ''; 
+    this.pinErrorMessage = null; 
     this.deleteModal.show();
   }
 
@@ -585,7 +585,7 @@ export class ApplicationsComponent implements OnInit {
 
     this.CompanyDashboardService.deleteapplication(payload).subscribe(
       (res) => {
-        // Remove from UI
+     
         this.jobApplications = this.jobApplications.filter(
           (j) => j.jobID !== this.jobToDelete.jobID
         );
