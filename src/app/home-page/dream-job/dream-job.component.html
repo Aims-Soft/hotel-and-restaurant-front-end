@@ -10,9 +10,10 @@
     </div>
     <!-- <app-job-display></app-job-display> -->
 
-    <app-catagories (categoriesSelected)="onCategoriesSelected($event)"></app-catagories>
+  <!-- <app-job-display [selectedCategories]="selectedCategories"></app-job-display> -->
+  <app-job-display  [searchQuery]="searchQuery"></app-job-display>
+    <!-- <app-catagories (categoriesSelected)="onCategoriesSelected($event)"></app-catagories> -->
 
-  <app-job-display [selectedCategories]="selectedCategories"></app-job-display>
 
   
 

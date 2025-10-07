@@ -1,14 +1,218 @@
+
+<div class="container-fluid p-0" style="height: 100vh">
+  <!-- Top Header Row - Fixed -->
+  <div class="row g-0" style="height: 70px">
+    <!-- Logo Section - Col 2 -->
+    <div
+      class="col-md-2 d-flex align-items-center justify-content-center bottom-end"
+    >
+      <img
+        src="../../assets/images/pakistanEductionportal.png"
+        class="img-fluid"
+        width="181px"
+        alt="Logo"
+      />
+    </div>
+
+    <!-- Top Header - Col 10 -->
+    <div class="col-md-10 bottom-border border-start">
+      <div
+        class="py-3 d-flex align-items-center justify-content-end px-4 h-100"
+      >
+        <!-- Right Side Icons -->
+        <div class="d-flex align-items-center">
+          <i class="bi bi-bell fs-4"></i>
+          <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
+            <img
+              src="../../assets/images/profilePic.png"
+              class="img-fluid"
+              alt="Profile"
+            />
+            <i class="bi bi-chevron-down ms-2 fs-5"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content with Sidebar -->
+  <div class="row g-0 mt-5" style="height: calc(80vh)">
+    <!-- Sidebar - Col 2 -->
+    <div
+      class="col-md-2 right-border"
+      style="overflow-y: auto; overflow-x: hidden"
+    >
+      <div
+        class="d-flex flex-column align-items-start px-3 py-3"
+        style="min-height: 100%"
+      >
+        <!-- Dynamic Menu Items -->
+        <div class="w-100 flex-grow-1">
+          <div class="mb-2" *ngFor="let item of menuList">
+            <a
+              class="d-flex align-items-center text-decoration-none px-3 py-2 rounded"
+              routerLink="/{{ item.routeTitle }}"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <i [class]="item.menuIcon + ' text-black'"></i>
+              <span class="ms-3 text-black">{{ item.menuTitle }}</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Static Menu Items (Bottom) -->
+        <div class="w-100 mt-auto">
+          <a
+            class="d-flex align-items-center text-decoration-none px-3 py-2 rounded"
+            routerLink="/privacy"
+            routerLinkActive="active-link"
+          >
+            <i class="bi bi-book-half icon-size text-black"></i>
+            <span class="ms-3 text-black">Privacy Policy</span>
+          </a>
+          <a
+            class="d-flex align-items-center text-decoration-none bg-danger px-3 py-2 rounded mt-2"
+            routerLink="/signIn"
+            (click)="logout()"
+            style="cursor: pointer"
+          >
+            <i class="bi bi-box-arrow-right icon-size text-white"></i>
+            <span class="ms-3 text-white">Logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area - Col 10 -->
+    <div class="col-md-10" style="overflow-y: auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- 
+<div class="container-fluid p-0" style="overflow: hidden !important;">
+  <div class="col-md-2 mt-3">
+
+       <img
+        src="../../assets/images/pakistanEductionportal.png"
+        class="img-fluid"
+        width="181px"
+        alt="Logo"
+      />
+
+  </div>
+
+ 
+  <div class="dashborad-position col-md-10">
+    <div
+      class="py-3 d-flex align-items-center justify-content-end bottom-border px-4"
+    >
+      
+
+ 
+      <div class="d-flex align-items-center">
+        <i class="bi bi-bell fs-4"></i>
+        <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
+          <img
+            src="../../assets/images/profilePic.png"
+            class="img-fluid"
+            alt="Profile"
+          />
+          <i class="bi bi-chevron-down ms-2 fs-5"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="row g-0">
+    
+   
+    <div
+      class="col-md-2 right-border sidebar"
+
+      style="min-height: 100vh; overflow-x: hidden; position: sticky; top: 0"
+    >
+   
+   
+      <div
+        class="d-flex flex-column align-items-start px-3"
+        style="height: 100vh"
+      >
+       
+        <div class="mt-2 w-100 flex-grow-1">
+          <div class="mb-2" *ngFor="let item of menuList">
+            <a
+              class="d-flex align-items-center text-decoration-none px-3 py-2 rounded"
+              routerLink="/{{ item.routeTitle }}"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <i [class]="item.menuIcon + ' text-black'"></i>
+              <span class="ms-3 text-black">{{ item.menuTitle }}</span>
+            </a>
+          </div>
+           
+        <div class="mb-5 w-100 mt-5">
+          <a
+            class="d-flex align-items-center text-decoration-none px-3 py-2 rounded"
+            routerLink="/privacy"
+            routerLinkActive="active-link"
+          >
+            <i class="bi bi-book-half icon-size text-black"></i>
+            <span class="ms-3 text-black">Privacy Policy</span>
+          </a>
+          <a
+            class="d-flex align-items-center text-decoration-none bg-danger px-3 py-2 rounded mt-2"
+            routerLink="/signIn"
+            (click)="logout()"
+            style="cursor: pointer"
+          >
+            <i class="bi bi-box-arrow-right icon-size text-white"></i>
+            <span class="ms-3 text-white">Logout</span>
+          </a>
+        </div>
+        </div>
+
+       
+      </div>
+    </div>
+
+   
+    <div class="col-md-10" style="overflow-y: auto; max-height: 100vh">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> -->
+
+  <!-- <div class="dashborad-position">
+     <img
+        src="../../assets/images/pakistanEductionportal.png"
+        class="img-fluid "
+        width="181px"
+        alt=""
+      />
+  <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
+    <i class="bi bi-bell fs-4"></i>
+    <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
+      <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
+      <i class="bi bi-chevron-down ms-2 fs-5"></i>
+    </div>
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col-md-2 d-flex ms-2 justify-content-center right-border  sidebar " style="overflow-x: hidden;">
     <div class="d-flex flex-column justify-content-center align-items-start">
       <img
-        src="../../assets/images/Career.logo.svg"
+        src="../../assets/images/pakistanEductionportal.png"
         class="img-fluid mt-5"
         width="181px"
         alt=""
       />
 
-      <!-- Dynamic Menu Items -->
       <div class="mt-2 w-100" *ngFor="let item of menuList">
         <a
           class="d-flex align-items-center text-decoration-none px-3 py-2"
@@ -16,12 +220,13 @@
           routerLinkActive="active-link"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <i class="bi bi-house icon-size text-black"></i>
+            <div [class]="item.menuIcon"></div>
+
           <span class="ms-3 text-black">{{ item.menuTitle }}</span>
         </a>
       </div>
 
-      <!-- Static Menu Items -->
+ 
       <div class="top-margin mb-3 w-100">
         <a
           class="d-flex align-items-center text-decoration-none px-3 py-2 rounded"
@@ -42,15 +247,9 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-
-
-
-
-
-
-<!-- <div class="row">
+  <!-- <div class="row">
   <div class="col-md-2 d-flex ms-2 justify-content-center right-border">
     <div class="d-flex flex-column justify-content-center align-items-center">
       <img
@@ -96,7 +295,7 @@
   </div>
 </div> -->
 
-<!-- <div class="h-100 side-nav-default" mat-elevation-z10>
+  <!-- <div class="h-100 side-nav-default" mat-elevation-z10>
 
   <div class="mt-4 mx-auto companyLogo"></div>
   <div class="nav-header d-flex flex-column justify-content-end">
@@ -177,3 +376,4 @@
     </div>
   </div>
 </div> -->
+</div>

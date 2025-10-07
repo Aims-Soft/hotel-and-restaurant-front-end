@@ -53,6 +53,11 @@ export class UserSessionService {
   return menus ? JSON.parse(menus) : [];
 }
 
+ getMenusIcons(): any[] {
+  const menus = localStorage.getItem(this.MENUS_KEY);
+  return menus ? JSON.parse(menus) : [];
+}
+
   getUser(): any {
     const user = localStorage.getItem(this.USER_KEY);
     return user ? JSON.parse(user) : null;

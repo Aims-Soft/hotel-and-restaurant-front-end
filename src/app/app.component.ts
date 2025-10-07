@@ -63,6 +63,7 @@ export class AppComponent {
         '/adminviewcompanies',
         '/adminjobdetail',
         '/companyjobuser',
+        '/resume',
       
       ].includes(url)
     );

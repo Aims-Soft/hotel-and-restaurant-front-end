@@ -1,11 +1,11 @@
-<div class="dashborad-position">
+<!-- <div class="dashborad-position">
   <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
     <i class="bi bi-bell fs-4"></i>
     <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
       <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
       <i class="bi bi-chevron-down ms-2 fs-5"></i>
     </div>
-  </div>
+  </div> -->
 
   <div class="container my-3 px-4">
     <div class="box-border rounded">
@@ -58,7 +58,7 @@
                   <div class="card-body">
                     <div class="d-flex align-items-center mb-2">
                       <img
-                        src="assets/images/profile.png"
+                        [src]="user.eDoc || 'assets/images/profile.png'"
                         class="rounded"
                         style="width: 50px; height: 50px; object-fit: cover"
                       />
@@ -267,4 +267,4 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->

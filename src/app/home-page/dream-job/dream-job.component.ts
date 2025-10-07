@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 @Component({
   selector: 'app-dream-job',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './dream-job.component.scss'
 })
 export class DreamJobComponent {
+
+    @Input() searchQuery: string = '';
 
 
     selectedCategories: string[] = [];

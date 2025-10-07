@@ -54,6 +54,12 @@ getCandidatesDetails(userID: number): Observable<any> {
       `${this.apiUrl}job-api/admin/getUserJobDetails?userID=${userID}`
     );
   }
+
+  getUserInfo(userID: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}user-api/User/getUserInfo?userID=${userID}`
+    );
+  }
   // getUserDomain(userID: number): Observable<any> {
   //   return this.http.get<any>(
   //     `${this.apiUrl}job-api/admin/getUserJobDomain?userID=${userID}`

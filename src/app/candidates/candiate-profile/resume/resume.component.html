@@ -1,92 +1,162 @@
-    <div class="container my-5">
-        <div class="card cv-card">
-            <!-- Header Section with Profile -->
-                <div class="card-header-custom text-white">
-                <div class="d-flex align-items-center">
-                    <img src="/assets/images/employe.svg" alt="Profile Picture" 
-                         class="rounded-circle profile-img me-4">
-                    <div>
-                        <h2 class="mb-1">John Doe</h2>
-                        <h5 class="text-white-50">Full Stack Developer</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body p-4">
-                <!-- Contact Information -->
-                <div class="mb-5">
-                    <h5 class="section-title">
-                        <i class="bi bi-person-badge"></i> Contact Information
-                    </h5>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="info-label">
-                                <i class="bi bi-card-text"></i>
-                                <span>CNIC:</span>
-                            </div>
-                            <div class="info-value">12345-6789012-3</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="info-label">
-                                <i class="bi bi-envelope"></i>
-                                <span>Email:</span>
-                            </div>
-                            <div class="info-value">john.doeexample.com</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="info-label">
-                                <i class="bi bi-telephone"></i>
-                                <span>Phone:</span>
-                            </div>
-                            <div class="info-value">+92 300 1234567</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="info-label">
-                                <i class="bi bi-geo-alt"></i>
-                                <span>Address:</span>
-                            </div>
-                            <div class="info-value">123 Main Street, City, Country</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Education Section -->
-                <div class="mb-5">
-                    <h5 class="section-title">
-                        <i class="bi bi-mortarboard"></i> Education
-                    </h5>
-                    
-                    <div class="education-item">
-                        <div class="education-degree">Bachelor of Science in Computer Science</div>
-                        <div class="education-institution">University of Technology</div>
-                        <div class="education-year">2018 - 2022</div>
-                    </div>
-                    
-                    <div class="education-item">
-                        <div class="education-degree">Higher Secondary Certificate</div>
-                        <div class="education-institution">City College</div>
-                        <div class="education-year">2016 - 2018</div>
-                    </div>
-                </div>
-
-                <!-- Skills Section -->
-                <div>
-                    <h5 class="section-title">
-                        <i class="bi bi-gear"></i> Skills
-                    </h5>
-                    <div>
-                        <span class="skill-badge">Angular</span>
-                        <span class="skill-badge">TypeScript</span>
-                        <span class="skill-badge">JavaScript</span>
-                        <span class="skill-badge">HTML/CSS</span>
-                        <span class="skill-badge">Node.js</span>
-                        <span class="skill-badge">Express</span>
-                        <span class="skill-badge">MongoDB</span>
-                        <span class="skill-badge">Bootstrap</span>
-                        <span class="skill-badge">Git</span>
-                        <span class="skill-badge">RESTful APIs</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- <div class="dashborad-position" style="overflow-x: hidden"> -->
+  <!-- Top Navigation Bar -->
+  <!-- <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
+    <i class="bi bi-bell fs-4"></i>
+    <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
+      <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
+      <i class="bi bi-chevron-down ms-2 fs-5"></i>
     </div>
+  </div> -->
+
+  <div class="container my-5">
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading resume...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage && !isLoading" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Action Buttons -->
+    <div *ngIf="!isLoading && !errorMessage && resumeData" class="mb-3 d-flex gap-2 justify-content-end">
+      <button class="btn btn-primary" (click)="goBack()">
+        <i class="bi bi-arrow-left me-2"></i>Back to Profile
+      </button>
+      <button class="btn btn-success" (click)="downloadPDF()" [disabled]="isDownloadingPDF">
+        <i class="bi bi-file-earmark-pdf me-2"></i>
+        {{ isDownloadingPDF ? 'Generating PDF...' : 'Download as PDF' }}
+      </button>
+      <button *ngIf="resumeData.eResume" class="btn btn-outline-primary" (click)="downloadOriginalResume()">
+        <i class="bi bi-download me-2"></i>View Original Resume
+      </button>
+    </div>
+
+    <!-- Resume Card -->
+    <div *ngIf="!isLoading && !errorMessage && resumeData" id="resume-content" class="card cv-card" style="max-width: 800px; margin: 0 auto;">
+      <!-- Header Section with Profile -->
+      <div class="card-header-custom text-white py-5">
+        <div class="d-flex align-items-center justify-content-start ps-4">
+          <img
+            [src]="resumeData.eDoc || '/assets/images/employe.svg'"
+            alt="Profile Picture"
+            class="rounded-circle me-4"
+            style="width: 120px; height: 120px; object-fit: cover; border: 5px solid white;"
+            onerror="this.src='/assets/images/employe.svg'"
+          />
+          <div>
+            <h1 class="mb-2 fw-bold" style="font-size: 2rem;">{{ resumeData.userName || "N/A" }}</h1>
+            <h4 class="text-white-50 mb-0" style="font-size: 1.25rem; font-weight: 400;">
+              {{ resumeData.profession || resumeData.jobTitle || "Software Engineer" }}
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body p-5">
+        <!-- Contact Information -->
+        <div class="mb-5">
+          <h5 class="section-title mb-4 pb-3" style="color: #5b67d1; font-size: 1.1rem; border-bottom: 2px solid #5b67d1;">
+            <i class="bi bi-person-badge me-2"></i> Contact Information
+          </h5>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="d-flex align-items-start mb-1">
+                <i class="bi bi-card-text me-3 text-muted" style="font-size: 1.1rem;"></i>
+                <div>
+                  <div class="text-muted small mb-1">CNIC:</div>
+                  <div class="fw-normal">{{ resumeData.cnic || "Not provided" }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start mb-1">
+                <i class="bi bi-envelope me-3 text-muted" style="font-size: 1.1rem;"></i>
+                <div>
+                  <div class="text-muted small mb-1">Email:</div>
+                  <div class="fw-normal">{{ resumeData.email || "Not provided" }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start mb-1">
+                <i class="bi bi-telephone me-3 text-muted" style="font-size: 1.1rem;"></i>
+                <div>
+                  <div class="text-muted small mb-1">Phone:</div>
+                  <div class="fw-normal">{{ resumeData.contact || resumeData.contactNo || "Not provided" }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start mb-1">
+                <i class="bi bi-geo-alt me-3 text-muted" style="font-size: 1.1rem;"></i>
+                <div>
+                  <div class="text-muted small mb-1">Location:</div>
+                  <div class="fw-normal">{{ resumeData.cityName || "Not provided" }}, {{ resumeData.countryName || "Pakistan" }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-start mb-1">
+                <i class="bi bi-house me-3 text-muted" style="font-size: 1.1rem;"></i>
+                <div>
+                  <div class="text-muted small mb-1">Address:</div>
+                  <div class="fw-normal">{{ resumeData.address || "Not provided" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="mb-5">
+          <h5 class="section-title mb-4 pb-3" style="color: #5b67d1; font-size: 1.1rem; border-bottom: 2px solid #5b67d1;">
+            <i class="bi bi-mortarboard me-2"></i> Education
+          </h5>
+
+          <div *ngIf="educationList && educationList.length > 0">
+            <div *ngFor="let edu of educationList" class="bg-light p-3 rounded mb-2" style="border-left: 4px solid #5b67d1;">
+              <div class="fw-semibold" style="font-size: 1rem;">
+                {{ edu.degree }}
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!educationList || educationList.length === 0" class="text-muted">
+            No education information available
+          </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="mb-5">
+          <h5 class="section-title mb-4 pb-3" style="color: #5b67d1; font-size: 1.1rem; border-bottom: 2px solid #5b67d1;">
+            <i class="bi bi-gear me-2"></i> Skills & Domains
+          </h5>
+          <div *ngIf="skillsList && skillsList.length > 0" class="d-flex flex-wrap gap-2">
+            <span *ngFor="let skill of skillsList" class="badge px-3 py-2" style="background-color: #5b67d1; font-size: 0.9rem; font-weight: 500; border-radius: 20px;">
+              {{ skill }}
+            </span>
+          </div>
+          <div *ngIf="!skillsList || skillsList.length === 0" class="text-muted">
+            No skills information available
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="mb-4">
+          <h5 class="section-title mb-4 pb-3" style="color: #5b67d1; font-size: 1.1rem; border-bottom: 2px solid #5b67d1;">
+            <i class="bi bi-briefcase me-2"></i> Experience
+          </h5>
+          <div class="fw-normal" style="font-size: 1rem;">
+            {{ resumeData.experienceRange || "Not specified" }}
+            {{ resumeData.experienceRange ? 'years' : '' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

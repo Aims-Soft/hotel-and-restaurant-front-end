@@ -10,13 +10,13 @@
 
 
 
-.sidebar {
-  height: 100vh;          /* full viewport height */
-  overflow-y: auto;       /* enable vertical scroll */
-  overflow-x: hidden;     /* hide horizontal scroll */
+/* .sidebar {
+  height: auto;          
+  overflow-y: hidden;       
+  overflow-x: hidden;    
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
+} */
 
 /* optional: prettier scrollbars for Chrome/Edge */
 .sidebar::-webkit-scrollbar {

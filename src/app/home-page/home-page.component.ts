@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HomePageComponent {
 
+    currentSearchQuery: string = '';
+
+  handleSearch(query: string): void {
+    this.currentSearchQuery = query;
+  }
+
 
   
   //   selectedCategories: string[] = [];

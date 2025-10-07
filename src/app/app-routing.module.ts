@@ -28,6 +28,7 @@ import { ApplicationDetailComponent } from './applications/application-detail/ap
 import { CandiateProfileComponent } from './candidates/candiate-profile/candiate-profile.component';
 import { ResumeComponent } from './candidates/candiate-profile/resume/resume.component';
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
+import { JobDisplayComponent } from './home-page/dream-job/job-display/job-display.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -37,28 +38,46 @@ const routes: Routes = [
   { path: 'companyDetails/:id', component: CompanyDetailsComponent },
   { path: 'companyDiscription/:id', component: CompanyDiscriptionComponent },
   { path: 'applyForm/:id', component: ApplyFormComponent },
-  { path: 'verticalNav', component: VerticalNavComponent },
-  { path: 'createJobs', component: CreateJobsComponent },
-  // { path: 'create-job/:jobId', component: CreateJobsComponent },
-  { path: 'applications', component: ApplicationsComponent },
- 
-  { path: 'privacy', component: PrivacyComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'adminDashboard', component: AdminDashbordComponent },
-  { path: 'companyDashboard', component: CompanyDashboardComponent },
-  {path:'applicationdetails/:jobId', component:ApplicationDetailComponent},
   { path: 'registercompany', component: RegisterCompanyComponent },
   { path: 'registeryourself', component: RegisterYourselfComponent },
-  { path: 'admincompanies', component: AdminCompaniesComponent },
-  { path: 'adminjobs', component: AdminJobsComponent },
-  { path: 'candidates', component: CandidatesComponent },
-  { path: 'adminsettings', component: AdminSettingComponent },
-  { path: 'adminviewcompanies', component: AdminViewCompaniesComponent },
-  { path: 'adminjobdetail', component: AdminJobDetailComponent },
-  {path:'candidateprofile', component:CandiateProfileComponent },
-  {path: 'resume',component:ResumeComponent},
-  {path:'companyjobuser',component:CompanyJobUserComponent}
- 
+
+  //  ADMIN SECTION
+
+  {
+    path: '',
+    component: VerticalNavComponent,
+    children: [
+      { path: 'adminDashboard', component: AdminDashbordComponent },
+      { path: 'admincompanies', component: AdminCompaniesComponent },
+      { path: 'adminjobs', component: AdminJobsComponent },
+      { path: 'candidates', component: CandidatesComponent },
+      { path: 'adminsettings', component: AdminSettingComponent },
+      { path: 'adminviewcompanies', component: AdminViewCompaniesComponent },
+      { path: 'adminjobdetail', component: AdminJobDetailComponent },
+      { path: 'candidateprofile', component: CandiateProfileComponent },
+      { path: 'resume', component: ResumeComponent },
+      { path: 'companyjobuser', component: CompanyJobUserComponent },
+    ],
+  },
+
+  //  COMPANY SECTION
+
+  {
+    path: '',
+    component: VerticalNavComponent,
+    children: [
+      { path: 'companyDashboard', component: CompanyDashboardComponent },
+      { path: 'applications', component: ApplicationsComponent },
+      { path: 'privacy', component: PrivacyComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'jobs', component: JobDisplayComponent },
+      { path: 'createJobs', component: CreateJobsComponent },
+      {
+        path: 'applicationdetails/:jobId',
+        component: ApplicationDetailComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
@@ -66,3 +85,37 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+
+// const routes: Routes = [
+//   { path: '', component: HomePageComponent },
+//   { path: 'contact', component: ContactComponent },
+//   { path: 'signIn', component: SignInComponent },
+//   { path: 'jobListing', component: JobListingComponent },
+//   { path: 'companies', component: CompaniesComponent },
+//   { path: 'companyDetails/:id', component: CompanyDetailsComponent },
+//   { path: 'companyDiscription/:id', component: CompanyDiscriptionComponent },
+//   { path: 'applyForm/:id', component: ApplyFormComponent },
+//   { path: 'verticalNav', component: VerticalNavComponent },
+//   { path: 'createJobs', component: CreateJobsComponent },
+//   // { path: 'create-job/:jobId', component: CreateJobsComponent },
+//   { path: 'applications', component: ApplicationsComponent },
+
+//   { path: 'privacy', component: PrivacyComponent },
+//   { path: 'settings', component: SettingsComponent },
+//   { path: 'adminDashboard', component: AdminDashbordComponent },
+//   { path: 'companyDashboard', component: CompanyDashboardComponent },
+//   {path:'applicationdetails/:jobId', component:ApplicationDetailComponent},
+//   { path: 'registercompany', component: RegisterCompanyComponent },
+//   { path: 'registeryourself', component: RegisterYourselfComponent },
+//   { path: 'admincompanies', component: AdminCompaniesComponent },
+//   { path: 'adminjobs', component: AdminJobsComponent },
+//   { path: 'candidates', component: CandidatesComponent },
+//   { path: 'adminsettings', component: AdminSettingComponent },
+//   { path: 'adminviewcompanies', component: AdminViewCompaniesComponent },
+//   { path: 'adminjobdetail', component: AdminJobDetailComponent },
+//   {path:'candidateprofile', component:CandiateProfileComponent },
+//   {path: 'resume',component:ResumeComponent},
+//   {path:'companyjobuser',component:CompanyJobUserComponent},
+//   {path:'jobs',component:JobDisplayComponent}
+
+// ];

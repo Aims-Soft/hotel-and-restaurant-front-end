@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(../src/ui/styles/icon.scss);
+
+
 @font-face {
   font-family: "reddit-sans";
   src: url(assets/Reddit_Sans/RedditSans-VariableFont_wght.ttf)
@@ -83,6 +86,11 @@
   background-color: var(--search-background);
   border-radius: 30px;
   border: 1px solid var(--search-border);
+}
+.searchbox {
+  background-color: var(--secondary-background);
+  border-radius: 30px;
+  border: 1px solid var(--secondary-background);
 }
 .search-box-btn {
   background-color: var(--secondary);
@@ -302,7 +310,7 @@ background-color: var(--company-bg);
 /* Candidate Dashboard */
   .dashborad-position{
     font-family: reddit-sans;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 13.15em;
     width: 82.5%;
@@ -472,3 +480,8 @@ color: #828282;
   .cursor-pointer {
   cursor: pointer;
 }
+
+
+ /* icons of menus */
+
+

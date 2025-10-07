@@ -1,6 +1,7 @@
-<app-intro-page></app-intro-page>
+<app-intro-page (searchChange)="handleSearch($event)"></app-intro-page>
+<app-dream-job [searchQuery]="currentSearchQuery"></app-dream-job>
 <!-- <app-catagories></app-catagories> -->
   <!-- <app-catagories (categoriesSelected)="onCategoriesSelected($event)"></app-catagories> -->
 <app-featured-company></app-featured-company>
-<app-dream-job></app-dream-job>
+
 <app-footer></app-footer>
