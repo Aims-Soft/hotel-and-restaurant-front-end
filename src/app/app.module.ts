@@ -53,6 +53,7 @@ import { CandiateProfileComponent } from './candidates/candiate-profile/candiate
 import { ResumeComponent } from './candidates/candiate-profile/resume/resume.component';
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
 import { AuthInterceptor } from '../Interceptors/auth.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,9 @@ import { AuthInterceptor } from '../Interceptors/auth.interceptor';
     provideClientHydration(),
     provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

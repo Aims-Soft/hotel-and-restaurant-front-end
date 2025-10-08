@@ -29,6 +29,7 @@ import { CandiateProfileComponent } from './candidates/candiate-profile/candiate
 import { ResumeComponent } from './candidates/candiate-profile/resume/resume.component';
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
 import { JobDisplayComponent } from './home-page/dream-job/job-display/job-display.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -83,6 +84,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers:[{provide:LocationStrategy,useClass: HashLocationStrategy}]
 })
 export class AppRoutingModule {}
 
