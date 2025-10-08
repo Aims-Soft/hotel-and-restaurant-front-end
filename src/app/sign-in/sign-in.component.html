@@ -8,7 +8,7 @@
   <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-5">
     
     <!-- Logo and Heading -->
-    <img src="../../assets/images/Career.logo.svg" class="img-fluid mb-3" width="180" alt="logo" />
+    <img src="../../assets/images/pakistanEductionportal.png" class="img-fluid mb-3" width="180" alt="logo" />
     <h2 class="fw-bold mb-2">Sign In</h2>
     <p class="text-muted mb-4">Enter your credential to access your account.</p>
 
@@ -74,6 +74,8 @@
         <span *ngIf="!isLoading" >Login</span>
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
       </button>
+        
+       <p class="text-center"> Back to Main Page for Registration <a routerLink="/" class="text-decoration-none">Back</a></p>
 
       <!-- OR Separator -->
       <!-- <div class="d-flex align-items-center my-3">
@@ -85,10 +87,11 @@
       <!-- <div class="text-center mt-3">
         Don't have an account?
       </div> -->
-    </form>
-
+      
     <p class="text-center text-secondary mt-4" style="font-size: 12px;">
       Career 2025, All rights reserved
     </p>
+    </form>
+
   </div>
 </div>
