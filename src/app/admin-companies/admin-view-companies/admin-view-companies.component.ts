@@ -31,16 +31,36 @@ export class AdminViewCompaniesComponent implements OnInit {
     this.getAllJobs(this.company.companyID);
   }
 
+  ngOnDestroy(): void {
+  // Clean up localStorage when component is destroyed
+  localStorage.removeItem('selectedCompany');
+}
+
 
   constructor( private  admincompanyService: adminCompanyService,
     private router: Router,
     private websitesevice:WebsiteService,
     
 
-  ){
-     const nav = this.router.getCurrentNavigation();
-    this.company = nav?.extras.state?.['company'];
+  )
+  {
+  // Try to get from navigation state first
+  const nav = this.router.getCurrentNavigation();
+  this.company = nav?.extras.state?.['company'];
+  
+  // If not in state, try localStorage (for page refresh)
+  if (!this.company) {
+    const savedCompany = localStorage.getItem('selectedCompany');
+    if (savedCompany) {
+      this.company = JSON.parse(savedCompany);
+      console.log('Company loaded from localStorage:', this.company);
+    }
   }
+}
+  // {
+  //    const nav = this.router.getCurrentNavigation();
+  //   this.company = nav?.extras.state?.['company'];
+  // }
 
 
 
@@ -91,7 +111,15 @@ export class AdminViewCompaniesComponent implements OnInit {
     );
   }
 
+// goToApply(jobId: number): void {
+//   this.router.navigate(['/companyjobuser'], {
+//     state: { jobId: jobId }
+//   });
+// }
 goToApply(jobId: number): void {
+  // Save jobId to localStorage before navigation
+  localStorage.setItem('selectedJobId', jobId.toString());
+  
   this.router.navigate(['/companyjobuser'], {
     state: { jobId: jobId }
   });

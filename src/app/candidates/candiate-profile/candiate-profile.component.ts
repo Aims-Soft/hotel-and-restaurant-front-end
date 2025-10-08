@@ -214,10 +214,11 @@ export class CandiateProfileComponent  implements OnInit{
       state: { userID: this.userID }
     });
   }
-
-  //   goBack(): void {
-  //   this.location.back();
-  // }
-
+  
+  goBack(): void {
+    this.router.navigate(['/candidates'], {
+      state: { userID: this.userID }
+    });
+  }
 
 }

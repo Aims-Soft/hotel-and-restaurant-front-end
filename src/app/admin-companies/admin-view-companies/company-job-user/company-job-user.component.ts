@@ -49,11 +49,33 @@ export class CompanyJobUserComponent implements OnInit{
           private CompanyDashboardService: CompanyDashboardService,
           private router: Router,
           private adminCompanyService: adminCompanyService,
-    ){
-         const nav = this.router.getCurrentNavigation();
+    )
+
+    {
+    // Try to get from navigation state first
+    const nav = this.router.getCurrentNavigation();
     this.jobId = nav?.extras.state?.['jobId'];
-    console.log('Received jobId in constructor:', this.jobId);
+    
+    // If not in state, try localStorage (for page refresh)
+    if (!this.jobId) {
+      const savedJobId = localStorage.getItem('selectedJobId');
+      if (savedJobId) {
+        this.jobId = Number(savedJobId);
+        console.log('JobId loaded from localStorage:', this.jobId);
+      }
+    } else {
+      // Save to localStorage for future refreshes
+      localStorage.setItem('selectedJobId', this.jobId.toString());
+      console.log('JobId saved to localStorage:', this.jobId);
     }
+    
+    console.log('Received jobId in constructor:', this.jobId);
+  }
+    // {
+    //      const nav = this.router.getCurrentNavigation();
+    // this.jobId = nav?.extras.state?.['jobId'];
+    // console.log('Received jobId in constructor:', this.jobId);
+    // }
   
       
  
@@ -87,6 +109,11 @@ export class CompanyJobUserComponent implements OnInit{
         this.errorMessage = 'Failed to load candidates. Please try again.';
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    // Clean up localStorage when component is destroyed
+    localStorage.removeItem('selectedJobId');
   }
   
   // onViewApplications(job: any): void {

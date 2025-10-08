@@ -26,16 +26,41 @@ export class AdminJobDetailComponent  implements OnInit{
     private adminjobService :adminJobsService,
     
 
-  ){
-     const nav = this.router.getCurrentNavigation();
+  )
+  {
+    // Try to get from navigation state first
+    const nav = this.router.getCurrentNavigation();
     this.job = nav?.extras.state?.['job'];
+    
+    // If not in state, try localStorage (for page refresh)
+    if (!this.job) {
+      const savedJob = localStorage.getItem('selectedJob');
+      if (savedJob) {
+        this.job = JSON.parse(savedJob);
+        console.log('Job loaded from localStorage:', this.job);
+      }
+    } else {
+      // Save to localStorage for future refreshes
+      localStorage.setItem('selectedJob', JSON.stringify(this.job));
+      console.log('Job saved to localStorage:', this.job);
+    }
 
-      if (this.job) {
-    this.job.skills = this.job.skills ? JSON.parse(this.job.skills) : [];
-    this.job.benefits = this.job.benefits ? JSON.parse(this.job.benefits) : [];
+    // Parse skills and benefits if job exists
+    if (this.job) {
+      this.job.skills = this.job.skills ? JSON.parse(this.job.skills) : [];
+      this.job.benefits = this.job.benefits ? JSON.parse(this.job.benefits) : [];
+    }
   }
+  // {
+  //    const nav = this.router.getCurrentNavigation();
+  //   this.job = nav?.extras.state?.['job'];
 
-  }
+  //     if (this.job) {
+  //   this.job.skills = this.job.skills ? JSON.parse(this.job.skills) : [];
+  //   this.job.benefits = this.job.benefits ? JSON.parse(this.job.benefits) : [];
+  // }
+
+  // }
 
 
   
@@ -82,6 +107,11 @@ export class AdminJobDetailComponent  implements OnInit{
         }
       );
     }
+
+     ngOnDestroy(): void {
+    // Clean up localStorage when component is destroyed
+    localStorage.removeItem('selectedJob');
+  }
 
 }
 

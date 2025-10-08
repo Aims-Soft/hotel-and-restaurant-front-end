@@ -74,12 +74,20 @@ export class AdminCompaniesComponent implements OnInit {
 //   });
 // }
 
+// onViewApplications(company: any): void {
+//   this.router.navigate(['/adminviewcompanies'], {
+//     state: { company }   
+//   });
+// }
+
 onViewApplications(company: any): void {
+  // Save to localStorage before navigation
+  localStorage.setItem('selectedCompany', JSON.stringify(company));
+  
   this.router.navigate(['/adminviewcompanies'], {
-    state: { company }   
+    state: { company }
   });
 }
-
 
   onToggleCompanyStatus(company: any): void {
 

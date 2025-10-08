@@ -8,7 +8,7 @@
   </div> -->
 
   <div class="container mt-3 ">
-    <div class="container">
+    <div class="container" *ngFor="let job of Activejobs">
       <div class="row px-3 ms-2">
         <div class="col-md-4 box-border pb-2 rounded">
           <div class="d-flex align-items-center">
@@ -24,11 +24,11 @@
           <div
             class="d-flex align-items-center justify-content-between px-2 mt-1"
           >
-            <span class="total-job-font-size" *ngFor="let job of Activejobs">{{
+            <span class="total-job-font-size" >{{
               job.totaljobs || 0
             }}</span>
             <div class="custom-bg px-1">
-              <small>+12.5%</small>
+              <small>{{job.jobGrowthPercent}}%</small>
             </div>
           </div>
         </div>
@@ -49,11 +49,11 @@
             >
               <span
                 class="total-job-font-size"
-                *ngFor="let job of Activejobs"
+               
                 >{{ job.activejobs || 0 }}</span
               >
               <div class="custom-bg px-1">
-                <small>+12.5%</small>
+                <small>+122.5%</small>
               </div>
             </div>
           </div>
@@ -72,18 +72,18 @@
           <div
             class="d-flex align-items-center justify-content-between px-2 mt-1"
           >
-            <span class="total-job-font-size" *ngFor="let job of Activejobs">{{
+            <span class="total-job-font-size" >{{
               job.expiredJob || 0
             }}</span>
             <div class="custom-bg px-1">
-              <small>+12.5%</small>
+              <small>+122.5%</small>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container mt-3">
+  <div class="container mt-3" *ngFor="let job of Activejobs">
     <div class="container">
       <div class="row px-3 ms-2">
         <div class="col-md-4 box-border pb-2 rounded">
@@ -100,11 +100,11 @@
           <div
             class="d-flex align-items-center justify-content-between px-2 mt-1"
           >
-            <span class="total-job-font-size" *ngFor="let job of Activejobs">{{
+            <span class="total-job-font-size" >{{
               job.totalCompany || 0
             }}</span>
             <div class="custom-bg px-1">
-              <small>+12.5%</small>
+              <small>{{job.companyGrowthPercent}}%</small>
             </div>
           </div>
         </div>
@@ -125,11 +125,11 @@
             >
               <span
                 class="total-job-font-size"
-                *ngFor="let job of Activejobs"
+                
                 >{{ job.totalCandidates || 0 }}</span
               >
               <div class="custom-bg px-1">
-                <small>+12.5%</small>
+                <small>{{job.candidateGrowthPercent}}%</small>
               </div>
             </div>
           </div>
@@ -148,11 +148,11 @@
           <div
             class="d-flex align-items-center justify-content-between px-2 mt-1"
           >
-            <span class="total-job-font-size" *ngFor="let job of Activejobs">{{
+            <span class="total-job-font-size">{{
               job.totalApplications || 0
             }}</span>
             <div class="custom-bg px-1">
-              <small>+12.5%</small>
+              <small>+{{job.applicationGrowthPercent}}%</small>
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@
 
               <td class="text-center">
                 <button
-                  class="px-2 py-2 application-custom-btn text-white border-0 rounded"
+                  class="px-2 py-2 application-custom-btn text-white border-0 rounded"(click)="onViewApplications(job)"
                 >
                   View Details
                 </button>
@@ -246,17 +246,17 @@
       <!-- Pagination -->
       <div class=" row mx-2 my-2 justify-content-between align-items-center">
         <div class="col-auto">
-        <a
+        <a 
           class="   "
           *ngFor="let page of [].constructor(totalPages); let i = index"
           (click)="goToPage(i + 1)"
-          [class]="
+          [class]=" 
             'text-decoration-none  ' +
             (currentPage === i + 1 ? 'text-black' : 'text-secondary')
           "
           style="cursor: pointer"
         >
-          <small class="ms-3">{{ i + 1 }}</small>
+          <small class="ms-3">Page {{ i + 1 }}</small>
         </a>
         </div>
         <div class="col-auto text-end ">

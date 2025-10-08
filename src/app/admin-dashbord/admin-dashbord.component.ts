@@ -115,6 +115,7 @@ getCompanies(): void {
     companyName: company.companyName,
     companyStatusID: newStatusID,
     userID: this.usersessionService.getUserID(),
+
     spType: 'update',
     remarkes: ""
   };
@@ -125,7 +126,13 @@ getCompanies(): void {
       console.log(payload,'payload')
       this.successMessage = `Company status updated to ${
         company.toggleStatus ? 'Approved' : 'Pending'
+ 
+
       } successfully!`;
+
+    this.getActivejobs();
+    this.getrecentjobs();
+    this.getCompanies();
       this.errorMessage = null;
 
       // Update the company's status in the local array
@@ -201,6 +208,21 @@ getCompanies(): void {
 //   const endIndex = startIndex + this.companyItemsPerPage;
 //   this.paginatedCompanies = this.companies.slice(startIndex, endIndex);
 // }
+
+  // onViewApplications(job: any): void {
+  //   this.router.navigate(['/adminjobdetail'], {
+  //     state: { job },
+  //   });
+  // }
+
+  onViewApplications(job: any): void {
+  // Save job to localStorage before navigation
+  localStorage.setItem('selectedJob', JSON.stringify(job));
+  
+  this.router.navigate(['/adminjobdetail'], {
+    state: { job }
+  });
+}
 
 updatePaginatedCompanies(): void {
   const filteredCompanies = this.companies.filter(company =>
