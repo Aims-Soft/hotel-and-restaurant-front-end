@@ -3,13 +3,12 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -53,8 +52,7 @@ import { ApplicationDetailComponent } from './applications/application-detail/ap
 import { CandiateProfileComponent } from './candidates/candiate-profile/candiate-profile.component';
 import { ResumeComponent } from './candidates/candiate-profile/resume/resume.component';
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
-
-
+import { AuthInterceptor } from '../Interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -76,7 +74,7 @@ import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/
     VerticalNavComponent,
     CreateJobsComponent,
     ApplicationsComponent,
-   
+
     PrivacyComponent,
     SettingsComponent,
     AdminDashbordComponent,
@@ -95,9 +93,6 @@ import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/
     CandiateProfileComponent,
     ResumeComponent,
     CompanyJobUserComponent,
-    
-  
-  
   ],
   imports: [
     BrowserModule,
@@ -107,9 +102,12 @@ import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-  
   ],
-  providers: [provideClientHydration(), provideHttpClient(withFetch())],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -24,6 +24,7 @@ export class UserSessionService {
       roleTitle: userData.roleTitle,
       companyID:userData.companyID,
       pin:userData.pin,
+      token:userData.token,
 
     };
 
