@@ -54,6 +54,9 @@ import { ResumeComponent } from './candidates/candiate-profile/resume/resume.com
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
 import { AuthInterceptor } from '../Interceptors/auth.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ForgetPasswordComponent } from './sign-in/forget-password/forget-password.component';
+import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
+import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +97,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     CandiateProfileComponent,
     ResumeComponent,
     CompanyJobUserComponent,
+    ForgetPasswordComponent,
+    EnterCodeComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

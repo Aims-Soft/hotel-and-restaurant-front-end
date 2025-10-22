@@ -30,6 +30,9 @@ import { ResumeComponent } from './candidates/candiate-profile/resume/resume.com
 import { CompanyJobUserComponent } from './admin-companies/admin-view-companies/company-job-user/company-job-user.component';
 import { JobDisplayComponent } from './home-page/dream-job/job-display/job-display.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ForgetPasswordComponent } from './sign-in/forget-password/forget-password.component';
+import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
+import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -41,6 +44,11 @@ const routes: Routes = [
   { path: 'applyForm/:id', component: ApplyFormComponent },
   { path: 'registercompany', component: RegisterCompanyComponent },
   { path: 'registeryourself', component: RegisterYourselfComponent },
+  { path: 'forgetPassword', component: ForgetPasswordComponent},
+  { path: 'enterCode', component: EnterCodeComponent},
+  { path: 'resetPassword',component: ResetPasswordComponent},
+
+  
 
   //  ADMIN SECTION
 

@@ -40,6 +40,9 @@ export class AppComponent {
         '/cadidateprofile',
         '/resume',
         '/companyjobuser',
+        '/forgetPassword',
+        '/enterCode',
+        '/resetPassword'
       ].includes(url)
     );
   }
