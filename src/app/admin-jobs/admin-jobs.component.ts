@@ -96,7 +96,7 @@ export class AdminJobsComponent implements OnInit {
   //   });
   // }
 
-onViewApplications(job: any): void {
+onViewJob(job: any): void {
   // Save job to localStorage before navigation
   localStorage.setItem('selectedJob', JSON.stringify(job));
   

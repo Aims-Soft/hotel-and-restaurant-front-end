@@ -1,4 +1,4 @@
-import { Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { adminCompanyService } from '../../Services/Admin Companies/admincompanies.service';
 import { Router } from '@angular/router';
 import { adminJobsService } from '../../Services/Admin-Jobs/adminjobs.service';
@@ -6,32 +6,34 @@ import { adminJobsService } from '../../Services/Admin-Jobs/adminjobs.service';
 @Component({
   selector: 'app-admin-job-detail',
   templateUrl: './admin-job-detail.component.html',
-  styleUrl: './admin-job-detail.component.css'
+  styleUrl: './admin-job-detail.component.css',
 })
-export class AdminJobDetailComponent  implements OnInit{
-
-    isLoading: boolean = false;
- jobApplications: any[] = [];
-  job: any ; 
+export class AdminJobDetailComponent implements OnInit {
+  isLoading: boolean = false;
+  jobApplications: any[] = [];
+  job: any;
   companyID: number | null = null;
 
-
   ngOnInit(): void {
+    if (!this.job) {
+      console.error('No job data received');
+      this.router.navigate(['/admin-dashboard']);
+      return;
+    }
+    console.log(this.job, 'on init log');
+
     this.getadminjobs();
-    
   }
 
-  constructor( private  admincompanyService: adminCompanyService,
+  constructor(
+    private admincompanyService: adminCompanyService,
     private router: Router,
-    private adminjobService :adminJobsService,
-    
-
-  )
-  {
+    private adminjobService: adminJobsService
+  ) {
     // Try to get from navigation state first
     const nav = this.router.getCurrentNavigation();
     this.job = nav?.extras.state?.['job'];
-    
+
     // If not in state, try localStorage (for page refresh)
     if (!this.job) {
       const savedJob = localStorage.getItem('selectedJob');
@@ -48,7 +50,9 @@ export class AdminJobDetailComponent  implements OnInit{
     // Parse skills and benefits if job exists
     if (this.job) {
       this.job.skills = this.job.skills ? JSON.parse(this.job.skills) : [];
-      this.job.benefits = this.job.benefits ? JSON.parse(this.job.benefits) : [];
+      this.job.benefits = this.job.benefits
+        ? JSON.parse(this.job.benefits)
+        : [];
     }
   }
   // {
@@ -62,19 +66,17 @@ export class AdminJobDetailComponent  implements OnInit{
 
   // }
 
-
-  
   // getCompanyDetails(): void {
   //   this.isLoading = true;
   //   this.admincompanyService.getcompanyDetails().subscribe(
   //     (response: any[]) => {
-     
+
   //       this.isLoading = false;
 
   //       // map job status
   //          this.jobApplications = response.map((company) => ({
   //         ...company,
-       
+
   //       }));
 
   //       console.log(this.jobApplications, 'Admin job Details with toggleStatus');
@@ -86,34 +88,29 @@ export class AdminJobDetailComponent  implements OnInit{
   //   );
   // }
 
-      getadminjobs(): void {
-      this.isLoading = true;
-      this.adminjobService.getAdminJobs(0).subscribe(
-        (response: any[]) => {
-       
-          this.isLoading = false;
-  
-          // map job status
-          this.jobApplications = response.map((job) => ({
-            ...job,
-            toggleStatus: job.jobStatusID === 1,
-          }));
-  
-          console.log(this.jobApplications, ' jobs with toggleStatus');
-        },
-        (error: any) => {
-          this.isLoading = false;
-          console.error('Error fetching job Details:', error);
-        }
-      );
-    }
+  getadminjobs(): void {
+    this.isLoading = true;
+    this.adminjobService.getAdminJobs(0).subscribe(
+      (response: any[]) => {
+        this.isLoading = false;
 
-     ngOnDestroy(): void {
+        // map job status
+        this.jobApplications = response.map((job) => ({
+          ...job,
+          toggleStatus: job.jobStatusID === 1,
+        }));
+
+        console.log(response, 'jobs details');
+      },
+      (error: any) => {
+        this.isLoading = false;
+        console.error('Error fetching job Details:', error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
     // Clean up localStorage when component is destroyed
     localStorage.removeItem('selectedJob');
   }
-
 }
-
-
-

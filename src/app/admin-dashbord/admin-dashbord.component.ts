@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminDashboardService } from '../Services/Admin Dashboard/adminDashboard.service';
@@ -7,14 +6,14 @@ import { UserSessionService } from '../Services/userSession/userSession.Service'
 @Component({
   selector: 'app-admin-dashbord',
   templateUrl: './admin-dashbord.component.html',
-  styleUrl: './admin-dashbord.component.css'
+  styleUrl: './admin-dashbord.component.css',
 })
 export class AdminDashbordComponent implements OnInit {
   isLoading: boolean = false;
 
   Activejobs: any[] = [];
   Recentjob: any[] = [];
-  companies:any[]=[];
+  companies: any[] = [];
   searchText: string = '';
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -25,18 +24,16 @@ export class AdminDashbordComponent implements OnInit {
   paginatedJobs: any[] = [];
   totalPages: number = 1;
 
-
   companySearchText: string = '';
-companyCurrentPage: number = 1;
-companyItemsPerPage: number = 5;
-paginatedCompanies: any[] = [];
-companyTotalPages: number = 1;
-
+  companyCurrentPage: number = 1;
+  companyItemsPerPage: number = 5;
+  paginatedCompanies: any[] = [];
+  companyTotalPages: number = 1;
 
   constructor(
     private router: Router,
     private adminDashbordService: AdminDashboardService,
-    private usersessionService: UserSessionService,
+    private usersessionService: UserSessionService
   ) {}
 
   ngOnInit(): void {
@@ -80,78 +77,78 @@ companyTotalPages: number = 1;
     );
   }
 
+  // Initialize toggleStatus based on companyStatusID when loading companies
+  getCompanies(): void {
+    this.isLoading = true;
+    this.adminDashbordService.getcompanies().subscribe(
+      (response: any[]) => {
+        this.isLoading = false;
 
-// Initialize toggleStatus based on companyStatusID when loading companies
-getCompanies(): void {
-  this.isLoading = true;
-  this.adminDashbordService.getcompanies().subscribe(
-    (response: any[]) => {
-      this.isLoading = false;
-      
-      // Map the response to include toggleStatus based on companyStatusID
-      this.companies = response.map(company => ({
-        ...company,
-        toggleStatus: company.companyStatusID === 1 // true if Approved (1), false otherwise
-      }));
+        // Map the response to include toggleStatus based on companyStatusID
+        this.companies = response.map((company) => ({
+          ...company,
+          toggleStatus: company.companyStatusID === 1, // true if Approved (1), false otherwise
+        }));
 
-      this.companyTotalPages = Math.ceil(this.companies.length / this.companyItemsPerPage);
-      this.updatePaginatedCompanies();
+        this.companyTotalPages = Math.ceil(
+          this.companies.length / this.companyItemsPerPage
+        );
+        this.updatePaginatedCompanies();
 
-      console.log(response, 'Companies data');
-    },
-    (error: any) => {
-      this.isLoading = false;
-      console.error('Error fetching companies:', error);
-    }
-  );
-}
-     onToggleCompanyStatus(company: any): void {
-  // Determine the new status based on current toggleStatus
-  // If toggleStatus is true, set to Approved (1), otherwise set to Pending (2)
-  const newStatusID = company.toggleStatus ? 1 : 2;
-  
-  const payload = {
-    companyID: company.companyID,
-    companyName: company.companyName,
-    companyStatusID: newStatusID,
-    userID: this.usersessionService.getUserID(),
+        console.log(response, 'Companies data');
+      },
+      (error: any) => {
+        this.isLoading = false;
+        console.error('Error fetching companies:', error);
+      }
+    );
+  }
+  onToggleCompanyStatus(company: any): void {
+    // Determine the new status based on current toggleStatus
+    // If toggleStatus is true, set to Approved (1), otherwise set to Pending (2)
+    const newStatusID = company.toggleStatus ? 1 : 2;
 
-    spType: 'update',
-    remarkes: ""
-  };
+    const payload = {
+      companyID: company.companyID,
+      companyName: company.companyName,
+      companyStatusID: newStatusID,
+      userID: this.usersessionService.getUserID(),
 
-  this.adminDashbordService.updateCompanyStatus(payload).subscribe(
-    (res) => {
-      console.log(res,'company status')
-      console.log(payload,'payload')
-      this.successMessage = `Company status updated to ${
-        company.toggleStatus ? 'Approved' : 'Pending'
- 
+      spType: 'update',
+      remarkes: '',
+    };
 
-      } successfully!`;
+    this.adminDashbordService.updateCompanyStatus(payload).subscribe(
+      (res) => {
+        console.log(res, 'company status');
+        console.log(payload, 'payload');
+        this.successMessage = `Company status updated to ${
+          company.toggleStatus ? 'Approved' : 'Pending'
+        } successfully!`;
 
-    this.getActivejobs();
-    this.getrecentjobs();
-    this.getCompanies();
-      this.errorMessage = null;
+        this.getActivejobs();
+        this.getrecentjobs();
+        this.getCompanies();
+        this.errorMessage = null;
 
-      // Update the company's status in the local array
-      company.companyStatusID = newStatusID;
-      
-      // auto hide message after 3 seconds
-      setTimeout(() => (this.successMessage = null), 3000);
-    },
-    (error) => {
-      this.errorMessage = 'Failed to update company status. Please try again.';
-      this.successMessage = null;
+        // Update the company's status in the local array
+        company.companyStatusID = newStatusID;
 
-      // rollback toggle if failed
-      company.toggleStatus = !company.toggleStatus;
+        // auto hide message after 3 seconds
+        setTimeout(() => (this.successMessage = null), 3000);
+      },
+      (error) => {
+        this.errorMessage =
+          'Failed to update company status. Please try again.';
+        this.successMessage = null;
 
-      setTimeout(() => (this.errorMessage = null), 3000);
-    }
-  );
-}
+        // rollback toggle if failed
+        company.toggleStatus = !company.toggleStatus;
+
+        setTimeout(() => (this.errorMessage = null), 3000);
+      }
+    );
+  }
 
   // updatePaginatedJobs(): void {
   //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -160,20 +157,21 @@ getCompanies(): void {
   // }
 
   updatePaginatedJobs(): void {
-  const filteredJobs = this.Recentjob.filter(job =>
-    job.jobTitle?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    job.jobCategoryTitle?.toLowerCase().includes(this.searchText.toLowerCase())
-  );
+    const filteredJobs = this.Recentjob.filter(
+      (job) =>
+        job.jobTitle?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        job.jobCategoryTitle
+          ?.toLowerCase()
+          .includes(this.searchText.toLowerCase())
+    );
 
-  this.totalPages = Math.ceil(filteredJobs.length / this.itemsPerPage);
+    this.totalPages = Math.ceil(filteredJobs.length / this.itemsPerPage);
 
-  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  const endIndex = startIndex + this.itemsPerPage;
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
 
-  this.paginatedJobs = filteredJobs.slice(startIndex, endIndex);
-}
-
-
+    this.paginatedJobs = filteredJobs.slice(startIndex, endIndex);
+  }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -203,11 +201,11 @@ getCompanies(): void {
   //   this.updatePaginatedJobs();
   // }
 
-//   updatePaginatedCompanies(): void {
-//   const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
-//   const endIndex = startIndex + this.companyItemsPerPage;
-//   this.paginatedCompanies = this.companies.slice(startIndex, endIndex);
-// }
+  //   updatePaginatedCompanies(): void {
+  //   const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
+  //   const endIndex = startIndex + this.companyItemsPerPage;
+  //   this.paginatedCompanies = this.companies.slice(startIndex, endIndex);
+  // }
 
   // onViewApplications(job: any): void {
   //   this.router.navigate(['/adminjobdetail'], {
@@ -215,42 +213,59 @@ getCompanies(): void {
   //   });
   // }
 
-  onViewApplications(job: any): void {
-  // Save job to localStorage before navigation
-  localStorage.setItem('selectedJob', JSON.stringify(job));
-  
-  this.router.navigate(['/adminjobdetail'], {
-    state: { job }
-  });
-}
+  CompanyDetails(company: any): void {
+    // Save to localStorage before navigation
+    localStorage.setItem('selectedCompany', JSON.stringify(company));
 
-updatePaginatedCompanies(): void {
-  const filteredCompanies = this.companies.filter(company =>
-    company.companyName?.toLowerCase().includes(this.companySearchText.toLowerCase()) ||
-    company.email?.toLowerCase().includes(this.companySearchText.toLowerCase()) ||
-    company.countryName?.toLowerCase().includes(this.companySearchText.toLowerCase())
-  );
-
-  this.companyTotalPages = Math.ceil(filteredCompanies.length / this.companyItemsPerPage);
-
-  const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
-  const endIndex = startIndex + this.companyItemsPerPage;
-
-  this.paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
-}
-
-nextCompanyPage(): void {
-  if (this.companyCurrentPage < this.companyTotalPages) {
-    this.companyCurrentPage++;
-    this.updatePaginatedCompanies();
+    this.router.navigate(['/adminviewcompanies'], {
+      state: { company },
+    });
   }
-}
 
-previousCompanyPage(): void {
-  if (this.companyCurrentPage > 1) {
-    this.companyCurrentPage--;
-    this.updatePaginatedCompanies();
+  onViewJob(job: any): void {
+    // Save job to localStorage before navigation
+    localStorage.setItem('selectedJob', JSON.stringify(job));
+
+    this.router.navigate(['/adminjobdetail'], {
+      state: { job },
+    });
   }
-}
 
+  updatePaginatedCompanies(): void {
+    const filteredCompanies = this.companies.filter(
+      (company) =>
+        company.companyName
+          ?.toLowerCase()
+          .includes(this.companySearchText.toLowerCase()) ||
+        company.email
+          ?.toLowerCase()
+          .includes(this.companySearchText.toLowerCase()) ||
+        company.countryName
+          ?.toLowerCase()
+          .includes(this.companySearchText.toLowerCase())
+    );
+
+    this.companyTotalPages = Math.ceil(
+      filteredCompanies.length / this.companyItemsPerPage
+    );
+
+    const startIndex = (this.companyCurrentPage - 1) * this.companyItemsPerPage;
+    const endIndex = startIndex + this.companyItemsPerPage;
+
+    this.paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
+  }
+
+  nextCompanyPage(): void {
+    if (this.companyCurrentPage < this.companyTotalPages) {
+      this.companyCurrentPage++;
+      this.updatePaginatedCompanies();
+    }
+  }
+
+  previousCompanyPage(): void {
+    if (this.companyCurrentPage > 1) {
+      this.companyCurrentPage--;
+      this.updatePaginatedCompanies();
+    }
+  }
 }
