@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,HostListener } from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import { CompanyRegistrationService } from '../Services/Company registration/company-registration.service';
 
@@ -45,6 +45,10 @@ export class RegisterCompanyComponent implements OnInit {
 
   successMessage: string = '';
   errorMessage: string = '';
+
+    searchText: string = '';
+  isDropdownOpen: boolean = false;
+  filteredDomains: any[] = [];
 
   constructor(
     private userSessionService: UserSessionService,
@@ -215,6 +219,7 @@ export class RegisterCompanyComponent implements OnInit {
       (response) => {
         this.isLoading = false;
         this.companyDomains = response; 
+         this.filteredDomains = response; 
         console.log('Company Domains:', response);
       },
       (error) => {
@@ -224,17 +229,88 @@ export class RegisterCompanyComponent implements OnInit {
     );
   }
 
+  // toggleDomain(domainId: number): void {
+  //   if (this.selectedDomains.includes(domainId)) {
+  //     // remove if already selected
+  //     this.selectedDomains = this.selectedDomains.filter(
+  //       (id) => id !== domainId
+  //     );
+  //   } else {
+  //     // add if not selected
+  //     this.selectedDomains.push(domainId);
+  //   }
+  //   console.log('Selected Domains:', this.selectedDomains);
+  // }
+
+
+   // Toggle dropdown open/close
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+    if (this.isDropdownOpen) {
+      this.searchText = '';
+      this.filteredDomains = this.companyDomains;
+    }
+  }
+
+  // Filter domains based on search text
+  onSearchChange(): void {
+    const search = this.searchText.toLowerCase().trim();
+    if (search === '') {
+      this.filteredDomains = this.companyDomains;
+    } else {
+      this.filteredDomains = this.companyDomains.filter((domain: any) =>
+        domain.domainTitle.toLowerCase().includes(search)
+      );
+    }
+  }
+
+  // Toggle domain selection
   toggleDomain(domainId: number): void {
     if (this.selectedDomains.includes(domainId)) {
-      // remove if already selected
       this.selectedDomains = this.selectedDomains.filter(
         (id) => id !== domainId
       );
     } else {
-      // add if not selected
       this.selectedDomains.push(domainId);
     }
     console.log('Selected Domains:', this.selectedDomains);
+  }
+
+  // Remove selected domain
+  removeDomain(domainId: number): void {
+    this.selectedDomains = this.selectedDomains.filter(
+      (id) => id !== domainId
+    );
+  }
+
+  // Get selected domain objects
+  getSelectedDomains(): any[] {
+    return this.companyDomains.filter((domain) =>
+      this.selectedDomains.includes(domain.domainID)
+    );
+  }
+
+  // Check if domain is selected
+  isDomainSelected(domainId: number): boolean {
+    return this.selectedDomains.includes(domainId);
+  }
+
+  // // Close dropdown when clicking outside
+  // onClickOutside(event: MouseEvent): void {
+  //   const target = event.target as HTMLElement;
+  //   if (!target.closest('.custom-multiselect')) {
+  //     this.isDropdownOpen = false;
+  //   }
+  
+
+    // Listen for clicks anywhere on the document
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    // If click is outside the dropdown, close it
+    if (!target.closest('.custom-multiselect')) {
+      this.isDropdownOpen = false;
+    }
   }
   // onRegister(): void {
   //   const payload: any = {
