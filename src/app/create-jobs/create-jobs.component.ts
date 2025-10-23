@@ -349,7 +349,7 @@ export class CreateJobsComponent implements OnInit {
     const payload = {
 
       jobTitle: this.jobTitle,
-      companyID: this.userSessionService.getCompanyID,
+      companyID: this.userSessionService.getCompanyID(),
       jobTypeID: Number(this.selectedJobType),
       jobSpaceID: Number(this.selectedWorkSpace),
       experienceID: Number(this.selectedExperience),
