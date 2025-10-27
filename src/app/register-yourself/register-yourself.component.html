@@ -109,21 +109,23 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Enter CNIC"
+              placeholder="XXXXX-XXXXXXX-X"
               [(ngModel)]="cnic"
               name="cnic"
               required
-              minlength="13"
-              maxlength="13"
+              maxlength="15"
               #cnicCtrl="ngModel"
-              required
+              (input)="onCnicInput($event)"
             />
             <div
               *ngIf="cnicCtrl.invalid && cnicCtrl.touched"
               class="text-danger small"
             >
-              CNIC must be 13 digits
+              CNIC must be 13 digits (format: XXXXX-XXXXXXX-X)
             </div>
+            <small class="text-muted" *ngIf="cnic">
+              {{ getRawCnic().length }}/13 digits entered
+            </small>
           </div>
 
           <div class="col-md-4 mb-3">
@@ -446,7 +448,7 @@
 
           <div class="col-md-4 mb-3">
             <div class="mb-4">
-              <label class="form-label">Company Domains</label>
+              <label class="form-label">User Domains</label>
 
               <!-- Custom Multi-Select Dropdown -->
               <div
@@ -517,8 +519,6 @@
                 </div>
               </div>
 
-           
-
               <!-- Selected Count -->
               <small class="text-muted" *ngIf="selectedDomains.length > 0">
                 {{ selectedDomains.length }} domain(s) selected
@@ -526,27 +526,24 @@
             </div>
           </div>
         </div>
-         
-           <!-- Selected Tags Display -->
-              <div
-                class="selected-tags-container"
-                *ngIf="selectedDomains.length > 0"
-              >
-                <span
-                  *ngFor="let domain of getSelectedDomains()"
-                  class="selected-tag"
-                >
-                  <!-- <span class="tag-icon">🏢</span> -->
-                  {{ domain.domainTitle }}
-                  <button
-                    type="button"
-                    class="remove-tag"
-                    (click)="removeDomain(domain.domainID)"
-                  >
-                    ×
-                  </button>
-                </span>
-              </div>
+
+        <!-- Selected Tags Display -->
+        <div class="selected-tags-container" *ngIf="selectedDomains.length > 0">
+          <span
+            *ngFor="let domain of getSelectedDomains()"
+            class="selected-tag"
+          >
+            <!-- <span class="tag-icon">🏢</span> -->
+            {{ domain.domainTitle }}
+            <button
+              type="button"
+              class="remove-tag"
+              (click)="removeDomain(domain.domainID)"
+            >
+              ×
+            </button>
+          </span>
+        </div>
 
         <div *ngIf="successMessage" class="alert alert-success mt-3">
           {{ successMessage }}
