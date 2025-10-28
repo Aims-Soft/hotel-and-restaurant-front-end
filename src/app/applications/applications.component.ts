@@ -370,7 +370,7 @@ export class ApplicationsComponent implements OnInit {
 
   jobToDelete: any = null;
   deleteModal: any;
-    companyID: number = 0;
+  companyID: number = 0;
 
   constructor(
     private JobService: JobService,
@@ -382,8 +382,8 @@ export class ApplicationsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.companyID = this.userSessionService.getCompanyID() || 1; 
-    
+    this.companyID = this.userSessionService.getCompanyID() || 1;
+
     this.getJobApplications(this.companyID);
 
     // Initialize Bootstrap modal
@@ -488,7 +488,7 @@ export class ApplicationsComponent implements OnInit {
       (response: any) => {
         this.isPinValidating = false;
 
-        if (response == 'success') {
+        if (response == 'Success') {
           this.pinErrorMessage = null;
           this.successMessage = 'PIN verified successfully!';
           this.confirmDelete();
@@ -496,7 +496,7 @@ export class ApplicationsComponent implements OnInit {
           this.pinErrorMessage = 'Incorrect PIN code. Please try again.';
           this.enteredPin = '';
         }
-        console.log(response,'pin response');
+        console.log(response, 'pin response');
         // console.log(response, 'pin validate');
         // console.log(payload, 'payload');
         // console.log(this.confirmDelete(), 'confrim delete');
@@ -519,7 +519,6 @@ export class ApplicationsComponent implements OnInit {
     this.isStatusPinValidating = true;
     this.statusPinErrorMessage = null;
 
-    
     // const payload = {
     //   userPin: this.statusTogglePin,
     //   userID: this.userSessionService.getUserID(),
@@ -532,23 +531,21 @@ export class ApplicationsComponent implements OnInit {
       spType: 'insert',
     };
 
+    console.log(payload, 'body');
+
     this.CompanyDashboardService.validatePin(payload).subscribe(
       (response: any) => {
         this.isStatusPinValidating = false;
 
-       
-        if (response == 'success') {
-        
+        if (response == 'Success') {
           this.statusPinErrorMessage = null;
           this.confirmToggleStatus();
-
         } else {
           // PIN is incorrect based on API response
           this.statusPinErrorMessage = 'Incorrect PIN code. Please try again.';
           this.statusTogglePin = '';
-         
         }
-         console.log(response,'pin response')
+        console.log(response, 'pin response');
       },
       (error: any) => {
         this.isStatusPinValidating = false;
@@ -561,14 +558,13 @@ export class ApplicationsComponent implements OnInit {
 
   openDeleteModal(job: any): void {
     this.jobToDelete = job;
-    this.enteredPin = ''; 
-    this.pinErrorMessage = null; 
+    this.enteredPin = '';
+    this.pinErrorMessage = null;
     this.deleteModal.show();
   }
 
   confirmDelete(): void {
     if (!this.jobToDelete) return;
-
 
     const payload = {
       userID: this.userSessionService.getUserID(),
@@ -585,7 +581,6 @@ export class ApplicationsComponent implements OnInit {
 
     this.CompanyDashboardService.deleteapplication(payload).subscribe(
       (res) => {
-     
         this.jobApplications = this.jobApplications.filter(
           (j) => j.jobID !== this.jobToDelete.jobID
         );
@@ -635,14 +630,15 @@ export class ApplicationsComponent implements OnInit {
   confirmToggleStatus(): void {
     if (!this.jobToToggle) return;
 
-     const jobApplicationID = this.jobToToggle.appliedUsers && this.jobToToggle.appliedUsers.length > 0 
-    ? this.jobToToggle.appliedUsers[0].jobApplicationID 
-    : 0;
+    const jobApplicationID =
+      this.jobToToggle.appliedUsers && this.jobToToggle.appliedUsers.length > 0
+        ? this.jobToToggle.appliedUsers[0].jobApplicationID
+        : 0;
 
     const payload = {
       jobID: this.jobToToggle.jobID,
       jobTitle: this.jobToToggle.jobTitle,
-       jobApplicationID: jobApplicationID,
+      jobApplicationID: jobApplicationID,
       jobStatusID: this.newToggleStatus ? 1 : 2,
       userID: this.userSessionService.getUserID(),
       spType: 'update',
@@ -652,8 +648,8 @@ export class ApplicationsComponent implements OnInit {
       (res) => {
         this.jobToToggle.toggleStatus = this.newToggleStatus;
 
-        console.log(payload,'payload');
-        console.log(res,'response')
+        console.log(payload, 'payload');
+        console.log(res, 'response');
 
         this.successMessage = `Status updated to ${
           this.newToggleStatus ? 'Open' : 'Closed'
@@ -679,6 +675,6 @@ export class ApplicationsComponent implements OnInit {
     this.statusPinErrorMessage = null;
     this.isStatusPinValidating = false;
     this.newToggleStatus = false;
-     this.getJobApplications(this.companyID);
+    this.getJobApplications(this.companyID);
   }
 }
