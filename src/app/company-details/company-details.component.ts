@@ -106,6 +106,15 @@ export class CompanyDetailsComponent  implements OnInit{
       }
     );
   }
+
+  formatWebsiteUrl(url: string): string {
+  if (!url) return '#';
+  if (!/^https?:\/\//i.test(url)) {
+    return 'https://' + url;
+  }
+  return url;
+}
+
   
 
 }
