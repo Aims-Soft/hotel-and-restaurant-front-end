@@ -60,7 +60,7 @@ export class RegisterCompanyComponent implements OnInit {
     this.getEmployees();
     this.getCountries();
     this.getCities();
-    this.getCompanyDomain();
+    // this.getCompanyDomain();
   }
 
 
@@ -132,11 +132,23 @@ export class RegisterCompanyComponent implements OnInit {
     );
   }
 
-  onIndustryChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedIndustry = Number(select.value);
-    console.log('Selected Industry ID:', this.selectedIndustry);
+
+
+ onIndustryChange(event: Event): void {
+  const select = event.target as HTMLSelectElement;
+  this.selectedIndustry = Number(select.value);
+  console.log('Selected Industry ID:', this.selectedIndustry);
+  
+  // Clear previous selections
+  this.selectedDomains = [];
+  this.companyDomains = [];
+  this.filteredDomains = [];
+  
+  // Fetch domains based on selected industry
+  if (this.selectedIndustry) {
+    this.getCompanyDomain(this.selectedIndustry);
   }
+}
 
   getEmployees(): void {
     this.isLoading = true;
@@ -213,21 +225,24 @@ export class RegisterCompanyComponent implements OnInit {
     console.log('Selected City ID:', this.selectedCity);
   }
 
-  getCompanyDomain(): void {
-    this.isLoading = true;
-    this.CompanyRegistrationService.getCompanyDomain().subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.companyDomains = response; 
-         this.filteredDomains = response; 
-        console.log('Company Domains:', response);
-      },
-      (error) => {
-        this.isLoading = false;
-        console.error('Error fetching company domains:', error);
-      }
-    );
-  }
+  getCompanyDomain(companyTypeID: number): void {
+  this.isLoading = true;
+  this.CompanyRegistrationService.getCompanyDomain(companyTypeID).subscribe(
+    (response) => {
+      this.isLoading = false;
+      this.companyDomains = response; 
+      this.filteredDomains = response; 
+      console.log('Company Domains:', response);
+    },
+    (error) => {
+      this.isLoading = false;
+      console.error('Error fetching company domains:', error);
+      // Reset domains if there's an error
+      this.companyDomains = [];
+      this.filteredDomains = [];
+    }
+  );
+}
 
   // toggleDomain(domainId: number): void {
   //   if (this.selectedDomains.includes(domainId)) {

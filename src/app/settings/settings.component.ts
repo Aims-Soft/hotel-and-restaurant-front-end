@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
     this.getEmployees();
     this.getCountries();
     this.getCities();
-    this.getCompanyDomain();
+    // this.getCompanyDomain();
   }
 
   getIndustriesTypes(): void {
@@ -100,20 +100,21 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  getCompanyDomain(): void {
-    this.isLoading = true;
-    this.CompanyRegistrationService.getCompanyDomain().subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.companyDomains = response;
-        // console.log('Company Domains:', response);
-      },
-      (error) => {
-        this.isLoading = false;
-        console.error('Error fetching company domains:', error);
-      }
-    );
-  }
+getCompanyDomain(companyTypeID: number): void {
+  this.isLoading = true;
+  this.CompanyRegistrationService.getCompanyDomain(companyTypeID).subscribe(
+    (response) => {
+      this.isLoading = false;
+      this.companyDomains = response;
+      console.log('Company Domains for type', companyTypeID, ':', response);
+    },
+    (error) => {
+      this.isLoading = false;
+      console.error('Error fetching company domains:', error);
+      this.companyDomains = [];
+    }
+  );
+}
 
   getEmployees(): void {
     this.isLoading = true;
@@ -145,109 +146,85 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  getCompanyDetail(): void {
-    this.isLoading = true;
-    this.hasData = false;
-    console.log('Fetching company details...');
+ getCompanyDetail(): void {
+  this.isLoading = true;
+  this.hasData = false;
+  console.log('Fetching company details...');
 
-    const currentCompanyId = this.userSessionService.getCompanyID();
-    console.log('Current Company ID:', currentCompanyId);
+  const currentCompanyId = this.userSessionService.getCompanyID();
+  console.log('Current Company ID:', currentCompanyId);
 
-    this.CompanyRegistrationService.getCompanyDetail().subscribe(
-      (response: any) => {
-        this.isLoading = false;
-        console.log('API Response:', response);
+  this.CompanyRegistrationService.getCompanyDetail().subscribe(
+    (response: any) => {
+      this.isLoading = false;
+      console.log('API Response:', response);
 
-        if (response && Array.isArray(response)) {
-          const companyData = response.find(
-            (company) => Number(company.companyID) === Number(currentCompanyId)
-          );
+      if (response && Array.isArray(response)) {
+        const companyData = response.find(
+          (company) => Number(company.companyID) === Number(currentCompanyId)
+        );
 
-          if (companyData) {
-            this.hasData = true;
-            console.log('Filtered Company Data:', companyData);
+        if (companyData) {
+          this.hasData = true;
+          console.log('Filtered Company Data:', companyData);
 
-            // Map API response to form fields
-            this.companyName = companyData.companyName || '';
-            this.companyEmail = companyData.email || '';
-            this.foundedIn = companyData.foundedIn || '';
-            this.websiteLink = companyData.websiteLink || '';
-            this.contact = companyData.contact || '';
-            this.address = companyData.address || '';
-            this.description = companyData.description || '';
-            this.location = companyData.location || '';
-            this.selectedEmployee = companyData.employeeID || null;
-            this.selectedIndustry = companyData.companyTypeID || null;
-            this.selectedCountry = companyData.countryID || null;
-            this.selectedCity = companyData.cityID || null;
+          // Map API response to form fields
+          this.companyName = companyData.companyName || '';
+          this.companyEmail = companyData.email || '';
+          this.foundedIn = companyData.foundedIn || '';
+          this.websiteLink = companyData.websiteLink || '';
+          this.contact = companyData.contact || '';
+          this.address = companyData.address || '';
+          this.description = companyData.description || '';
+          this.location = companyData.location || '';
+          this.selectedEmployee = companyData.employeeID || null;
+          this.selectedIndustry = companyData.companyTypeID || null;
+          this.selectedCountry = companyData.countryID || null;
+          this.selectedCity = companyData.cityID || null;
 
-            this.handleLogoDisplay(companyData);
-            this.handleBannerDisplay(companyData);
+          this.handleLogoDisplay(companyData);
+          this.handleBannerDisplay(companyData);
 
-            // Prefill logo and banner
-            // this.previewUrl = companyData.eLogo || null;
-            // this.bannerPreviewUrl = companyData.eDoc || null;
-            // this.previewUrl = companyData.eLogo || companyData.companyLogo || companyData.logo || null;
-            // this.bannerPreviewUrl = companyData.eDoc || companyData.companyDoc || companyData.banner || companyData.document || null;
+          // Filter cities based on selected country
+          if (this.selectedCountry) {
+            this.filterCitiesByCountry(this.selectedCountry);
+          }
 
-            // if (typeof this.previewUrl === 'string') {
-            //   const fileName = this.previewUrl.toLowerCase();
-            //   if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
-            //     this.isImage = true;
-            //   } else if (fileName.endsWith('.pdf')) {
-            //     this.isImage = false;
-            //     this.previewUrl = 'pdf';
-            //   }
-            // }
+          // Load domains based on selected industry
+          if (this.selectedIndustry) {
+            this.getCompanyDomain(this.selectedIndustry);
+          }
 
-            // if (typeof this.bannerPreviewUrl === 'string') {
-            //   const fileName = this.bannerPreviewUrl.toLowerCase();
-            //   if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
-            //     this.isBannerImage = true;
-            //   } else if (fileName.endsWith('.pdf')) {
-            //     this.isBannerImage = false;
-            //     this.bannerPreviewUrl = 'pdf';
-            //   }
-            // }
-
-            // Filter cities based on selected country
-            if (this.selectedCountry) {
-              this.filterCitiesByCountry(this.selectedCountry);
-            }
-
-            // Handle domains
-            // this.selectedDomains = [];
-
-            try {
-              if (companyData.json) {
-                const parsedDomains = JSON.parse(companyData.json);
-                this.selectedDomains = parsedDomains.map(
-                  (d: any) => d.domainID
-                );
-              } else {
-                this.selectedDomains = [];
-              }
-            } catch (e) {
-              console.error('Error parsing domains JSON:', e);
+          // Handle domains - Parse after domains are loaded
+          try {
+            if (companyData.json) {
+              const parsedDomains = JSON.parse(companyData.json);
+              this.selectedDomains = parsedDomains.map(
+                (d: any) => d.domainID
+              );
+            } else {
               this.selectedDomains = [];
             }
-          } else {
-            console.warn('No company data found for current user');
-            this.errorMessage = 'No company data found for your account';
+          } catch (e) {
+            console.error('Error parsing domains JSON:', e);
+            this.selectedDomains = [];
           }
         } else {
-          console.warn('Invalid API response format');
-          this.errorMessage = 'Invalid response from server';
+          console.warn('No company data found for current user');
+          this.errorMessage = 'No company data found for your account';
         }
-      },
-      (error: any) => {
-        this.isLoading = false;
-        console.error('Error fetching Company Details:', error);
-        this.errorMessage = 'Failed to load company details. Please try again.';
+      } else {
+        console.warn('Invalid API response format');
+        this.errorMessage = 'Invalid response from server';
       }
-    );
-  }
-
+    },
+    (error: any) => {
+      this.isLoading = false;
+      console.error('Error fetching Company Details:', error);
+      this.errorMessage = 'Failed to load company details. Please try again.';
+    }
+  );
+}
   // Helper method to filter cities by country
   filterCitiesByCountry(countryId: number): void {
     this.filteredCities = this.cities.filter(
@@ -745,9 +722,19 @@ private getFileExtension(filename: string): string {
     this.getCompanyDetail(); // Reset to original values
   }
 
-  onIndustryChange(event: any) {
-    this.selectedIndustry = +event.target.value;
+ onIndustryChange(event: any) {
+  this.selectedIndustry = +event.target.value;
+  console.log('Industry changed to:', this.selectedIndustry);
+  
+  // Clear previous domain selections
+  this.selectedDomains = [];
+  this.companyDomains = [];
+  
+  // Load domains for new industry
+  if (this.selectedIndustry) {
+    this.getCompanyDomain(this.selectedIndustry);
   }
+}
 
   onEmployeeChange(event: any) {
     this.selectedEmployee = +event.target.value;

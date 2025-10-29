@@ -896,16 +896,16 @@ export class RegisterYourselfComponent implements OnInit {
 
   getCompanyDomain(): void {
     this.isLoading = true;
-    this.CompanyRegistrationService.getCompanyDomain().subscribe(
+    this.CompanyRegistrationService.getUserDomain().subscribe(
       (response) => {
         this.isLoading = false;
         this.companyDomains = response;
         this.filteredDomains = response;
-        console.log('Company Domains:', response);
+        console.log('User Domains:', response);
       },
       (error) => {
         this.isLoading = false;
-        console.error('Error fetching company domains:', error);
+        console.error('Error fetching User domains:', error);
       }
     );
   }

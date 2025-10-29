@@ -25,10 +25,15 @@ export class CompanyRegistrationService {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCountry`);
   }
 
-  getCompanyDomain(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCompanyDomain`);
+  getCompanyDomain(companyTypeID: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCompanyDomain?companyTypeID=${companyTypeID}`);
   }
 
+  
+
+getUserDomain(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}user-api/User/getUserDomain`);
+  }
  
   getCities(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCity`);
