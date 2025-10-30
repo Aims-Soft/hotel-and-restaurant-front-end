@@ -18,6 +18,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class JobListingComponent {
   @Input() searchQuery: string = '';
+  
   @Output() searchChange = new EventEmitter<string>();
 
   onSearchInput(): void {
