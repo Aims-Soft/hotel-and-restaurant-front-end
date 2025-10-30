@@ -263,16 +263,30 @@ export class CreateJobsComponent implements OnInit {
     );
   }
 
-  onCountryChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedCountry = Number(select.value);
-
-    if (this.selectedCountry) {
-      this.filteredCities = this.cities.filter(
-        (city) => city.countryID === this.selectedCountry
-      );
-    }
+  onCountryChangeNgSelect(): void {
+  if (this.selectedCountry) {
+    this.filteredCities = this.cities.filter(
+      (city) => city.countryID === this.selectedCountry
+    );
+    // Reset city selection when country changes
+    this.selectedCity = null;
+  } else {
+    this.filteredCities = [];
+    this.selectedCity = null;
   }
+  console.log('Selected Country ID:', this.selectedCountry);
+  console.log('Filtered Cities:', this.filteredCities);
+}
+  // onCountryChange(event: Event): void {
+  //   const select = event.target as HTMLSelectElement;
+  //   this.selectedCountry = Number(select.value);
+
+  //   if (this.selectedCountry) {
+  //     this.filteredCities = this.cities.filter(
+  //       (city) => city.countryID === this.selectedCountry
+  //     );
+  //   }
+  // }
 
   // onCityChange(event: Event): void {
   //   const select = event.target as HTMLSelectElement;

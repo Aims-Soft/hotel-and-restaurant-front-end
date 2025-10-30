@@ -6,6 +6,7 @@ import {
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -109,6 +110,7 @@ import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/res
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+   NgSelectModule, 
   ],
   providers: [
     provideClientHydration(),
