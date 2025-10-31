@@ -10,7 +10,7 @@
       <!-- Logo Upload Section -->
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
-          <label class="form-label"
+          <label class="form-label mb-2"
             >Company Logo <span class="text-danger">*</span></label
           >
           <div class="upload-area" (click)="fileInput.click()">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Company Banner</label>
+          <label class="form-label mb-2">Company Banner</label>
           <div class="upload-area" (click)="bannerInput.click()">
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
               <img
@@ -83,14 +83,15 @@
       </div>
 
       <!-- Basic Information Section -->
-      <div class="row mb-4">
+      <div class="row mb-3">
         <div class="col-md-4 mb-3">
-          <label class="form-label"
+          <label class="form-label mb-2"
             >Company Name <span class="text-danger">*</span></label
           >
           <input
             type="text"
             class="form-control"
+            style="height: 42px;"
             placeholder="Enter company name"
             [(ngModel)]="companyName"
             name="companyName"
@@ -109,23 +110,23 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label class="form-label"
+          <label class="form-label mb-2"
             >Industry Type <span class="text-danger">*</span></label
           >
-          <select
-            class="form-select"
-            (change)="onIndustryChange($event)"
-            [(ngModel)]="selectedIndustry"
+          <ng-select
             name="industry"
+            [items]="UniTypes"
+            bindLabel="companyTypeTitle"
+            bindValue="companyTypeID"
+            placeholder="Select Industry Type"
+            [(ngModel)]="selectedIndustry"
+            (change)="onIndustryChangeNgSelect()"
+            [searchable]="true"
+            [clearable]="true"
             required
             #industryModel="ngModel"
           >
-            <option [ngValue]="null" disabled>Select Industry Type</option>
-
-            <option *ngFor="let type of UniTypes" [value]="type.companyTypeID">
-              {{ type.companyTypeTitle }}
-            </option>
-          </select>
+          </ng-select>
           <small
             class="text-danger"
             *ngIf="
@@ -138,23 +139,22 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label class="form-label"
+          <label class="form-label mb-2"
             >Company Employees <span class="text-danger">*</span></label
           >
-          <select
-            class="form-select"
-            (change)="onEmployeeChange($event)"
-            [(ngModel)]="selectedEmployee"
+          <ng-select
             name="employee"
+            [items]="employees"
+            bindLabel="employeeRange"
+            bindValue="employeeID"
+            placeholder="Select Employee Range"
+            [(ngModel)]="selectedEmployee"
+            [searchable]="true"
+            [clearable]="true"
             required
             #employeeModel="ngModel"
           >
-            <option [ngValue]="null" disabled>Select Employee Range</option>
-
-            <option *ngFor="let emp of employees" [value]="emp.employeeID">
-              {{ emp.employeeRange }}
-            </option>
-          </select>
+          </ng-select>
           <small
             class="text-danger"
             *ngIf="
@@ -168,37 +168,35 @@
       </div>
 
       <!-- Location Information -->
-      <div class="row mb-4">
+      <div class="row mb-3">
         <div class="col-md-4 mb-3">
-          <label class="form-label">Founded In</label>
+          <label class="form-label mb-2">Founded In</label>
           <input
             type="date"
             class="form-control"
+            style="height: 42px;"
             [(ngModel)]="foundedIn"
             name="foundedIn"
           />
         </div>
         <div class="col-md-4 mb-3">
-          <label class="form-label">
+          <label class="form-label mb-2">
             Country <span class="text-danger">*</span>
           </label>
-          <select
-            class="form-select"
-            (change)="onCountryChange($event)"
-            [(ngModel)]="selectedCountry"
+          <ng-select
             name="country"
+            [items]="countries"
+            bindLabel="countryName"
+            bindValue="countryID"
+            placeholder="Select Country"
+            [(ngModel)]="selectedCountry"
+            (change)="onCountryChangeNgSelect()"
+            [searchable]="true"
+            [clearable]="true"
             required
             #countryModel="ngModel"
           >
-            <option [ngValue]="null" disabled>Select Country</option>
-
-            <option
-              *ngFor="let country of countries"
-              [value]="country.countryID"
-            >
-              {{ country.countryName }}
-            </option>
-          </select>
+          </ng-select>
           <small
             class="text-danger"
             *ngIf="
@@ -210,23 +208,22 @@
           </small>
         </div>
         <div class="col-md-4 mb-3">
-          <label class="form-label"
+          <label class="form-label mb-2"
             >City <span class="text-danger">*</span></label
           >
-          <select
-            class="form-select"
-            (change)="onCityChange($event)"
-            [(ngModel)]="selectedCity"
+          <ng-select
             name="city"
+            [items]="filteredCities"
+            bindLabel="cityName"
+            bindValue="cityID"
+            placeholder="Select City"
+            [(ngModel)]="selectedCity"
+            [searchable]="true"
+            [clearable]="true"
             required
             #cityModel="ngModel"
           >
-            <option [ngValue]="null" disabled>Select City</option>
-
-            <option *ngFor="let city of filteredCities" [value]="city.cityID">
-              {{ city.cityName }}
-            </option>
-          </select>
+          </ng-select>
           <small
             class="text-danger"
             *ngIf="
@@ -236,251 +233,194 @@
             City is required
           </small>
         </div>
-        <!-- Contact Information -->
-        <div class="contact-info mb-4">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Website Link</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="www.example.com"
-                [(ngModel)]="websiteLink"
-                name="websiteLink"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Contact No</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phone number"
-                [(ngModel)]="contactNo"
-                name="contactNo"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Address"
-                [(ngModel)]="address"
-                name="address"
-              />
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label"
-                >Email <span class="text-danger">*</span></label
-              >
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Email address"
-                [(ngModel)]="companyEmail"
-                name="companyEmail"
-                required
-                email
-                #emailModel="ngModel"
-              />
-              <small
-                class="text-danger"
-                *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
-              >
-                Email is required
-              </small>
-              <small
-                class="text-danger"
-                *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
-              >
-                Enter a valid email
-              </small>
-            </div>
+      </div>
 
-            <!-- <div class="col-md-4 mb-3">
-              <label class="form-label"
-                >Password <span class="text-danger">*</span></label
-              >
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="password"
-                name="password"
-                required
-                minlength="6"
-                #passwordModel="ngModel"
-                placeholder="Enter Passord"
-              />
-              <span class="input-group-text input-icon cursor-pointer" (click)="togglePasswordVisibility()">
-            <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-          </span>
-              <small
-                class="text-danger"
-                *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
-              >
-                Password is required
-              </small>
-              <small
-                class="text-danger"
-                *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
-              >
-                Password must be at least 6 characters
-              </small>
-            </div> -->
-            <div class="col-md-4 mb-3">
-              <label class="form-label">
-                Password <span class="text-danger">*</span>
-              </label>
-              <div class="input-group">
-                <input
-                  [type]="showPassword ? 'text' : 'password'"
-                  class="form-control"
-                  [(ngModel)]="password"
-                  name="password"
-                  required
-                  minlength="6"
-                  #passwordModel="ngModel"
-                  placeholder="Enter Password"
-                />
-                <span
-                  class="input-group-text cursor-pointer"
-                  (click)="togglePasswordVisibility()"
-                >
-                  <i
-                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
-                  ></i>
-                </span>
-              </div>
-              <small
-                class="text-danger"
-                *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
-              >
-                Password is required
-              </small>
-              <small
-                class="text-danger"
-                *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
-              >
-                Password must be at least 6 characters
-              </small>
-            </div>
+      <!-- Contact Information -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Website Link</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="www.example.com"
+            [(ngModel)]="websiteLink"
+            name="websiteLink"
+          />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Contact No</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Phone number"
+            [(ngModel)]="contactNo"
+            name="contactNo"
+          />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Address"
+            [(ngModel)]="address"
+            name="address"
+          />
+        </div>
+      </div>
 
-            <div class="col-md-4 mb-3">
-              <label class="form-label">
-                Confirm Password <span class="text-danger">*</span>
-              </label>
-              <div class="input-group">
-                <input
-                  [type]="showConfirmPassword ? 'text' : 'password'"
-                  class="form-control"
-                  [(ngModel)]="confirmPassword"
-                  name="confirmPassword"
-                  required
-                  #confirmPasswordModel="ngModel"
-                  placeholder="Enter Confirm Password"
-                />
-                <span
-                  class="input-group-text cursor-pointer"
-                  (click)="toggleConfirmPasswordVisibility()"
-                >
-                  <i
-                    [class]="
-                      showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
-                    "
-                  ></i>
-                </span>
-              </div>
-              <small
-                class="text-danger"
-                *ngIf="
-                  confirmPasswordModel.invalid &&
-                  (confirmPasswordModel.touched || companyForm.submitted)
-                "
-              >
-                Confirm password is required
-              </small>
-              <small
-                class="text-danger"
-                *ngIf="
-                  confirmPassword !== password && confirmPassword && password
-                "
-              >
-                Passwords do not match
-              </small>
-            </div>
-            <!-- <div class="col-md-4 mb-3">
-              <label class="form-label"
-                >Confirm Password <span class="text-danger">*</span></label
-              >
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="confirmPassword"
-                name="confirmPassword"
-                required
-                #confirmPasswordModel="ngModel"
-                placeholder="Enter Confirm Passord"
-              />
-              <small
-                class="text-danger"
-                *ngIf="
-                  confirmPasswordModel.invalid &&
-                  (confirmPasswordModel.touched || companyForm.submitted)
-                "
-              >
-                Confirm password is required
-              </small>
-              <small
-                class="text-danger"
-                *ngIf="confirmPassword !== password && companyForm.submitted"
-              >
-                Passwords do not match
-              </small>
-            </div> -->
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label"
-              >Pin Code <span class="text-danger">*</span></label
-            >
+      <!-- Email and Passwords Row -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2"
+            >Email <span class="text-danger">*</span></label
+          >
+          <input
+            type="email"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Email address"
+            [(ngModel)]="companyEmail"
+            name="companyEmail"
+            required
+            email
+            #emailModel="ngModel"
+          />
+          <small
+            class="text-danger"
+            *ngIf="emailModel.errors?.['required'] && (emailModel.touched || companyForm.submitted)"
+          >
+            Email is required
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="emailModel.errors?.['email'] && (emailModel.touched || companyForm.submitted)"
+          >
+            Enter a valid email
+          </small>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">
+            Password <span class="text-danger">*</span>
+          </label>
+          <div class="input-group" style="height: 42px;">
             <input
-              type="text"
+              [type]="showPassword ? 'text' : 'password'"
               class="form-control"
-              placeholder="Enter company name"
-              [(ngModel)]="pin"
-              name="pin"
+              style="height: 42px;"
+              [(ngModel)]="password"
+              name="password"
               required
-              #pinModel="ngModel"
+              minlength="6"
+              #passwordModel="ngModel"
+              placeholder="Enter Password"
             />
-            <small
-              class="text-danger"
-              *ngIf="
-                pinModel.invalid && (pinModel.touched || companyForm.submitted)
-              "
+            <span
+              class="input-group-text cursor-pointer"
+              style="height: 42px;"
+              (click)="togglePasswordVisibility()"
             >
-              Pin Code is required
-            </small>
+              <i
+                [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+              ></i>
+            </span>
           </div>
+          <small
+            class="text-danger"
+            *ngIf="passwordModel.errors?.['required'] && (passwordModel.touched || companyForm.submitted)"
+          >
+            Password is required
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.touched || companyForm.submitted)"
+          >
+            Password must be at least 6 characters
+          </small>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">
+            Confirm Password <span class="text-danger">*</span>
+          </label>
+          <div class="input-group" style="height: 42px;">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="form-control"
+              style="height: 42px;"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              required
+              #confirmPasswordModel="ngModel"
+              placeholder="Enter Confirm Password"
+            />
+            <span
+              class="input-group-text cursor-pointer"
+              style="height: 42px;"
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              <i
+                [class]="
+                  showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                "
+              ></i>
+            </span>
+          </div>
+          <small
+            class="text-danger"
+            *ngIf="
+              confirmPasswordModel.invalid &&
+              (confirmPasswordModel.touched || companyForm.submitted)
+            "
+          >
+            Confirm password is required
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="
+              confirmPassword !== password && confirmPassword && password
+            "
+          >
+            Passwords do not match
+          </small>
+        </div>
+      </div>
+
+      <!-- Pin Code -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2"
+            >Pin Code <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Enter Pin Code"
+            [(ngModel)]="pin"
+            name="pin"
+            required
+            #pinModel="ngModel"
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              pinModel.invalid && (pinModel.touched || companyForm.submitted)
+            "
+          >
+            Pin Code is required
+          </small>
         </div>
       </div>
 
       <!-- Company Domains -->
-      <!-- <div class="mb-4">
-        <p class="form-label">Company domains</p>
-        <div class="skills-container">
-          <span
-            *ngFor="let domain of companyDomains"
-            class="skill-tag flex-wrap"
-            [class.selected]="selectedDomains.includes(domain.domainID)"
-            (click)="toggleDomain(domain.domainID)"
-          >
-            {{ domain.domainTitle }}
-          </span>
-        </div>
-      </div> -->
-
-      <div class="col-md-4 mb-3">
-        <div class="mb-4">
-          <label class="form-label">Company Domains</label>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label mb-2">Company Domains</label>
 
           <!-- Show message if no industry selected -->
           <div *ngIf="!selectedIndustry" class="alert alert-info">
@@ -498,6 +438,7 @@
               <input
                 type="text"
                 class="form-control dropdown-input"
+                style="height: 42px;"
                 [(ngModel)]="searchText"
                 name="searchText"
                 (ngModelChange)="onSearchChange()"
@@ -535,7 +476,6 @@
                     (click)="$event.stopPropagation()"
                     readonly
                   />
-                  <!-- <span class="domain-icon">🏢</span> -->
                   <span class="domain-title">{{ domain.domainTitle }}</span>
                   <span
                     class="checkmark"
@@ -560,36 +500,38 @@
       </div>
 
       <!-- Selected Tags Display -->
-      <div class="selected-tags-container" *ngIf="selectedDomains.length > 0">
-        <span *ngFor="let domain of getSelectedDomains()" class="selected-tag">
-          <!-- <span class="tag-icon">🏢</span> -->
-          {{ domain.domainTitle }}
-          <button
-            type="button"
-            class="remove-tag"
-            (click)="removeDomain(domain.domainID)"
-          >
-            ×
-          </button>
-        </span>
+      <div class="row mb-3" *ngIf="selectedDomains.length > 0">
+        <div class="col-md-12">
+          <div class="selected-tags-container">
+            <span *ngFor="let domain of getSelectedDomains()" class="selected-tag">
+              {{ domain.domainTitle }}
+              <button
+                type="button"
+                class="remove-tag"
+                (click)="removeDomain(domain.domainID)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
 
       <!-- Description -->
-      <div class="mb-4">
-        <label class="form-label">Company Description</label>
-        <textarea
-          class="form-control"
-          rows="5"
-          placeholder="Description goes here"
-          [(ngModel)]="description"
-          name="description"
-        ></textarea>
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <label class="form-label mb-2">Company Description</label>
+          <textarea
+            class="form-control"
+            style="min-height: 120px; resize: vertical;"
+            rows="5"
+            placeholder="Description goes here"
+            [(ngModel)]="description"
+            name="description"
+          ></textarea>
+        </div>
       </div>
 
-      <!-- Success Message -->
-      <!-- <div *ngIf="companyForm.submitted && companyForm.valid" class="alert alert-success">
-        ✅ Company registered successfully!
-      </div> -->
       <div *ngIf="successMessage" class="alert alert-success mt-3">
         {{ successMessage }}
       </div>
@@ -609,3 +551,4 @@
   </div>
 </div>
 <app-footer></app-footer>
+

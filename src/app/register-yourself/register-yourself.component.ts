@@ -667,17 +667,35 @@ export class RegisterYourselfComponent implements OnInit {
     );
   }
 
-  onCountryChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedCountry = Number(select.value);
-    console.log('Selected Country ID:', this.selectedCountry);
+  // onCountryChange(event: Event): void {
+  //   const select = event.target as HTMLSelectElement;
+  //   this.selectedCountry = Number(select.value);
+  //   console.log('Selected Country ID:', this.selectedCountry);
 
-    if (this.selectedCountry) {
-      this.filteredCities = this.cities.filter(
-        (city) => city.countryID === this.selectedCountry
-      );
-    }
+  //   if (this.selectedCountry) {
+  //     this.filteredCities = this.cities.filter(
+  //       (city) => city.countryID === this.selectedCountry
+  //     );
+  //   }
+  // }
+
+  onCountryChangeNgSelect(): void {
+  if (this.selectedCountry) {
+    // Filter cities based on selected country
+    this.filteredCities = this.cities.filter(
+      (city) => city.countryID === this.selectedCountry
+    );
+    // Reset city selection when country changes
+    this.selectedCity = null;
+    
+    console.log('Selected Country ID:', this.selectedCountry);
+    console.log('Filtered Cities:', this.filteredCities);
+  } else {
+    // If country is cleared, reset cities
+    this.filteredCities = [];
+    this.selectedCity = null;
   }
+}
 
   onCityChange(event: Event): void {
     const select = event.target as HTMLSelectElement;

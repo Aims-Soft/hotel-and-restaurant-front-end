@@ -7,264 +7,302 @@
     </div>
   </div> -->
 
-  <div class="container my-3 px-4">
-    <div class="box-border rounded">
-      <div class="d-flex row align-items-center px-3 py-2">
-        <p class="col-md-3 mt-2 custom-font mt-3">
-          <a href="" class="me-3 text-black text-decoration-none">&#8592;</a>
-          Applications &nbsp;<span class="fw-bold">/ Details</span>
-        </p>
-        <div class="col-md-4 offset-md-3 d-flex align-items-center dashboard-searchBox px-2 rounded">
-          <i class="bi bi-search fs-5"></i>
-          <input
-            type="search"
-            class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
-            placeholder="Search here..."
-          />
-          <img src="../../assets/images/Search Key.png" class="ms-5 img-fluid" alt="" />
-        </div>
-        
-        <!-- Export All Button -->
-        <div class="col-md-2">
-          <button class="btn btn-success px-3" (click)="exportAll()">
-            <i class="bi bi-download"></i> Export All
-          </button>
+<div class="container my-3 px-4">
+  <div class="box-border rounded">
+    <div class="d-flex row align-items-center px-3 py-2">
+      <p class="col-md-3 mt-2 custom-font mt-3">
+        <a href="" class="me-3 text-black text-decoration-none">&#8592;</a>
+        Applications &nbsp;<span class="fw-bold">/ Details</span>
+      </p>
+      <div
+        class="col-md-4 offset-md-3 d-flex align-items-center dashboard-searchBox px-2 rounded"
+      >
+        <i class="bi bi-search fs-5"></i>
+        <input
+          type="search"
+          class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
+          placeholder="Search here..."
+        />
+        <img
+          src="../../assets/images/Search Key.png"
+          class="ms-5 img-fluid"
+          alt=""
+        />
+      </div>
+
+      <!-- Export All Button -->
+      <div class="col-md-2">
+        <button class="btn btn-success px-3" (click)="exportAll()">
+          <i class="bi bi-download"></i> Export All
+        </button>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <!-- Applications Column -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <div
+            class="card-header fw-bold bg-light d-flex justify-content-between align-items-center"
+          >
+            <span>Applications ({{ applications.length }})</span>
+            <button
+              class="btn btn-sm btn-outline-primary"
+              (click)="exportApplications()"
+              [disabled]="applications.length === 0"
+            >
+              <i class="bi bi-download"></i>
+            </button>
+          </div>
+          <div
+            class="card-body"
+            cdkDropList
+            #applicationsList="cdkDropList"
+            [cdkDropListData]="applications"
+            [cdkDropListConnectedTo]="[
+              shortlistedList,
+              rejectedList,
+              interviewList
+            ]"
+            (cdkDropListDropped)="drop($event, 'Application')"
+          >
+            <ng-container *ngIf="applications.length; else emptyApplications">
+              <div class="card mb-2" *ngFor="let user of applications" cdkDrag>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-2">
+                    <img
+                      [src]="user.eDoc || 'assets/images/profile.png'"
+                      class="rounded"
+                      style="width: 50px; height: 50px; object-fit: cover"
+                    />
+                    <div class="ms-3">
+                      <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                      <small class="text-muted">{{ user.jobTitle }}</small>
+                    </div>
+                  </div>
+                  <hr class="my-2" />
+                  <p class="mb-1">{{ user.experience }} Experience</p>
+                  <p class="text-muted small mb-3">{{ user.email }}</p>
+                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
+                      Download CV
+                    </button> -->
+                  <button
+                    class="btn w-100 text-white fw-semibold"
+                    style="background-color: #8b5cf6"
+                    (click)="downloadCV(user)"
+                    [disabled]="!user.eResume"
+                  >
+                    <i class="bi bi-download me-1"></i>
+                    Download CV
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #emptyApplications>
+              <div class="text-muted text-center py-3">Drop here</div>
+            </ng-template>
+          </div>
         </div>
       </div>
 
-      <div class="row g-3">
-        <!-- Applications Column -->
-        <div class="col-md-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header fw-bold bg-light d-flex justify-content-between align-items-center">
-              <span>Applications ({{ applications.length }})</span>
-              <button 
-                class="btn btn-sm btn-outline-primary" 
-                (click)="exportApplications()"
-                [disabled]="applications.length === 0">
-                <i class="bi bi-download"></i>
-              </button>
-            </div>
-            <div
-              class="card-body"
-              cdkDropList
-              #applicationsList="cdkDropList"
-              [cdkDropListData]="applications"
-              [cdkDropListConnectedTo]="[shortlistedList, rejectedList, interviewList]"
-              (cdkDropListDropped)="drop($event, 'Application')"
+      <!-- Shortlisted Column -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <div
+            class="card-header fw-bold bg-light d-flex justify-content-between align-items-center"
+          >
+            <span>Shortlisted ({{ shortlisted.length }})</span>
+            <button
+              class="btn btn-sm btn-outline-success"
+              (click)="exportShortlisted()"
+              [disabled]="shortlisted.length === 0"
             >
-              <ng-container *ngIf="applications.length; else emptyApplications">
-                <div class="card mb-2" *ngFor="let user of applications" cdkDrag>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img
-                        [src]="user.eDoc || 'assets/images/profile.png'"
-                        class="rounded"
-                        style="width: 50px; height: 50px; object-fit: cover"
-                      />
-                      <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
-                        <small class="text-muted">{{ user.jobTitle }}</small>
-                      </div>
+              <i class="bi bi-download"></i>
+            </button>
+          </div>
+          <div
+            class="card-body"
+            cdkDropList
+            #shortlistedList="cdkDropList"
+            [cdkDropListData]="shortlisted"
+            [cdkDropListConnectedTo]="[
+              applicationsList,
+              rejectedList,
+              interviewList
+            ]"
+            (cdkDropListDropped)="drop($event, 'Shortlisted')"
+          >
+            <ng-container *ngIf="shortlisted.length; else emptyShortlisted">
+              <div class="card mb-2" *ngFor="let user of shortlisted" cdkDrag>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-2">
+                    <img
+                      src="assets/images/profile.png"
+                      class="rounded"
+                      style="width: 50px; height: 50px; object-fit: cover"
+                    />
+                    <div class="ms-3">
+                      <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                      <small class="text-muted">{{ user.jobTitle }}</small>
                     </div>
-                    <hr class="my-2" />
-                    <p class="mb-1">{{ user.experience }} Experience</p>
-                    <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
+                  </div>
+                  <hr class="my-2" />
+                  <p class="mb-1">{{ user.experience }} Experience</p>
+                  <p class="text-muted small mb-3">{{ user.email }}</p>
+                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
                       Download CV
                     </button> -->
-                     <button 
-                      class="btn w-100 text-white fw-semibold" 
-                      style="background-color: #8b5cf6"
-                      (click)="downloadCV(user)"
-                      [disabled]="!user.eResume">
-                      <i class="bi bi-download me-1"></i>
-                      Download CV
-                    </button>
-                  </div>
+                  <button
+                    class="btn w-100 text-white fw-semibold"
+                    style="background-color: #10b981"
+                    (click)="downloadCV(user)"
+                    [disabled]="!user.eResume"
+                  >
+                    <i class="bi bi-download me-1"></i>
+                    Download CV
+                  </button>
                 </div>
-              </ng-container>
-              <ng-template #emptyApplications>
-                <div class="text-muted text-center py-3">Drop here</div>
-              </ng-template>
-            </div>
+              </div>
+            </ng-container>
+            <ng-template #emptyShortlisted>
+              <div class="text-muted text-center py-3">Drop here</div>
+            </ng-template>
           </div>
         </div>
+      </div>
 
-        <!-- Shortlisted Column -->
-        <div class="col-md-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header fw-bold bg-light d-flex justify-content-between align-items-center">
-              <span>Shortlisted ({{ shortlisted.length }})</span>
-              <button 
-                class="btn btn-sm btn-outline-success" 
-                (click)="exportShortlisted()"
-                [disabled]="shortlisted.length === 0">
-                <i class="bi bi-download"></i>
-              </button>
-            </div>
-            <div
-              class="card-body"
-              cdkDropList
-              #shortlistedList="cdkDropList"
-              [cdkDropListData]="shortlisted"
-              [cdkDropListConnectedTo]="[applicationsList, rejectedList, interviewList]"
-              (cdkDropListDropped)="drop($event, 'Shortlisted')"
+      <!-- Interview Column -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <div
+            class="card-header fw-bold bg-light d-flex justify-content-between align-items-center"
+          >
+            <span>Interview ({{ interview.length }})</span>
+            <button
+              class="btn btn-sm btn-outline-info"
+              (click)="exportInterview()"
+              [disabled]="interview.length === 0"
             >
-              <ng-container *ngIf="shortlisted.length; else emptyShortlisted">
-                <div class="card mb-2" *ngFor="let user of shortlisted" cdkDrag>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img
-                        src="assets/images/profile.png"
-                        class="rounded"
-                        style="width: 50px; height: 50px; object-fit: cover"
-                      />
-                      <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
-                        <small class="text-muted">{{ user.jobTitle }}</small>
-                      </div>
+              <i class="bi bi-download"></i>
+            </button>
+          </div>
+          <div
+            class="card-body"
+            cdkDropList
+            #interviewList="cdkDropList"
+            [cdkDropListData]="interview"
+            [cdkDropListConnectedTo]="[
+              applicationsList,
+              shortlistedList,
+              rejectedList
+            ]"
+            (cdkDropListDropped)="drop($event, 'Interview')"
+          >
+            <ng-container *ngIf="interview.length; else emptyInterview">
+              <div class="card mb-2" *ngFor="let user of interview" cdkDrag>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-2">
+                    <img
+                      src="assets/images/profile.png"
+                      class="rounded"
+                      style="width: 50px; height: 50px; object-fit: cover"
+                    />
+                    <div class="ms-3">
+                      <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                      <small class="text-muted">{{ user.jobTitle }}</small>
                     </div>
-                    <hr class="my-2" />
-                    <p class="mb-1">{{ user.experience }} Experience</p>
-                    <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
+                  </div>
+                  <hr class="my-2" />
+                  <p class="mb-1">{{ user.experience }} Experience</p>
+                  <p class="text-muted small mb-3">{{ user.email }}</p>
+                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
                       Download CV
                     </button> -->
-                       <button 
-                      class="btn w-100 text-white fw-semibold" 
-                      style="background-color: #10b981"
-                      (click)="downloadCV(user)"
-                      [disabled]="!user.eResume">
-                      <i class="bi bi-download me-1"></i>
-                      Download CV
-                    </button>
-                  </div>
+                  <button
+                    class="btn w-100 text-white fw-semibold"
+                    style="background-color: #3b82f6"
+                    (click)="downloadCV(user)"
+                    [disabled]="!user.eResume"
+                  >
+                    <i class="bi bi-download me-1"></i>
+                    Download CV
+                  </button>
                 </div>
-              </ng-container>
-              <ng-template #emptyShortlisted>
-                <div class="text-muted text-center py-3">Drop here</div>
-              </ng-template>
-            </div>
+              </div>
+            </ng-container>
+            <ng-template #emptyInterview>
+              <div class="text-muted text-center py-3">Drop here</div>
+            </ng-template>
           </div>
         </div>
+      </div>
 
-        <!-- Rejected Column -->
-        <div class="col-md-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header fw-bold bg-light d-flex justify-content-between align-items-center">
-              <span>Rejected ({{ rejected.length }})</span>
-              <button 
-                class="btn btn-sm btn-outline-danger" 
-                (click)="exportRejected()"
-                [disabled]="rejected.length === 0">
-                <i class="bi bi-download"></i>
-              </button>
-            </div>
-            <div
-              class="card-body"
-              cdkDropList
-              #rejectedList="cdkDropList"
-              [cdkDropListData]="rejected"
-              [cdkDropListConnectedTo]="[applicationsList, shortlistedList, interviewList]"
-              (cdkDropListDropped)="drop($event, 'Rejected')"
+      <!-- Rejected Column -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <div
+            class="card-header fw-bold bg-light d-flex justify-content-between align-items-center"
+          >
+            <span>Rejected ({{ rejected.length }})</span>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="exportRejected()"
+              [disabled]="rejected.length === 0"
             >
-              <ng-container *ngIf="rejected.length; else emptyRejected">
-                <div class="card mb-2" *ngFor="let user of rejected" cdkDrag>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img
-                        src="assets/images/profile.png"
-                        class="rounded"
-                        style="width: 50px; height: 50px; object-fit: cover"
-                      />
-                      <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
-                        <small class="text-muted">{{ user.jobTitle }}</small>
-                      </div>
-                    </div>
-                    <hr class="my-2" />
-                    <p class="mb-1">{{ user.experience }} Experience</p>
-                    <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
-                      Download CV
-                    </button> -->
-                        <button 
-                      class="btn w-100 text-white fw-semibold" 
-                      style="background-color: #ef4444"
-                      (click)="downloadCV(user)"
-                      [disabled]="!user.eResume">
-                      <i class="bi bi-download me-1"></i>
-                      Download CV
-                    </button>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-template #emptyRejected>
-                <div class="text-muted text-center py-3">Drop here</div>
-              </ng-template>
-            </div>
+              <i class="bi bi-download"></i>
+            </button>
           </div>
-        </div>
-
-        <!-- Interview Column -->
-        <div class="col-md-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header fw-bold bg-light d-flex justify-content-between align-items-center">
-              <span>Interview ({{ interview.length }})</span>
-              <button 
-                class="btn btn-sm btn-outline-info" 
-                (click)="exportInterview()"
-                [disabled]="interview.length === 0">
-                <i class="bi bi-download"></i>
-              </button>
-            </div>
-            <div
-              class="card-body"
-              cdkDropList
-              #interviewList="cdkDropList"
-              [cdkDropListData]="interview"
-              [cdkDropListConnectedTo]="[applicationsList, shortlistedList, rejectedList]"
-              (cdkDropListDropped)="drop($event, 'Interview')"
-            >
-              <ng-container *ngIf="interview.length; else emptyInterview">
-                <div class="card mb-2" *ngFor="let user of interview" cdkDrag>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img
-                        src="assets/images/profile.png"
-                        class="rounded"
-                        style="width: 50px; height: 50px; object-fit: cover"
-                      />
-                      <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
-                        <small class="text-muted">{{ user.jobTitle }}</small>
-                      </div>
+          <div
+            class="card-body"
+            cdkDropList
+            #rejectedList="cdkDropList"
+            [cdkDropListData]="rejected"
+            [cdkDropListConnectedTo]="[
+              applicationsList,
+              shortlistedList,
+              interviewList
+            ]"
+            (cdkDropListDropped)="drop($event, 'Rejected')"
+          >
+            <ng-container *ngIf="rejected.length; else emptyRejected">
+              <div class="card mb-2" *ngFor="let user of rejected" cdkDrag>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-2">
+                    <img
+                      src="assets/images/profile.png"
+                      class="rounded"
+                      style="width: 50px; height: 50px; object-fit: cover"
+                    />
+                    <div class="ms-3">
+                      <h6 class="mb-0 fw-bold">{{ user.userName }}</h6>
+                      <small class="text-muted">{{ user.jobTitle }}</small>
                     </div>
-                    <hr class="my-2" />
-                    <p class="mb-1">{{ user.experience }} Experience</p>
-                    <p class="text-muted small mb-3">{{ user.email }}</p>
-                    <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
+                  </div>
+                  <hr class="my-2" />
+                  <p class="mb-1">{{ user.experience }} Experience</p>
+                  <p class="text-muted small mb-3">{{ user.email }}</p>
+                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
                       Download CV
                     </button> -->
-                      <button 
-                      class="btn w-100 text-white fw-semibold" 
-                      style="background-color: #3b82f6"
-                      (click)="downloadCV(user)"
-                      [disabled]="!user.eResume">
-                      <i class="bi bi-download me-1"></i>
-                      Download CV
-                    </button>
-                  </div>
+                  <button
+                    class="btn w-100 text-white fw-semibold"
+                    style="background-color: #ef4444"
+                    (click)="downloadCV(user)"
+                    [disabled]="!user.eResume"
+                  >
+                    <i class="bi bi-download me-1"></i>
+                    Download CV
+                  </button>
                 </div>
-              </ng-container>
-              <ng-template #emptyInterview>
-                <div class="text-muted text-center py-3">Drop here</div>
-              </ng-template>
-            </div>
+              </div>
+            </ng-container>
+            <ng-template #emptyRejected>
+              <div class="text-muted text-center py-3">Drop here</div>
+            </ng-template>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 <!-- </div> -->

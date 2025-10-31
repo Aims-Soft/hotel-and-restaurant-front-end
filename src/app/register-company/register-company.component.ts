@@ -134,19 +134,57 @@ export class RegisterCompanyComponent implements OnInit {
 
 
 
- onIndustryChange(event: Event): void {
-  const select = event.target as HTMLSelectElement;
-  this.selectedIndustry = Number(select.value);
-  console.log('Selected Industry ID:', this.selectedIndustry);
+//  onIndustryChange(event: Event): void {
+//   const select = event.target as HTMLSelectElement;
+//   this.selectedIndustry = Number(select.value);
+//   console.log('Selected Industry ID:', this.selectedIndustry);
   
-  // Clear previous selections
-  this.selectedDomains = [];
-  this.companyDomains = [];
-  this.filteredDomains = [];
+//   // Clear previous selections
+//   this.selectedDomains = [];
+//   this.companyDomains = [];
+//   this.filteredDomains = [];
   
-  // Fetch domains based on selected industry
+//   // Fetch domains based on selected industry
+//   if (this.selectedIndustry) {
+//     this.getCompanyDomain(this.selectedIndustry);
+//   }
+// }
+
+onIndustryChangeNgSelect(): void {
   if (this.selectedIndustry) {
+    console.log('Selected Industry ID:', this.selectedIndustry);
+    
+    // Clear previous selections
+    this.selectedDomains = [];
+    this.companyDomains = [];
+    this.filteredDomains = [];
+    
+    // Fetch domains based on selected industry
     this.getCompanyDomain(this.selectedIndustry);
+  } else {
+    // If industry is cleared, reset domains
+    this.companyDomains = [];
+    this.filteredDomains = [];
+    this.selectedDomains = [];
+  }
+}
+
+// Replace the existing onCountryChange method with this:
+onCountryChangeNgSelect(): void {
+  if (this.selectedCountry) {
+    // Filter cities based on selected country
+    this.filteredCities = this.cities.filter(
+      (city) => city.countryID === this.selectedCountry
+    );
+    // Reset city selection when country changes
+    this.selectedCity = null;
+    
+    console.log('Selected Country ID:', this.selectedCountry);
+    console.log('Filtered Cities:', this.filteredCities);
+  } else {
+    // If country is cleared, reset cities
+    this.filteredCities = [];
+    this.selectedCity = null;
   }
 }
 
@@ -206,18 +244,18 @@ export class RegisterCompanyComponent implements OnInit {
     );
   }
 
-  onCountryChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedCountry = Number(select.value);
-    console.log('Selected Country ID:', this.selectedCountry);
+  // onCountryChange(event: Event): void {
+  //   const select = event.target as HTMLSelectElement;
+  //   this.selectedCountry = Number(select.value);
+  //   console.log('Selected Country ID:', this.selectedCountry);
 
-    if (this.selectedCountry) {
-      // filter locally
-      this.filteredCities = this.cities.filter(
-        (city) => city.countryID === this.selectedCountry
-      );
-    }
-  }
+  //   if (this.selectedCountry) {
+  //     // filter locally
+  //     this.filteredCities = this.cities.filter(
+  //       (city) => city.countryID === this.selectedCountry
+  //     );
+  //   }
+  // }
 
   onCityChange(event: Event): void {
     const select = event.target as HTMLSelectElement;

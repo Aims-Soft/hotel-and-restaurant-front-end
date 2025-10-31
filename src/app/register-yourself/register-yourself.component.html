@@ -9,10 +9,9 @@
       <!-- Logo Upload Section -->
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Profile Image</label>
+          <label class="form-label mb-2">Profile Image</label>
 
           <div class="upload-area" (click)="fileInput.click()">
-            <!-- Show preview if file is selected -->
             <ng-container *ngIf="previewUrl; else uploadPlaceholder">
               <img
                 *ngIf="isImage; else pdfBlock"
@@ -26,7 +25,6 @@
               </ng-template>
             </ng-container>
 
-            <!-- Placeholder when nothing is selected -->
             <ng-template #uploadPlaceholder>
               <div class="upload-icon">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -36,7 +34,6 @@
             </ng-template>
           </div>
 
-          <!-- Hidden file input -->
           <input
             type="file"
             #fileInput
@@ -47,9 +44,8 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Upload Resume</label>
+          <label class="form-label mb-2">Upload Resume</label>
           <div class="upload-area" (click)="bannerInput.click()">
-            <!-- Show preview if file is selected -->
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
               <img
                 *ngIf="isBannerImage; else bannerPdfBlock"
@@ -63,7 +59,6 @@
               </ng-template>
             </ng-container>
 
-            <!-- Placeholder when nothing is selected -->
             <ng-template #bannerPlaceholder>
               <div class="upload-icon">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -73,7 +68,6 @@
             </ng-template>
           </div>
 
-          <!-- Hidden file input -->
           <input
             type="file"
             #bannerInput
@@ -82,289 +76,263 @@
             (change)="onBannerSelected($event)"
           />
         </div>
+      </div>
 
-        <!-- Basic Information Section -->
-        <!-- <h4 class="section-title">Basic Information</h4> -->
-        <div class="row mb-4">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">User Name</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter User Name"
-              [(ngModel)]="userName"
-              name="userName"
-              required
-              #userNameCtrl="ngModel"
-            />
-            <div
-              *ngIf="userNameCtrl.invalid && userNameCtrl.touched"
-              class="text-danger small"
-            >
-              User name is required
-            </div>
+      <!-- Basic Information Section -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">User Name</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Enter User Name"
+            [(ngModel)]="userName"
+            name="userName"
+            required
+            #userNameCtrl="ngModel"
+          />
+          <div
+            *ngIf="userNameCtrl.invalid && userNameCtrl.touched"
+            class="text-danger small"
+          >
+            User name is required
           </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">User CNIC</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="XXXXX-XXXXXXX-X"
-              [(ngModel)]="cnic"
-              name="cnic"
-              required
-              maxlength="15"
-              #cnicCtrl="ngModel"
-              (input)="onCnicInput($event)"
-            />
-            <div
-              *ngIf="cnicCtrl.invalid && cnicCtrl.touched"
-              class="text-danger small"
-            >
-              CNIC must be 13 digits (format: XXXXX-XXXXXXX-X)
-            </div>
-            <small class="text-muted" *ngIf="cnic">
-              {{ getRawCnic().length }}/13 digits entered
-            </small>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">User CNIC</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="XXXXX-XXXXXXX-X"
+            [(ngModel)]="cnic"
+            name="cnic"
+            required
+            maxlength="15"
+            #cnicCtrl="ngModel"
+            (input)="onCnicInput($event)"
+          />
+          <div
+            *ngIf="cnicCtrl.invalid && cnicCtrl.touched"
+            class="text-danger small"
+          >
+            CNIC must be 13 digits (format: XXXXX-XXXXXXX-X)
           </div>
+          <small class="text-muted" *ngIf="cnic">
+            {{ getRawCnic().length }}/13 digits entered
+          </small>
+        </div>
 
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Profession</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter profession"
-              [(ngModel)]="profession"
-              name="profession"
-              required
-              #professionCtrl="ngModel"
-            />
-            <div
-              *ngIf="professionCtrl.invalid && professionCtrl.touched"
-              class="text-danger small"
-            >
-              Enter Profession
-            </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Profession</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Enter profession"
+            [(ngModel)]="profession"
+            name="profession"
+            required
+            #professionCtrl="ngModel"
+          />
+          <div
+            *ngIf="professionCtrl.invalid && professionCtrl.touched"
+            class="text-danger small"
+          >
+            Enter Profession
+          </div>
+        </div>
+      </div>
+
+      <!-- Education and Location -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Study Level</label>
+          <ng-select
+            name="studyLevel"
+            [items]="DegreeLevel"
+            bindLabel="studyLevelTitle"
+            bindValue="studyLevelID"
+            placeholder="Select Study Level"
+            [(ngModel)]="selectedDegree"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Experience</label>
+          <ng-select
+            name="experience"
+            [items]="experience"
+            bindLabel="experienceRange"
+            bindValue="experienceID"
+            placeholder="Select Experience"
+            [(ngModel)]="selectedExperience"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Country</label>
+          <ng-select
+            name="country"
+            [items]="countries"
+            bindLabel="countryName"
+            bindValue="countryID"
+            placeholder="Select Country"
+            [(ngModel)]="selectedCountry"
+            (change)="onCountryChangeNgSelect()"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+      </div>
+
+      <!-- City and Contact Information -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">City</label>
+          <ng-select
+            name="city"
+            [items]="filteredCities"
+            bindLabel="cityName"
+            bindValue="cityID"
+            placeholder="Select City"
+            [(ngModel)]="selectedCity"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Contact No</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Phone number"
+            [(ngModel)]="contactNo"
+            name="contactNo"
+            required
+            #contactNoCtrl="ngModel"
+          />
+          <div
+            *ngIf="contactNoCtrl.invalid && contactNoCtrl.touched"
+            class="text-danger small"
+          >
+            Enter Contact Number
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Address"
+            [(ngModel)]="address"
+            name="address"
+            required
+            #addressCtrl="ngModel"
+          />
+          <div
+            *ngIf="addressCtrl.invalid && addressCtrl.touched"
+            class="text-danger small"
+          >
+            Enter your Address
+          </div>
+        </div>
+      </div>
+
+      <!-- Gender, Email, Password -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Gender</label>
+          <ng-select
+            name="gender"
+            [items]="genders"
+            bindLabel="genderName"
+            bindValue="genderID"
+            placeholder="Select Gender"
+            [(ngModel)]="selectedGender"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Email address"
+            [(ngModel)]="companyEmail"
+            name="companyEmail"
+            required
+            email
+            #emailCtrl="ngModel"
+          />
+          <div
+            *ngIf="emailCtrl.invalid && emailCtrl.touched"
+            class="text-danger small"
+          >
+            Enter a valid email address
           </div>
         </div>
 
-        <!-- Location Information -->
-        <!-- <h4 class="section-title">Location Information</h4> -->
-        <div class="row mb-4">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Study Level </label>
-            <select class="form-select" (change)="onStudyChange($event)">
-              <option selected disabled>Select Study Level</option>
-              <option
-                *ngFor="let item of DegreeLevel"
-                [value]="item.studyLevelID"
-              >
-                {{ item.studyLevelTitle }}
-              </option>
-            </select>
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Password</label>
+          <div class="input-group" style="height: 42px;">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              style="height: 42px;"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Enter Password"
+              required
+              #passwordCtrl="ngModel"
+              (input)="checkPasswordMatch()"
+            />
+            <span
+              class="input-group-text cursor-pointer"
+              style="height: 42px;"
+              (click)="togglePasswordVisibility()"
+            >
+              <i
+                [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+              ></i>
+            </span>
           </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Experience</label>
-            <select class="form-select" (change)="onExperienceChange($event)">
-              <option selected disabled>Select Experience</option>
-              <option
-                *ngFor="let item of experience"
-                [value]="item.experienceID"
-              >
-                {{ item.experienceRange }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Country</label>
-            <select class="form-select" (change)="onCountryChange($event)">
-              <option selected disabled>Select Country</option>
-              <option
-                *ngFor="let country of countries"
-                [value]="country.countryID"
-              >
-                {{ country.countryName }}
-              </option>
-            </select>
+          <div
+            *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
+            class="text-danger small"
+          >
+            Enter your Password
           </div>
         </div>
+      </div>
 
-        <!-- Contact Information -->
-        <!-- <h4 class="section-title">Contact Information</h4> -->
-        <div class="contact-info mb-4">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">City</label>
-              <select class="form-select" (change)="onCityChange($event)">
-                <option selected disabled>Select City</option>
-                <option
-                  *ngFor="let city of filteredCities"
-                  [value]="city.cityID"
-                >
-                  {{ city.cityName }}
-                </option>
-              </select>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Contact No</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phone number"
-                [(ngModel)]="contactNo"
-                name="contactNo"
-                required
-                #contactNoCtrl="ngModel"
-              />
-              <div
-                *ngIf="contactNoCtrl.invalid && contactNoCtrl.touched"
-                class="text-danger small"
-              >
-                Enter Contact Number
-              </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Address"
-                [(ngModel)]="address"
-                name="address"
-                required
-                #addressCtrl="ngModel"
-              />
-              <div
-                *ngIf="addressCtrl.invalid && addressCtrl.touched"
-                class="text-danger small"
-              >
-                Enter your Address
-              </div>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Gender</label>
-              <select
-                class="form-select"
-                [(ngModel)]="selectedGender"
-                name="gender"
-              >
-                <option [ngValue]="null" disabled>Select Gender</option>
-                <option *ngFor="let g of genders" [value]="g.genderID">
-                  {{ g.genderName }}
-                </option>
-              </select>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Email address"
-                [(ngModel)]="companyEmail"
-                name="companyEmail"
-                required
-                email
-                #emailCtrl="ngModel"
-              />
-              <div
-                *ngIf="emailCtrl.invalid && emailCtrl.touched"
-                class="text-danger small"
-              >
-                Enter a valid email address
-              </div>
-            </div>
-
-            <!-- Account Security -->
-            <!-- <h4 class="section-title">Account Security</h4> -->
-
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Password</label>
-              <div class="position-relative">
-                <input
-                  [type]="showPassword ? 'text' : 'password'"
-                  class="form-control"
-                  [(ngModel)]="password"
-                  name="password"
-                  placeholder="Enter Password"
-                  required
-                  #passwordCtrl="ngModel"
-                  (input)="checkPasswordMatch()"
-                />
-                <span
-                  class="position-absolute top-50 end-0 translate-middle-y pe-3 cursor-pointer"
-                  (click)="togglePasswordVisibility()"
-                >
-                  <i
-                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
-                  ></i>
-                </span>
-              </div>
-              <div
-                *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
-                class="text-danger small"
-              >
-                Enter your Password
-              </div>
-            </div>
-
-            <!-- <div class="col-md-4 mb-3 position-relative">
-              <label class="form-label">Password</label>
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                class="form-control"
-                [(ngModel)]="password"
-                name="password"
-                placeholder="Enter Password"
-                required
-                #passwordCtrl="ngModel"
-                (input)="checkPasswordMatch()"
-              />
-              <div
-                *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
-                class="text-danger small"
-              >
-                Enter your Password
-              </div>
-
-              <span
-                  class="input-group-text cursor-pointer"
-                  (click)="togglePasswordVisibility()"
-                >
-                  <i
-                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
-                  ></i>
-                </span>
-            </div> -->
-            <!-- <div class="col-md-4 mb-3">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                [(ngModel)]="password"
-                name="password"
-                placeholder="Enter Password"
-              />
-            </div> -->
-          </div>
-          <!-- <div class="col-md-4 mb-3">
-            <label class="form-label">Confirm Password</label>
-            <input
-              type="password"
-              class="form-control"
-              [(ngModel)]="confirmPassword"
-              name="confirmPassword"
-              placeholder="Enter Confrim Password"
-            />
-          </div> -->
-
-          <!-- <div class="col-md-4 mb-3 position-relative">
-            <label class="form-label">Confirm Password</label>
+      <!-- Confirm Password and User Domains -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Confirm Password</label>
+          <div class="input-group" style="height: 42px;">
             <input
               [type]="showConfirmPassword ? 'text' : 'password'"
               class="form-control"
+              style="height: 42px;"
               [(ngModel)]="confirmPassword"
               name="confirmPassword"
               placeholder="Enter Confirm Password"
@@ -372,194 +340,147 @@
               #confrimpasswordCtrl="ngModel"
               (input)="checkPasswordMatch()"
             />
-            <div
-              *ngIf="confrimpasswordCtrl.invalid && confrimpasswordCtrl.touched"
-              class="text-danger small"
+            <span
+              class="input-group-text cursor-pointer"
+              style="height: 42px;"
+              (click)="toggleConfirmPasswordVisibility()"
             >
-              Enter your Confrim Password
-            </div>
-            <i
-              class="fas"
-              [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
-              (click)="showConfirmPassword = !showConfirmPassword"
-              style="
-                position: absolute;
-                top: 38px;
-                right: 15px;
-                cursor: pointer;
-              "
-            ></i>
+              <i
+                [class]="
+                  showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+                "
+              ></i>
+            </span>
           </div>
-          <div *ngIf="passwordMismatch" class="text-danger small">
+          <div
+            *ngIf="confrimpasswordCtrl.invalid && confrimpasswordCtrl.touched"
+            class="text-danger small"
+          >
+            Enter your Confirm Password
+          </div>
+          <div
+            *ngIf="passwordMismatch && !confrimpasswordCtrl.invalid"
+            class="text-danger small"
+          >
             Password and Confirm Password do not match
-          </div> -->
+          </div>
+        </div>
 
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Confirm Password</label>
-            <div class="position-relative">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">User Domains</label>
+
+          <!-- Custom Multi-Select Dropdown -->
+          <div
+            class="custom-multiselect"
+            (click)="$event.stopPropagation()"
+          >
+            <div class="dropdown-input-wrapper">
               <input
-                [type]="showConfirmPassword ? 'text' : 'password'"
-                class="form-control"
-                [(ngModel)]="confirmPassword"
-                name="confirmPassword"
-                placeholder="Enter Confirm Password"
-                required
-                #confrimpasswordCtrl="ngModel"
-                (input)="checkPasswordMatch()"
+                type="text"
+                class="form-control dropdown-input"
+                style="height: 42px;"
+                [(ngModel)]="searchText"
+                name="searchText"
+                (ngModelChange)="onSearchChange()"
+                (click)="toggleDropdown(); $event.stopPropagation()"
+                (focus)="isDropdownOpen = true"
+                placeholder="Search and select domains..."
+                autocomplete="off"
               />
               <span
-                class="position-absolute top-50 end-0 translate-middle-y pe-3 cursor-pointer"
-                (click)="toggleConfirmPasswordVisibility()"
+                class="dropdown-arrow"
+                [class.open]="isDropdownOpen"
+                (click)="toggleDropdown()"
+                >▼</span
               >
-                <i
-                  [class]="
-                    showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
+            </div>
+
+            <!-- Dropdown List -->
+            <div class="dropdown-list" *ngIf="isDropdownOpen">
+              <div class="dropdown-header">
+                <span
+                  >{{ filteredDomains.length }} domain(s) available</span
+                >
+              </div>
+
+              <div class="dropdown-items">
+                <div
+                  *ngFor="let domain of filteredDomains"
+                  class="dropdown-item"
+                  [class.selected]="isDomainSelected(domain.domainID)"
+                  (click)="
+                    toggleDomain(domain.domainID); $event.stopPropagation()
                   "
-                ></i>
-              </span>
-            </div>
-            <div
-              *ngIf="confrimpasswordCtrl.invalid && confrimpasswordCtrl.touched"
-              class="text-danger small"
-            >
-              Enter your Confirm Password
-            </div>
-            <div
-              *ngIf="passwordMismatch && !confrimpasswordCtrl.invalid"
-              class="text-danger small"
-            >
-              Password and Confirm Password do not match
-            </div>
-          </div>
-
-          <!-- <div class="mb-4">
-            <p class="form-label">Domains</p>
-            <div class="skills-container">
-              <span
-                *ngFor="let domain of companyDomains"
-                class="skill-tag flex-wrap"
-                [class.selected]="selectedDomains.includes(domain.domainID)"
-                (click)="toggleDomain(domain.domainID)"
-              >
-                {{ domain.domainTitle }}
-              </span>
-            </div>
-          </div> -->
-
-          <div class="col-md-4 mb-3">
-            <div class="mb-4">
-              <label class="form-label">User Domains</label>
-
-              <!-- Custom Multi-Select Dropdown -->
-              <div
-                class="custom-multiselect"
-                (click)="$event.stopPropagation()"
-              >
-                <!-- Dropdown Input with name attribute -->
-                <div class="dropdown-input-wrapper">
+                >
                   <input
-                    type="text"
-                    class="form-control dropdown-input"
-                    [(ngModel)]="searchText"
-                    name="searchText"
-                    (ngModelChange)="onSearchChange()"
-                    (click)="toggleDropdown(); $event.stopPropagation()"
-                    (focus)="isDropdownOpen = true"
-                    placeholder="Search and select domains..."
-                    autocomplete="off"
+                    type="checkbox"
+                    [checked]="isDomainSelected(domain.domainID)"
+                    (click)="$event.stopPropagation()"
+                    readonly
                   />
+                  <span class="domain-title">{{ domain.domainTitle }}</span>
                   <span
-                    class="dropdown-arrow"
-                    [class.open]="isDropdownOpen"
-                    (click)="toggleDropdown()"
-                    >▼</span
+                    class="checkmark"
+                    *ngIf="isDomainSelected(domain.domainID)"
+                    >✓</span
                   >
                 </div>
 
-                <!-- Dropdown List -->
-                <div class="dropdown-list" *ngIf="isDropdownOpen">
-                  <div class="dropdown-header">
-                    <span
-                      >{{ filteredDomains.length }} domain(s) available</span
-                    >
-                  </div>
-
-                  <div class="dropdown-items">
-                    <div
-                      *ngFor="let domain of filteredDomains"
-                      class="dropdown-item"
-                      [class.selected]="isDomainSelected(domain.domainID)"
-                      (click)="
-                        toggleDomain(domain.domainID); $event.stopPropagation()
-                      "
-                    >
-                      <input
-                        type="checkbox"
-                        [checked]="isDomainSelected(domain.domainID)"
-                        (click)="$event.stopPropagation()"
-                        readonly
-                      />
-                      <!-- <span class="domain-icon">🏢</span> -->
-                      <span class="domain-title">{{ domain.domainTitle }}</span>
-                      <span
-                        class="checkmark"
-                        *ngIf="isDomainSelected(domain.domainID)"
-                        >✓</span
-                      >
-                    </div>
-
-                    <!-- No Results -->
-                    <div
-                      class="no-results"
-                      *ngIf="filteredDomains.length === 0"
-                    >
-                      <p>No domains found</p>
-                    </div>
-                  </div>
+                <!-- No Results -->
+                <div
+                  class="no-results"
+                  *ngIf="filteredDomains.length === 0"
+                >
+                  <p>No domains found</p>
                 </div>
               </div>
-
-              <!-- Selected Count -->
-              <small class="text-muted" *ngIf="selectedDomains.length > 0">
-                {{ selectedDomains.length }} domain(s) selected
-              </small>
             </div>
           </div>
-        </div>
 
-        <!-- Selected Tags Display -->
-        <div class="selected-tags-container" *ngIf="selectedDomains.length > 0">
-          <span
-            *ngFor="let domain of getSelectedDomains()"
-            class="selected-tag"
-          >
-            <!-- <span class="tag-icon">🏢</span> -->
-            {{ domain.domainTitle }}
-            <button
-              type="button"
-              class="remove-tag"
-              (click)="removeDomain(domain.domainID)"
+          <!-- Selected Count -->
+          <small class="text-muted" *ngIf="selectedDomains.length > 0">
+            {{ selectedDomains.length }} domain(s) selected
+          </small>
+        </div>
+      </div>
+
+      <!-- Selected Tags Display -->
+      <div class="row mb-3" *ngIf="selectedDomains.length > 0">
+        <div class="col-md-12">
+          <div class="selected-tags-container">
+            <span
+              *ngFor="let domain of getSelectedDomains()"
+              class="selected-tag"
             >
-              ×
-            </button>
-          </span>
+              {{ domain.domainTitle }}
+              <button
+                type="button"
+                class="remove-tag"
+                (click)="removeDomain(domain.domainID)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
         </div>
+      </div>
 
-        <div *ngIf="successMessage" class="alert alert-success mt-3">
-          {{ successMessage }}
-        </div>
-        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-          {{ errorMessage }}
-        </div>
-        <!-- Form Actions -->
-        <div class="d-flex justify-content-end gap-2 mt-0">
-          <button type="button" class="btn btn-cancel">Cancel</button>
-          <button type="button" class="btn btn-register" (click)="onRegister()">
-            Register
-          </button>
-        </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+      
+      <!-- Form Actions -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button type="button" class="btn btn-cancel">Cancel</button>
+        <button type="button" class="btn btn-register" (click)="onRegister()">
+          Register
+        </button>
       </div>
     </form>
   </div>
 </div>
 <app-footer></app-footer>
+

@@ -29,7 +29,7 @@
       >
     </div>
 
-       <div class="col-md-3 offset-md-1 text-end">
+    <div class="col-md-3 offset-md-1 text-end">
       <!-- Show Register & Sign In if NOT logged in -->
       <ng-container *ngIf="!isLoggedIn; else profileSection">
         <button
@@ -49,79 +49,56 @@
 
       <!-- Profile Section if Logged In -->
       <ng-template #profileSection>
-       <div class="dropdown">
-  <!-- Profile Image Button -->
-  <!-- <button
-    class="btn p-0 border-0 bg-transparent"
-    type="button"
-    id="profileDropdown"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    <img
-      src="../../assets/images/1.png"
-      alt="Profile"
-      class="rounded-5"
-      width="60"
-      height="40"
-    />
-  </button> -->
+        <div ngbDropdown class="d-inline-block">
+          <!-- Profile Image Button -->
+          <button
+            class="btn p-0 border-0 bg-transparent"
+            id="profileDropdown"
+            ngbDropdownToggle
+          >
+            <img
+              src="../../assets/images/1.png"
+              alt="Profile"
+              class="rounded-5"
+              width="60"
+              height="40"
+            />
+          </button>
 
-  <!-- Dropdown Menu -->
-  <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown"> -->
-    <!-- <li>
-      <a class="dropdown-item" routerLink="/profile">My Profile</a>
-    </li> -->
-    <!-- <li><hr class="dropdown-divider" /></li> -->
-    <!-- <li>
-      <button class="dropdown-item " (click)="logout()">
-        Logout
-      </button>
-    </li>
-  </ul> -->
-  <div ngbDropdown class="d-inline-block">
-  <!-- Profile Image Button -->
-  <button
-    class="btn p-0 border-0 bg-transparent"
-    id="profileDropdown"
-    ngbDropdownToggle
-  >
-    <img
-      src="../../assets/images/1.png"
-      alt="Profile"
-      class="rounded-5"
-      width="60"
-      height="40"
-    />
-  </button>
+          <!-- Dropdown Menu -->
+          <div ngbDropdownMenu aria-labelledby="profileDropdown" class="dropdown-menu-end">
+            <!-- Show "My Profile" only for Role ID 1 (Candidate) -->
+            <button 
+              *ngIf="shouldShowCandidateButton()" 
+              class="dropdown-item" 
+              (click)="goToCandidateProfile()"
+            >
+              <i class="bi bi-person-circle me-2"></i>My Profile
+            </button>
 
-  <!-- Dropdown Menu -->
-  <div ngbDropdownMenu aria-labelledby="profileDropdown" class="dropdown-menu-end">
-    <!-- <button class="dropdown-item" routerLink="/profile">My Profile</button> -->
-    <button class="dropdown-item" (click)="logout()">Logout</button>
-  </div>
-</div>
-</div>
-
+            <!-- Show "Go to Dashboard" only for Role ID 2 (Company) or 3 (Admin) -->
+            <button 
+              *ngIf="shouldShowDashboardButton()" 
+              class="dropdown-item" 
+              (click)="goToDashboard()"
+            >
+              <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+            </button>
+            
+            <!-- Divider only if any button above is shown -->
+            <div *ngIf="shouldShowDashboardButton() || shouldShowCandidateButton()" class="dropdown-divider"></div>
+            
+            <!-- Logout button for all users -->
+            <button class="dropdown-item text-danger" (click)="logout()">
+              <i class="bi bi-box-arrow-right me-2"></i>Logout
+            </button>
+          </div>
+        </div>
       </ng-template>
     </div>
-    <!-- <div class="col-md-3 offset-md-1">
-      <button
-        class="ms-4 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#registerModal"
-      >
-        Register
-      </button>
-      <button
-        class="ms-3 px-3 py-2 border-0 rounded text-white fw-bold btns"
-        routerLink="/signIn"
-      >
-        Sign In
-      </button>
-    </div> -->
   </div>
 </div>
+
 <!-- Register Modal -->
 <div
   class="modal fade"
