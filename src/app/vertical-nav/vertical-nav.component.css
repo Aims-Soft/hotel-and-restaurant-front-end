@@ -31,5 +31,80 @@
 }
 
 
+/* Menu Item Styling */
+.menu-item {
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+.active-link {
+  background-color: #7c3aed !important;
+  color: white !important;
+}
+
+.active-link i {
+  color: white !important;
+}
+
+/* Ensure icons are same size */
+.menu-item i {
+  width: 20px;
+  text-align: center;
+}
+
+/* Scrollbar styling for dynamic menu section */
+.flex-grow-1::-webkit-scrollbar {
+  width: 4px;
+}
+
+.flex-grow-1::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.flex-grow-1::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+
+.flex-grow-1::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
+
+/* Profile border */
+.profile-border {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-border:hover {
+  background-color: #f5f5f5;
+}
+
+.profile-border img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Bottom border for header */
+.bottom-border {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Right border for sidebar */
+.right-border {
+  border-right: 1px solid #e0e0e0;
+}
+
+
+
+
 
 

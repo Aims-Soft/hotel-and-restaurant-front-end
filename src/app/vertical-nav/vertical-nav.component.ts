@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import { AuthSharedService } from '../Services/auth-shared/authShared.service';
 import { Subscription } from 'rxjs';
@@ -17,22 +17,45 @@ export class VerticalNavComponent implements OnInit, OnDestroy {
   ) {}
 
   private subscription!: Subscription;
+    loginName: string = '';
+   menuList: any = [];
+  showLogoDropdown: boolean = false;
+   
 
   ngOnInit(): void {
     this.subscription = this.authSharedService.menuTrigger$.subscribe(() => {
       this.getMenu();
+      
     });
 
     this.getMenu();
+     this. getLoginName()
   }
 
-  menuList: any = [];
+ 
 
   getMenu() {
     this.menuList = [];
     this.menuList = this.userSessionService.getMenus();
 
     console.log(this.menuList, 'menuList');
+  }
+
+ getLoginName() {
+    // Get the current user from localStorage
+    const user = this.userSessionService.getUser();
+    
+    if (user && user.loginName) {
+      this.loginName = user.loginName;
+    } else if (user && user.fullName) {
+      // Fallback to fullName if loginName is not available
+      this.loginName = user.fullName;
+    } else {
+      // Final fallback
+      this.loginName = 'User';
+    }
+
+    console.log('Login Name:', this.loginName);
   }
 
   logout() {
@@ -43,6 +66,23 @@ export class VerticalNavComponent implements OnInit, OnDestroy {
 
       this.router.navigate(['/signIn']);
   }
+// Toggle logo dropdown
+  toggleLogoDropdown() {
+    this.showLogoDropdown = !this.showLogoDropdown;
+  }
+
+  // Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: any) {
+    const target = event.target;
+    const clickedInside = target.closest('.position-relative');
+    
+    if (!clickedInside && this.showLogoDropdown) {
+      this.showLogoDropdown = false;
+    }
+  }
+
+
 
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
