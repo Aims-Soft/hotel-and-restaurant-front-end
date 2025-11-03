@@ -58,6 +58,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ForgetPasswordComponent } from './sign-in/forget-password/forget-password.component';
 import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
+import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/res
     ForgetPasswordComponent,
     EnterCodeComponent,
     ResetPasswordComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

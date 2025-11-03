@@ -1,0 +1,547 @@
+import { Component,OnInit, HostListener } from '@angular/core';
+import { UserSessionService } from '../../Services/userSession/userSession.Service';
+import { CompanyRegistrationService } from '../../Services/Company registration/company-registration.service';
+import { RegisterUserService } from '../../Services/register user/register-user.service';
+import { adminCompanyService } from '../../Services/Admin Companies/admincompanies.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrl: './user-profile.component.css'
+})
+export class UserProfileComponent implements OnInit {
+  isLoading: boolean = false;
+  DegreeLevel: any[] = [];
+  successMessage: string = '';
+  errorMessage: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+  passwordMismatch: boolean = false;
+  isFormSubmitted: boolean = false;
+
+  companyDomains: any[] = [];
+  selectedDomains: number[] = [];
+  experience: any[] = [];
+  selectedExperience: number | null = null;
+  selectedFile: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
+  isImage = false;
+  selectedDegree: number | null = null;
+  countries: any[] = [];
+  selectedCountry: number | null = null;
+  cities: any[] = [];
+  selectedCity: number | null = null;
+  foundedIn: string = '';
+  selectedBannerFile: File | null = null;
+  bannerPreviewUrl: string | ArrayBuffer | null = null;
+  isBannerImage = false;
+
+  userName: string = '';
+  cnic: string = '';
+  companyName: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  companyEmail: string = '';
+  contactNo: string = '';
+  address: string = '';
+  description: string = '';
+  profession: string = '';
+  selectedGender: number | null = null;
+
+  searchText: string = '';
+  isDropdownOpen: boolean = false;
+  filteredDomains: any[] = [];
+
+  constructor(
+    private userSessionService: UserSessionService,
+    private CompanyRegistrationService: CompanyRegistrationService,
+    private RegisterUserService: RegisterUserService,
+    private global: adminCompanyService,
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    this.getDegreeLevel();
+    this.getExperience();
+    this.getCountries();
+    this.getCities();
+    this.getCompanyDomain();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  genders = [
+    { genderID: 1, genderName: 'Male' },
+    { genderID: 2, genderName: 'Female' },
+    { genderID: 3, genderName: 'Others' },
+  ];
+
+  // CNIC Masking Method
+  onCnicInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, ''); // Remove all non-digits
+    
+    // Limit to 13 digits
+    if (value.length > 13) {
+      value = value.substring(0, 13);
+    }
+    
+    // Apply masking: XXXXX-XXXXXXX-X
+    let formattedValue = '';
+    if (value.length > 0) {
+      formattedValue = value.substring(0, 5);
+    }
+    if (value.length > 5) {
+      formattedValue += '-' + value.substring(5, 12);
+    }
+    if (value.length > 12) {
+      formattedValue += '-' + value.substring(12, 13);
+    }
+    
+    this.cnic = formattedValue;
+    input.value = formattedValue;
+  }
+
+  // Get raw CNIC without dashes for validation
+  getRawCnic(): string {
+    return this.cnic.replace(/\D/g, '');
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      const fileType = this.selectedFile.type;
+
+      this.isImage = fileType.startsWith('image/');
+
+      if (this.isImage) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.previewUrl = reader.result;
+        };
+        reader.readAsDataURL(this.selectedFile);
+      } else {
+        this.previewUrl = 'pdf';
+      }
+    }
+  }
+
+  onBannerSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedBannerFile = input.files[0];
+      const fileType = this.selectedBannerFile.type;
+
+      this.isBannerImage = fileType.startsWith('image/');
+
+      if (this.isBannerImage) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.bannerPreviewUrl = reader.result;
+        };
+        reader.readAsDataURL(this.selectedBannerFile);
+      } else {
+        this.bannerPreviewUrl = 'pdf';
+      }
+    }
+  }
+
+  getDegreeLevel(): void {
+    this.isLoading = true;
+    this.RegisterUserService.getDegreeLevel().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.DegreeLevel = response;
+        console.log(response, 'types');
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching Industries Types:', error);
+      }
+    );
+  }
+
+  onStudyChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedDegree = Number(select.value);
+    console.log('Selected Industry ID:', this.selectedDegree);
+  }
+
+  getExperience(): void {
+    this.isLoading = true;
+    this.RegisterUserService.getExperience().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.experience = response;
+        console.log('Experience:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching Experience:', error);
+      }
+    );
+  }
+
+  onExperienceChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedExperience = Number(select.value);
+    console.log('Selected Exerperience ID:', this.selectedExperience);
+  }
+
+  getCountries(): void {
+    this.isLoading = true;
+    this.CompanyRegistrationService.getCountries().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.countries = response;
+        console.log('Countries:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching Countries:', error);
+      }
+    );
+  }
+
+  filteredCities: any[] = [];
+
+  getCities(): void {
+    this.isLoading = true;
+    this.CompanyRegistrationService.getCities().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.cities = response;
+        console.log('All Cities:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching Cities:', error);
+      }
+    );
+  }
+
+  // onCountryChange(event: Event): void {
+  //   const select = event.target as HTMLSelectElement;
+  //   this.selectedCountry = Number(select.value);
+  //   console.log('Selected Country ID:', this.selectedCountry);
+
+  //   if (this.selectedCountry) {
+  //     this.filteredCities = this.cities.filter(
+  //       (city) => city.countryID === this.selectedCountry
+  //     );
+  //   }
+  // }
+
+  onCountryChangeNgSelect(): void {
+  if (this.selectedCountry) {
+    // Filter cities based on selected country
+    this.filteredCities = this.cities.filter(
+      (city) => city.countryID === this.selectedCountry
+    );
+    // Reset city selection when country changes
+    this.selectedCity = null;
+    
+    console.log('Selected Country ID:', this.selectedCountry);
+    console.log('Filtered Cities:', this.filteredCities);
+  } else {
+    // If country is cleared, reset cities
+    this.filteredCities = [];
+    this.selectedCity = null;
+  }
+}
+
+  onCityChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedCity = Number(select.value);
+    console.log('Selected City ID:', this.selectedCity);
+  }
+
+  // Validation method
+  validateForm(): boolean {
+    this.isFormSubmitted = true;
+    const missingFields: string[] = [];
+
+    if (!this.selectedFile) {
+      missingFields.push('Profile Image');
+    }
+    if (!this.selectedBannerFile) {
+      missingFields.push('Resume');
+    }
+    if (!this.userName || this.userName.trim() === '') {
+      missingFields.push('User Name');
+    }
+    const rawCnic = this.getRawCnic();
+    if (!rawCnic || rawCnic.length !== 13) {
+      missingFields.push('Valid CNIC (13 digits)');
+    }
+    if (!this.profession || this.profession.trim() === '') {
+      missingFields.push('Profession');
+    }
+    if (!this.selectedDegree) {
+      missingFields.push('Study Level');
+    }
+    if (!this.selectedExperience) {
+      missingFields.push('Experience');
+    }
+    if (!this.selectedCountry) {
+      missingFields.push('Country');
+    }
+    if (!this.selectedCity) {
+      missingFields.push('City');
+    }
+    if (!this.contactNo || this.contactNo.trim() === '') {
+      missingFields.push('Contact Number');
+    }
+    if (!this.address || this.address.trim() === '') {
+      missingFields.push('Address');
+    }
+    if (!this.selectedGender) {
+      missingFields.push('Gender');
+    }
+    if (!this.companyEmail || !this.isValidEmail(this.companyEmail)) {
+      missingFields.push('Valid Email');
+    }
+    if (!this.password || this.password.trim() === '') {
+      missingFields.push('Password');
+    }
+    if (!this.confirmPassword || this.confirmPassword.trim() === '') {
+      missingFields.push('Confirm Password');
+    }
+    if (this.password !== this.confirmPassword) {
+      this.passwordMismatch = true;
+      missingFields.push('Passwords must match');
+    }
+    if (!this.selectedDomains || this.selectedDomains.length === 0) {
+      missingFields.push('At least one Domain');
+    }
+
+    if (missingFields.length > 0) {
+      this.errorMessage = `Please fill in the following required fields: ${missingFields.join(', ')}`;
+      this.successMessage = '';
+      
+      // Scroll to top to show error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return false;
+    }
+
+    return true;
+  }
+
+  // Email validation helper
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  onRegister(): void {
+    // Clear previous messages
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    // Validate form
+    if (!this.validateForm()) {
+      return;
+    }
+
+    const payload: any = {
+      userID: 0,
+      userName: this.userName,
+      cnic: this.getRawCnic(), // Use raw CNIC without dashes
+      companyName: this.companyName,
+      password: this.password,
+      email: this.companyEmail,
+      address: this.address,
+      profession: this.profession,
+      contactNo: this.contactNo,
+      eResume: null,
+      eResumePath: '',
+      eResumeExt: '',
+      eDoc: null,
+      eDocPath: '',
+      eDocExt: '',
+      experienceID: this.selectedExperience,
+      studyLevelID: this.selectedDegree,
+      companyStatusID: 1,
+      cityID: this.selectedCity,
+      genderID: Number(this.selectedGender),
+      json: JSON.stringify(this.selectedDomains),
+      roleID: 1,
+      userTypeID: 1,
+      spType: 'insert',
+    };
+
+    const filePromises: Promise<void>[] = [];
+
+    if (this.selectedFile) {
+      const filePromise = new Promise<void>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          payload.eDoc = base64.split(',')[1];
+          payload.eDocExt = this.selectedFile?.name.split('.').pop() || '';
+          resolve();
+        };
+
+        if (this.selectedFile) {
+          reader.readAsDataURL(this.selectedFile);
+        } else {
+          resolve();
+        }
+      });
+      filePromises.push(filePromise);
+    }
+
+    if (this.selectedBannerFile) {
+      const bannerPromise = new Promise<void>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          payload.eResume = base64.split(',')[1];
+          payload.eResumeExt =
+            this.selectedBannerFile?.name.split('.').pop() || '';
+          resolve();
+        };
+
+        if (this.selectedBannerFile) {
+          reader.readAsDataURL(this.selectedBannerFile);
+        } else {
+          resolve();
+        }
+      });
+      filePromises.push(bannerPromise);
+    }
+
+    Promise.all(filePromises).then(() => {
+      console.log('Final payload:', payload);
+      this.isLoading = true;
+
+      this.RegisterUserService.saveUser(payload).subscribe({
+        next: (res: any) => {
+          this.isLoading = false;
+          console.log('API Response:', res);
+
+          if (Array.isArray(res) && res.length > 0) {
+            const responseMessage = res[0];
+
+            if (responseMessage.includes('User already Exist')) {
+              this.errorMessage = 'CNIC or Email already exists. Please use different credentials.';
+              this.successMessage = '';
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return;
+            }
+
+            if (responseMessage.startsWith('Success')) {
+              const parts = responseMessage.split('|||');
+              const userId = parts[1];
+              console.log('New User ID:', userId);
+
+              this.successMessage = 'Registration successful! Redirecting to login page...';
+              this.errorMessage = '';
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              
+              setTimeout(() => {
+                this.router.navigate(['/signIn']);
+              }, 3000);
+              return;
+            }
+          }
+
+          this.errorMessage = 'Unexpected response from server. Please try again.';
+          this.successMessage = '';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Error:', err);
+          this.errorMessage = 'Failed to register user. Please try again later.';
+          this.successMessage = '';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+      });
+    });
+  }
+
+  checkPasswordMatch(): void {
+    this.passwordMismatch = this.password !== this.confirmPassword;
+  }
+
+  getCompanyDomain(): void {
+    this.isLoading = true;
+    this.CompanyRegistrationService.getUserDomain().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.companyDomains = response;
+        this.filteredDomains = response;
+        console.log('User Domains:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching User domains:', error);
+      }
+    );
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+    if (this.isDropdownOpen) {
+      this.searchText = '';
+      this.filteredDomains = this.companyDomains;
+    }
+  }
+
+  onSearchChange(): void {
+    const search = this.searchText.toLowerCase().trim();
+    if (search === '') {
+      this.filteredDomains = this.companyDomains;
+    } else {
+      this.filteredDomains = this.companyDomains.filter((domain: any) =>
+        domain.domainTitle.toLowerCase().includes(search)
+      );
+    }
+  }
+
+  toggleDomain(domainId: number): void {
+    if (this.selectedDomains.includes(domainId)) {
+      this.selectedDomains = this.selectedDomains.filter(
+        (id) => id !== domainId
+      );
+    } else {
+      this.selectedDomains.push(domainId);
+    }
+    console.log('Selected Domains:', this.selectedDomains);
+  }
+
+  removeDomain(domainId: number): void {
+    this.selectedDomains = this.selectedDomains.filter(
+      (id) => id !== domainId
+    );
+  }
+
+  getSelectedDomains(): any[] {
+    return this.companyDomains.filter((domain) =>
+      this.selectedDomains.includes(domain.domainID)
+    );
+  }
+
+  isDomainSelected(domainId: number): boolean {
+    return this.selectedDomains.includes(domainId);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.custom-multiselect')) {
+      this.isDropdownOpen = false;
+    }
+  }
+}

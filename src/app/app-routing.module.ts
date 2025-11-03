@@ -33,6 +33,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ForgetPasswordComponent } from './sign-in/forget-password/forget-password.component';
 import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
+import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'forgetPassword', component: ForgetPasswordComponent},
   { path: 'enterCode', component: EnterCodeComponent},
   { path: 'resetPassword',component: ResetPasswordComponent},
+  {path:'userprofile',component:UserProfileComponent},
 
   
 

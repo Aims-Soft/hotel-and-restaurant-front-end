@@ -103,7 +103,7 @@ export class TopNavComponent implements OnInit {
     // Navigate to candidate profile/dashboard
   goToCandidateProfile(): void {
     console.log('Navigating to Candidate Profile');
-    this.router.navigate(['/candidate-profile']); // or '/my-profile' or '/user-dashboard'
+    this.router.navigate(['/userprofile']); // or '/my-profile' or '/user-dashboard'
   }
 
   logout(): void {
