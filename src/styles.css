@@ -78,8 +78,554 @@
   border-color: #007bff;
 }
 
-/* intro(HERO) section  */
+
+/* ========================================
+   HERO SECTION - BASE STYLES
+   ======================================== */
+
 .hero {
+  margin-top: -5.6em;
+  background-color: var(--dark-blue);
+  padding-bottom: 4em;
+  font-family: Hanken_grostek;
+}
+
+.searching-site {
+  color: var(--secondary);
+  background-color: var(--primary-background);
+  display: inline-block;
+}
+
+.span-style {
+  color: var(--secondary);
+}
+
+/* Search Box Styles */
+.search-box {
+  background-color: var(--search-background);
+  border-radius: 30px;
+  border: 1px solid var(--search-border);
+  position: relative;
+}
+
+.searchbox {
+  background-color: var(--secondary-background);
+  border-radius: 30px;
+  border: 1px solid var(--secondary-background);
+  position: relative;
+}
+
+.search-box-btn {
+  background-color: var(--secondary);
+  color: var(--primary-text);
+  border-radius: 21px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.left-border {
+  border-left: 2px solid var(--secondary);
+}
+
+.hero-sec-img {
+  background-color: var(--secondary);
+  border-radius: 2.2em;
+  position: relative;
+}
+
+/* Input Styles */
+input::placeholder {
+  color: #beb7ce;
+  outline: none;
+}
+
+input {
+  color: white;
+  width: 100%;
+}
+
+input:focus {
+  outline: 0;
+}
+
+/* Small Card */
+.small-card {
+  position: absolute;
+  bottom: 20px;
+  right: -30px;
+  width: 200px;
+  z-index: 10;
+}
+
+/* ========================================
+   TABLET VIEW (768px - 991px)
+   ======================================== */
+
+@media (max-width: 991px) {
+  .hero {
+    margin-top: -5em;
+    padding-bottom: 3em;
+  }
+
+  .container.absolute {
+    padding-top: 8em !important;
+  }
+
+  /* Hero Title */
+  .hero h1 {
+    font-size: 50px !important;
+  }
+
+  .hero p {
+    font-size: 1em !important;
+  }
+
+  /* Search Box */
+  .search-box {
+    padding: 8px !important;
+  }
+
+  .search-box input {
+    font-size: 14px;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
+
+  .search-box-btn {
+    font-size: 13px;
+    padding: 8px 15px !important;
+    right: 8px;
+  }
+
+  /* Popular Categories */
+  .left-border p {
+    font-size: 14px;
+  }
+
+  /* Hero Image Section */
+  .hero-sec-img {
+    margin-top: 30px;
+    margin-left: 0 !important;
+  }
+
+  .small-card {
+    width: 180px;
+    right: -20px;
+    bottom: 15px;
+  }
+
+  .small-card h6 {
+    font-size: 16px;
+  }
+
+  .small-card small {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   MOBILE VIEW (576px - 767px)
+   ======================================== */
+
+@media (max-width: 767px) {
+  .hero {
+    margin-top: -4em;
+    padding-bottom: 2em;
+  }
+
+  .container.absolute {
+    padding-top: 6em !important;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Badge */
+  .searching-site {
+    font-size: 12px;
+    padding: 6px 12px !important;
+  }
+
+  /* Hero Title */
+  .hero h1 {
+    font-size: 36px !important;
+    line-height: 1.2;
+    margin-top: 15px !important;
+  }
+
+  .hero h1 br {
+    display: inline;
+  }
+
+  /* Paragraph */
+  .hero p {
+    font-size: 0.95em !important;
+    padding-left: 0 !important;
+    margin-top: 20px !important;
+  }
+
+  /* Search Box */
+  .search-box {
+    margin-top: 25px !important;
+    padding: 6px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .search-box i {
+    font-size: 16px;
+  }
+
+  .search-box input {
+    font-size: 13px;
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search-box-btn {
+    font-size: 12px;
+    padding: 8px 12px !important;
+    margin-left: 0 !important;
+    position: relative;
+    right: 0;
+    top: 0;
+    transform: none;
+  }
+
+  /* Popular Categories */
+  .left-border {
+    margin-top: 20px !important;
+    padding-left: 10px;
+  }
+
+  .left-border p {
+    font-size: 13px;
+    margin-left: 5px !important;
+  }
+
+  /* Hero Image Section */
+  .hero-sec-img {
+    margin-top: 30px !important;
+    margin-left: 0 !important;
+    padding: 15px !important;
+    border-radius: 1.5em !important;
+  }
+
+  .hero-sec-img img {
+    border-radius: 1em;
+  }
+
+  /* Small Card */
+  .small-card {
+    width: 160px;
+    right: 10px;
+    bottom: 15px;
+    padding: 10px !important;
+  }
+
+  .small-card img {
+    height: auto !important;
+    width: 35px;
+  }
+
+  .small-card h6 {
+    font-size: 15px;
+  }
+
+  .small-card small {
+    font-size: 11px;
+  }
+
+  /* Column adjustments */
+  .col-md-6.me-3 {
+    margin-right: 0 !important;
+  }
+
+  .col-md-5.ms-5 {
+    margin-left: 0 !important;
+  }
+
+  .col-md-10 {
+    width: 100% !important;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE VIEW (Below 576px)
+   ======================================== */
+
+@media (max-width: 575px) {
+  .hero {
+    margin-top: -3.5em;
+    padding-bottom: 1.5em;
+  }
+
+  .container.absolute {
+    padding-top: 5em !important;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Badge */
+  .searching-site {
+    font-size: 11px;
+    padding: 5px 10px !important;
+  }
+
+  /* Hero Title */
+  .hero h1 {
+    font-size: 28px !important;
+    line-height: 1.15;
+    margin-top: 12px !important;
+  }
+
+  /* Paragraph */
+  .hero p {
+    font-size: 0.9em !important;
+    margin-top: 15px !important;
+  }
+
+  /* Search Box */
+  .search-box {
+    margin-top: 20px !important;
+    padding: 5px !important;
+    border-radius: 25px;
+  }
+
+  .search-box i {
+    font-size: 14px;
+    margin-left: 5px !important;
+  }
+
+  .search-box input {
+    font-size: 12px;
+    margin-left: 8px !important;
+    padding: 5px 0;
+  }
+
+  .search-box input::placeholder {
+    font-size: 12px;
+  }
+
+  .search-box-btn {
+    font-size: 11px;
+    padding: 7px 10px !important;
+    border-radius: 18px;
+  }
+
+  /* Popular Categories */
+  .left-border {
+    margin-top: 15px !important;
+    border-left-width: 1.5px;
+  }
+
+  .left-border p {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  /* Hero Image Section */
+  .hero-sec-img {
+    margin-top: 25px !important;
+    padding: 12px !important;
+    border-radius: 1.2em !important;
+  }
+
+  /* Small Card */
+  .small-card {
+    width: 140px;
+    right: 5px;
+    bottom: 10px;
+    padding: 8px !important;
+  }
+
+  .small-card img {
+    width: 30px;
+  }
+
+  .small-card h6 {
+    font-size: 14px;
+    margin-bottom: 2px !important;
+  }
+
+  .small-card small {
+    font-size: 10px;
+  }
+}
+
+/* ========================================
+   EXTRA SMALL MOBILE (Below 400px)
+   ======================================== */
+
+@media (max-width: 399px) {
+  .hero {
+    margin-top: -3em;
+  }
+
+  .container.absolute {
+    padding-top: 4.5em !important;
+  }
+
+  /* Hero Title */
+  .hero h1 {
+    font-size: 24px !important;
+  }
+
+  /* Paragraph */
+  .hero p {
+    font-size: 0.85em !important;
+  }
+
+  /* Search Box */
+  .search-box {
+    padding: 4px !important;
+    border-radius: 20px;
+  }
+
+  .search-box input {
+    font-size: 11px;
+    margin-left: 6px !important;
+  }
+
+  .search-box-btn {
+    font-size: 10px;
+    padding: 6px 8px !important;
+  }
+
+  /* Popular Categories */
+  .left-border p {
+    font-size: 11px;
+  }
+
+  /* Small Card */
+  .small-card {
+    width: 130px;
+    padding: 6px !important;
+  }
+
+  .small-card img {
+    width: 28px;
+  }
+
+  .small-card h6 {
+    font-size: 13px;
+  }
+
+  .small-card small {
+    font-size: 9px;
+  }
+}
+
+/* ========================================
+   LANDSCAPE ORIENTATION (Mobile)
+   ======================================== */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .container.absolute {
+    padding-top: 4em !important;
+  }
+
+  .hero h1 {
+    font-size: 32px !important;
+  }
+
+  .hero-sec-img {
+    margin-top: 20px !important;
+  }
+
+  .small-card {
+    width: 150px;
+    bottom: 10px;
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE IMPROVEMENTS
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .search-box-btn:active {
+    transform: scale(0.95);
+    background-color: var(--secondary-dark, var(--secondary));
+  }
+
+  .search-box {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ========================================
+   PREVENT ZOOM ON INPUT FOCUS (iOS)
+   ======================================== */
+
+@media screen and (max-width: 767px) {
+  input[type="search"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES FOR MOBILE
+   ======================================== */
+
+@media (max-width: 767px) {
+  .d-flex.align-items-center {
+    flex-wrap: nowrap !important;
+  }
+
+  /* Ensure images don't overflow */
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Text alignment on mobile */
+  .text-white.absolute h1,
+  .text-white.absolute p {
+    text-align: left;
+  }
+}
+
+/* ========================================
+   HIGH DPI SCREENS
+   ======================================== */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero h1,
+  .search-box-btn {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ========================================
+   LOADING STATE (Optional)
+   ======================================== */
+
+.search-box-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.search-box-btn:disabled:hover {
+  transform: translateY(-50%);
+}
+
+@media (max-width: 767px) {
+  .search-box-btn:disabled:hover {
+    transform: none;
+  }
+}
+
+/* intro(HERO) section  */
+/* .hero {
   margin-top: -5.6em;
   background-color: var(--dark-blue);
   padding-bottom: 4em;
@@ -122,7 +668,7 @@
 .hero-sec-img {
   background-color: var(--secondary);
   border-radius: 2.2em;
-}
+} */
 /* Catagaories Component */
 
 .trending-catagory-text{
@@ -172,7 +718,7 @@
 }
 
 /* Dream-job */
-.dream-job-font {
+/* .dream-job-font {
   font-family: reddit-sans;
 }
 .job {
@@ -186,7 +732,7 @@
   background-color: var(--dark-blue);
 }
 
-/* Footer */
+
 .footer-background {
   background-color: var(--primary-text);
 }
@@ -195,7 +741,477 @@
 .legal a,
 .copyrights {
   color: var(--footer-text);
+} */
+
+/* ========================================
+   DREAM JOB SECTION - BASE STYLES
+   ======================================== */
+
+.dream-job-font {
+  font-family: reddit-sans;
 }
+
+.job {
+  color: var(--dark-blue);
+}
+
+.dream-job-header {
+  font-size: 56px;
+  color: var(--primary-text);
+  line-height: 1.2;
+}
+
+.more-jobs {
+  background-color: var(--dark-blue);
+}
+
+/* Icon and Text Alignment */
+.job .d-flex {
+  gap: 8px;
+}
+
+.job p {
+  margin: 0;
+  line-height: 1;
+}
+
+/* Footer Styles */
+.footer-background {
+  background-color: var(--primary-text);
+}
+
+.footer-info,
+.quick-links a,
+.legal a,
+.copyrights {
+  color: var(--footer-text);
+}
+
+/* ========================================
+   TABLET VIEW (768px - 991px)
+   ======================================== */
+
+@media (max-width: 991px) {
+  .dream-job-header {
+    font-size: 48px;
+  }
+
+  .job p {
+    font-size: 1em !important;
+  }
+
+  .job .d-flex img {
+    width: 28px;
+    height: auto;
+  }
+
+  /* Container padding */
+  .container.dream-job-font {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+/* ========================================
+   MOBILE VIEW (576px - 767px)
+   ======================================== */
+
+@media (max-width: 767px) {
+  .dream-job-header {
+    font-size: 36px;
+    line-height: 1.3;
+    padding: 0 15px;
+  }
+
+  .job p {
+    font-size: 0.95em !important;
+    margin-top: 10px !important;
+  }
+
+  .job .d-flex {
+    gap: 6px;
+    margin-bottom: 15px;
+  }
+
+  .job .d-flex img {
+    width: 24px;
+    height: auto;
+  }
+
+  /* Container padding */
+  .container.dream-job-font {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  /* Text center adjustments */
+  .text-center.job {
+    padding: 0 10px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE VIEW (Below 576px)
+   ======================================== */
+
+@media (max-width: 575px) {
+  .dream-job-header {
+    font-size: 28px;
+    line-height: 1.25;
+    padding: 0 10px;
+    word-wrap: break-word;
+  }
+
+  .job p {
+    font-size: 0.9em !important;
+    margin-top: 8px !important;
+  }
+
+  .job .d-flex {
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+
+  .job .d-flex img {
+    width: 22px;
+    height: auto;
+  }
+
+  /* Container padding */
+  .container.dream-job-font {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  /* Reduce spacing */
+  .text-center.job h2 {
+    margin-top: 10px;
+  }
+}
+
+/* ========================================
+   EXTRA SMALL MOBILE (Below 400px)
+   ======================================== */
+
+@media (max-width: 399px) {
+  .dream-job-header {
+    font-size: 24px;
+    line-height: 1.2;
+    padding: 0 5px;
+  }
+
+  .job p {
+    font-size: 0.85em !important;
+    margin-top: 6px !important;
+  }
+
+  .job .d-flex {
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .job .d-flex img {
+    width: 20px;
+    height: auto;
+  }
+
+  /* Container padding */
+  .container.dream-job-font {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+/* ========================================
+   EXTRA LARGE SCREENS (1400px+)
+   ======================================== */
+
+@media (min-width: 1400px) {
+  .dream-job-header {
+    font-size: 64px;
+  }
+
+  .job p {
+    font-size: 1.2em !important;
+  }
+
+  .job .d-flex img {
+    width: 32px;
+    height: auto;
+  }
+}
+
+/* ========================================
+   LANDSCAPE ORIENTATION (Mobile)
+   ======================================== */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .dream-job-header {
+    font-size: 32px;
+  }
+
+  .container.dream-job-font {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .job .d-flex {
+    margin-bottom: 10px;
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE IMPROVEMENTS
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .job {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* If there are any clickable elements in the job section */
+  .job a,
+  .job button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ========================================
+   FOOTER RESPONSIVE STYLES
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 991px) {
+  .footer-background {
+    padding: 40px 20px;
+  }
+
+  .footer-info,
+  .quick-links,
+  .legal {
+    font-size: 14px;
+  }
+
+  .copyrights {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .footer-background {
+    padding: 30px 15px;
+  }
+
+  .footer-info,
+  .quick-links,
+  .legal {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .copyrights {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Stack footer columns */
+  .footer-background .row > div {
+    margin-bottom: 20px;
+  }
+
+  .footer-background .row > div:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Footer links */
+  .quick-links a,
+  .legal a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 575px) {
+  .footer-background {
+    padding: 25px 12px;
+  }
+
+  .footer-info,
+  .quick-links,
+  .legal {
+    font-size: 12px;
+  }
+
+  .copyrights {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .footer-background .row > div {
+    margin-bottom: 15px;
+  }
+}
+
+/* ========================================
+   HIGH DPI SCREENS
+   ======================================== */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .dream-job-header,
+  .job p {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Ensure flex alignment on all screens */
+.job .d-flex.justify-content-center {
+  align-items: center;
+}
+
+/* Responsive image handling */
+.job img.img-fluid {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Prevent text overflow */
+.dream-job-header {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* ========================================
+   MORE JOBS BUTTON (If exists)
+   ======================================== */
+
+.more-jobs {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.more-jobs:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .more-jobs {
+    padding: 10px 24px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    display: block;
+  }
+}
+
+@media (max-width: 575px) {
+  .more-jobs {
+    padding: 10px 20px;
+    font-size: 13px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 399px) {
+  .more-jobs {
+    padding: 8px 16px;
+    font-size: 12px;
+    max-width: 200px;
+  }
+}
+
+/* ========================================
+   APP-JOB-DISPLAY RESPONSIVE WRAPPER
+   ======================================== */
+
+app-job-display {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  app-job-display {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  app-job-display {
+    margin-top: 15px;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+/* Focus states for keyboard navigation */
+.job a:focus,
+.job button:focus,
+.quick-links a:focus,
+.legal a:focus {
+  outline: 2px solid var(--dark-blue, #1e3a8a);
+  outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .more-jobs,
+  .quick-links a,
+  .legal a {
+    transition: none;
+  }
+
+  .more-jobs:hover {
+    transform: none;
+  }
+}
+
+/* ========================================
+   PRINT STYLES (Bonus)
+   ======================================== */
+
+@media print {
+  .dream-job-header {
+    font-size: 36px;
+    color: #000;
+  }
+
+  .footer-background {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .more-jobs {
+    display: none;
+  }
+}
+
+
 /* JOB Display */
 .box-shadow {
   box-shadow: 0 0 2px var(--box-shadow);

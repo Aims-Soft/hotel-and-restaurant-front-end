@@ -29,7 +29,7 @@
 </div>
  -->
 
- <div class="row mx-4 mt-3 px-3 py-2 rounded box-shadow" *ngFor="let job of displayedJobs">
+ <!-- <div class="row mx-4 mt-3 px-3 py-2 rounded box-shadow mb-1" *ngFor="let job of displayedJobs">
   <div class="col-md-5 mt-2">
     <h2 class="ms-2 fw-bold title">{{job.jobTitle}}</h2>
     <div class="d-flex">
@@ -69,7 +69,7 @@
   <button class="text-white px-3 py-2 rounded border-0 more-jobs" (click)="toggleJobs()">
     {{ showAll ? 'Show Less Jobs ←' : 'Browse More Jobs →' }}
   </button>
-</div>
+</div> -->
 
  <!-- <div class="container my-4 bg-transparent"*ngFor="let job of displayedJobs">
         
@@ -111,3 +111,105 @@
             <button class="more-jobs-btn">Browse More Jobs →</button>
         </div>
     </div> -->
+
+
+    <!-- Loading State -->
+<div *ngIf="isLoading" class="loading-spinner">
+  <i class="fas fa-spinner fa-spin"></i>
+  <p class="mt-3 text-muted">Loading jobs...</p>
+</div>
+
+<!-- Job Cards Container -->
+<div class="container-fluid px-3 px-md-4 mt-4">
+  <div class="row">
+    <div class="col-12">
+      <!-- Individual Job Card -->
+      <div class="job-card" *ngFor="let job of displayedJobs">
+        <div class="row">
+          <!-- Left Section: Job Details -->
+          <div class="col-12 col-md-7 job-content-left">
+            <!-- Job Title -->
+            <h2 class="job-title">{{ job.jobTitle }}</h2>
+
+            <!-- Job Badges -->
+            <div class="job-badge-container">
+              <span class="job-badge">
+                <i class="bi bi-briefcase me-1"></i>
+                {{ job.experienceRange }} Years
+              </span>
+              <span class="job-badge">
+                <i class="bi bi-clock me-1"></i>
+                {{ job.jobTypeTitle }}
+              </span>
+              <span class="job-badge">
+                <i class="bi bi-building me-1"></i>
+                {{ job.jobSpaceTitle }}
+              </span>
+            </div>
+
+            <!-- Company Info -->
+            <div class="company-info">
+              <img 
+                [src]="job.eLogo" 
+                [alt]="job.companyName + ' logo'"
+                class="company-logo"
+                onerror="this.src='assets/images/default-company.png'"
+              >
+              <h3 class="company-name">{{ job.companyName }}</h3>
+            </div>
+          </div>
+
+          <!-- Right Section: Job Meta & Actions -->
+          <div class="col-12 col-md-5 job-content-right">
+            <div class="job-meta-section">
+              <!-- Posted Time -->
+              <div class="job-meta-item">
+                <i class="bi bi-clock-history"></i>
+                <span>{{ job.displayTime }}</span>
+              </div>
+
+              <!-- Salary -->
+              <div>
+                <p class="salary-label mb-0">Salary</p>
+                <p class="salary mb-0">PKR {{ job.salaryRange }}/Monthly</p>
+              </div>
+
+              <!-- Location -->
+              <div class="location">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>{{ job.cityName }}</span>
+              </div>
+
+              <!-- Apply Button -->
+              <button 
+                class="apply-btn mt-2"
+                (click)="goToApply(job.jobID)"
+              >
+                <i class="bi bi-eye me-2"></i>
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State -->
+<div *ngIf="displayedJobs.length === 0 && !isLoading" class="empty-state">
+  <i class="bi bi-briefcase"></i>
+  <p>No jobs found matching your criteria.</p>
+  <small class="text-muted">Try adjusting your filters or check back later for new opportunities.</small>
+</div>
+
+<!-- More Jobs Button -->
+<div class="more-jobs-container" *ngIf="jobs.length > 3 && !isLoading">
+  <p class="jobs-counter">
+    Showing <strong>{{ displayedJobs.length }}</strong> of <strong>{{ jobs.length }}</strong> jobs
+  </p>
+  <button class="more-jobs-btn" (click)="toggleJobs()">
+    <span>{{ showAll ? 'Show Less Jobs' : 'Browse More Jobs' }}</span>
+    <i class="bi" [ngClass]="showAll ? 'bi-arrow-up' : 'bi-arrow-right'"></i>
+  </button>
+</div>
