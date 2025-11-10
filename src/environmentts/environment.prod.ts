@@ -6,6 +6,6 @@ export const environment = {
   // apiUrl: 'http://159.69.174.28:6601/',
   // productUrl: 'http://135.181.62.34:8070/',
   // productUrl: 'https://159.69.174.28:16600/',
-  productUrl: 'https://logixsolution.online:16600/',
+  productUrl: 'https://logixsolution.online/',
  
 };

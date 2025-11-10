@@ -15,7 +15,7 @@ export const environment = {
   //  imageUrl: 'C:/inetpub/wwwroot/LogixProject/logix-app/assets/ui/',
   // productUrl: 'http://135.181.62.34:8070/',
   // productUrl: 'https://159.69.174.28:16600/',
-    productUrl: 'https://logixsolution.online:16600/',
+    productUrl: 'https://logixsolution.online/',
 };
 
 /*
