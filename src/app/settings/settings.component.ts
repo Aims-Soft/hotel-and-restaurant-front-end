@@ -1587,13 +1587,13 @@ handleBannerDisplay(companyData: any): void {
       this.oldBannerBase64 = this.extractBase64Data(bannerData);
     }
     // Case 2: Full external URL (starts with http)
-    else if (bannerData.startsWith('http://') || bannerData.startsWith('https://')) {
+    else if (bannerData.startsWith('https://') || bannerData.startsWith('https://')) {
       this.bannerPreviewUrl = bannerData;
       this.oldBannerBase64 = '';
     }
     // Case 3: Relative path from API (e.g. /images/banner.png)
     else if (bannerData.startsWith('/')) {
-      this.bannerPreviewUrl = `http://your-api-domain.com${bannerData}`;
+      this.bannerPreviewUrl = `https://your-api-domain.com${bannerData}`;
       this.oldBannerBase64 = '';
     }
     // Case 4: Raw base64 (no data: prefix)

@@ -5,15 +5,17 @@
 export const environment = {
   production: false,
   envName: 'prod',
-   apiUrlauth: 'http://159.69.174.28:16000/',
+  apiUrlauth: 'https://159.69.174.28:16000/',
   // apiUrlauth: 'http://localhost:16000/',
 
   // apiUrl: 'http://localhost:16000/',
-  apiUrl: 'http://159.69.174.28:16000/',
+  apiUrl: 'https://159.69.174.28:16000/',
   // apiUrl: 'http://159.69.174.28:6601/',
-   imageUrl: 'C:/inetpub/wwwroot/LogixProject/logix-app/assets/ui/',
+  imageUrl: 'C:/inetpub/wwwroot/jobPortal/jobPortal-app/assets/Job-images/',
+  //  imageUrl: 'C:/inetpub/wwwroot/LogixProject/logix-app/assets/ui/',
   // productUrl: 'http://135.181.62.34:8070/',
-  productUrl: 'http://159.69.174.28:16600/',
+  // productUrl: 'https://159.69.174.28:16600/',
+    productUrl: 'https://logixsolution.online:16600/',
 };
 
 /*

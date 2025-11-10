@@ -1,7 +1,6 @@
 <div class="registration-container">
   <div class="registration-header">
-    <h2>User Profile </h2>
-    <!-- <p>Enter Details to Apply for Job</p> -->
+    <h2>User Profile</h2>
   </div>
 
   <div class="registration-body">
@@ -11,70 +10,88 @@
         <div class="col-md-6 mb-3">
           <label class="form-label mb-2">Profile Image</label>
 
-          <div class="upload-area" (click)="fileInput.click()">
-            <ng-container *ngIf="previewUrl; else uploadPlaceholder">
-              <img
-                *ngIf="isImage; else pdfBlock"
-                [src]="previewUrl"
-                alt="Preview"
-              />
-              <ng-template #pdfBlock>
-                <div class="pdf-preview">
-                  <i class="fas fa-file-pdf"></i> {{ selectedFile?.name }}
+          <!-- Profile Image Upload Area -->
+          <div class="upload-area" (click)="triggerImageUpload()">
+            <div class="avatar-preview mat-elevation-z10 mb-2">
+              <div
+                id="imagePreview"
+                class="preview-container"
+                [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
+              >
+                <div class="preview-placeholder" *ngIf="!imageUrl">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p>Drag & drop or click to upload</p>
+                  <p class="formats-note">Supported Formats: Png, Jpg</p>
                 </div>
-              </ng-template>
-            </ng-container>
-
-            <ng-template #uploadPlaceholder>
-              <div class="upload-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
               </div>
-              <p>Drag & drop or click to upload</p>
-              <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
-            </ng-template>
+            </div>
+            <div class="avatar-edit">
+              <input
+                type="file"
+                id="imageUpload"
+                accept=".png,.jpg,.jpeg"
+                #imageFileInput
+                (change)="onImageFileSelected($event)"
+                style="display: none"
+              />
+              <div class="file-name">Selected: {{ imageFileName || 'No file selected' }}</div>
+            </div>
           </div>
-
-          <input
-            type="file"
-            #fileInput
-            style="display: none"
-            accept=".pdf,.png,.jpg,.jpeg"
-            (change)="onFileSelected($event)"
-          />
         </div>
 
         <div class="col-md-6 mb-3">
           <label class="form-label mb-2">Upload Resume</label>
-          <div class="upload-area" (click)="bannerInput.click()">
-            <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
-              <img
-                *ngIf="isBannerImage; else bannerPdfBlock"
-                [src]="bannerPreviewUrl"
-                alt="Banner Preview"
-              />
-              <ng-template #bannerPdfBlock>
-                <div class="pdf-preview">
-                  <i class="fas fa-file-pdf"></i> {{ selectedBannerFile?.name }}
+
+          <!-- Resume Upload Area -->
+          <div class="avatar-upload upload-area" (click)="triggerPdfUpload()">
+            <div class="avatar-preview mat-elevation-z10 mb-2">
+              <div
+                id="pdfPreview"
+                class="preview-container"
+                [ngClass]="{'pdf-preview': pdfFileName || hasResume}"
+              >
+                <div class="preview-placeholder" *ngIf="!pdfFileName && !hasResume">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p>Drag & drop or click to upload</p>
+                  <p class="formats-note">Supported Format: PDF</p>
                 </div>
-              </ng-template>
-            </ng-container>
-
-            <ng-template #bannerPlaceholder>
-              <div class="upload-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
+                <div class="pdf-icon" *ngIf="pdfFileName || hasResume">
+                  <i class="fas fa-file-pdf"></i>
+                  <span class="pdf-name">{{ pdfFileName || 'Resume.pdf' }}</span>
+                </div>
               </div>
-              <p>Drag & drop or click to upload</p>
-              <p class="formats-note">Supported Formats: Pdf, Png, Jpg</p>
-            </ng-template>
+            </div>
+            <div class="avatar-edit">
+              <input
+                type="file"
+                id="pdfUpload"
+                accept=".pdf"
+                #pdfFileInput
+                (change)="onPdfFileSelected($event)"
+                style="display: none"
+              />
+              <div class="file-name">Selected: {{ pdfFileName || 'No file selected' }}</div>
+            </div>
           </div>
-
-          <input
-            type="file"
-            #bannerInput
-            style="display: none"
-            accept=".pdf,.png,.jpg,.jpeg"
-            (change)="onBannerSelected($event)"
-          />
+        </div>
+        
+        <!-- View Resume Section -->
+        <div class="col-md-12 mt-3 text-center py-1 d-block pic-border">
+          <div *ngIf="hasResume; else noResume">
+            <a [href]="resumeUrl" target="_blank" class="btn btn-outline-primary">
+              <i class="fas fa-eye"></i> View Resume
+            </a>
+          </div>
+          <ng-template #noResume>
+            <p class="mt-3 pic-border-inner text-muted">No Resume Uploaded</p>
+            <small class="text-danger" *ngIf="isFormSubmitted && !hasResume">
+              Resume is required to apply
+            </small>
+          </ng-template>
         </div>
       </div>
 
@@ -146,38 +163,8 @@
         </div>
       </div>
 
-      <!-- Education and Location -->
+      <!-- Location Section -->
       <div class="row mb-3">
-        <div class="col-md-4 mb-3">
-          <label class="form-label mb-2">Study Level</label>
-          <ng-select
-            name="studyLevel"
-            [items]="DegreeLevel"
-            bindLabel="studyLevelTitle"
-            bindValue="studyLevelID"
-            placeholder="Select Study Level"
-            [(ngModel)]="selectedDegree"
-            [searchable]="true"
-            [clearable]="true"
-          >
-          </ng-select>
-        </div>
-        
-        <div class="col-md-4 mb-3">
-          <label class="form-label mb-2">Experience</label>
-          <ng-select
-            name="experience"
-            [items]="experience"
-            bindLabel="experienceRange"
-            bindValue="experienceID"
-            placeholder="Select Experience"
-            [(ngModel)]="selectedExperience"
-            [searchable]="true"
-            [clearable]="true"
-          >
-          </ng-select>
-        </div>
-        
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">Country</label>
           <ng-select
@@ -193,10 +180,7 @@
           >
           </ng-select>
         </div>
-      </div>
 
-      <!-- City and Contact Information -->
-      <div class="row mb-3">
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">City</label>
           <ng-select
@@ -212,26 +196,6 @@
           </ng-select>
         </div>
 
-        <div class="col-md-4 mb-3">
-          <label class="form-label mb-2">Contact No</label>
-          <input
-            type="text"
-            class="form-control"
-            style="height: 42px;"
-            placeholder="Phone number"
-            [(ngModel)]="contactNo"
-            name="contactNo"
-            required
-            #contactNoCtrl="ngModel"
-          />
-          <div
-            *ngIf="contactNoCtrl.invalid && contactNoCtrl.touched"
-            class="text-danger small"
-          >
-            Enter Contact Number
-          </div>
-        </div>
-        
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">Address</label>
           <input
@@ -253,21 +217,26 @@
         </div>
       </div>
 
-      <!-- Gender, Email, Password -->
+      <!-- Contact and Personal Information -->
       <div class="row mb-3">
         <div class="col-md-4 mb-3">
-          <label class="form-label mb-2">Gender</label>
-          <ng-select
-            name="gender"
-            [items]="genders"
-            bindLabel="genderName"
-            bindValue="genderID"
-            placeholder="Select Gender"
-            [(ngModel)]="selectedGender"
-            [searchable]="true"
-            [clearable]="true"
+          <label class="form-label mb-2">Contact No</label>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 42px;"
+            placeholder="Phone number"
+            [(ngModel)]="contactNo"
+            name="contactNo"
+            required
+            #contactNoCtrl="ngModel"
+          />
+          <div
+            *ngIf="contactNoCtrl.invalid && contactNoCtrl.touched"
+            class="text-danger small"
           >
-          </ng-select>
+            Enter Contact Number
+          </div>
         </div>
 
         <div class="col-md-4 mb-3">
@@ -292,63 +261,100 @@
         </div>
 
         <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Gender</label>
+          <ng-select
+            name="gender"
+            [items]="genders"
+            bindLabel="genderName"
+            bindValue="genderID"
+            placeholder="Select Gender"
+            [(ngModel)]="selectedGender"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+      </div>
+
+      <!-- Education and Experience - Commented out as requested -->
+      <!-- <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Study Level</label>
+          <ng-select
+            name="studyLevel"
+            [items]="DegreeLevel"
+            bindLabel="studyLevelTitle"
+            bindValue="studyLevelID"
+            placeholder="Select Study Level"
+            [(ngModel)]="selectedDegree"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label mb-2">Experience</label>
+          <ng-select
+            name="experience"
+            [items]="experience"
+            bindLabel="experienceRange"
+            bindValue="experienceID"
+            placeholder="Select Experience"
+            [(ngModel)]="selectedExperience"
+            [searchable]="true"
+            [clearable]="true"
+          >
+          </ng-select>
+        </div>
+
+        <div class="col-md-4 mb-3">
           <label class="form-label mb-2">Password</label>
-          <div class="input-group" style="height: 42px;">
+          <div class="input-group" style="height: 42px">
             <input
               [type]="showPassword ? 'text' : 'password'"
               class="form-control"
-              style="height: 42px;"
+              style="height: 42px"
               [(ngModel)]="password"
               name="password"
-              placeholder="Enter Password"
-              required
+              placeholder="Enter New Password (optional)"
               #passwordCtrl="ngModel"
               (input)="checkPasswordMatch()"
             />
             <span
               class="input-group-text cursor-pointer"
-              style="height: 42px;"
+              style="height: 42px"
               (click)="togglePasswordVisibility()"
             >
-              <i
-                [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
-              ></i>
+              <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
             </span>
           </div>
-          <div
-            *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
-            class="text-danger small"
-          >
-            Enter your Password
-          </div>
+          <small class="text-muted">Leave blank to keep current password</small>
         </div>
-      </div>
+      </div> -->
 
-      <!-- Confirm Password and User Domains -->
-      <div class="row mb-3">
+      <!-- Confirm Password - Commented out as requested -->
+      <!-- <div class="row mb-3" *ngIf="password">
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">Confirm Password</label>
-          <div class="input-group" style="height: 42px;">
+          <div class="input-group" style="height: 42px">
             <input
               [type]="showConfirmPassword ? 'text' : 'password'"
               class="form-control"
-              style="height: 42px;"
+              style="height: 42px"
               [(ngModel)]="confirmPassword"
               name="confirmPassword"
               placeholder="Enter Confirm Password"
-              required
               #confrimpasswordCtrl="ngModel"
               (input)="checkPasswordMatch()"
             />
             <span
               class="input-group-text cursor-pointer"
-              style="height: 42px;"
+              style="height: 42px"
               (click)="toggleConfirmPasswordVisibility()"
             >
               <i
-                [class]="
-                  showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'
-                "
+                [class]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
               ></i>
             </span>
           </div>
@@ -365,7 +371,10 @@
             Password and Confirm Password do not match
           </div>
         </div>
+      </div> -->
 
+      <!-- User Domains Section -->
+      <div class="row mb-3">
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">User Domains</label>
 
@@ -465,6 +474,7 @@
         </div>
       </div>
 
+      <!-- Alert Messages -->
       <div *ngIf="successMessage" class="alert alert-success mt-3">
         {{ successMessage }}
       </div>
@@ -474,13 +484,15 @@
       
       <!-- Form Actions -->
       <div class="d-flex justify-content-end gap-2 mt-4">
-        <button type="button" class="btn btn-cancel">Cancel</button>
-        <button type="button" class="btn btn-register" (click)="onRegister()">
-          Register
-        </button>
+        <!-- <button type="button" class="btn btn-register" (click)="onRegister()" [disabled]="isLoading">
+          <span *ngIf="isLoading">
+            <i class="fas fa-spinner fa-spin"></i> Updating...
+          </span>
+          <span *ngIf="!isLoading">
+            Update Profile
+          </span>
+        </button> -->
       </div>
     </form>
   </div>
 </div>
-<!-- <app-footer></app-footer> -->
-

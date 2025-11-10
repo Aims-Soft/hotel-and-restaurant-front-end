@@ -59,6 +59,7 @@ import { ForgetPasswordComponent } from './sign-in/forget-password/forget-passwo
 import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { UserProfileComponent } from './home-page/user-profile/user-profile.comp
     EnterCodeComponent,
     ResetPasswordComponent,
     UserProfileComponent,
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +115,7 @@ import { UserProfileComponent } from './home-page/user-profile/user-profile.comp
     FormsModule,
     NgbModule,
    NgSelectModule, 
+   
   ],
   providers: [
     provideClientHydration(),

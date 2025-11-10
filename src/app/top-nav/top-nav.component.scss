@@ -1,9 +1,75 @@
-.dropdown .btn img {
-  object-fit: cover;
-  border: 2px solid #ddd;
-  transition: 0.3s;
+/* Mobile Menu Styles */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.dropdown .btn img:hover {
-  border-color: #007bff;
+.mobile-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 320px;
+  height: 100%;
+  background-color: white;
+  z-index: 1050;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-menu-sidebar.show {
+  right: 0;
+}
+
+/* Custom Link Styles */
+.custom-link {
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+  color: #7c3aed;
+}
+
+/* Button Styles */
+// .registar-btn {
+//   border: 2px solid #7c3aed;
+//   color: #7c3aed;
+//   transition: all 0.3s ease;
+// }
+
+// .registar-btn:hover {
+//   background-color: #7c3aed;
+//   color: white;
+// }
+
+// .btns {
+//   background-color: #7c3aed;
+//   transition: background-color 0.3s ease;
+// }
+
+// .btns:hover {
+//   background-color: #6d28d9;
+// }
+
+/* Ensure menu icon is visible */
+@media (max-width: 767.98px) {
+  .bi-list {
+    color: #7c3aed !important;
+  }
 }

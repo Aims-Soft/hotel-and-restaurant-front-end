@@ -1,42 +1,4 @@
-// import { Component,OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { UserSessionService } from '../Services/userSession/userSession.Service';
 
-// @Component({
-//   selector: 'app-top-nav',
-//   templateUrl: './top-nav.component.html',
-//   styleUrl: './top-nav.component.scss',
-// })
-// export class TopNavComponent implements OnInit {
-//   isLoggedIn = false;
-//   fullName: string | null = null;
-
-
-//   constructor(public router: Router,
-//     private usersessionservice: UserSessionService,
-
-//   ) {}
-//   ngOnInit(): void {
-//     this.checkLoginStatus();
-    
-//   }
-
-//     checkLoginStatus(): void {
-//     this.isLoggedIn = this.usersessionservice.isLoggedIn();
-//     if (this.isLoggedIn) {
-//       const user = this.usersessionservice.getUser();
-//       this.fullName = user?.fullName || null;
-//     }
-//   }
-
-//   logout(): void {
-//     this.usersessionservice.clearSession();
-//     this.isLoggedIn = false;
-//     this.router.navigate(['/']);
-//   }
-
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
@@ -51,6 +13,7 @@ export class TopNavComponent implements OnInit {
   fullName: string | null = null;
   roleId: number | null = null;
   companyId: any = null;
+  showMobileMenu: boolean = false;
 
   constructor(
     public router: Router,
@@ -72,6 +35,21 @@ export class TopNavComponent implements OnInit {
       console.log('User Role ID:', this.roleId);
       console.log('User Company ID:', this.companyId);
     }
+  }
+
+    toggleMobileMenu(): void {
+    this.showMobileMenu = !this.showMobileMenu;
+    // Prevent body scroll when menu is open
+    if (this.showMobileMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  closeMobileMenu(): void {
+    this.showMobileMenu = false;
+    document.body.style.overflow = 'auto';
   }
 
   // Check if "Go to Dashboard" button should be shown

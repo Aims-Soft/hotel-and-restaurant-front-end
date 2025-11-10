@@ -1,14 +1,30 @@
 <div class="container bg-white px-2 rounded nav-styling">
-  <div class="row ms-4 mt-3 py-3 d-md-flex align-items-center">
-    <div class="col-md-2">
+  <div class="row ms-md-4 mt-3 py-3 d-flex align-items-center">
+    <!-- Logo -->
+    <div class="col-6 col-md-2">
       <a routerLink="/">
         <img
           src="../../assets/images/pakistanEductionportal.png"
           class="img-fluid"
           alt="logo"
+          style="max-width: 150px;"
       /></a>
     </div>
-    <div class="col-md-4 offset-md-2">
+
+    <!-- Mobile Menu Toggle Button -->
+    <div class="col-6 d-md-none text-end">
+      <button 
+        class="btn border-0 p-0" 
+        type="button"
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle navigation"
+      >
+        <i class="bi bi-list fs-1 text-primary"></i>
+      </button>
+    </div>
+
+    <!-- Desktop Navigation Links -->
+    <div class="col-md-4 offset-md-2 d-none d-md-block">
       <a
         href="#"
         class="text-decoration-none custom-link"
@@ -29,7 +45,8 @@
       >
     </div>
 
-    <div class="col-md-3 offset-md-1 text-end">
+    <!-- Desktop Auth Buttons -->
+    <div class="col-md-3 offset-md-1 text-end d-none d-md-block">
       <!-- Show Register & Sign In if NOT logged in -->
       <ng-container *ngIf="!isLoggedIn; else profileSection">
         <button
@@ -95,6 +112,104 @@
           </div>
         </div>
       </ng-template>
+    </div>
+
+    <!-- Mobile Menu Sidebar (Full Screen Overlay) -->
+    <div 
+      class="mobile-menu-overlay" 
+      [class.show]="showMobileMenu"
+      (click)="closeMobileMenu()"
+    ></div>
+
+    <div 
+      class="mobile-menu-sidebar" 
+      [class.show]="showMobileMenu"
+    >
+      <!-- Close Button -->
+      <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+        <h5 class="mb-0 fw-bold">Menu</h5>
+        <button 
+          class="btn border-0 p-0" 
+          (click)="closeMobileMenu()"
+          aria-label="Close menu"
+        >
+          <i class="bi bi-x-lg fs-4"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Links -->
+      <div class="p-3">
+        <a
+          class="d-block py-3 text-decoration-none custom-link border-bottom"
+          routerLink="/jobListing"
+          (click)="closeMobileMenu()"
+        >
+          <i class="bi bi-briefcase me-2"></i>Jobs
+        </a>
+        <a
+          class="d-block py-3 text-decoration-none custom-link border-bottom"
+          routerLink="/companies"
+          (click)="closeMobileMenu()"
+        >
+          <i class="bi bi-building me-2"></i>Companies
+        </a>
+        <a
+          class="d-block py-3 text-decoration-none custom-link border-bottom"
+          routerLink="/contact"
+          (click)="closeMobileMenu()"
+        >
+          <i class="bi bi-envelope me-2"></i>Contact
+        </a>
+
+        <!-- Mobile Auth Section -->
+        <div class="mt-4">
+          <ng-container *ngIf="!isLoggedIn; else mobileProfileSection">
+            <button
+              class="btn w-100 mb-2 px-3 py-2 rounded bg-transparent fw-bold registar-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+              (click)="closeMobileMenu()"
+            >
+              Register
+            </button>
+            <button
+              class="btn w-100 px-3 py-2 border-0 rounded text-white fw-bold btns"
+              routerLink="/signIn"
+              (click)="closeMobileMenu()"
+            >
+              Sign In
+            </button>
+          </ng-container>
+
+          <!-- Mobile Profile Section -->
+          <ng-template #mobileProfileSection>
+            <div class="border-top pt-3">
+              <button 
+                *ngIf="shouldShowCandidateButton()" 
+                class="btn w-100 text-start mb-2 py-2" 
+                (click)="goToCandidateProfile(); closeMobileMenu()"
+              >
+                <i class="bi bi-person-circle me-2"></i>My Profile
+              </button>
+
+              <button 
+                *ngIf="shouldShowDashboardButton()" 
+                class="btn w-100 text-start mb-2 py-2" 
+                (click)="goToDashboard(); closeMobileMenu()"
+              >
+                <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+              </button>
+              
+              <button 
+                class="btn w-100 text-start text-danger py-2" 
+                (click)="logout(); closeMobileMenu()"
+              >
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </div>
