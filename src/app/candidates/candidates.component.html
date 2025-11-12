@@ -49,19 +49,21 @@
       <table class="table align-middle mb-0">
         <thead class="border-bottom">
           <tr>
+             <th class="head-row text-start" style="width: 10%;">Sr.no</th>
             <th class="head-row text-start" style="width: 30%;">Name</th>
             <th class="head-row text-center" style="width: 15%;">Country</th>
             <th class="head-row text-center" style="width: 15%;">City</th>
-            <th class="head-row text-start ps-5" style="width: 20%;">Contact</th>
+            <th class="head-row text-start " style="width: 20%;">Contact</th>
             <th class="head-row text-center" style="width: 20%;">Details</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            *ngFor="let item of jobApplications | search : searchText : 'userName'"
+            *ngFor="let item of jobApplications | search : searchText : 'userName' let i = index"
             class="stripped-background"
           >
             <!-- Candidate Name + Email -->
+             <td class="text-start ps-3 ">{{ i + 1 }}</td>
             <td class="text-start">
               <h5 class="fw-bold custom-font mb-0">{{ item.userName }}</h5>
               <small class="negative-margin">{{ item.email }}</small>
@@ -74,7 +76,7 @@
             <td class="text-center">{{ item.cityName }}</td>
 
             <!-- Contact -->
-            <td class="text-center">
+            <td class="">
               {{ item.contact }}
             </td>
 
