@@ -14,6 +14,7 @@ export class CompaniesComponent implements OnInit {
     isLoading: boolean = false;
 companies: any[] = [];
  showAll: boolean = false;
+ searchText: string = '';
 
   ngOnInit(): void {
     this.getAllCompanies();

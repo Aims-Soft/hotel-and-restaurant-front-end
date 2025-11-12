@@ -9,6 +9,20 @@
   </p>
 </div>
 <div class="container">
+  <div class="d-flex align-items-center dashboard-searchBox p-2 rounded mt-2 col-md-4 offset-md-4" >
+          <i class="bi bi-search fs-5"></i>
+          <input
+            type="search"
+            class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
+            placeholder="Search here..."
+            [(ngModel)]="searchText"
+          />
+          <img
+            src="../../assets/images/Search Key.png"
+            class="ms-5 img-fluid"
+            alt=""
+          />
+        </div>
   <button
   class="btn text-white p-2 m-2"
   style="background-color: #1A0052;"
@@ -21,7 +35,7 @@
       href=""
       [routerLink]="['/companyDetails', item.companyID]"
       class="col-md-3 px-4 text-decoration-none company-title-font-color"
-         *ngFor="let item of visibleCompanies"
+         *ngFor="let item of visibleCompanies | search : searchText : 'companyName'"
     >
       <div class="text-center py-3 company-box ">
         <img
