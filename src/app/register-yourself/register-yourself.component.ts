@@ -1,4 +1,10 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { UserSessionService } from '../Services/userSession/userSession.Service';
 import { CompanyRegistrationService } from '../Services/Company registration/company-registration.service';
 import { RegisterUserService } from '../Services/register user/register-user.service';
@@ -67,6 +73,7 @@ export class RegisterYourselfComponent implements OnInit {
   isDropdownOpen: boolean = false;
   filteredDomains: any[] = [];
   userProfile: any;
+  
 
   constructor(
     private userSessionService: UserSessionService,
@@ -100,7 +107,7 @@ export class RegisterYourselfComponent implements OnInit {
     if (file) {
       this.selectedImageFile = file;
       this.imageFileName = file.name;
-      
+
       // Create preview for image
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -119,7 +126,7 @@ export class RegisterYourselfComponent implements OnInit {
     if (file) {
       this.selectedPdfFile = file;
       this.pdfFileName = file.name;
-      
+
       console.log('PDF file selected:', file.name);
     }
     event.target.value = ''; // Reset input to allow selecting same file again
@@ -148,10 +155,10 @@ export class RegisterYourselfComponent implements OnInit {
     const missingFields: string[] = [];
 
     // Check profile image using local file reference
-    if (!this.selectedImageFile) {
-      missingFields.push('Profile Image');
-    }
-    
+    // if (!this.selectedImageFile) {
+    //   missingFields.push('Profile Image');
+    // }
+
     // Check resume using local file reference
     if (!this.selectedPdfFile) {
       missingFields.push('Resume');
@@ -160,67 +167,69 @@ export class RegisterYourselfComponent implements OnInit {
     if (!this.userName || this.userName.trim() === '') {
       missingFields.push('User Name');
     }
-    
+
     const rawCnic = this.getRawCnic();
     if (!rawCnic || rawCnic.length !== 13) {
       missingFields.push('Valid CNIC (13 digits)');
     }
-    
+
     if (!this.profession || this.profession.trim() === '') {
       missingFields.push('Profession');
     }
-    
+
     if (!this.selectedDegree) {
       missingFields.push('Study Level');
     }
-    
+
     if (!this.selectedExperience) {
       missingFields.push('Experience');
     }
-    
+
     if (!this.selectedCountry) {
       missingFields.push('Country');
     }
-    
+
     if (!this.selectedCity) {
       missingFields.push('City');
     }
-    
+
     if (!this.contactNo || this.contactNo.trim() === '') {
       missingFields.push('Contact Number');
     }
-    
+
     if (!this.address || this.address.trim() === '') {
       missingFields.push('Address');
     }
-    
+
     if (!this.selectedGender) {
       missingFields.push('Gender');
     }
-    
+
     if (!this.companyEmail || !this.isValidEmail(this.companyEmail)) {
       missingFields.push('Valid Email');
     }
-    
+
     if (!this.password || this.password.trim() === '') {
       missingFields.push('Password');
     }
-    
+
     if (!this.confirmPassword || this.confirmPassword.trim() === '') {
       missingFields.push('Confirm Password');
     }
-    
+
     if (this.password !== this.confirmPassword) {
       this.passwordMismatch = true;
       missingFields.push('Passwords must match');
     }
-    
+
     if (!this.selectedDomains || this.selectedDomains.length === 0) {
       missingFields.push('At least one Domain');
     }
 
     if (missingFields.length > 0) {
-      this.errorMessage = `Please fill in the following required fields: ${missingFields.join(', ')}`;
+      this.errorMessage = `Please fill in the following required fields: ${missingFields.join(
+        ', '
+      )}`;
       this.successMessage = '';
 
       // Scroll to top to show error message
@@ -248,10 +257,12 @@ export class RegisterYourselfComponent implements OnInit {
       return;
     }
 
+      this.isLoading = true;
+
     // Prepare files for API - you'll need to convert files to base64 or FormData
     const imageBase64 = this.imageUrl as string;
     const imageBase64Data = imageBase64.split(',')[1]; // Remove data URL prefix
-    
+
     // For PDF, you'll need to read it as base64
     const pdfReader = new FileReader();
     pdfReader.onload = (e: any) => {
@@ -288,59 +299,103 @@ export class RegisterYourselfComponent implements OnInit {
       console.log('Final payload:', payload);
       this.submitRegistration(payload);
     };
-    
+
     pdfReader.readAsDataURL(this.selectedPdfFile);
   }
 
   // Separate method for API call
   private submitRegistration(payload: any): void {
-    this.isLoading = true;
+    // this.isLoading = true;
 
-    this.RegisterUserService.saveUser(payload).subscribe({
-      next: (res: any) => {
+    this.RegisterUserService.saveUser(payload).subscribe(
+      (response) => {
         this.isLoading = false;
-        console.log('API Response:', res);
-
-        if (Array.isArray(res) && res.length > 0) {
-          const responseMessage = res[0];
-
-          if (responseMessage.includes('User already Exist')) {
-            this.errorMessage = 'CNIC or Email already exists. Please use different credentials.';
-            this.successMessage = '';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-          }
-
-          if (responseMessage.startsWith('Success')) {
-            const parts = responseMessage.split('|||');
-            const userId = parts[1];
-            console.log('New User ID:', userId);
-
-            this.successMessage = 'Registration successful! Redirecting to login page...';
-            this.errorMessage = '';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            setTimeout(() => {
-              this.router.navigate(['/signIn']);
-            }, 3000);
-            return;
-          }
+        if (response.includes('Success') == true) {
+          console.log('Job saved successfully:', response);
+          this.showSuccess(' User Register  successfully!');
+          setTimeout(() => this.router.navigate(['/signIn']), 7000);
+          // this.resetForm();
+        } else {
+          console.log('Error:', response);
+          this.showError(response);
         }
-
-        this.errorMessage = 'Unexpected response from server. Please try again.';
-        this.successMessage = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
-      error: (err) => {
+      (error) => {
         this.isLoading = false;
-        console.error('Error:', err);
-        this.errorMessage = 'Failed to register user. Please try again later.';
-        this.successMessage = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      },
-    });
+        this.showError('Error Registeration. Please try again.');
+        console.error('Error saving User:', error);
+
+        if (error.error && error.error.includes('FOREIGN KEY constraint')) {
+          this.showError(
+            'Backend Error'
+          );
+        }
+      }
+    );
+
+    // this.RegisterUserService.saveUser(payload).subscribe({
+    //   next: (res: any) => {
+    //     this.isLoading = false;
+    //     console.log('API Response:', res);
+
+    //     if (Array.isArray(res) && res.length > 0) {
+    //       const responseMessage = res[0];
+
+    //       if (responseMessage.includes('User already Exist')) {
+    //         this.errorMessage =
+    //           'CNIC or Email already exists. Please use different credentials.';
+    //         console.log(responseMessage);
+    //         // this.successMessage = '';
+    //         // window.scrollTo({ top: 0, behavior: 'smooth' });
+    //         return;
+    //       }
+
+    //       if (responseMessage.includes('Success')) {
+    //         const parts = responseMessage.split('|||');
+    //         const userId = parts[1];
+    //         console.log('New User ID:', userId);
+
+    //         this.successMessage =
+    //           'Registration successful! Redirecting to login page...';
+    //         console.log(responseMessage);
+    //         // this.errorMessage = '';
+    //         // window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    //         setTimeout(() => {
+    //           this.router.navigate(['/signIn']);
+    //         }, 3000);
+    //         return;
+    //       }
+    //     }
+
+    //     // this.errorMessage = 'Unexpected response from server. Please try again.';
+    //     // this.successMessage = '';
+    //     // window.scrollTo({ top: 0, behavior: 'smooth' });
+    //   },
+    //   error: (err) => {
+    //     this.isLoading = false;
+    //     console.error('Error:', err);
+    //     this.errorMessage = 'Failed to register user. Please try again later.';
+    //     this.successMessage = '';
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    //   },
+    // });
   }
 
+  showError(message: string): void {
+    this.errorMessage = message;
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 7000);
+  }
+
+  // Show success message
+  showSuccess(message: string): void {
+    this.successMessage = message;
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 7000);
+  }
   // Rest of your existing methods remain the same...
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -388,7 +443,7 @@ export class RegisterYourselfComponent implements OnInit {
       (response) => {
         this.isLoading = false;
         this.DegreeLevel = response;
-        console.log(response,'study level')
+        console.log(response, 'study level');
       },
       (error) => {
         this.isLoading = false;

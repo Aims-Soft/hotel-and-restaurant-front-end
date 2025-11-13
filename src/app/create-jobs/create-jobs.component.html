@@ -136,7 +136,7 @@
         class="form-control w-100 px-3 label-font-input"
         style="height: 42px;"
         id="salaryRange"
-        placeholder="600k-700k"
+        placeholder="Enter salary Range"
         [(ngModel)]="salaryRange"
         name="salaryRange"
         required
@@ -147,7 +147,7 @@
     </div>
 
     <!-- Row 3: Posting Date, Expiry Date, Country -->
-    <div class="col-md-4 mt-3">
+    <!-- <div class="col-md-4 mt-3">
       <label for="postingDate" class="d-block label-font mb-2">Posting Date</label>
       <input
         type="date"
@@ -161,9 +161,31 @@
       <div *ngIf="fieldErrors['postingDate']" class="text-danger small mt-1">
         {{ fieldErrors["postingDate"] }}
       </div>
+    </div> -->
+     <div class="col-md-4 mt-3">
+      <label for="postingDate" class="d-block label-font mb-2">
+      Posting Date
+      </label>
+      <div class="date-input-wrapper">
+        <input
+          type="date"
+          class="form-control date-input w-100 px-3 label-font-input"
+          style="height: 42px;"
+          id="postingDate"
+          [min]="minPostingDate" 
+          [(ngModel)]="postingDate"
+          (change)="onPostingDateChange()"
+      
+          name="postingDate"
+          required
+        />
+      </div>
+      <div *ngIf="fieldErrors['postingDate']" class="text-danger small mt-1">
+        {{ fieldErrors["postingDate"] }}
+      </div>
     </div>
 
-    <div class="col-md-4 mt-3">
+    <!-- <div class="col-md-4 mt-3">
       <label for="expireDate" class="d-block label-font mb-2">Expiry Date</label>
       <input
         type="date"
@@ -174,6 +196,26 @@
         name="expireDate"
         required
       />
+      <div *ngIf="fieldErrors['expireDate']" class="text-danger small mt-1">
+        {{ fieldErrors["expireDate"] }}
+      </div>
+    </div> -->
+     <div class="col-md-4 mt-3">
+      <label for="expireDate" class="d-block label-font mb-2">
+       Expiry Date
+      </label>
+      <div class="date-input-wrapper">
+        <input
+          type="date"
+          class="form-control date-input w-100 px-3 label-font-input"
+          style="height: 42px;"
+          id="expireDate"
+          [(ngModel)]="expireDate"
+          [min]="minExpireDate"
+          name="expireDate"
+          required
+        />
+      </div>
       <div *ngIf="fieldErrors['expireDate']" class="text-danger small mt-1">
         {{ fieldErrors["expireDate"] }}
       </div>
@@ -276,7 +318,7 @@
     </div>
 
     <!-- Preferred Skills -->
-    <div class="mt-3">
+    <!-- <div class="mt-3">
       <label class="d-block label-font mb-2">Preferred Skills</label>
       <div *ngIf="fieldErrors['skills']" class="text-danger small mt-1">
         {{ fieldErrors["skills"] }}
@@ -291,11 +333,11 @@
           {{ skill.skillName }}
         </span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Benefits -->
-    <div class="my-3">
-      <label class="d-block label-font mb-2">Benefits</label>
+    <!-- <div class="my-3">
+      <label class="d-block label-font mb-2">Benefits (optional)</label>
       <div *ngIf="fieldErrors['benefits']" class="text-danger small mt-1">
         {{ fieldErrors["benefits"] }}
       </div>
@@ -309,7 +351,36 @@
           {{ item.benefitTitle }}
         </span>
       </div>
+    </div> -->
+      <div class="my-3 col-md-4">
+      <label class="d-block label-font mb-2 ">Benefits (optional)</label>
+      <ng-select
+        name="benefits"
+        [items]="benefits"
+        bindLabel="benefitTitle"
+        bindValue="benefitID"
+        placeholder="Select Benefits"
+        [(ngModel)]="selectedBenefits"
+        [multiple]="true"
+        [searchable]="true"
+        [clearable]="true"
+      >
+      </ng-select>
+      <div *ngIf="fieldErrors['benefits']" class="text-danger small mt-1">
+        {{ fieldErrors["benefits"] }}
+      </div>
+      
+     
     </div>
+     <!-- Display selected benefits as tags -->
+      <div class="skills-container mt-2" *ngIf="selectedBenefits && selectedBenefits.length > 0">
+        <span
+          *ngFor="let benefitID of selectedBenefits"
+          class="skill-tag flex-wrap selected"
+        >
+          {{ getBenefitTitle(benefitID) }}
+        </span>
+      </div>
 
     <!-- Submit Button -->
     <div class="mt-4 mb-3 d-flex justify-content-end">

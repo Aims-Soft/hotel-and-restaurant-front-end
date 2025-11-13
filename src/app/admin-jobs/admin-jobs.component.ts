@@ -51,6 +51,8 @@ export class AdminJobsComponent implements OnInit {
       (response: any[]) => {
         this.isLoading = false;
 
+        console.log(response,'recent publish job');
+
         this.jobApplications = response.map((job) => ({
           ...job,
           toggleStatus: job.jobStatusID === 1,

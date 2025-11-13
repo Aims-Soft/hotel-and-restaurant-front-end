@@ -474,12 +474,41 @@
       </div>
 
       <!-- Form Actions -->
-      <div class="d-flex justify-content-end gap-2 mt-4">
+      <!-- <div class="d-flex justify-content-end gap-2 mt-4">
         <button type="button" class="btn btn-cancel">Cancel</button>
         <button type="button" class="btn btn-register" (click)="onRegister()">
           Register
         </button>
-      </div>
+      </div> -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+  <button 
+    type="button" 
+    class="btn btn-cancel" 
+    [disabled]="isLoading"
+    [class.btn-disabled]="isLoading"
+  >
+    Cancel
+  </button>
+  
+  <button 
+    type="button" 
+    class="btn btn-register" 
+    (click)="onRegister()"
+    [disabled]="isLoading"
+    [class.btn-loading]="isLoading"
+  >
+    <!-- Normal state -->
+    <span *ngIf="!isLoading">
+      Register
+    </span>
+    
+    <!-- Loading state -->
+    <span *ngIf="isLoading" class="loading-content">
+      <span class="spinner"></span>
+      Registering...
+    </span>
+  </button>
+</div>
     </form>
   </div>
 </div>

@@ -48,6 +48,10 @@ export class CreateJobsComponent implements OnInit {
   isEdit: boolean = false;
   jobId: number | null = null;
   tableDataParent: any = [];
+
+ 
+  minPostingDate: string = '';
+  minExpireDate: string = '';
    
   
 
@@ -68,10 +72,11 @@ export class CreateJobsComponent implements OnInit {
     this.getExperience();
     this.getCountries();
     this.getCities();
-    this.getSkills();
+    // this.getSkills();
     this.getBenefits();
 
-
+ 
+    this.setMinDates();
 
     const jobFromState = history.state.job;
     // console.log('jobFromState:', jobFromState);
@@ -122,14 +127,14 @@ export class CreateJobsComponent implements OnInit {
       this.selectedBenefits = [];
     }
 
-    if (job.skills && typeof job.skills === 'string') {
-      const parsedSkills = JSON.parse(job.skills || '[]');
-      this.selectedSkills = Array.isArray(parsedSkills)
-        ? parsedSkills.map((s: any) => s.skillID)
-        : [];
-    } else {
-      this.selectedSkills = [];
-    }
+    // if (job.skills && typeof job.skills === 'string') {
+    //   const parsedSkills = JSON.parse(job.skills || '[]');
+    //   this.selectedSkills = Array.isArray(parsedSkills)
+    //     ? parsedSkills.map((s: any) => s.skillID)
+    //     : [];
+    // } else {
+    //   this.selectedSkills = [];
+    // }
 
     this.filteredCities = this.cities.filter(
       (city) => city.countryID === this.selectedCountry
@@ -295,31 +300,31 @@ export class CreateJobsComponent implements OnInit {
   // }
 
   // skilljason is get company domain
-  getSkills(): void {
-    this.isLoading = true;
-    this.JobService.getSkills().subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.companyDomains = response;
-        console.log('Company Domains:', response);
-      },
-      (error) => {
-        this.isLoading = false;
-        console.error('Error fetching company domains:', error);
-      }
-    );
-  }
+  // getSkills(): void {
+  //   this.isLoading = true;
+  //   this.JobService.getSkills().subscribe(
+  //     (response) => {
+  //       this.isLoading = false;
+  //       this.companyDomains = response;
+  //       console.log('Company Domains:', response);
+  //     },
+  //     (error) => {
+  //       this.isLoading = false;
+  //       console.error('Error fetching company domains:', error);
+  //     }
+  //   );
+  // }
 
-  toggleSkills(skillID: number): void {
-    if (this.selectedSkills.includes(skillID)) {
-      // remove if already selected
-      this.selectedSkills = this.selectedSkills.filter((id) => id !== skillID);
-    } else {
-      // add if not selected
-      this.selectedSkills.push(skillID);
-    }
-    console.log('Selected Domains:', this.selectedSkills);
-  }
+  // toggleSkills(skillID: number): void {
+  //   if (this.selectedSkills.includes(skillID)) {
+  //     // remove if already selected
+  //     this.selectedSkills = this.selectedSkills.filter((id) => id !== skillID);
+  //   } else {
+  //     // add if not selected
+  //     this.selectedSkills.push(skillID);
+  //   }
+  //   console.log('Selected Domains:', this.selectedSkills);
+  // }
 
   getBenefits(): void {
     this.isLoading = true;
@@ -336,6 +341,19 @@ export class CreateJobsComponent implements OnInit {
     );
   }
 
+  // toggleBenefits(benefitID: number): void {
+  //   if (this.selectedBenefits.includes(benefitID)) {
+  //     // remove if already selected
+  //     this.selectedBenefits = this.selectedBenefits.filter(
+  //       (id) => id !== benefitID
+  //     );
+  //   } else {
+  //     // add if not selected
+  //     this.selectedBenefits.push(benefitID);
+  //   }
+  //   console.log('Selected Domains:', this.selectedBenefits);
+  // }
+
   toggleBenefits(benefitID: number): void {
     if (this.selectedBenefits.includes(benefitID)) {
       // remove if already selected
@@ -348,6 +366,14 @@ export class CreateJobsComponent implements OnInit {
     }
     console.log('Selected Domains:', this.selectedBenefits);
   }
+
+  // Helper method to get benefit title by ID
+  getBenefitTitle(benefitID: number): string {
+    const benefit = this.benefits.find(b => b.benefitID === benefitID);
+    return benefit ? benefit.benefitTitle : '';
+  }
+
+  
 
   onSubmit(): void {
 
@@ -379,7 +405,8 @@ export class CreateJobsComponent implements OnInit {
       responsibilities: this.responsibilities,
       requirements: this.requirements,
       benefitjson: JSON.stringify(this.selectedBenefits),
-      skilljson: JSON.stringify(this.selectedSkills),
+      // skilljson: JSON.stringify(this.selectedSkills),
+      
       userID: this.userSessionService.getUserID(),
       spType: this.isEdit ? 'update' : 'insert',
       jobID: this.isEdit ? Number(this.jobId) : 0,
@@ -445,10 +472,10 @@ export class CreateJobsComponent implements OnInit {
       this.fieldErrors['responsibilities'] = 'Responsibilities are required';
     if (!this.requirements)
       this.fieldErrors['requirements'] = 'Requirements are required';
-    if (this.selectedSkills.length === 0)
-      this.fieldErrors['skills'] = 'At least one skill is required';
-    if (this.selectedBenefits.length === 0)
-      this.fieldErrors['benefits'] = 'At least one benefit is required';
+    // if (this.selectedSkills.length === 0)
+    //   this.fieldErrors['skills'] = 'At least one skill is required';
+    // if (this.selectedBenefits.length === 0)
+    //   this.fieldErrors['benefits'] = 'At least one benefit is required';
 
     // Date validation
     if (this.postingDate && this.expireDate) {
@@ -502,9 +529,52 @@ export class CreateJobsComponent implements OnInit {
     this.location = '';
     this.responsibilities = '';
     this.requirements = '';
-    this.selectedSkills = [];
+    // this.selectedSkills = [];
     this.selectedBenefits = [];
     this.filteredCities = [];
     this.fieldErrors = {};
   }
+
+   // Set minimum dates for date pickers
+//  setMinDates(): void {
+//   const today = new Date();
+//   this.minPostingDate = this.formatDate(today);  
+//   this.minExpireDate = this.formatDate(today);
+// }
+
+  setMinDates(): void {
+    const today = new Date();
+    this.minPostingDate = this.formatDate(today);
+    
+    // For expiry date, minimum should be tomorrow if posting date is today
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.minExpireDate = this.formatDate(tomorrow);
+  }
+
+
+  // Format date to YYYY-MM-DD
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Update minimum expiry date when posting date changes
+  onPostingDateChange(): void {
+    if (this.postingDate) {
+      const postDate = new Date(this.postingDate);
+      const nextDay = new Date(postDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      this.minExpireDate = this.formatDate(nextDay);
+      
+      // Clear expiry date if it's before the new posting date
+      if (this.expireDate && new Date(this.expireDate) <= postDate) {
+        this.expireDate = '';
+      }
+    }
+  }
+
+  
 }
