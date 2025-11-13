@@ -73,7 +73,6 @@ export class RegisterYourselfComponent implements OnInit {
   isDropdownOpen: boolean = false;
   filteredDomains: any[] = [];
   userProfile: any;
-  
 
   constructor(
     private userSessionService: UserSessionService,
@@ -241,67 +240,136 @@ export class RegisterYourselfComponent implements OnInit {
   }
 
   // Update onRegister to use local file references
-  onRegister(): void {
-    // Clear previous messages
-    this.errorMessage = '';
-    this.successMessage = '';
+ 
+onRegister(): void {
+  // Clear previous messages
+  this.errorMessage = '';
+  this.successMessage = '';
 
-    // Validate form
-    if (!this.validateForm()) {
-      return;
-    }
+  // Validate form
+  if (!this.validateForm()) {
+    return;
+  }
 
-    // Ensure files are selected
-    if (!this.selectedImageFile || !this.selectedPdfFile) {
-      this.errorMessage = 'Please select both profile image and resume files.';
-      return;
-    }
+  // Ensure PDF file is selected (required)
+  if (!this.selectedPdfFile) {
+    this.errorMessage = 'Please select resume file.';
+    return;
+  }
 
-      this.isLoading = true;
+  this.isLoading = true;
 
-    // Prepare files for API - you'll need to convert files to base64 or FormData
+  // Prepare image data (optional) - use empty string instead of null
+  let imageBase64Data = '';
+  if (this.selectedImageFile && this.imageUrl) {
     const imageBase64 = this.imageUrl as string;
-    const imageBase64Data = imageBase64.split(',')[1]; // Remove data URL prefix
+    imageBase64Data = imageBase64.split(',')[1]; // Remove data URL prefix
+  }
 
-    // For PDF, you'll need to read it as base64
-    const pdfReader = new FileReader();
-    pdfReader.onload = (e: any) => {
-      const pdfBase64 = e.target.result;
-      const pdfBase64Data = pdfBase64.split(',')[1];
+  // For PDF, read it as base64
+  const pdfReader = new FileReader();
+  pdfReader.onload = (e: any) => {
+    const pdfBase64 = e.target.result;
+    const pdfBase64Data = pdfBase64.split(',')[1];
 
-      const payload: any = {
-        userID: 0,
-        userName: this.userName,
-        cnic: this.getRawCnic(),
-        companyName: this.companyName,
-        password: this.password,
-        email: this.companyEmail,
-        address: this.address,
-        profession: this.profession,
-        contactNo: this.contactNo,
-        eResume: pdfBase64Data,
-        eResumePath: environment.imageUrl + 'Applicant-resume',
-        eResumeExt: 'pdf',
-        eDoc: imageBase64Data,
-        eDocPath: environment.imageUrl + 'Applicant-Profile',
-        eDocExt: 'png',
-        experienceID: this.selectedExperience,
-        studyLevelID: this.selectedDegree,
-        companyStatusID: 1,
-        cityID: this.selectedCity,
-        genderID: Number(this.selectedGender),
-        json: JSON.stringify(this.selectedDomains),
-        roleID: 1,
-        userTypeID: 1,
-        spType: 'insert',
-      };
-
-      console.log('Final payload:', payload);
-      this.submitRegistration(payload);
+    const payload: any = {
+      userID: 0,
+      userName: this.userName,
+      cnic: this.getRawCnic(),
+      companyName: this.companyName,
+      password: this.password,
+      email: this.companyEmail,
+      address: this.address,
+      profession: this.profession,
+      contactNo: this.contactNo,
+      eResume: pdfBase64Data,
+      eResumePath: environment.imageUrl + 'Applicant-resume',
+      eResumeExt: 'pdf',
+      eDoc: imageBase64Data,
+      eDocPath: environment.imageUrl + 'Applicant-Profile',
+      eDocExt: imageBase64Data ? 'png' : '', 
+      experienceID: this.selectedExperience,
+      studyLevelID: this.selectedDegree,
+      companyStatusID: 1,
+      cityID: this.selectedCity,
+      genderID: Number(this.selectedGender),
+      json: JSON.stringify(this.selectedDomains),
+      roleID: 1,
+      userTypeID: 1,
+      spType: 'insert',
     };
 
-    pdfReader.readAsDataURL(this.selectedPdfFile);
-  }
+    console.log('Final payload:', payload);
+    this.submitRegistration(payload);
+  };
+
+  pdfReader.readAsDataURL(this.selectedPdfFile);
+}
+  // onRegister(): void {
+  //   // Clear previous messages
+  //   this.errorMessage = '';
+  //   this.successMessage = '';
+
+  //   // Validate form
+  //   if (!this.validateForm()) {
+  //     return;
+  //   }
+
+  //   // Ensure files are selected
+  //   //   if (!this.selectedImageFile || !this.selectedPdfFile) {
+  //   //   this.errorMessage = 'Please select both profile image and resume files.';
+  //   //   return;
+  //   // }
+  //   if (!this.selectedPdfFile) {
+  //     this.errorMessage = 'Please select  and resume files.';
+  //     return;
+  //   }
+
+  //   this.isLoading = true;
+
+  //   // Prepare files for API - you'll need to convert files to base64 or FormData
+  //   const imageBase64 = this.imageUrl as string;
+  //   const imageBase64Data = imageBase64.split(',')[1]; // Remove data URL prefix
+
+  //   // For PDF, you'll need to read it as base64
+  //   const pdfReader = new FileReader();
+  //   pdfReader.onload = (e: any) => {
+  //     const pdfBase64 = e.target.result;
+  //     const pdfBase64Data = pdfBase64.split(',')[1];
+
+  //     const payload: any = {
+  //       userID: 0,
+  //       userName: this.userName,
+  //       cnic: this.getRawCnic(),
+  //       companyName: this.companyName,
+  //       password: this.password,
+  //       email: this.companyEmail,
+  //       address: this.address,
+  //       profession: this.profession,
+  //       contactNo: this.contactNo,
+  //       eResume: pdfBase64Data,
+  //       eResumePath: environment.imageUrl + 'Applicant-resume',
+  //       eResumeExt: 'pdf',
+  //       eDoc: imageBase64Data,
+  //       eDocPath: environment.imageUrl + 'Applicant-Profile',
+  //       eDocExt: 'png',
+  //       experienceID: this.selectedExperience,
+  //       studyLevelID: this.selectedDegree,
+  //       companyStatusID: 1,
+  //       cityID: this.selectedCity,
+  //       genderID: Number(this.selectedGender),
+  //       json: JSON.stringify(this.selectedDomains),
+  //       roleID: 1,
+  //       userTypeID: 1,
+  //       spType: 'insert',
+  //     };
+
+  //     console.log('Final payload:', payload);
+  //     this.submitRegistration(payload);
+  //   };
+
+  //   pdfReader.readAsDataURL(this.selectedPdfFile);
+  // }
 
   // Separate method for API call
   private submitRegistration(payload: any): void {
@@ -326,12 +394,11 @@ export class RegisterYourselfComponent implements OnInit {
         console.error('Error saving User:', error);
 
         if (error.error && error.error.includes('FOREIGN KEY constraint')) {
-          this.showError(
-            'Backend Error'
-          );
+          this.showError('Backend Error');
         }
       }
     );
+     }
 
     // this.RegisterUserService.saveUser(payload).subscribe({
     //   next: (res: any) => {
@@ -380,7 +447,7 @@ export class RegisterYourselfComponent implements OnInit {
     //     window.scrollTo({ top: 0, behavior: 'smooth' });
     //   },
     // });
-  }
+ 
 
   showError(message: string): void {
     this.errorMessage = message;
