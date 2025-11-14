@@ -86,15 +86,26 @@
                   <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
                       Download CV
                     </button> -->
-                  <button
-                    class="btn w-100 text-white fw-semibold"
-                    style="background-color: #8b5cf6"
-                    (click)="downloadCV(user)"
-                    [disabled]="!user.eResume"
-                  >
-                    <i class="bi bi-download me-1"></i>
-                    Download CV
-                  </button>
+                  <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-sm flex-fill text-white fw-semibold"
+                      style="background-color: #8b5cf6"
+                      (click)="viewCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-eye me-1"></i>
+                      View CV
+                    </button>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                      style="background-color: #8b5cf6"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-download me-1"></i>
+                      Download CV
+                    </button>
+                  </div>
                 </div>
               </div>
             </ng-container>
@@ -137,7 +148,7 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center mb-2">
                     <img
-                        [src]="user.eDoc || 'assets/images/profile.png'"
+                      [src]="user.eDoc || 'assets/images/profile.png'"
                       class="rounded"
                       style="width: 50px; height: 50px; object-fit: cover"
                     />
@@ -152,7 +163,28 @@
                   <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
                       Download CV
                     </button> -->
-                  <button
+
+                     <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-sm flex-fill text-white fw-semibold"
+                       style="background-color: #10b981"
+                      (click)="viewCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-eye me-1"></i>
+                      View CV
+                    </button>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                        style="background-color: #10b981"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-download me-1"></i>
+                      Download CV
+                    </button>
+                  </div>
+                  <!-- <button
                     class="btn w-100 text-white fw-semibold"
                     style="background-color: #10b981"
                     (click)="downloadCV(user)"
@@ -160,7 +192,7 @@
                   >
                     <i class="bi bi-download me-1"></i>
                     Download CV
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </ng-container>
@@ -203,7 +235,7 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center mb-2">
                     <img
-                        [src]="user.eDoc || 'assets/images/profile.png'"
+                      [src]="user.eDoc || 'assets/images/profile.png'"
                       class="rounded"
                       style="width: 50px; height: 50px; object-fit: cover"
                     />
@@ -218,7 +250,7 @@
                   <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
                       Download CV
                     </button> -->
-                  <button
+                  <!-- <button
                     class="btn w-100 text-white fw-semibold"
                     style="background-color: #3b82f6"
                     (click)="downloadCV(user)"
@@ -226,7 +258,27 @@
                   >
                     <i class="bi bi-download me-1"></i>
                     Download CV
-                  </button>
+                  </button> -->
+                   <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-sm flex-fill text-white fw-semibold"
+                       style="background-color: #3b82f6"
+                      (click)="viewCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-eye me-1"></i>
+                      View CV
+                    </button>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                         style="background-color: #3b82f6"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-download me-1"></i>
+                      Download CV
+                    </button>
+                  </div>
                 </div>
               </div>
             </ng-container>
@@ -269,7 +321,7 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center mb-2">
                     <img
-                       [src]="user.eDoc || 'assets/images/profile.png'"
+                      [src]="user.eDoc || 'assets/images/profile.png'"
                       class="rounded"
                       style="width: 50px; height: 50px; object-fit: cover"
                     />
@@ -284,7 +336,7 @@
                   <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
                       Download CV
                     </button> -->
-                  <button
+                  <!-- <button
                     class="btn w-100 text-white fw-semibold"
                     style="background-color: #ef4444"
                     (click)="downloadCV(user)"
@@ -292,7 +344,27 @@
                   >
                     <i class="bi bi-download me-1"></i>
                     Download CV
-                  </button>
+                  </button> -->
+                  <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-sm flex-fill text-white fw-semibold"
+                     style="background-color: #ef4444"
+                      (click)="viewCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-eye me-1"></i>
+                      View CV
+                    </button>
+                    <button
+                      class="btn w-100 text-white fw-semibold"
+                   style="background-color: #ef4444"
+                      (click)="downloadCV(user)"
+                      [disabled]="!user.eResume"
+                    >
+                      <i class="bi bi-download me-1"></i>
+                      Download CV
+                    </button>
+                  </div>
                 </div>
               </div>
             </ng-container>

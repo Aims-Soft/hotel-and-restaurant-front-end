@@ -8,9 +8,10 @@
     border-radius: 10px;
   }
 } */
-.kanban-column {
+ 
+/* .kanban-column {
   min-height: 400px;
-  /* background-color: #f8f9fa; */
+  
 }
 
 .card {
@@ -35,7 +36,7 @@ button {
 }
 
 .min-drop-area {
-  min-height: 80px; /* allows dropping even if empty */
+  min-height: 80px; 
   border: 2px dashed #ccc;
   border-radius: 8px;
   transition: border-color 0.3s;
@@ -49,4 +50,131 @@ button {
 .empty-placeholder {
   font-size: 0.85rem;
   color: #999;
+} */
+
+.kanban-column {
+  min-height: 400px;
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+button {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Enhanced button styling */
+.d-grid button {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #8b5cf6;
+  border-color: #8b5cf6;
+  color: white;
+}
+
+.btn-outline-success:hover {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.btn-outline-info:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}
+
+/* View CV Button specific styling */
+.btn-outline-primary {
+  border-width: 2px;
+}
+
+/* Download CV Button hover effects */
+.btn[style*="background-color: #8b5cf6"]:hover {
+  background-color: #7c3aed !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+}
+
+.btn[style*="background-color: #10b981"]:hover {
+  background-color: #059669 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn[style*="background-color: #3b82f6"]:hover {
+  background-color: #2563eb !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn[style*="background-color: #ef4444"]:hover {
+  background-color: #dc2626 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Disabled button styling */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+[cdkDrag] {
+  cursor: grab;
+}
+
+[cdkDragDragging] {
+  opacity: 0.6;
+  cursor: grabbing;
+}
+
+.min-drop-area {
+  min-height: 80px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  padding: 5px;
+}
+
+.min-drop-area.cdk-drop-list-dragging {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.empty-placeholder {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* Card body spacing */
+.card-body {
+  padding: 1rem;
+}
+
+/* Gap between buttons */
+.d-grid {
+  gap: 0.5rem;
+}
+
+/* Icon alignment */
+.bi {
+  vertical-align: middle;
 }
