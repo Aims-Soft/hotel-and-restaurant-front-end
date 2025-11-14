@@ -78,6 +78,13 @@ export class CreateJobsComponent implements OnInit {
  
     this.setMinDates();
 
+      if (!this.isEdit) {
+    const today = new Date();
+    this.postingDate = this.formatDate(today);
+    // Also update minimum expire date based on today
+    this.onPostingDateChange();
+  }
+
     const jobFromState = history.state.job;
     // console.log('jobFromState:', jobFromState);
 
@@ -522,7 +529,7 @@ export class CreateJobsComponent implements OnInit {
     this.selectedExperience = null;
     this.educationReq = '';
     this.salaryRange = '';
-    this.postingDate = '';
+    // this.postingDate = '';
     this.expireDate = '';
     this.selectedCountry = null;
     this.selectedCity = null;
@@ -533,6 +540,14 @@ export class CreateJobsComponent implements OnInit {
     this.selectedBenefits = [];
     this.filteredCities = [];
     this.fieldErrors = {};
+
+  const today = new Date();
+  this.postingDate = this.formatDate(today);
+  this.expireDate = '';
+  
+  // Update minimum expire date based on today
+  this.onPostingDateChange();
+
   }
 
    // Set minimum dates for date pickers
@@ -554,12 +569,19 @@ export class CreateJobsComponent implements OnInit {
 
 
   // Format date to YYYY-MM-DD
+  // formatDate(date: Date): string {
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, '0');
+  //   const day = String(date.getDate()).padStart(2, '0');
+  //   return `${year}-${month}-${day}`;
+  // }
+
   formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
   // Update minimum expiry date when posting date changes
   onPostingDateChange(): void {

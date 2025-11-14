@@ -376,9 +376,43 @@
         </div>
 
         <div class="col-md-4 mb-3">
+  <label class="form-label mb-2">User Domains</label>
+  
+  <!-- ng-select Multi-Select Dropdown -->
+  <ng-select
+    name="userDomains"
+    [items]="companyDomains"
+    bindLabel="domainTitle"
+    bindValue="domainID"
+    placeholder="Search and select domains..."
+    [(ngModel)]="selectedDomains"
+    [multiple]="true"
+    [searchable]="true"
+    [clearable]="true"
+    [closeOnSelect]="false"
+  >
+  </ng-select>
+  
+  <div *ngIf="fieldErrors['domains']" class="text-danger small mt-1">
+    {{ fieldErrors["domains"] }}
+  </div>
+</div>
+
+<!-- Display selected domains as tags -->
+<!-- <div class="col-md-12 mb-3" *ngIf="selectedDomains && selectedDomains.length > 0">
+  <div class="skills-container mt-2">
+    <span
+      *ngFor="let domainID of selectedDomains"
+      class="skill-tag flex-wrap selected"
+    >
+      {{ getDomainTitle(domainID) }}
+    </span>
+  </div>
+</div> -->
+
+        <!-- <div class="col-md-4 mb-3">
           <label class="form-label mb-2">User Domains</label>
 
-          <!-- Custom Multi-Select Dropdown -->
           <div class="custom-multiselect" (click)="$event.stopPropagation()">
             <div class="dropdown-input-wrapper">
               <input
@@ -401,7 +435,7 @@
               >
             </div>
 
-            <!-- Dropdown List -->
+           
             <div class="dropdown-list" *ngIf="isDropdownOpen">
               <div class="dropdown-header">
                 <span>{{ filteredDomains.length }} domain(s) available</span>
@@ -416,12 +450,7 @@
                     toggleDomain(domain.domainID); $event.stopPropagation()
                   "
                 >
-                  <!-- <input
-                    type="checkbox"
-                    [checked]="isDomainSelected(domain.domainID)"
-                    (click)="$event.stopPropagation()"
-                    readonly
-                  /> -->
+                 
                   <span class="domain-title">{{ domain.domainTitle }}</span>
                   <span
                     class="checkmark"
@@ -430,7 +459,7 @@
                   >
                 </div>
 
-                <!-- No Results -->
+                
                 <div class="no-results" *ngIf="filteredDomains.length === 0">
                   <p>No domains found</p>
                 </div>
@@ -438,15 +467,17 @@
             </div>
           </div>
 
-          <!-- Selected Count -->
+          
           <small class="text-muted" *ngIf="selectedDomains.length > 0">
             {{ selectedDomains.length }} domain(s) selected
           </small>
-        </div>
+        </div> -->
       </div>
 
+     
+
       <!-- Selected Tags Display -->
-      <div class="row mb-3" *ngIf="selectedDomains.length > 0">
+      <div class="row mb-4" *ngIf="selectedDomains.length > 0">
         <div class="col-md-12">
           <div class="selected-tags-container">
             <span
@@ -480,10 +511,10 @@
           Register
         </button>
       </div> -->
-      <div class="d-flex justify-content-end gap-2 mt-4">
+      <div class="d-flex justify-content-end gap-2 mt-5 mb-5">
   <button 
     type="button" 
-    class="btn btn-cancel" 
+    class="btn btn-cancel mb-5" 
     [disabled]="isLoading"
     [class.btn-disabled]="isLoading"
   >
@@ -492,7 +523,7 @@
   
   <button 
     type="button" 
-    class="btn btn-register" 
+    class="btn btn-register mb-5" 
     (click)="onRegister()"
     [disabled]="isLoading"
     [class.btn-loading]="isLoading"

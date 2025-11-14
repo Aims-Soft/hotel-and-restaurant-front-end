@@ -73,6 +73,9 @@ export class RegisterYourselfComponent implements OnInit {
   isDropdownOpen: boolean = false;
   filteredDomains: any[] = [];
   userProfile: any;
+  fieldErrors: { [key: string]: string } = {};
+  dropdownDirection: 'up' | 'down' = 'down';
+
 
   constructor(
     private userSessionService: UserSessionService,
@@ -153,6 +156,8 @@ export class RegisterYourselfComponent implements OnInit {
     this.isFormSubmitted = true;
     const missingFields: string[] = [];
 
+     this.fieldErrors = {};
+
     // Check profile image using local file reference
     // if (!this.selectedImageFile) {
     //   missingFields.push('Profile Image');
@@ -221,9 +226,15 @@ export class RegisterYourselfComponent implements OnInit {
       missingFields.push('Passwords must match');
     }
 
-    if (!this.selectedDomains || this.selectedDomains.length === 0) {
-      missingFields.push('At least one Domain');
-    }
+    // if (!this.selectedDomains || this.selectedDomains.length === 0) {
+    //   missingFields.push('At least one Domain');
+    // }
+
+      if (!this.selectedDomains || this.selectedDomains.length === 0) {
+    this.fieldErrors['domains'] = 'At least one domain is required';
+  }
+  
+  
 
     if (missingFields.length > 0) {
       this.errorMessage = `Please fill in the following required fields: ${missingFields.join(
@@ -234,9 +245,11 @@ export class RegisterYourselfComponent implements OnInit {
       // Scroll to top to show error message
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return false;
+      
     }
 
     return true;
+   
   }
 
   // Update onRegister to use local file references
@@ -245,6 +258,8 @@ onRegister(): void {
   // Clear previous messages
   this.errorMessage = '';
   this.successMessage = '';
+
+   this.fieldErrors = {}; 
 
   // Validate form
   if (!this.validateForm()) {
@@ -598,35 +613,109 @@ onRegister(): void {
       }
     );
   }
+ getDomainTitle(domainID: number): string {
+  const domain = this.companyDomains.find(d => d.domainID === domainID);
+  return domain ? domain.domainTitle : '';
+}
 
-  toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-    if (this.isDropdownOpen) {
-      this.searchText = '';
-      this.filteredDomains = this.companyDomains;
-    }
-  }
 
-  onSearchChange(): void {
-    const search = this.searchText.toLowerCase().trim();
-    if (search === '') {
-      this.filteredDomains = this.companyDomains;
-    } else {
-      this.filteredDomains = this.companyDomains.filter((domain: any) =>
-        domain.domainTitle.toLowerCase().includes(search)
-      );
-    }
+toggleDropdown(): void {
+  this.isDropdownOpen = !this.isDropdownOpen;
+  if (this.isDropdownOpen) {
+    this.searchText = '';
+    this.filteredDomains = this.companyDomains;
+    this.calculateDropdownDirection();
+  } else {
+    this.dropdownDirection = 'down'; // Reset to default when closed
   }
+}
 
-  toggleDomain(domainId: number): void {
-    if (this.selectedDomains.includes(domainId)) {
-      this.selectedDomains = this.selectedDomains.filter(
-        (id) => id !== domainId
-      );
-    } else {
-      this.selectedDomains.push(domainId);
+// Calculate if dropdown should open upward based on available space
+calculateDropdownDirection(): void {
+  setTimeout(() => {
+    const dropdownElement = document.querySelector('.custom-multiselect');
+    if (dropdownElement) {
+      const rect = dropdownElement.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      const dropdownHeight = 300; // Approximate dropdown height
+      
+      // Open upward if there's not enough space below but enough space above
+      if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+        this.dropdownDirection = 'up';
+      } else {
+        this.dropdownDirection = 'down';
+      }
     }
+  }, 0);
+}
+
+onSearchChange(): void {
+  const search = this.searchText.toLowerCase().trim();
+  if (search === '') {
+    this.filteredDomains = this.companyDomains;
+  } else {
+    this.filteredDomains = this.companyDomains.filter((domain: any) =>
+      domain.domainTitle.toLowerCase().includes(search)
+    );
   }
+  // Recalculate direction when search changes (dropdown height might change)
+  if (this.isDropdownOpen) {
+    this.calculateDropdownDirection();
+  }
+}
+
+toggleDomain(domainId: number): void {
+  if (this.selectedDomains.includes(domainId)) {
+    this.selectedDomains = this.selectedDomains.filter(
+      (id) => id !== domainId
+    );
+  } else {
+    this.selectedDomains.push(domainId);
+  }
+}
+
+@HostListener('document:click', ['$event'])
+onDocumentClick(event: MouseEvent): void {
+  const target = event.target as HTMLElement;
+  if (!target.closest('.custom-multiselect')) {
+    this.isDropdownOpen = false;
+    this.dropdownDirection = 'down'; // Reset to default when closed
+  }
+}
+
+
+  // toggleDropdown(): void {
+  //   this.isDropdownOpen = !this.isDropdownOpen;
+  //   if (this.isDropdownOpen) {
+  //     this.searchText = '';
+  //     this.filteredDomains = this.companyDomains;
+  //   }
+  // }
+
+
+ 
+
+  // onSearchChange(): void {
+  //   const search = this.searchText.toLowerCase().trim();
+  //   if (search === '') {
+  //     this.filteredDomains = this.companyDomains;
+  //   } else {
+  //     this.filteredDomains = this.companyDomains.filter((domain: any) =>
+  //       domain.domainTitle.toLowerCase().includes(search)
+  //     );
+  //   }
+  // }
+
+  // toggleDomain(domainId: number): void {
+  //   if (this.selectedDomains.includes(domainId)) {
+  //     this.selectedDomains = this.selectedDomains.filter(
+  //       (id) => id !== domainId
+  //     );
+  //   } else {
+  //     this.selectedDomains.push(domainId);
+  //   }
+  // }
 
   removeDomain(domainId: number): void {
     this.selectedDomains = this.selectedDomains.filter((id) => id !== domainId);
@@ -642,11 +731,11 @@ onRegister(): void {
     return this.selectedDomains.includes(domainId);
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.custom-multiselect')) {
-      this.isDropdownOpen = false;
-    }
-  }
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent): void {
+  //   const target = event.target as HTMLElement;
+  //   if (!target.closest('.custom-multiselect')) {
+  //     this.isDropdownOpen = false;
+  //   }
+  // }
 }
