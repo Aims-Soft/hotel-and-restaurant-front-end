@@ -113,6 +113,19 @@ export class CompanyDashboardService {
     );
   }
 
+  getStatus(): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}job-api/Job/getJobStatus`
+    );
+  }
+  
+   getComapnyJobs(companyID: number): Observable<any[]> {
+    console.log(`Fetching active jobs for company ID: ${companyID}`);
+    return this.http.get<any[]>(
+      `${this.apiUrl}job-api/Dashboard/getCompanyActiveJob?companyID=${companyID}`
+    );
+  }
+
   getActivejobs(companyID: number): Observable<any[]> {
     console.log(`Fetching active jobs for company ID: ${companyID}`);
     return this.http.get<any[]>(

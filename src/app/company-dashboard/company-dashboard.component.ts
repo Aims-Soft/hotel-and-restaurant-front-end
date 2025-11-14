@@ -21,6 +21,8 @@ export class CompanyDashboardComponent implements OnInit {
   job: any = {};
   searchText: string = ''; 
    companyID: number = 0;
+    statusList: any[] = [];
+  selectedStatus: number | null = null;
 
 
   constructor(
@@ -37,6 +39,8 @@ export class CompanyDashboardComponent implements OnInit {
     
     this.getTotalJobs(this.companyID);
     this.getActivejobs(this.companyID);
+
+      this.getStatusList();
   }
 
   editJob(job: any): void {
@@ -120,7 +124,7 @@ onDelete(job: any): void {
 
 getActivejobs(companyID: number): void {
     this.isLoading = true;
-    this.CompanyDashboardService.getActivejobs(companyID).subscribe(
+    this.CompanyDashboardService. getComapnyJobs(companyID).subscribe(
       (response: any[]) => {
         this.isLoading = false;
         this.Activejobs = response;
@@ -132,6 +136,76 @@ getActivejobs(companyID: number): void {
       }
     );
   }
+
+    getStatusList(): void {
+    this.isLoading = true;
+    this.CompanyDashboardService.getStatus().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.statusList = response;
+        console.log('Status List:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching status list:', error);
+     
+      }
+    );
+  }
+
+  // Method to handle status change
+  // onStatusChange(job: any): void {
+  //   console.log('Selected Status:', this.selectedStatus);
+  //   // Add any additional logic you need when status changes
+  // }
+
+
+  onStatusChange(job: any): void {
+  console.log('Status changed for job:', job);
+  console.log('New Status ID:', job.jobStatusID);
+
+  if (!job.jobStatusID) {
+    this.errorMessage = 'Please select a valid status';
+    setTimeout(() => this.errorMessage = null, 3000);
+    return;
+  }
+
+  this.isLoading = true;
+
+  // ✅ FIXED: Use the job parameter passed to the method
+  const payload = {
+    jobID: job.jobID,              // ✅ Use job from parameter, not this.job
+    jobTitle: job.jobTitle,         // ✅ Use job from parameter
+    jobStatusID: job.jobStatusID,   // ✅ Use the selected status ID, not entire array
+    userID: this.userSessionService.getUserID(),
+    spType: 'UPDATE',               // ✅ Uppercase to match your pattern
+  };
+
+  console.log('Payload being sent:', payload); // Add this for debugging
+
+  this.CompanyDashboardService.updateJobStatus(payload).subscribe({
+    next: (response) => {
+      console.log(response, 'save status');
+      this.isLoading = false;
+      this.successMessage = 'Job status updated successfully ✅';
+      this.errorMessage = null;
+
+      // Refresh the job list to show updated status
+      this.getActivejobs(this.companyID);
+      this.getTotalJobs(this.companyID);
+
+      setTimeout(() => this.successMessage = null, 3000);
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.successMessage = null;
+      this.errorMessage = '❌ Failed to update job status. Please try again.';
+      console.error('Error updating job status:', error);
+
+      setTimeout(() => this.errorMessage = null, 3000);
+    }
+  });
+}
 
   // getActivejobs(): void {
   //   this.isLoading = true;
