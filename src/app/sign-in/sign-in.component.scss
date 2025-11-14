@@ -192,10 +192,24 @@
     border-radius: 0.5vw;
   }
 
+  // .btn-close-custom {
+  //   padding: 0.5vh;
+  // padding-top: 1vh;
+  //   font-size: clamp(0.8rem, 0.85vw, 0.95rem);
+  // }
   .btn-close-custom {
-    padding: 0.5vh;
-    font-size: clamp(0.8rem, 0.85vw, 0.95rem);
-  }
+  padding: 0.5vh;
+  padding-top: 1vh;
+  font-size: clamp(0.8rem, 0.85vw, 0.95rem);
+  margin-top: -0.2vh; /* Adjust this value to center vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
 
   /* Forgot Password */
   .forgot-section {
