@@ -213,7 +213,7 @@ export class JobDisplayComponent implements OnInit, OnChanges {
       (response: any[]) => {
         this.isLoading = false;
         this.jobs = response;
-
+          console.log(response,'all open jobs')
         // Apply title filter if provided
         if (filterTitle) {
           this.jobs = this.jobs.filter(job =>
