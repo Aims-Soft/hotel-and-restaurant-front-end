@@ -78,7 +78,7 @@
   <div class="box-border rounded">
     <!-- Header with Search -->
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between px-3 py-3 bottom-border gap-3">
-      <p class="mb-0 custom-font text-black fw-semibold">Active Jobs</p>
+      <p class="mb-0 custom-font text-black fw-semibold">Jobs ({{ filteredJobs.length }})</p>
       
       <!-- Alert Messages -->
       <div *ngIf="successMessage" class="alert alert-success mb-0 flex-shrink-0" role="alert">
@@ -88,30 +88,129 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Search Box -->
-      <div class="d-flex align-items-center dashboard-searchBox px-3 py-2 rounded flex-shrink-0">
-        <i class="bi bi-search fs-5"></i>
-        <input
-          type="search"
-          class="border-0 ms-2 dashboard-input bg-transparent px-2"
-          placeholder="Search here..."
-          [(ngModel)]="searchText"
-        />
-        <img
-          src="../../assets/images/Search Key.png"
-          class="ms-3 img-fluid"
-          alt=""
-          style="max-width: 20px;"
-        />
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <!-- Filter Button with Dropdown -->
+        <div class="position-relative">
+          <button 
+            class="btn btn-outline-secondary position-relative"
+            (click)="toggleFilterDropdown()"
+            type="button"
+          >
+            <i class="bi bi-funnel"></i>
+            Filter
+            <span 
+              *ngIf="getActiveFilterCount() > 0" 
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              {{ getActiveFilterCount() }}
+            </span>
+          </button>
+
+          <!-- Filter Dropdown -->
+          <div 
+            *ngIf="showFilterDropdown" 
+            class="position-absolute bg-white border rounded shadow-sm p-3 mt-1"
+            style="min-width: 200px; z-index: 1000; right: 0;"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="mb-0">Filter by Status</h6>
+              <button 
+                class="btn btn-sm btn-link text-decoration-none p-0"
+                (click)="clearFilters()"
+                *ngIf="getActiveFilterCount() > 0"
+              >
+                Clear All
+              </button>
+            </div>
+            
+            <div class="form-check mb-2">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="filterOpen"
+                [(ngModel)]="statusFilters.open"
+                (change)="onFilterChange()"
+              >
+              <label class="form-check-label" for="filterOpen">
+                Open ({{ getJobsCountByStatus('open') }})
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="filterClose"
+                [(ngModel)]="statusFilters.close"
+                (change)="onFilterChange()"
+              >
+              <label class="form-check-label" for="filterClose">
+                Close ({{ getJobsCountByStatus('close') }})
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="filterPause"
+                [(ngModel)]="statusFilters.pause"
+                (change)="onFilterChange()"
+              >
+              <label class="form-check-label" for="filterPause">
+                Pause ({{ getJobsCountByStatus('pause') }})
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Button -->
+        <button 
+          class="btn btn-success"
+          (click)="exportJobs()"
+          [disabled]="filteredJobs.length === 0 && Activejobs.length === 0"
+        >
+          <i class="bi bi-download me-2"></i>
+          Export to Excel
+        </button>
+
+        <!-- Search Box -->
+        <div class="d-flex align-items-center dashboard-searchBox px-3 py-2 rounded flex-shrink-0">
+          <i class="bi bi-search fs-5"></i>
+          <input
+            type="search"
+            class="border-0 ms-2 dashboard-input bg-transparent px-2"
+            placeholder="Search here..."
+            [(ngModel)]="searchText"
+          />
+          <img
+            src="../../assets/images/Search Key.png"
+            class="ms-3 img-fluid"
+            alt=""
+            style="max-width: 20px;"
+          />
+        </div>
       </div>
     </div>
 
-    <!-- Jobs List -->
+    <!-- Jobs List with Expired Indicator -->
     <div class="p-3">
       <div
-        class="row box-border rounded p-3 mb-3 align-items-center"
-        *ngFor="let job of Activejobs | search : searchText : 'jobTitle'"
+        class="row box-border rounded p-3 mb-3 align-items-center position-relative bg-lightgreen"
+        *ngFor="let job of filteredJobs | search : searchText : 'jobTitle'"
+        [class.expired-job-card]="isJobExpired(job.expireDate)"
       >
+        <!-- Expired Job Overlay (Your original code) -->
+        <!-- <div 
+          *ngIf="isJobExpired(job.expireDate)" 
+          class="expired-overlay"
+        >
+          <div class="expired-badge">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            EXPIRED JOB
+          </div>
+        </div> -->
+
         <!-- Left Section: Job Details -->
         <div class="col-lg-7 col-md-6">
           <h2 class="fw-bold title mb-2">{{ job.jobTitle }}</h2>
@@ -125,10 +224,21 @@
             <span class="px-3 py-2 experience rounded">{{ job.jobSpaceTitle }}</span>
           </div>
 
-          <!-- Time Posted -->
+          <!-- Dates -->
           <p class="duration mb-0">
-            <i class="bi bi-alarm"></i>
-            <small class="ms-2 duration-font">{{ job.displayTime }}</small>
+            <small class="ms-2 duration-font">
+              <span class="fw-bold text-black">Posted Date:</span> 
+              {{ job.postingDate | date:'dd/MM/yyyy' }}
+            </small>
+          </p>
+          <p class="duration mb-0" [class.text-danger]="isJobExpired(job.expireDate)">
+            <small class="ms-2 duration-font">
+              <span class="fw-bold">Expiry Date:</span> 
+              {{ job.expireDate | date:'dd/MM/yyyy' }}
+              <span *ngIf="isJobExpired(job.expireDate)" class="ms-2 badge bg-danger">
+                Expired
+              </span>
+            </small>
           </p>
         </div>
 
@@ -136,6 +246,11 @@
         <div class="col-lg-5 col-md-6 mt-3 mt-md-0">
           <div class="d-flex flex-column align-items-end gap-2">
             <!-- Status Dropdown with Edit Icon -->
+            <p class="duration mb-0">
+              <i class="bi bi-alarm text-start"></i>
+              <small class="ms-2 duration-font">{{ job.displayTime }}</small>
+            </p>
+            
             <div class="d-flex align-items-center gap-2">
               <div style="min-width: 200px;">
                 <ng-select
@@ -147,6 +262,7 @@
                   (change)="onStatusChange(job)"
                   [searchable]="true"
                   [clearable]="false"
+                  [disabled]="isJobExpired(job.expireDate)"
                   required
                 >
                 </ng-select>
@@ -173,8 +289,8 @@
     </div>
 
     <!-- Pagination -->
-    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between px-3 py-3 gap-3">
-      <!-- Previous Button -->
+    <!-- <div class="d-flex flex-column flex-md-row align-items-center justify-content-between px-3 py-3 gap-3">
+      
       <div class="btn-border rounded">
         <button class="btn">
           <a href="" class="text-decoration-none text-black">
@@ -183,7 +299,7 @@
         </button>
       </div>
 
-      <!-- Page Numbers -->
+   
       <div class="d-flex align-items-center gap-3">
         <a href="" class="text-decoration-none text-black">1</a>
         <a href="" class="text-decoration-none text-black">2</a>
@@ -194,7 +310,7 @@
         <a href="" class="text-decoration-none text-black">10</a>
       </div>
 
-      <!-- Next Button -->
+      
       <div class="btn-border rounded">
         <button class="btn">
           <a href="" class="text-decoration-none text-black">
@@ -202,6 +318,6 @@
           </a>
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

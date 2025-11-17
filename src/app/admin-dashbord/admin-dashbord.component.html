@@ -213,7 +213,7 @@
               <td class="text-start">
                 <h5 class="fw-bold custom-font mb-0">{{ job.jobTitle }}</h5>
                 <small class="negative-margin"
-                  >{{ job.jobTypeTitle }} | {{job.expireDate}}</small
+                  >{{ job.jobTypeTitle }} | {{job.expireDate | date:'dd/MM/yyyy'}}</small
                 >
               </td>
               <td class="text-center">

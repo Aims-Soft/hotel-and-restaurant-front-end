@@ -45,6 +45,13 @@
   --strip-background:#F8F9FA;
   --black:black;
   --signIn-header:#333333;
+  --light-green: #dee9dd;
+}
+
+.bg-lightgreen{
+
+background-color: var(--light-green);
+
 }
 
 /* NavBar */
