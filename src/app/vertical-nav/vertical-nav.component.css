@@ -104,6 +104,67 @@
 }
 
 
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.6em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10rem;
+  min-width: 20px;
+  height: 20px;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+
+/* Animation for badge when count changes */
+@keyframes badge-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.badge.bg-danger {
+  animation: badge-pulse 0.3s ease-in-out;
+}
+
+/* Ensure proper spacing */
+.menu-item.position-relative {
+  position: relative;
+}
+
+/* Make sure badge doesn't overflow */
+.menu-item {
+  overflow: visible;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .badge {
+    font-size: 0.65rem;
+    min-width: 18px;
+    height: 18px;
+  }
+}
+
+
 
 
 

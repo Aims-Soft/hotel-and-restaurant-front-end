@@ -15,6 +15,7 @@ export class ContactMessagesComponent implements OnInit {
   searchTerm: string = '';
   private modalInstance: any;
   unreadCount: number = 0;
+   unreadMessageCount = 0;
 
   constructor(
        private websiteservice:WebsiteService,

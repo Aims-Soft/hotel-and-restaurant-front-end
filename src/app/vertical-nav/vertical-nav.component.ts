@@ -3,6 +3,7 @@ import { UserSessionService } from '../Services/userSession/userSession.Service'
 import { AuthSharedService } from '../Services/auth-shared/authShared.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { WebsiteService } from '../Services/website/website.service';
 
 @Component({
   selector: 'app-vertical-nav',
@@ -14,25 +15,58 @@ export class VerticalNavComponent implements OnInit, OnDestroy {
     private userSessionService: UserSessionService,
     private authSharedService: AuthSharedService,
     private router:Router,
+     private websiteService: WebsiteService,
   ) {}
 
   private subscription!: Subscription;
+   private unreadCountSubscription!: Subscription;
     loginName: string = '';
    menuList: any = [];
   showLogoDropdown: boolean = false;
+   unreadMessageCount: number = 0
    
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
+  //   this.subscription = this.authSharedService.menuTrigger$.subscribe(() => {
+  //     this.getMenu();
+      
+  //   });
+
+  //   this.getMenu();
+  //    this. getLoginName()
+  // }
+   ngOnInit(): void {
     this.subscription = this.authSharedService.menuTrigger$.subscribe(() => {
       this.getMenu();
-      
     });
 
     this.getMenu();
-     this. getLoginName()
+    this.getLoginName();
+    
+    // Subscribe to unread count changes
+    this.unreadCountSubscription = this.websiteService.unreadCount$.subscribe(
+      (count) => {
+        this.unreadMessageCount = count;
+        console.log('Unread message count updated:', count);
+      }
+    );
+
+    // Load initial count
+    this.loadInitialMessageCount();
   }
 
- 
+  loadInitialMessageCount(): void {
+    this.websiteService.getmessages().subscribe({
+      next: (messages) => {
+        const unreadCount = messages.filter((msg: any) => !msg.readMsg).length;
+        this.unreadMessageCount = unreadCount;
+        this.websiteService.updateCount(unreadCount);
+      },
+      error: (err) => {
+        console.error('Error loading initial message count:', err);
+      }
+    });
+  }
 
   getMenu() {
     this.menuList = [];
@@ -83,8 +117,14 @@ export class VerticalNavComponent implements OnInit, OnDestroy {
   }
 
 
+   isMessagesMenu(menuTitle: string): boolean {
+    return menuTitle?.toLowerCase().includes('message');
+  }
+
+
 
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
+    if (this.unreadCountSubscription) this.unreadCountSubscription.unsubscribe();
   }
 }
