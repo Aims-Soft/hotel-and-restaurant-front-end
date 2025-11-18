@@ -18,9 +18,9 @@
           *ngFor="let job of job"
         >
           <span class="total-job-font-size">{{ job.totaljobs || 0 }}</span>
-          <div class="custom-bg px-2 py-1 rounded">
+          <!-- <div class="custom-bg px-2 py-1 rounded">
             <small>+{{ job.jobPercentage }}%</small>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -41,9 +41,9 @@
           <span class="total-job-font-size" *ngFor="let job of job">{{
             job.activejobs || 0
           }}</span>
-          <div class="custom-bg px-2 py-1 rounded">
-            <!-- <small>+12.5%</small> -->
-          </div>
+          <!-- <div class="custom-bg px-2 py-1 rounded">
+            <small>+12.5%</small>
+          </div> -->
         </div>
       </div>
     </div>
@@ -64,9 +64,9 @@
           <span class="total-job-font-size" *ngFor="let job of job">{{
             job.totalApplicants || 0
           }}</span>
-          <div class="custom-bg px-2 py-1 rounded">
-            <!-- <small>+12.5%</small> -->
-          </div>
+          <!-- <div class="custom-bg px-2 py-1 rounded">
+            <small>+12.5%</small>
+          </div> -->
         </div>
       </div>
     </div>
