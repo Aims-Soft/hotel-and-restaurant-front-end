@@ -1,0 +1,151 @@
+<div class="container mb-3 mt-5 px-5">
+    <div class="box-border rounded">
+      <div
+        class="d-flex align-items-center justify-content-between px-2 py-2 bottom-border"
+      >
+        <p class="mt-2 custom-font text-black">Messages</p>
+
+        <!-- Success message -->
+        <!-- <div *ngIf="successMessage" class="alert alert-success py-2 px-3 mt-2">
+          {{ successMessage }}
+        </div> -->
+
+        <!-- Error message -->
+        <!-- <div *ngIf="errorMessage" class="alert alert-danger py-2 px-3 mt-2">
+          {{ errorMessage }}
+        </div> -->
+
+        <!-- Search box -->
+        <div class="d-flex align-items-center dashboard-searchBox px-2 rounded">
+          <i class="bi bi-search fs-5"></i>
+          <input
+            type="search"
+            class="border-0 ms-2 dashboard-input bg-transparent ps-2 py-2"
+            placeholder="Search here..."
+            [(ngModel)]="searchTerm"
+          />
+          <img
+            src="../../assets/images/Search Key.png"
+            class="ms-5 img-fluid"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <!-- messages Table -->
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead class="border-bottom">
+            <tr>
+              <th class="text-start align-middle">Sr.</th>
+              <th class="text-center align-middle">Date & time</th>
+              <th class="text-center align-middle">Name</th>
+              <th class="text-center align-middle">Phone No</th>
+              <th class="text-center align-middle">Email</th>
+              <th class="text-center align-middle">Message</th>
+              <th class="text-center align-middle">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let msg of messages | filterMessages : searchTerm;
+                let i = index
+              "
+              [class.unread-row]="!msg.readMsg" [class.read-row]="msg.readMsg"
+            >
+              <td class="text-start align-middle">{{ i + 1 }}</td>
+              <td class="text-center align-middle">{{ msg.createdOn | date : "short" }}</td>
+              <td class="text-center align-middle fw-bold">{{ msg.userName }}</td>
+              <td class="text-center align-middle">{{ msg.contact }}</td>
+              <td class="text-center align-middle">{{ msg.email }}</td>
+              <td class="text-center align-middle text-wrap">
+                <span *ngIf="!msg.showMore">
+                  {{ msg.userMessage | slice : 0 : 50 }}
+                  <span
+                    *ngIf="msg.userMessage.length > 50"
+                    class="text-primary cursor-pointer"
+                    (click)="msg.showMore = true"
+                    >...more</span
+                  >
+                </span>
+                <span *ngIf="msg.showMore">
+                  {{ msg.userMessage }}
+                  <span
+                    class="text-primary cursor-pointer"
+                    (click)="msg.showMore = false"
+                  >
+                    less</span
+                  >
+                </span>
+              </td>
+              <td class="text-center align-middle">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                  <i
+                    class="cursor-pointer bi bi-eye custom-icon"
+                    (click)="openModal(msg)"
+                  >
+                  </i>
+                  <!-- <i
+                    class="text-danger cursor-pointer fa-trash-alt fas custom-icon"
+                    
+                  ></i> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- view message  Modal -->
+
+  <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="fw-bold">Messages</h2>
+          <!-- <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+           
+            (click)="markMessageAsRead(selectedMessage)"
+          ></button> -->
+          <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    (click)="onModalClose()"
+></button>
+          <!-- <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            *ngIf="!selectedMessage?.readMsg"
+            (ngModelChange)="loadMessages()"
+          ></button> -->
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <strong>Name</strong><br />
+            {{ selectedMessage?.userName }}
+          </div>
+          <div class="col-md-4">
+            <strong>Phone Number</strong><br />
+            {{ selectedMessage?.contact }}
+          </div>
+          <div class="col-md-4">
+            <strong>Email</strong><br />
+            {{ selectedMessage?.email }}
+          </div>
+          <div class="col-12 mt-3">
+            <strong>Message</strong><br />
+            <p class="text-muted">{{ selectedMessage?.userMessage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

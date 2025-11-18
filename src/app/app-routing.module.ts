@@ -34,6 +34,8 @@ import { ForgetPasswordComponent } from './sign-in/forget-password/forget-passwo
 import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-code.component';
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
+import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
+
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
@@ -68,6 +70,7 @@ const routes: Routes = [
       { path: 'candidateprofile', component: CandiateProfileComponent },
       { path: 'resume', component: ResumeComponent },
       { path: 'companyjobuser', component: CompanyJobUserComponent },
+      {path: 'contactMessage',component:ContactMessagesComponent},
     ],
   },
 

@@ -33,7 +33,7 @@ export class ContactComponent  implements OnInit{
      this.successMessage = '';
     this.errorMessage = '';
     
-      if (!this.formData.userName || !this.formData.email || !this.formData.userMessage) {
+      if (!this.formData.userName || !this.formData.email || !this.formData.userMessage || !this.formData.contact) {
     this.errorMessage = 'Please fill in all required fields.';
     return;
   }

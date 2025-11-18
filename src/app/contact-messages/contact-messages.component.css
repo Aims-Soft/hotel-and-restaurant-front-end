@@ -1,0 +1,38 @@
+.custom-icon {
+  font-size: 2rem;
+  cursor: pointer; 
+  transition: color 0.2s ease; 
+}
+.bi-eye{
+    height: 10%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.read-row {
+  background-color: #f8f9fa; 
+  color: #182027;
+
+}
+
+.unread-row {
+  background-color: #146096  !important; 
+  font-weight: 600;
+}
+
+.unread-row td {
+  font-weight: 800; 
+}
+
+
+.unread-row .bi-eye {
+  color: #0d6efd; 
+ 
+}
+
+.badge {
+  font-size: 1rem;
+  padding: 0.35em 0.65em;
+}

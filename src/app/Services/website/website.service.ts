@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environmentts/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,10 @@ contactus(payload: any): Observable<any> {
   
 }
 
+ getmessages(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Website/getContactUs`);
+  }
+
 
 saveCompany(payload: any): Observable<any> {
   const headers = new HttpHeaders({
@@ -86,6 +91,28 @@ applyjob(payload: any): Observable<any> {
   );
 
   
+}
+
+
+  private unreadCountSubject = new BehaviorSubject<number>(0);
+  unreadCount$ = this.unreadCountSubject.asObservable();
+
+  updateCount(count: number) {
+    this.unreadCountSubject.next(count);
+  }
+
+  
+ saveReadMsg(contactUSID: number, userID: number): Observable<any> {
+  const payload = {
+    contactUSID: contactUSID,
+    userID: userID,
+    spType: 'update'
+
+  };
+
+      console.log(payload,'save read payload')
+
+  return this.http.post(`${this.apiUrl}job-api/Website/saveReadMsg`, payload);
 }
 
 }

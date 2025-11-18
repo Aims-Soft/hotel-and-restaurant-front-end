@@ -60,6 +60,8 @@ import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-c
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
+import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
 
 @NgModule({
   declarations: [
@@ -105,6 +107,8 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
     ResetPasswordComponent,
     UserProfileComponent,
     ImageUploadComponent,
+    ContactMessagesComponent,
+    FilterMessagesPipe,
   ],
   imports: [
     BrowserModule,
