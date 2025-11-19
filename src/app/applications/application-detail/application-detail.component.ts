@@ -323,4 +323,10 @@ export class ApplicationDetailComponent implements OnInit {
     ];
     this.exportToExcel(allData, 'All_Applications');
   }
+
+    goBack(): void {
+    this.router.navigate(['/applications'], {
+    
+    });
+  }
 }
