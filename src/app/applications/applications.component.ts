@@ -367,6 +367,8 @@ export class ApplicationsComponent implements OnInit {
   statusPinErrorMessage: string | null = null;
   isStatusPinValidating: boolean = false;
   newToggleStatus: boolean = false;
+   statusList: any[] = [];
+  selectedStatus: number | null = null;
 
   jobToDelete: any = null;
   deleteModal: any;
@@ -385,6 +387,7 @@ export class ApplicationsComponent implements OnInit {
     this.companyID = this.userSessionService.getCompanyID() || 1;
 
     this.getJobApplications(this.companyID);
+     this.getStatusList();
 
     // Initialize Bootstrap modal
     const modalElement = document.getElementById('deleteModal');
@@ -676,5 +679,63 @@ export class ApplicationsComponent implements OnInit {
     this.isStatusPinValidating = false;
     this.newToggleStatus = false;
     this.getJobApplications(this.companyID);
+  }
+    onStatusChange(job: any): void {
+    console.log('Status changed for job:', job);
+    console.log('New Status ID:', job.jobStatusID);
+
+    if (!job.jobStatusID) {
+      this.errorMessage = 'Please select a valid status';
+      setTimeout(() => this.errorMessage = null, 3000);
+      return;
+    }
+
+    this.isLoading = true;
+
+    const payload = {
+      jobID: job.jobID,
+      jobTitle: job.jobTitle,
+      jobStatusID: job.jobStatusID,
+      userID: this.userSessionService.getUserID(),
+      spType: 'UPDATE',
+    };
+
+    console.log('Payload being sent:', payload);
+
+    this.CompanyDashboardService.updateJobStatus(payload).subscribe({
+      next: (response) => {
+        console.log(response, 'save status');
+        this.isLoading = false;
+        this.successMessage = 'Job status updated successfully ✅';
+        this.errorMessage = null;
+
+         this.getJobApplications(this.companyID);
+
+        setTimeout(() => this.successMessage = null, 3000);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.successMessage = null;
+        this.errorMessage = '❌ Failed to update job status. Please try again.';
+        console.error('Error updating job status:', error);
+
+        setTimeout(() => this.errorMessage = null, 3000);
+      }
+    });
+  }
+
+   getStatusList(): void {
+    this.isLoading = true;
+    this.CompanyDashboardService.getStatus().subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.statusList = response;
+        console.log('Status List:', response);
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error fetching status list:', error);
+      }
+    );
   }
 }

@@ -43,20 +43,30 @@
       <!-- Application table  -->
 
       <div class="">
-        <div class="d-flex justify-content-between px-3 pt-3 bottom-border">
-          <p class="head-row ">Name</p>
-          <p class="head-row ms-5 ps-5 ">Status</p>
-          <p class="ms-2 head-row  ps-5 " >Applications</p>
-          <p class="ms-4 head-row ">Details</p>
-          <p class="ms-5 head-row me-5 ">Action</p>
+        <div class="d-flex align-items-center px-3 pt-3 bottom-border">
+          <div class="col-md-3">
+            <p class="head-row mb-0">Name</p>
+          </div>
+          <div class="col-md-2">
+            <p class="head-row mb-0 ps-5">Status</p>
+          </div>
+          <div class="col-md-3">
+            <p class="head-row mb-0 ps-5">Applications</p>
+          </div>
+          <div class="col-md-2">
+            <p class="head-row mb-0 ps-5">Details</p>
+          </div>
+          <div class="col-md-2 text-center">
+            <p class="head-row mb-0 ps-5">Action</p>
+          </div>
         </div>
 
         <div
-          class="d-flex justify-content-between px-3 align-items-center stripped-background bottom-border"
+          class="d-flex align-items-center px-3 stripped-background bottom-border"
           *ngFor="let job of jobApplications | search : searchText : 'jobTitle'"
         >
           <div class="py-2 col-md-3">
-            <h5 class="fw-bold custom-font">{{ job.jobTitle }}</h5>
+            <h5 class="fw-bold custom-font mb-1">{{ job.jobTitle }}</h5>
             <small class="negative-margin"
               >Part time | {{ job.timeRemaining }}</small
             >
@@ -78,7 +88,25 @@
           </div> -->
 
                     <!-- Status Toggle Section -->
-          <div class="py-2 d-flex col-md-2">
+          <div class="py-2 col-md-2 me-4">
+            <div style="min-width: 100px;">
+              <ng-select
+                [items]="statusList"
+                bindLabel="jobStatusTitle"
+                bindValue="jobStatusID"
+                placeholder="Select Status"
+                [(ngModel)]="job.jobStatusID"
+                (change)="onStatusChange(job)"
+                [searchable]="true"
+                [clearable]="false"
+               
+                required
+              >
+              </ng-select>
+            </div>
+          </div>
+          <!-- <div class="py-2 d-flex col-md-2">
+            
             <label class="switch">
               <input
                 type="checkbox"
@@ -91,10 +119,10 @@
             <span class="ms-2">
               {{ job.toggleStatus ? "Open" : "Closed" }}
             </span>
-          </div>
+          </div> -->
 
           <div class="py-2 col-md-3">
-            <p class="mt-3 ms-5">{{job.totalApplicants}} Applications</p>
+            <p class="mb-0 ps-4">{{job.totalApplicants}} Applications</p>
           </div>
           <div class="py-2 col-md-2">
             <button
@@ -105,10 +133,10 @@
               View Application
             </button>
           </div>
-          <div class="py-2  ms-5 col-md-2">
+          <div class="py-2 col-md-2 text-center">
             <div>
               <!-- <i class="bi bi-pencil-square fs-5 text-primary"></i> -->
-              <i class="bi bi-trash3 ms-4 fs-5 text-danger"
+              <i class="bi bi-trash3 fs-5 text-danger"
                role="button"
       (click)="openDeleteModal(job)"></i>
             </div>
