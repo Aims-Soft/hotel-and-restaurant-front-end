@@ -16,6 +16,7 @@ export const environment = {
   // productUrl: 'http://135.181.62.34:8070/',
   // productUrl: 'https://159.69.174.28:16600/',
     productUrl: 'https://pakistanjobsportal.com/',
+     googleClientId: '955844459904-6qfsnjmap4npdt35h07t3j5bpdefvamf.apps.googleusercontent.com'
 };
 
 /*
