@@ -5,7 +5,6 @@
   </div>
 
   <div class="registration-body">
-    <!--  Attach ngForm -->
     <form #companyForm="ngForm" (ngSubmit)="onRegister()">
       <!-- Logo Upload Section -->
       <div class="row mb-4">
@@ -47,10 +46,15 @@
           >
             Company logo is required
           </small>
+          <small class="text-danger" *ngIf="logoSizeError">
+            {{ logoSizeError }}
+          </small>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label mb-2">Company Banner</label>
+          <label class="form-label mb-2"
+            >Company Banner <span class="text-danger">*</span></label
+          >
           <div class="upload-area" (click)="bannerInput.click()">
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
               <img
@@ -79,6 +83,134 @@
             accept=".pdf,.png,.jpg,.jpeg"
             (change)="onBannerSelected($event)"
           />
+          <small
+            class="text-danger"
+            *ngIf="!selectedBannerFile && companyForm.submitted"
+          >
+            Company banner is required
+          </small>
+          <small class="text-danger" *ngIf="bannerSizeError">
+            {{ bannerSizeError }}
+          </small>
+        </div>
+      </div>
+
+      <!-- Business Documents Section -->
+      <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+          <label class="form-label mb-2">Business License</label>
+          <div class="document-upload-area" (click)="eLicenseInput.click()">
+            <ng-container *ngIf="eLicensePreview; else eLicensePlaceholder">
+              <div class="pdf-document-preview">
+                <i class="fas fa-file-pdf"></i>
+                <span class="document-name">{{ eLicensePreview }}</span>
+              </div>
+            </ng-container>
+            <ng-template #eLicensePlaceholder>
+              <div class="upload-icon-small">
+                <i class="fas fa-upload"></i>
+              </div>
+              <p class="upload-text">Upload Business License</p>
+              <p class="formats-note-small">PDF only</p>
+            </ng-template>
+          </div>
+          <input
+            type="file"
+            #eLicenseInput
+            style="display: none"
+            accept=".pdf"
+            (change)="oneLicenseSelected($event)"
+          />
+          <small class="text-danger" *ngIf="licenseSizeError">
+            {{ licenseSizeError }}
+          </small>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="form-label mb-2">Office Utility Bill</label>
+          <div class="document-upload-area" (click)="eBillInput.click()">
+            <ng-container *ngIf="eBillPreview; else eBillPlaceholder">
+              <div class="pdf-document-preview">
+                <i class="fas fa-file-pdf"></i>
+                <span class="document-name">{{ eBillPreview }}</span>
+              </div>
+            </ng-container>
+            <ng-template #eBillPlaceholder>
+              <div class="upload-icon-small">
+                <i class="fas fa-upload"></i>
+              </div>
+              <p class="upload-text">Upload Utility Bill</p>
+              <p class="formats-note-small">PDF only</p>
+            </ng-template>
+          </div>
+          <input
+            type="file"
+            #eBillInput
+            style="display: none"
+            accept=".pdf"
+            (change)="oneBillSelected($event)"
+          />
+          <small class="text-danger" *ngIf="billSizeError">
+            {{ billSizeError }}
+          </small>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="form-label mb-2">Lease or Franchise Agreement</label>
+          <div class="document-upload-area" (click)="eAgreementInput.click()">
+            <ng-container *ngIf="eAgreementPreview; else eAgreementPlaceholder">
+              <div class="pdf-document-preview">
+                <i class="fas fa-file-pdf"></i>
+                <span class="document-name">{{ eAgreementPreview }}</span>
+              </div>
+            </ng-container>
+            <ng-template #eAgreementPlaceholder>
+              <div class="upload-icon-small">
+                <i class="fas fa-upload"></i>
+              </div>
+              <p class="upload-text">Upload Agreement</p>
+              <p class="formats-note-small">PDF only</p>
+            </ng-template>
+          </div>
+          <input
+            type="file"
+            #eAgreementInput
+            style="display: none"
+            accept=".pdf"
+            (change)="oneAgreementSelected($event)"
+          />
+          <small class="text-danger" *ngIf="agreementSizeError">
+            {{ agreementSizeError }}
+          </small>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="form-label mb-2">Bank Letter</label>
+          <div class="document-upload-area" (click)="eLetterInput.click()">
+            <ng-container *ngIf="eLetterPreview; else eLetterPlaceholder">
+              <div class="pdf-document-preview">
+                <i class="fas fa-file-pdf"></i>
+                <span class="document-name">{{ eLetterPreview }}</span>
+              </div>
+            </ng-container>
+            <ng-template #eLetterPlaceholder>
+              <div class="upload-icon-small">
+                <i class="fas fa-upload"></i>
+              </div>
+              <p class="upload-text">Upload Bank Letter</p>
+              <p class="formats-note-small">PDF only</p>
+            </ng-template>
+          </div>
+          <input
+            type="file"
+            #eLetterInput
+            style="display: none"
+            accept=".pdf"
+            (change)="oneLetterSelected($event)"
+          />
+          <small class="text-danger" *ngIf="letterSizeError">
+            {{ letterSizeError }}
+          </small>
         </div>
       </div>
 
@@ -422,18 +554,15 @@
         <div class="col-md-4">
           <label class="form-label mb-2">Company Domains</label>
 
-          <!-- Show message if no industry selected -->
           <div *ngIf="!selectedIndustry" class="alert alert-info">
             Please select an Industry Type first
           </div>
 
-          <!-- Custom Multi-Select Dropdown -->
           <div
             *ngIf="selectedIndustry"
             class="custom-multiselect"
             (click)="$event.stopPropagation()"
           >
-            <!-- Dropdown Input with name attribute -->
             <div class="dropdown-input-wrapper">
               <input
                 type="text"
@@ -455,7 +584,6 @@
               >
             </div>
 
-            <!-- Dropdown List -->
             <div class="dropdown-list" *ngIf="isDropdownOpen">
               <div class="dropdown-header">
                 <span>{{ filteredDomains.length }} domain(s) available</span>
@@ -470,12 +598,6 @@
                     toggleDomain(domain.domainID); $event.stopPropagation()
                   "
                 >
-                  <!-- <input
-                    type="checkbox"
-                    [checked]="isDomainSelected(domain.domainID)"
-                    (click)="$event.stopPropagation()"
-                    readonly
-                  /> -->
                   <span class="domain-title">{{ domain.domainTitle }}</span>
                   <span
                     class="checkmark"
@@ -484,7 +606,6 @@
                   >
                 </div>
 
-                <!-- No Results -->
                 <div class="no-results" *ngIf="filteredDomains.length === 0">
                   <p>No domains found</p>
                 </div>
@@ -492,7 +613,6 @@
             </div>
           </div>
 
-          <!-- Selected Count -->
           <small class="text-muted" *ngIf="selectedDomains.length > 0">
             {{ selectedDomains.length }} domain(s) selected
           </small>
@@ -551,4 +671,3 @@
   </div>
 </div>
 <app-footer></app-footer>
-

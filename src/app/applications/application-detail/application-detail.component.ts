@@ -256,6 +256,8 @@ export class ApplicationDetailComponent implements OnInit {
       Contact: user.contact || 'N/A', 
       Country: user.countryName || 'N/A', 
       City: user.cityName || '',
+      Address: user.address || 'N/A', 
+      
       Status: user.jobApplicationStatusTitle || '',
       'Salary Range': user.salaryRange || '',
       'Job Type': user.jobTypeTitle || '',
@@ -264,6 +266,7 @@ export class ApplicationDetailComponent implements OnInit {
         ? new Date(user.appliedAt).toLocaleDateString()
         : '',
       'Study Level': user.studyLevelTitle || '',
+    
     }));
 
     // Create workbook and worksheet
@@ -280,6 +283,7 @@ export class ApplicationDetailComponent implements OnInit {
       { width: 15 }, //contact
       { width: 15 }, // Country
       { width: 15 }, // City
+      {width: 40},  //Address
       { width: 15 }, // Status
       { width: 15 }, // Salary Range
       { width: 15 }, // Job Type

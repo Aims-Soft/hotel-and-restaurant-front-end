@@ -118,7 +118,7 @@ import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-   NgSelectModule, 
+    NgSelectModule, 
    
   ],
   providers: [

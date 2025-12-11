@@ -1,15 +1,7 @@
 <div class="signin-container">
-  <div class="signin-wrapper ">
+  <div class="signin-wrapper">
     <!-- Left Image Section with Zoom Effect -->
-    <div class="image-section signinImage">
-      <!-- <div class="image-wrapper">
-        <img 
-          src="../../assets/images/signin.svg" 
-          class="signin-image" 
-          alt="sign-in" 
-        />
-      </div> -->
-    </div>
+    <div class="image-section signinImage"></div>
 
     <!-- Right Login Section -->
     <div class="form-section">
@@ -130,10 +122,20 @@
               Signing in...
             </span>
           </button>
+
+          <!-- Divider -->
+          <div class="divider-container">
+            <div class="divider-line"></div>
+            <span class="divider-text">OR</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <!-- Google Sign-In Button -->
+          <div #googleButton class="google-button-container mb-0"></div>
             
           <!-- Back to Main Page -->
-          <p class="back-text">
-           For Registration 
+          <p class="back-text mb-0">
+            For Registration 
             <a routerLink="/" class="back-link">Back</a>
           </p>
 
