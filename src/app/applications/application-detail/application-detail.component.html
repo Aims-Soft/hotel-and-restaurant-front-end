@@ -1,20 +1,8 @@
-<!-- <div class="dashborad-position">
-  <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
-    <i class="bi bi-bell fs-4"></i>
-    <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
-      <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
-      <i class="bi bi-chevron-down ms-2 fs-5"></i>
-    </div>
-  </div> -->
-
 <div class="container my-3 px-4">
   <div class="box-border rounded">
     <div class="d-flex row align-items-center px-3 py-2">
       <p class="col-md-3 mt-2 custom-font mt-3">
-        <!-- <a href="" class="me-3 text-black text-decoration-none" >&#8592;</a> -->
-
         <a class="me-3 text-black text-decoration-none" role="button" (click)="goBack()">&#8592;</a> 
-         
         Applications &nbsp;<span class="fw-bold">/ Details</span>
       </p>
       <div
@@ -42,7 +30,7 @@
     </div>
 
     <div class="row g-3">
-      <!-- Applications Column -->
+      <!-- ==================== APPLICATIONS COLUMN ==================== -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm">
           <div
@@ -86,12 +74,11 @@
                   <hr class="my-2" />
                   <p class="mb-1">{{ user.experience }} Experience</p>
                   <p class="text-muted small mb-3">{{ user.email }}</p>
-                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #8b5cf6">
-                      Download CV
-                    </button> -->
-                  <div class="d-grid gap-2">
+
+                  <!-- CV Action Buttons -->
+                  <div class="d-grid gap-2 mb-2">
                     <button
-                      class="btn btn-sm flex-fill text-white fw-semibold"
+                      class="btn btn-sm text-white fw-semibold"
                       style="background-color: #8b5cf6"
                       (click)="viewCV(user)"
                       [disabled]="!user.eResume"
@@ -100,13 +87,51 @@
                       View CV
                     </button>
                     <button
-                      class="btn w-100 text-white fw-semibold"
+                      class="btn btn-sm text-white fw-semibold"
                       style="background-color: #8b5cf6"
                       (click)="downloadCV(user)"
                       [disabled]="!user.eResume"
                     >
                       <i class="bi bi-download me-1"></i>
                       Download CV
+                    </button>
+                  </div>
+
+                  <!-- Status Action Buttons -->
+                  <hr class="my-2" />
+                  <div class="d-grid gap-1">
+                    <div class="row g-1">
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-success w-100"
+                          (click)="moveToStatus(user, 'Shortlisted')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Shortlisted'"
+                          title="Move to Shortlisted"
+                        >
+                          <!-- <i class="bi bi-check-circle"></i> -->
+                           Shortlist
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-danger w-100"
+                          (click)="moveToStatus(user, 'Rejected')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Rejected'"
+                          title="Move to Rejected"
+                        >
+                          <!-- <i class="bi bi-x-circle"></i>  -->
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-info w-100"
+                      (click)="moveToStatus(user, 'Interview')"
+                      [disabled]="user.jobApplicationStatusTitle === 'Interview'"
+                      title="Move to Interview"
+                    >
+                      <!-- <i class="bi bi-calendar-check"></i> -->
+                       Interview
                     </button>
                   </div>
                 </div>
@@ -119,7 +144,7 @@
         </div>
       </div>
 
-      <!-- Shortlisted Column -->
+      <!-- ==================== SHORTLISTED COLUMN ==================== -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm">
           <div
@@ -163,14 +188,12 @@
                   <hr class="my-2" />
                   <p class="mb-1">{{ user.experience }} Experience</p>
                   <p class="text-muted small mb-3">{{ user.email }}</p>
-                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #10b981">
-                      Download CV
-                    </button> -->
 
-                     <div class="d-grid gap-2">
+                  <!-- CV Action Buttons -->
+                  <div class="d-grid gap-2 mb-2">
                     <button
-                      class="btn btn-sm flex-fill text-white fw-semibold"
-                       style="background-color: #10b981"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #10b981"
                       (click)="viewCV(user)"
                       [disabled]="!user.eResume"
                     >
@@ -178,8 +201,8 @@
                       View CV
                     </button>
                     <button
-                      class="btn w-100 text-white fw-semibold"
-                        style="background-color: #10b981"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #10b981"
                       (click)="downloadCV(user)"
                       [disabled]="!user.eResume"
                     >
@@ -187,15 +210,44 @@
                       Download CV
                     </button>
                   </div>
-                  <!-- <button
-                    class="btn w-100 text-white fw-semibold"
-                    style="background-color: #10b981"
-                    (click)="downloadCV(user)"
-                    [disabled]="!user.eResume"
-                  >
-                    <i class="bi bi-download me-1"></i>
-                    Download CV
-                  </button> -->
+
+                  <!-- Status Action Buttons -->
+                  <hr class="my-2" />
+                  <div class="d-grid gap-1">
+                    <div class="row g-1">
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-primary w-100"
+                          (click)="moveToStatus(user, 'Application')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Application'"
+                          title="Move to Application"
+                        >
+                          <!-- <i class="bi bi-arrow-left"></i>  -->
+                          Application
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-danger w-100"
+                          (click)="moveToStatus(user, 'Rejected')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Rejected'"
+                          title="Move to Rejected"
+                        >
+                          <!-- <i class="bi bi-x-circle"></i> -->
+                           Reject
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-info w-100"
+                      (click)="moveToStatus(user, 'Interview')"
+                      [disabled]="user.jobApplicationStatusTitle === 'Interview'"
+                      title="Move to Interview"
+                    >
+                      <!-- <i class="bi bi-calendar-check"></i> -->
+                       Interview
+                    </button>
+                  </div>
                 </div>
               </div>
             </ng-container>
@@ -206,7 +258,7 @@
         </div>
       </div>
 
-      <!-- Interview Column -->
+      <!-- ==================== INTERVIEW COLUMN ==================== -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm">
           <div
@@ -250,22 +302,12 @@
                   <hr class="my-2" />
                   <p class="mb-1">{{ user.experience }} Experience</p>
                   <p class="text-muted small mb-3">{{ user.email }}</p>
-                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #3b82f6">
-                      Download CV
-                    </button> -->
-                  <!-- <button
-                    class="btn w-100 text-white fw-semibold"
-                    style="background-color: #3b82f6"
-                    (click)="downloadCV(user)"
-                    [disabled]="!user.eResume"
-                  >
-                    <i class="bi bi-download me-1"></i>
-                    Download CV
-                  </button> -->
-                   <div class="d-grid gap-2">
+
+                  <!-- CV Action Buttons -->
+                  <div class="d-grid gap-2 mb-2">
                     <button
-                      class="btn btn-sm flex-fill text-white fw-semibold"
-                       style="background-color: #3b82f6"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #3b82f6"
                       (click)="viewCV(user)"
                       [disabled]="!user.eResume"
                     >
@@ -273,13 +315,51 @@
                       View CV
                     </button>
                     <button
-                      class="btn w-100 text-white fw-semibold"
-                         style="background-color: #3b82f6"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #3b82f6"
                       (click)="downloadCV(user)"
                       [disabled]="!user.eResume"
                     >
                       <i class="bi bi-download me-1"></i>
                       Download CV
+                    </button>
+                  </div>
+
+                  <!-- Status Action Buttons -->
+                  <hr class="my-2" />
+                  <div class="d-grid gap-1">
+                    <div class="row g-1">
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-primary w-100"
+                          (click)="moveToStatus(user, 'Application')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Application'"
+                          title="Move to Application"
+                        >
+                          <!-- <i class="bi bi-arrow-left"></i> -->
+                           Application
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-success w-100"
+                          (click)="moveToStatus(user, 'Shortlisted')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Shortlisted'"
+                          title="Move to Shortlisted"
+                        >
+                          <!-- <i class="bi bi-check-circle"></i> -->
+                           Shortlist
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-danger w-100"
+                      (click)="moveToStatus(user, 'Rejected')"
+                      [disabled]="user.jobApplicationStatusTitle === 'Rejected'"
+                      title="Move to Rejected"
+                    >
+                      <!-- <i class="bi bi-x-circle"></i>  -->
+                      Reject
                     </button>
                   </div>
                 </div>
@@ -292,7 +372,7 @@
         </div>
       </div>
 
-      <!-- Rejected Column -->
+      <!-- ==================== REJECTED COLUMN ==================== -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm">
           <div
@@ -336,22 +416,12 @@
                   <hr class="my-2" />
                   <p class="mb-1">{{ user.experience }} Experience</p>
                   <p class="text-muted small mb-3">{{ user.email }}</p>
-                  <!-- <button class="btn w-100 text-white fw-semibold" style="background-color: #ef4444">
-                      Download CV
-                    </button> -->
-                  <!-- <button
-                    class="btn w-100 text-white fw-semibold"
-                    style="background-color: #ef4444"
-                    (click)="downloadCV(user)"
-                    [disabled]="!user.eResume"
-                  >
-                    <i class="bi bi-download me-1"></i>
-                    Download CV
-                  </button> -->
-                  <div class="d-grid gap-2">
+
+                  <!-- CV Action Buttons -->
+                  <div class="d-grid gap-2 mb-2">
                     <button
-                      class="btn btn-sm flex-fill text-white fw-semibold"
-                     style="background-color: #ef4444"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #ef4444"
                       (click)="viewCV(user)"
                       [disabled]="!user.eResume"
                     >
@@ -359,13 +429,51 @@
                       View CV
                     </button>
                     <button
-                      class="btn w-100 text-white fw-semibold"
-                   style="background-color: #ef4444"
+                      class="btn btn-sm text-white fw-semibold"
+                      style="background-color: #ef4444"
                       (click)="downloadCV(user)"
                       [disabled]="!user.eResume"
                     >
                       <i class="bi bi-download me-1"></i>
                       Download CV
+                    </button>
+                  </div>
+
+                  <!-- Status Action Buttons -->
+                  <hr class="my-2" />
+                  <div class="d-grid gap-1">
+                    <div class="row g-1">
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-primary w-100"
+                          (click)="moveToStatus(user, 'Application')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Application'"
+                          title="Move to Application"
+                        >
+                          <!-- <i class="bi bi-arrow-left"></i>  -->
+                          Application
+                        </button>
+                      </div>
+                      <div class="col-6">
+                        <button
+                          class="btn btn-sm btn-success w-100"
+                          (click)="moveToStatus(user, 'Shortlisted')"
+                          [disabled]="user.jobApplicationStatusTitle === 'Shortlisted'"
+                          title="Move to Shortlisted"
+                        >
+                          <!-- <i class="bi bi-check-circle"></i>  -->
+                          Shortlist
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-info w-100"
+                      (click)="moveToStatus(user, 'Interview')"
+                      [disabled]="user.jobApplicationStatusTitle === 'Interview'"
+                      title="Move to Interview"
+                    >
+                      <!-- <i class="bi bi-calendar-check"></i> -->
+                       Interview
                     </button>
                   </div>
                 </div>
@@ -380,4 +488,3 @@
     </div>
   </div>
 </div>
-<!-- </div> -->
