@@ -8,13 +8,23 @@
       <!-- Logo Upload Section -->
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
+
           <label class="form-label mb-2">Profile Image</label>
 
           <!-- Profile Image Upload Area -->
-          <div class="upload-area" (click)="triggerImageUpload()">
+          <div class="upload-area" (click)="profilePicker.triggerSelect()">
+
+           
+
             <div class="avatar-preview mat-elevation-z10 mb-2">
+
+                 <img
+                *ngIf="imageFileName"
+                [src]="imageFileName"
+                class="avatar-preview"
+              />
               <div
-                id="imagePreview"
+                id="profilePicker"
                 class="preview-container"
                 [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
               >
@@ -28,15 +38,25 @@
               </div>
             </div>
             <div class="avatar-edit">
-              <input
+              <app-file-picker
+                #profilePicker
+                acceptTypes=".png,.jpg,.jpeg,.svg"
+                (fileSelected)="onImageFileSelected($event)"
+              >
+              </app-file-picker>
+              <!-- <input
                 type="file"
                 id="imageUpload"
                 accept=".png,.jpg,.jpeg"
                 #imageFileInput
                 (change)="onImageFileSelected($event)"
                 style="display: none"
-              />
-              <div class="file-name">Selected: {{ imageFileName || 'No file selected' }}</div>
+              /> -->
+            
+
+              <!-- <div class="file-name">
+                Selected: {{ imageFileName || "No file selected" }}
+              </div> -->
             </div>
           </div>
         </div>
@@ -45,14 +65,20 @@
           <label class="form-label mb-2">Upload Resume</label>
 
           <!-- Resume Upload Area -->
-          <div class="avatar-upload upload-area" (click)="triggerPdfUpload()">
+          <div
+            class="avatar-upload upload-area"
+            (click)="pdfPreview.triggerSelect()"
+          >
             <div class="avatar-preview mat-elevation-z10 mb-2">
               <div
                 id="pdfPreview"
                 class="preview-container"
-                [ngClass]="{'pdf-preview': pdfFileName || hasResume}"
+                [ngClass]="{ 'pdf-preview': pdfFileName || hasResume }"
               >
-                <div class="preview-placeholder" *ngIf="!pdfFileName && !hasResume">
+                <div
+                  class="preview-placeholder"
+                  *ngIf="!pdfFileName && !hasResume"
+                >
                   <div class="upload-icon">
                     <i class="fas fa-cloud-upload-alt"></i>
                   </div>
@@ -61,28 +87,42 @@
                 </div>
                 <div class="pdf-icon" *ngIf="pdfFileName || hasResume">
                   <i class="fas fa-file-pdf"></i>
-                  <span class="pdf-name">{{ pdfFileName || 'Resume.pdf' }}</span>
+                  <span class="pdf-name">{{
+                    pdfFileName || "Resume.pdf"
+                  }}</span>
                 </div>
               </div>
             </div>
             <div class="avatar-edit">
-              <input
+              <app-file-picker
+                #pdfPreview
+                acceptTypes=".pdf"
+                (fileSelected)="onPdfFileSelected($event)"
+              >
+              </app-file-picker>
+              <!-- <input
                 type="file"
                 id="pdfUpload"
                 accept=".pdf"
                 #pdfFileInput
                 (change)="onPdfFileSelected($event)"
-                style="display: none"
-              />
-              <div class="file-name">Selected: {{ pdfFileName || 'No file selected' }}</div>
+                style="display: none" -->
+              <!-- /> -->
+              <div class="file-name">
+                Selected: {{ pdfFileName || "No file selected" }}
+              </div>
             </div>
           </div>
         </div>
-        
+
         <!-- View Resume Section -->
-        <div class="col-md-12 mt-3 text-center py-1 d-block pic-border">
+        <div class="col-md-3 offset-8 mt-1 text-center py-1 d-block ">
           <div *ngIf="hasResume; else noResume">
-            <a [href]="resumeUrl" target="_blank" class="btn btn-outline-primary">
+            <a
+              [href]="resumeUrl"
+              target="_blank"
+              class="btn btn-outline-primary"
+            >
               <i class="fas fa-eye"></i> View Resume
             </a>
           </div>
@@ -102,7 +142,7 @@
           <input
             type="text"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="Enter User Name"
             [(ngModel)]="userName"
             name="userName"
@@ -116,13 +156,13 @@
             User name is required
           </div>
         </div>
-        
+
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2">User CNIC</label>
           <input
             type="text"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="XXXXX-XXXXXXX-X"
             [(ngModel)]="cnic"
             name="cnic"
@@ -147,7 +187,7 @@
           <input
             type="text"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="Enter profession"
             [(ngModel)]="profession"
             name="profession"
@@ -201,7 +241,7 @@
           <input
             type="text"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="Address"
             [(ngModel)]="address"
             name="address"
@@ -224,7 +264,7 @@
           <input
             type="text"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="Phone number"
             [(ngModel)]="contactNo"
             name="contactNo"
@@ -244,13 +284,14 @@
           <input
             type="email"
             class="form-control"
-            style="height: 42px;"
+            style="height: 42px"
             placeholder="Email address"
             [(ngModel)]="companyEmail"
             name="companyEmail"
             required
             email
             #emailCtrl="ngModel"
+            disabled
           />
           <div
             *ngIf="emailCtrl.invalid && emailCtrl.touched"
@@ -379,15 +420,12 @@
           <label class="form-label mb-2">User Domains</label>
 
           <!-- Custom Multi-Select Dropdown -->
-          <div
-            class="custom-multiselect"
-            (click)="$event.stopPropagation()"
-          >
+          <div class="custom-multiselect" (click)="$event.stopPropagation()">
             <div class="dropdown-input-wrapper">
               <input
                 type="text"
                 class="form-control dropdown-input"
-                style="height: 42px;"
+                style="height: 42px"
                 [(ngModel)]="searchText"
                 name="searchText"
                 (ngModelChange)="onSearchChange()"
@@ -407,9 +445,7 @@
             <!-- Dropdown List -->
             <div class="dropdown-list" *ngIf="isDropdownOpen">
               <div class="dropdown-header">
-                <span
-                  >{{ filteredDomains.length }} domain(s) available</span
-                >
+                <span>{{ filteredDomains.length }} domain(s) available</span>
               </div>
 
               <div class="dropdown-items">
@@ -436,10 +472,7 @@
                 </div>
 
                 <!-- No Results -->
-                <div
-                  class="no-results"
-                  *ngIf="filteredDomains.length === 0"
-                >
+                <div class="no-results" *ngIf="filteredDomains.length === 0">
                   <p>No domains found</p>
                 </div>
               </div>
@@ -481,16 +514,19 @@
       <div *ngIf="errorMessage" class="alert alert-danger mt-3">
         {{ errorMessage }}
       </div>
-      
+
       <!-- Form Actions -->
       <div class="d-flex justify-content-end gap-2 mt-4">
-        <button type="button" class="btn btn-register" (click)="onRegister()" [disabled]="isLoading">
+        <button
+          type="button"
+          class="btn btn-register"
+          (click)="onRegister()"
+          [disabled]="isLoading"
+        >
           <span *ngIf="isLoading">
             <i class="fas fa-spinner fa-spin"></i> Updating...
           </span>
-          <span *ngIf="!isLoading">
-            Update Profile
-          </span>
+          <span *ngIf="!isLoading"> Update Profile </span>
         </button>
       </div>
     </form>

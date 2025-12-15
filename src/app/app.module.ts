@@ -62,6 +62,7 @@ import { UserProfileComponent } from './home-page/user-profile/user-profile.comp
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
 import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
+import { FilePickerComponent } from './file-picker/file-picker.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
     ImageUploadComponent,
     ContactMessagesComponent,
     FilterMessagesPipe,
+    FilePickerComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,8 @@ export const environment = {
   apiUrl: 'https://pakistanjobsportal.com:16000/',
   // apiUrl: 'http://159.69.174.28:6601/',
   imageUrl: 'C:/inetpub/wwwroot/jobPortal/jobPortal-app/assets/Job-images/',
-  //  imageUrl: 'C:/inetpub/wwwroot/LogixProject/logix-app/assets/ui/',
+
+  //  imageUrl: 'C:/inetpub\wwwroot\jobPortal\jobPortal-app\assets\Job-images',
   // productUrl: 'http://135.181.62.34:8070/',
   // productUrl: 'https://159.69.174.28:16600/',
     productUrl: 'https://pakistanjobsportal.com/',
