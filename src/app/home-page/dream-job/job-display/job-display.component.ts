@@ -54,7 +54,7 @@ export class JobDisplayComponent implements OnInit, OnChanges {
 
   getAlljobs(filterTitle?: string): void {
     this.isLoading = true;
-    this.websiteservice.getAdminJobs(0).subscribe(
+    this.websiteservice.getActiveJobs(0).subscribe(
       (response: any[]) => {
         this.isLoading = false;
         this.jobs = response;

@@ -33,6 +33,11 @@ export class WebsiteService {
     `${this.apiUrl}job-api/Admin/AllJobs?companyID=${companyID}`
   );
 }
+   getActiveJobs(companyID: number): Observable<any> {
+  return this.http.get<any>(
+    `${this.apiUrl}job-api/Admin/AllDashboardJobs?companyID=${companyID}`
+  );
+}
 
     getAlljobs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Admin/AllJobs`);
