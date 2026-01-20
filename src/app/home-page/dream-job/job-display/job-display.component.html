@@ -1,7 +1,4 @@
-
-
-
-    <!-- Loading State -->
+<!-- Loading State -->
 <div *ngIf="isLoading" class="loading-spinner">
   <i class="fas fa-spinner fa-spin"></i>
   <p class="mt-3 text-muted">Loading jobs...</p>
@@ -37,12 +34,12 @@
 
             <!-- Company Info -->
             <div class="company-info">
-              <img 
-                [src]="job.eLogo" 
+              <img
+                [src]="job.eLogo"
                 [alt]="job.companyName + ' logo'"
                 class="company-logo"
                 onerror="this.src='assets/images/default-company.png'"
-              >
+              />
               <h3 class="company-name">{{ job.companyName }}</h3>
             </div>
           </div>
@@ -69,13 +66,59 @@
               </div>
 
               <!-- Apply Button -->
-              <button 
-                class="apply-btn mt-2"
-                (click)="goToApply(job.jobID)"
-              >
-                <i class="bi bi-eye me-2"></i>
-                View Details
-              </button>
+
+              <!-- Apply & Share Buttons -->
+              <div class="action-buttons">
+                <button class="apply-btn" (click)="goToApply(job.jobID)">
+                  <i class="bi bi-eye me-2"></i>
+                  View Details
+                </button>
+
+                <!-- Custom Share Dropdown (No Bootstrap JS needed) -->
+                <div class="share-dropdown-container">
+                  <button
+                    class="share-btn"
+                    (click)="toggleShareDropdown(job.jobID, $event)"
+                  >
+                    <i class="bi bi-share"></i>
+                  </button>
+
+                  <!-- Dropdown Menu -->
+                  <div
+                    class="share-dropdown-menu"
+                    [class.show]="isDropdownOpen(job.jobID)"
+                  >
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareJob(job, $event)"
+                    >
+                      <i class="bi bi-link-45deg"></i>
+                      <span>Copy Link</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaWhatsApp(job, $event)"
+                    >
+                      <i class="bi bi-whatsapp"></i>
+                      <span>WhatsApp</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaLinkedIn(job, $event)"
+                    >
+                      <i class="bi bi-linkedin"></i>
+                      <span>LinkedIn</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaEmail(job, $event)"
+                    >
+                      <i class="bi bi-envelope"></i>
+                      <span>Email</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -88,16 +131,19 @@
 <div *ngIf="displayedJobs.length === 0 && !isLoading" class="empty-state">
   <i class="bi bi-briefcase"></i>
   <p>No jobs found matching your criteria.</p>
-  <small class="text-muted">Try adjusting your filters or check back later for new opportunities.</small>
+  <small class="text-muted"
+    >Try adjusting your filters or check back later for new
+    opportunities.</small
+  >
 </div>
 
-<!-- More Jobs Button -->
 <div class="more-jobs-container" *ngIf="jobs.length > 3 && !isLoading">
   <p class="jobs-counter">
-    Showing <strong>{{ displayedJobs.length }}</strong> of <strong>{{ jobs.length }}</strong> jobs
+    Showing <strong>{{ displayedJobs.length }}</strong> of
+    <strong>{{ jobs.length }}</strong> jobs
   </p>
   <button class="more-jobs-btn" (click)="toggleJobs()">
-    <span>{{ showAll ? 'Show Less Jobs' : 'Browse More Jobs' }}</span>
+    <span>{{ showAll ? "Show Less Jobs" : "Browse More Jobs" }}</span>
     <i class="bi" [ngClass]="showAll ? 'bi-arrow-up' : 'bi-arrow-right'"></i>
   </button>
 </div>

@@ -27,13 +27,22 @@ export class CompanyDiscriptionComponent implements OnInit {
     private websiteservice: WebsiteService,
     private route: ActivatedRoute,
     private router: Router,
+    private usersessionservice: UserSessionService,
   ) {}
 
+goToApply(jobId: number): void {
+    const user = this.usersessionservice.getUserID();
 
+    if (user) {
+      this.router.navigate(['/applyForm', jobId]);
+    } else {
+      this.router.navigate(['/signIn']);
+    }
+  }
 
-  goToApply(jobId: number) {
-  this.router.navigate(['/applyForm', jobId]);
-}
+//   goToApply(jobId: number) {
+//   this.router.navigate(['/applyForm', jobId]);
+// }
 
 
  getJobById(jobId: number): void {

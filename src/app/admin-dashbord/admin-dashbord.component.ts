@@ -87,7 +87,7 @@ export class AdminDashbordComponent implements OnInit {
         // Map the response to include toggleStatus based on companyStatusID
         this.companies = response.map((company) => ({
           ...company,
-          toggleStatus: company.companyStatusID === 1, // true if Approved (1), false otherwise
+          toggleStatus: company.companyStatusID === 1, 
         }));
 
         this.companyTotalPages = Math.ceil(
