@@ -35,7 +35,7 @@ export class WebsiteService {
 }
    getActiveJobs(companyID: number): Observable<any> {
   return this.http.get<any>(
-    `${this.apiUrl}job-api/Admin/AllDashboardJobs?companyID=${companyID}`
+    `${this.apiUrl}job-api/Dashboard/AllDashboardJobs?companyID=${companyID}`
   );
 }
 

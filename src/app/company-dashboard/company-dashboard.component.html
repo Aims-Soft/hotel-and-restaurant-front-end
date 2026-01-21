@@ -267,6 +267,49 @@
                 >
                 </ng-select>
               </div>
+                <div class="share-dropdown-container">
+                  <button
+                    class="share-btn"
+                    (click)="toggleShareDropdown(job.jobID, $event)"
+                  >
+                    <i class="bi bi-share"></i>
+                  </button>
+
+                  <!-- Dropdown Menu -->
+                  <div
+                    class="share-dropdown-menu"
+                    [class.show]="isDropdownOpen(job.jobID)"
+                  >
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareJob(job, $event)"
+                    >
+                      <i class="bi bi-link-45deg"></i>
+                      <span>Copy Link</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaWhatsApp(job, $event)"
+                    >
+                      <i class="bi bi-whatsapp"></i>
+                      <span>WhatsApp</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaLinkedIn(job, $event)"
+                    >
+                      <i class="bi bi-linkedin"></i>
+                      <span>LinkedIn</span>
+                    </a>
+                    <a
+                      class="share-dropdown-item"
+                      (click)="shareViaEmail(job, $event)"
+                    >
+                      <i class="bi bi-envelope"></i>
+                      <span>Email</span>
+                    </a>
+                  </div>
+                </div>
               <i
                 class="bi bi-pencil-square fs-5 text-primary cursor-pointer"
                 (click)="editJob(job)"
