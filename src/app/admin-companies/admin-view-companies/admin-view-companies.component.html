@@ -1,9 +1,8 @@
 <div *ngIf="company">
-
   <div class="container my-4 col-md-12">
     <div class="card shadow-sm rounded-3 border-0">
       <!-- Header -->
-      <div class="card-header bg-light border-0 p-4">
+      <div class="card-header border-0 p-4" style="background-color: #E5F0EB;">
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center">
             <!-- Company Logo -->
@@ -34,14 +33,14 @@
               </div>
             </div>
           </div>
-          <div class="d-flex align-items-center">
+          <!-- <div class="d-flex align-items-center">
             <button class="btn btn-sm btn-outline-primary me-2">
               <i class="bi bi-pencil-square"></i>
             </button>
             <button class="btn btn-sm btn-outline-danger">
               <i class="bi bi-trash"></i>
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -78,6 +77,60 @@
           </div>
         </div>
 
+        <!-- View Documents Section -->
+        <div *ngIf="getAvailableDocuments().length > 0" class="mb-4">
+          <h6 class="fw-bold mb-3">
+            <i class="bi bi-file-earmark-check me-2"></i>Company Documents
+          </h6>
+          <div class="row">
+            <div 
+              class="col-md-3 col-sm-6 mb-3" 
+              *ngFor="let doc of getAvailableDocuments()">
+              <div class="document-card border rounded p-3 h-100 position-relative">
+                <!-- Document Icon with Color -->
+                <div class="document-icon-wrapper mb-3 text-center">
+                  <div 
+                    class="document-icon rounded-circle d-inline-flex align-items-center justify-content-center"
+                    [style.background-color]="doc.color + '20'"
+                    [style.color]="doc.color">
+                    <i [class]="'bi ' + doc.icon + ' fs-2'"></i>
+                  </div>
+                </div>
+
+                <!-- Document Label -->
+                <p class="fw-semibold text-center mb-2 small">{{ doc.label }}</p>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2 justify-content-center">
+                  <button 
+                    class="btn btn-sm btn-outline-primary flex-fill"
+                    (click)="viewDocument(doc.key)"
+                    title="View Document">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-outline-success flex-fill"
+                    (click)="downloadDocument(doc.key, doc.label)"
+                    title="Download Document">
+                    <i class="bi bi-download"></i>
+                  </button>
+                </div>
+
+                <!-- Verification Badge -->
+                <span class="verification-badge">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Documents Message -->
+        <div *ngIf="getAvailableDocuments().length === 0" class="alert alert-info mb-4">
+          <i class="bi bi-info-circle me-2"></i>
+          No documents available for this company.
+        </div>
+
         <!-- About -->
         <div>
           <h6 class="fw-bold">About The Company</h6>
@@ -87,6 +140,7 @@
         </div>
       </div>
     </div>
+
     <div class="mt-5 mb-5 ms-2">
       <div class="d-flex align-items-center">
         <img
@@ -95,11 +149,11 @@
           alt=""
         />
         <p class="mt-2 ms-2" style="font-style: 1.1em; color: #004643">
-          Browse More Jobs
+          Browse More Internships
         </p>
       </div>
       <h3 class="fw-bold" style="font-size: 56px; color: #0d0125">
-        Jobs In this Company
+        Internships In this Company
       </h3>
     </div>
 
@@ -108,31 +162,32 @@
       *ngFor="let job of jobs"
     >
       <div class="col-md-5 mt-2">
-        <h2 class="ms-2 fw-bold title">{{ job.jobTitle }}</h2>
-        <div class="d-flex">
-          <p class="px-3 py-2 experience">
-            {{ job.experienceRange }} Years Experience
-          </p>
-          <p class="ms-3 px-3 py-2 experience">{{ job.jobTypeTitle }}</p>
-          <p class="ms-3 px-3 py-2 experience">{{ job.jobSpaceTitle }}</p>
+        <div class="row">
+          <div class="col-2">
+            <img
+              [src]="job.eLogo"
+              [alt]="job.companyName + ' logo'"
+              class="company-logo"
+              onerror="this.src='assets/images/default-company.png'"
+            />
+          </div>
+          <div class="col-10">
+            <h2 class="job-title mt-2">{{ job.jobTitle }}</h2>
+            <p class="company-name-modern fw-bold">{{ job.companyName }}</p>
+          </div>
         </div>
-        <div class="d-flex align-items-center">
-          <img
-            src="../../../../assets/images/companylogo.svg"
-            class="img-fluid"
-            alt="logo"
-          />
-          <h2 class="ms-3 companyName">{{ job.companyName }}</h2>
+        <div class="job-badge-container mt-2">
+          <span class="job-pill">{{ job.salaryRange }}/Month</span>
+          <span class="job-pill">{{ job.jobTypeTitle }}</span>
+          <span class="job-pill">{{ job.jobSpaceTitle }}</span>
+          <span class="job-pill">+{{ job.experienceRange }}</span>
         </div>
       </div>
       <div class="col-md-4 offset-md-3 ps-5">
         <p class="ps-5 ms-4 duration">
           <i class="bi bi-alarm"></i>
-          <small class="ms-2" style="font-size: 1em">
-            {{ job.displayTime }}</small
-          >
+          <small class="ms-2" style="font-size: 1em">{{ job.displayTime }}</small>
         </p>
-        <p class="fw-bold stipend">Pkr{{ job.salaryRange }}/Monthly</p>
         <p class="ps-5 city">{{ job.cityName }}</p>
         <div class="ms-4">
           <button
