@@ -450,8 +450,8 @@ eAgreement : string= '';
         // Log payload for debugging
         console.log('Final payload:', {
           ...payload,
-          eLogo: payload.eLogo ? `[BASE64: ${payload.eLogo.length} chars]` : '',
-          eDoc: payload.eDoc ? `[BASE64: ${payload.eDoc.length} chars]` : '',
+          // eLogo: payload.eLogo ? `[BASE64: ${payload.eLogo.length} chars]` : '',
+          // eDoc: payload.eDoc ? `[BASE64: ${payload.eDoc.length} chars]` : '',
         });
 
         // Make API call
