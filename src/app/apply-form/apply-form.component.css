@@ -1,0 +1,273 @@
+/* // Apply Form Page Responsive Styles */
+
+/* // Main container */
+.container[style*="margin-top: 5em"] {
+  @media (max-width: 576px) {
+    margin-top: 2em !important;
+    padding: 0;
+  }
+}
+
+/* // Header row with Go Back button */
+.row.ms-5 {
+  @media (max-width: 576px) {
+    margin-left: 0 !important;
+    
+    .col-md-4 {
+      padding: 0 1rem;
+      
+      &:first-child {
+        margin-bottom: 1rem;
+      }
+      
+      &.text-center {
+        text-align: left !important;
+      }
+    }
+  }
+}
+
+/* // Go Back button */
+.go-back {
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9em;
+  }
+}
+
+/* // Apply For Job heading */
+.apply-job {
+  @media (max-width: 576px) {
+    font-size: 1.5em !important;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* // Detail text */
+.detailApply-jobText {
+  @media (max-width: 576px) {
+    font-size: 0.9em;
+  }
+}
+
+/* // Profile Image and Resume row */
+.row.mt-4.mx-5 {
+  @media (max-width: 576px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 1rem;
+    
+    .col-md-6 {
+      margin-bottom: 1.5rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      p {
+        font-size: 0.95em;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+/* // Picture border boxes */
+.pic-border {
+  @media (max-width: 576px) {
+    padding: 1rem !important;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      max-height: 120px !important;
+    }
+    
+    .pic-border-inner {
+      margin-top: 0 !important;
+      padding: 2rem 1rem;
+    }
+    
+    .btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9em;
+    }
+  }
+}
+
+/* // Form section */
+form.mx-5 {
+  @media (max-width: 576px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 1rem;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* // Form rows */
+form .row {
+  @media (max-width: 576px) {
+    .col-md-4 {
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    &.mt-3 {
+      margin-top: 1rem !important;
+    }
+  }
+}
+
+/* // Form inputs and labels */
+.d-flex.flex-column {
+  @media (max-width: 576px) {
+    label {
+      font-size: 0.9em;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    input,
+    select {
+      padding: 0.65rem 0.75rem !important;
+      font-size: 0.9em !important;
+      margin-top: 0.5rem !important;
+    }
+    
+    .form-select {
+      background-position: right 0.75rem center;
+    }
+    
+    small {
+      font-size: 0.75em;
+    }
+  }
+}
+
+/* // Bottom buttons section */
+.text-end.mx-5 {
+  @media (max-width: 576px) {
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 1rem;
+    margin-bottom: 1.5rem !important;
+    
+    .btn {
+      width: 48%;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.9em;
+      
+      &.me-3 {
+        margin-right: 0.5rem !important;
+      }
+    }
+  }
+}
+
+/* // Cancel button */
+.cancel-btn-border {
+  @media (max-width: 576px) {
+    padding: 0.7rem 1rem !important;
+  }
+}
+
+/* // Apply button */
+.apply-btn-style {
+  @media (max-width: 576px) {
+    padding: 0.7rem 1rem !important;
+    
+    i,
+    .spinner-border {
+      font-size: 0.9em;
+    }
+  }
+}
+
+/* // Alert messages */
+.alert.mx-5 {
+  @media (max-width: 576px) {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+    font-size: 0.85em;
+    padding: 0.75rem 1rem;
+    
+    i {
+      font-size: 1.1em;
+    }
+    
+    .btn-close {
+      font-size: 0.75em;
+    }
+  }
+}
+
+/* // Additional mobile fixes */
+@media (max-width: 576px) {
+  /* // Remove extra padding from container */
+  .container .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  /* // Input border styling */
+  .input-border {
+    border: 1px solid #ddd !important;
+  }
+  
+  /* // Disabled inputs text color */
+  input:disabled,
+  select:disabled {
+    background-color: #f8f9fa;
+    color: #6c757d !important;
+  }
+  
+  /* // Better touch targets */
+  button,
+  input,
+  select {
+    min-height: 44px;
+  }
+  
+  /* // Error message alignment */
+  small.text-danger {
+    display: block;
+    margin-top: 0.25rem;
+    
+    i {
+      font-size: 0.9em;
+    }
+  }
+}
+
+/* // Extra small devices (<375px) */
+@media (max-width: 375px) {
+  .apply-job {
+    font-size: 1.3em !important;
+  }
+  
+  .text-end.mx-5 .btn {
+    font-size: 0.85em;
+    padding: 0.65rem 0.75rem !important;
+  }
+  
+  form .d-flex.flex-column {
+    label {
+      font-size: 0.85em;
+    }
+    
+    input,
+    select {
+      font-size: 0.85em !important;
+    }
+  }
+}
