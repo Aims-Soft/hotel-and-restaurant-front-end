@@ -67,4 +67,13 @@ goToApply(jobId: number): void {
       }
     );
   }
+
+  splitByDot(text: string | undefined): string[] {
+  if (!text) return [];
+  return text
+    .split('.')
+    .map(item => item.trim())
+    .filter(item => item.length > 0);
+}
+
 }

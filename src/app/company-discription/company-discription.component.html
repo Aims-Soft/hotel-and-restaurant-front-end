@@ -15,7 +15,25 @@
       class="row mx-4 mt-3 px-3 py-2 rounded"
       style="box-shadow: 0 0 2px rgb(195, 192, 192); background-color: #f2f1fe"
     >
+    
       <div class="col-md-5 mt-2">
+         <div class="d-flex align-items-center">
+          <img
+        
+             [src]="job?.eLogo || '../../../../assets/images/companylogo.svg'"
+            class="img-fluid  company-logo"
+            alt="logo"
+          />
+          
+
+          <h2 style="color: #0d0125; font-size: 1.4em" class="ms-3">
+           
+            {{job?.jobTitle}} 
+            <br>
+            <span class="text-muted small">{{job?.companyName}}</span>
+           
+          </h2>
+        </div>
         <h2 style="color: #0d0125; font-size: 1.2em" class="ms-2 fw-bold"></h2>
         <div class="d-flex">
           <p
@@ -50,16 +68,7 @@
             {{ job?.jobSpaceTitle }}
           </p>
         </div>
-        <div class="d-flex align-items-center">
-          <img
-            src="../../../../assets/images/companylogo.svg"
-            class="img-fluid"
-            alt="logo"
-          />
-          <h2 style="color: #0d0125; font-size: 1.4em" class="ms-3">
-            {{ job?.companyName }}
-          </h2>
-        </div>
+       
       </div>
       <div class="col-md-4 offset-md-3 ps-5">
         <p class="ps-5 ms-4" style="color: #8e7fff">
@@ -92,17 +101,19 @@
     <!-- All requirments & Detail -->
     <div class="row mt-4">
       <div class="col-md-6">
-        <h3 class="fw-bold" style="color: #192c2e">Responsibilities</h3>
-        <ul style="font-size: 1.2em">
-          <li>{{ job?.responsibilities }}.</li>
-        </ul>
-
+     <h3 class="fw-bold" style="color: #192c2e">Responsibilities</h3>
+   <ul style="font-size: 1.2em">
+  <li *ngFor="let item of splitByDot(job?.responsibilities)">
+    {{ item }}
+  </li>
+</ul>
         <!-- Requirments -->
-        <h3 class="fw-bold" style="color: #192c2e">Requirments</h3>
-        <ul style="font-size: 1.2em">
-          <li>{{ job?.requirements }}.</li>
-        </ul>
-       
+       <h3 class="fw-bold" style="color: #192c2e">Requirements</h3>
+<ul style="font-size: 1.2em">
+  <li *ngFor="let item of splitByDot(job?.requirements)">
+    {{ item }}
+  </li>
+</ul>
       </div>
       
       <!-- Preffered skills -->
