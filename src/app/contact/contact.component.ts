@@ -14,7 +14,7 @@ export class ContactComponent  implements OnInit{
   errorMessage: string = '';
   isSubmitting: boolean = false;
 
-  title= "pakistanjobsportal@gmail.com";
+  title= "hotelandrestaurantstaffportalofpakistan@gmail.com";
 
   ngOnInit(): void {
     

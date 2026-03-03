@@ -6,6 +6,6 @@ export const environment = {
   // apiUrl: 'http://159.69.174.28:6601/',
   // productUrl: 'http://135.181.62.34:8070/',
   // productUrl: 'https://159.69.174.28:16600/',
-  productUrl: 'https://pakistanjobsportal.com/',
-   googleClientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+  productUrl: 'https://hotelandrestaurantstaffportalofpakistan.com/',
+  googleClientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
 };

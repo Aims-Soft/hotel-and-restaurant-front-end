@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
-  title= "pakistanjobsportal@gmail.com";
+  title= "hotelandrestaurantstaffportalofpakistan@gmail.com";
 }
