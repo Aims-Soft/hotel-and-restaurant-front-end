@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
   envName: 'prod',
-  apiUrlauth: 'https://hotelandrestaurantstaffportalofpakistan.com:16000/',
-  // apiUrlauth: 'http://localhost:16000/',
+  // apiUrlauth: 'https://hotelandrestaurantstaffportalofpakistan.com:9081/',
+  apiUrlauth: 'http://localhost:9081/',
 
-  // apiUrl: 'http://localhost:16000/',
-  apiUrl: 'https://hotelandrestaurantstaffportalofpakistan.com:16000/',
+  apiUrl: 'http://localhost:9081/',
+  // apiUrl: 'https://hotelandrestaurantstaffportalofpakistan.com:9081/',
   // apiUrl: 'http://159.69.174.28:6601/',
   imageUrl: 'C:/inetpub/wwwroot/jobPortal/jobPortal-app/assets/Job-images/',
 

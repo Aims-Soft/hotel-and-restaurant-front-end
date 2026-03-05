@@ -6,13 +6,12 @@
     <!-- Right Login Section -->
     <div class="form-section">
       <div class="form-container">
-        
         <!-- Logo and Heading -->
         <div class="header-section">
-          <img 
-            src="../../assets/images/pakistanEductionportal.png" 
-            class="logo-image" 
-            alt="logo" 
+          <img
+            src="../../assets/images/wesiteLogo.svg"
+            class="logo-image"
+            alt="logo"
           />
           <h2 class="main-heading">Sign In</h2>
           <p class="sub-heading">
@@ -21,33 +20,36 @@
         </div>
 
         <!-- Login Form -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          class="login-form"
+        >
           <!-- Error Message -->
-          <div 
-            *ngIf="showError" 
-            class="alert alert-danger alert-dismissible fade show alert-custom" 
+          <div
+            *ngIf="showError"
+            class="alert alert-danger alert-dismissible fade show alert-custom"
             role="alert"
           >
             {{ errorMessage }}
-            <button 
-              type="button" 
-              class="btn-close btn-close-custom" 
-              (click)="showError=false"
+            <button
+              type="button"
+              class="btn-close btn-close-custom"
+              (click)="showError = false"
             ></button>
           </div>
 
           <!-- Success Message -->
-          <div 
-            *ngIf="showSuccess" 
-            class="alert alert-success alert-dismissible fade show alert-custom" 
+          <div
+            *ngIf="showSuccess"
+            class="alert alert-success alert-dismissible fade show alert-custom"
             role="alert"
           >
             {{ successMessage }}
-            <button 
-              type="button" 
-              class="btn-close btn-close-custom" 
-              (click)="showSuccess=false"
+            <button
+              type="button"
+              class="btn-close btn-close-custom"
+              (click)="showSuccess = false"
             ></button>
           </div>
 
@@ -55,19 +57,26 @@
           <div class="form-group">
             <label class="form-label">Email Address</label>
             <div class="input-group">
-              <input 
-                type="email" 
-                formControlName="email" 
-                class="form-control custom-input" 
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control custom-input"
                 placeholder="Enter your register email"
-                [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }"
-              >
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('email')?.invalid &&
+                    loginForm.get('email')?.touched,
+                }"
+              />
               <span class="input-group-text icon-wrapper">
                 <i class="bi bi-envelope"></i>
               </span>
             </div>
-            <small 
-              *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" 
+            <small
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
               class="error-text"
             >
               Enter a valid email
@@ -78,22 +87,29 @@
           <div class="form-group">
             <label class="form-label">Password</label>
             <div class="input-group">
-              <input 
-                [type]="showPassword ? 'text' : 'password'" 
+              <input
+                [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
-                class="form-control custom-input" 
+                class="form-control custom-input"
                 placeholder="Enter your password"
-                [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched }"
-              >
-              <span 
-                class="input-group-text icon-wrapper clickable" 
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('password')?.invalid &&
+                    loginForm.get('password')?.touched,
+                }"
+              />
+              <span
+                class="input-group-text icon-wrapper clickable"
                 (click)="togglePasswordVisibility()"
               >
                 <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
               </span>
             </div>
-            <small 
-              *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" 
+            <small
+              *ngIf="
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+              "
               class="error-text"
             >
               Enter your password
@@ -102,20 +118,13 @@
 
           <!-- Forgot Password -->
           <div class="forgot-section">
-            <a 
-              [routerLink]="'/forgetPassword'" 
-              class="forgot-link"
-            >
+            <a [routerLink]="'/forgetPassword'" class="forgot-link">
               Forgot Password?
             </a>
           </div>
 
           <!-- Login Button -->
-          <button 
-            type="submit" 
-            class="btn login-button"
-            [disabled]="isLoading"
-          >
+          <button type="submit" class="btn login-button" [disabled]="isLoading">
             <span *ngIf="!isLoading">Login</span>
             <span *ngIf="isLoading" class="loading-state">
               <span class="spinner-border spinner-border-sm"></span>
@@ -132,10 +141,10 @@
 
           <!-- Google Sign-In Button -->
           <div #googleButton class="google-button-container mb-0"></div>
-            
+
           <!-- Back to Main Page -->
           <p class="back-text mb-0">
-            For Registration 
+            For Registration
             <a routerLink="/" class="back-link">Back</a>
           </p>
 
@@ -144,7 +153,6 @@
             Pakistan Jobs Portal 2025, All rights reserved
           </p>
         </form>
-
       </div>
     </div>
   </div>

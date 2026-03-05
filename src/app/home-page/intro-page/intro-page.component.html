@@ -1,39 +1,33 @@
-<div class="container-fluid hero">
-  <div class="container text-white absolute" style="padding-top: 10.5em">
-    <div class="row">
-      <div class="col-md-6 me-3">
-        <span class="px-3 py-1 searching-site">#1 Job Searching Site</span>
-        <h1
-          class="mt-3 fw-bold"
-          style="font-size: 70px; font-family: reddit-sans"
-        >
-          Over <span class="span-style"> 500+</span> Jobs <br />
-          Waiting For You
-        </h1>
-        <p class="mt-4 px-2" style="font-size: 1.1em">
-          The job market is constantly evolving, presenting both challenges and
-          opportunities whether you're a recent graduate.
-        </p>
+<section class="hero-section position-relative min-vh-100 d-flex align-items-center text-white" 
+         style="background-image: url('../../../assets/images/icons/heroImage.svg'); background-size: cover; background-position: center; ">
+  
+  <div class="container text-center px-3 px-md-4">
+    <!-- Top Badge -->
+    <div class="mb-3 mb-md-4">
 
-        <!-- <div class="row">
-          <div
-            class="col-md-10 mt-5 ps-3 py-2 d-flex align-items-center search-box"
-          >
-            <i class="bi bi-search ms-2"></i>
-            <input
-              type="search"
-              placeholder="Job Title & Keyword..."
-              class="bg-transparent border-0 ms-3 me-4"
-            />
-            <button
-              class="border-0 px-3 py-2 ms-5 fw-bold search-box-btn"
-            >
-              Find Your Job
-            </button>
-          </div>
-        </div> -->
+    </div>
+    
+    <!-- Main Heading -->
+    <h1 class="display-3 fw-bold mb-3 mb-md-4">
+      Connecting Masjids,<br>
+      Empowering Communities.
+    </h1>
+    
+    <!-- Subtitle -->
+    <p class="lead mx-auto mb-4 mb-md-5 px-2 px-md-0" style="max-width: 800px;">
+      A unified digital bridge between Mother Masjids and their neighborhood branches. Manage 
+      resources, track attendance, and serve the Ummah with precision
+    </p>
+    
+    <!-- CTA Button -->
+    <div class="mb-4 mb-md-5">
+      <a href="#" routerLink="registeration" class="btn themecolor btn-lg px-4 px-md-5 py-3 rounded-pill fw-semibold text-white">
+        Register Mosque <span class="fw-bold">→</span>
+      </a>
+    </div>
 
-        <div class="row">
+    <!-- Search bar -->
+      <div class="row">
           <div
             class="col-md-10 mt-5 ps-3 py-2 d-flex align-items-center search-box"
           >
@@ -54,47 +48,49 @@
             </button>
           </div>
         </div>
-
-        <div class="mt-4 left-border">
-          <p class="ms-2">
-            Popular Categories: Product Designer, Developer, Designer
-          </p>
-        </div>
-      </div>
-      <div class="col-md-5 ms-5 px-2 py-2 hero-sec-img position-relative">
-        <!-- Main Image -->
-        <img
-          src="../../../assets/images/employee.svg"
-          alt="employ img"
-          class="img-fluid h-100 rounded"
-        />
-
-        <!-- Small Card  -->
-        <div
-          class="small-card shadow rounded bg-white p-2 d-flex align-items-center"
-        >
-          <!-- <i class="fas fa-briefcase text-primary me-2"></i> -->
-          <img
-            src="../../../assets/images/breficase.png"
-            alt="breficase img"
-            class="img-fluid h-25 rounded"
-          />
-          <div>
-            <h6 class="mb-0 fw-bold text-muted ms-1">234+</h6>
-            <small class="text-muted ms-1">Daily Job Post</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div
-        class="col-md-5 ms-5 px-2 py-2 hero-sec-img"
-      >
-        <img
-          src="../../../assets/images/employe.svg"
-          alt="employ img"
-          class="img-fluid h-100"
-        />
-      </div> -->
-    </div>
-  </div>
+    
+<!-- Features Bar -->
+<div class="features-bar d-inline-flex gap-3 gap-md-4 herogrey  px-3 px-md-5 py-3 rounded-pill">
+  <span class="d-flex align-items-center gap-2">
+    <span class="text-warning">●</span> 
+    <span class="feature-text">End-to-End Encryption</span>
+  </span>
+  <span class="d-flex align-items-center gap-2">
+    <span class="text-warning">●</span> 
+    <span class="feature-text">99.9% Uptime</span>
+  </span>
+  <span class="d-flex align-items-center gap-2">
+    <span class="text-warning">●</span> 
+    <span class="feature-text">Free to Use</span>
+  </span>
 </div>
+    
+  </div>
+</section>
+
+
+
+
+
+<!-- 
+        <div class="row">
+          <div
+            class="col-md-10 mt-5 ps-3 py-2 d-flex align-items-center search-box"
+          >
+            <i class="bi bi-search ms-2"></i>
+            <input
+              type="search"
+              placeholder="Search Job here..."
+              class="bg-transparent border-0 ms-3 me-4"
+              [(ngModel)]="searchQuery"
+              (input)="onSearchInput()"
+              (keyup.enter)="findJobs()"
+            />
+            <button
+              class="border-0 px-3 py-2 ms-5 fw-bold search-box-btn"
+              (click)="findJobs()"
+            >
+              Find Your Job
+            </button>
+          </div>
+        </div> -->

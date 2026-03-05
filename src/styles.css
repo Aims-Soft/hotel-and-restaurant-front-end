@@ -2,28 +2,15 @@
 @import url(../src/ui/styles/icon.scss);
 
 
-@font-face {
-  font-family: "reddit-sans";
-  src: url(assets/Reddit_Sans/RedditSans-VariableFont_wght.ttf)
-    format("truetype");
-  font-style: normal;
+body {
+  font-family: 'Playfair Display', serif;
 }
-@font-face {
-  font-family: "Hanken_grostek";
-  src: url(assets/Hanken_Grotesk/HankenGrotesk-VariableFont_wght.ttf)
-    format("truetype");
-  font-style: normal;
-}
-@font-face {
-  font-family: "poppins";
-  src: url(assets/Poppins/Poppins-Regular.ttf) format("truetype");
-  font-style: normal;
-}
+
 
 :root {
   --primary-text: #0d0125;
   --secondary: #8e7fff;
-  --dark-blue: #1a0052;
+  --dark-blue: #B98D46;
   --primary-background: #301963;
   --secondary-background: #f4f3ff;
   --register-btn-border:#dddedf;
@@ -56,7 +43,7 @@ background-color: var(--light-green);
 
 /* NavBar */
 .nav-styling {
-  font-family: reddit-sans;
+  font-family: 'Playfair Display';
   position: relative;
   z-index: 10;
 }
@@ -94,7 +81,7 @@ background-color: var(--light-green);
   margin-top: -5.6em;
   background-color: var(--dark-blue);
   padding-bottom: 4em;
-  font-family: Hanken_grostek;
+  font-family: Playfair Display;
 }
 
 .searching-site {
@@ -705,7 +692,7 @@ input:focus {
 /* featured companies */
 
 /* .featured-company {
-  font-family: reddit-sans;
+  font-family: Playfair Display;
   background-color: var(--secondary-background);
 }
 .featured-company-header {
@@ -1159,7 +1146,7 @@ input:focus {
 
 
 /* .dream-job-font {
-  font-family: reddit-sans;
+  font-family: Playfair Display;
 }
 .job {
   color: var(--dark-blue);
@@ -1188,7 +1175,7 @@ input:focus {
    ======================================== */
 
 .dream-job-font {
-  font-family: reddit-sans;
+  font-family: Playfair Display;
 }
 
 .job {
@@ -1690,7 +1677,7 @@ app-job-display {
 
 /* Job Listing */
 .font {
-  font-family: reddit-sans;
+  font-family: Playfair Display;
 }
 .listing-bg {
   background-color:var(--listing-bg) ;
@@ -1784,7 +1771,7 @@ background-color: var(--company-bg);
 
 /* Candidate Dashboard */
   .dashborad-position{
-    font-family: reddit-sans;
+    font-family: Playfair Display;
     position: relative;
     top: 0;
     left: 13.15em;

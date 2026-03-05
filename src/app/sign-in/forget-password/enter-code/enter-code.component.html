@@ -1,15 +1,21 @@
-<div class=" vh-100 d-flex align-items-center">
+<div class="vh-100 d-flex align-items-center">
   <div class="row w-100">
     <!-- Left Side Image -->
-    <div class="col-md-6 d-none d-md-flex justify-content-center align-items-center">
-      <img src="../../../../assets/images/signin.svg" class="img-fluid w-100 h-100" alt="getcode" />
+    <div
+      class="col-md-6 d-none d-md-flex justify-content-center align-items-center"
+    >
+      <img
+        src="../../../../assets/images/signin.svg"
+        class="img-fluid w-100 h-100"
+        alt="getcode"
+      />
     </div>
 
     <!-- Right Side Form -->
     <div class="col-md-6 d-flex justify-content-center align-items-center">
       <div class="p-4 w-100" style="max-width: 400px">
         <img
-          src="../../../../assets/images/pakistanEductionportal.png"
+          src="../../../../assets/images/wesiteLogo.svg"
           class="img-fluid my-4"
           alt="Login Illustration"
           height="35px"
@@ -71,29 +77,40 @@
             class="text-success text-decoration-none"
             (click)="resendOTP()"
             [class.disabled]="isLoading"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           >
             <span *ngIf="!isLoading">Resend Code</span>
             <span *ngIf="isLoading">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Sending...
             </span>
           </a>
         </p>
 
         <!-- Continue Button -->
-        <button 
+        <button
           class="btn btn-success rounded-pill w-100"
           (click)="verifyOTP()"
           [disabled]="otp.length !== 4 || isLoading"
         >
           <span *ngIf="!isLoading">Continue</span>
           <span *ngIf="isLoading">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
             Verifying...
           </span>
         </button>
-         <p class="text-center"> For Registration <a routerLink="/" class="text-decoration-none">Home</a></p>
+        <p class="text-center">
+          For Registration
+          <a routerLink="/" class="text-decoration-none">Home</a>
+        </p>
       </div>
     </div>
   </div>
