@@ -43,33 +43,12 @@
 }
 
 .custom-link:hover {
-  color: #7c3aed;
+  color: var(--secondary);
 }
 
-/* Button Styles */
-// .registar-btn {
-//   border: 2px solid #7c3aed;
-//   color: #7c3aed;
-//   transition: all 0.3s ease;
-// }
 
-// .registar-btn:hover {
-//   background-color: #7c3aed;
-//   color: white;
-// }
-
-// .btns {
-//   background-color: #7c3aed;
-//   transition: background-color 0.3s ease;
-// }
-
-// .btns:hover {
-//   background-color: #6d28d9;
-// }
-
-/* Ensure menu icon is visible */
 @media (max-width: 767.98px) {
   .bi-list {
-    color: #7c3aed !important;
+    color: var(--secondary) !important;
   }
 }

@@ -1,0 +1,50 @@
+// Testimonial cards
+.card {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Stars
+.bi-star-fill {
+  font-size: 0.9rem;
+  margin-right: 2px;
+}
+
+// Quote icon
+.bi-quote {
+  font-weight: bold;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  .bi-quote {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    padding: 1.25rem !important;
+  }
+  
+  p {
+    font-size: 0.9rem !important;
+  }
+  
+  h6 {
+    font-size: 0.95rem !important;
+  }
+}

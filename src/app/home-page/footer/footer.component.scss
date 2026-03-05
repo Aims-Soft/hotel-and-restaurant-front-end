@@ -1,7 +1,7 @@
 /* Footer Background */
 .footer-background {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #e0e0e0;
+  color: #D3AB69;
   position: relative;
   overflow: hidden;
 }
@@ -63,11 +63,11 @@
 }
 
 .contact-item:hover {
-  color: #667eea;
+  color: #D3AB69;
 }
 
 .contact-item i {
-  color: #667eea;
+  color: white;
   font-size: 1.1rem;
   min-width: 20px;
   text-align: center;
@@ -80,12 +80,12 @@
 }
 
 .contact-item a:hover {
-  color: #667eea;
+  color: #D3AB69;
 }
 
 /* Footer Heading */
 .footer-heading {
-  color: #ffffff;
+  color: #D3AB69;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 20px;
@@ -100,8 +100,7 @@
   bottom: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #667eea, transparent);
-  border-radius: 2px;
+ 
 }
 
 /* Footer Links */
@@ -131,7 +130,7 @@
 }
 
 .footer-links li a:hover {
-  color: #667eea;
+  color: #D3AB69;
   transform: translateX(5px);
 }
 
@@ -198,10 +197,7 @@
   margin: 0;
 }
 
-.copyright-text strong {
-  color: #667eea;
-  font-weight: 600;
-}
+
 
 /* Tablet View (768px - 991px) */
 @media (max-width: 991px) {
@@ -411,7 +407,7 @@
     color: black;
   }
   
-  .footer-links li a {
-    color: black;
-  }
+  // .footer-links li a {
+  //   color: black;
+  // }
 }

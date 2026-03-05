@@ -3,13 +3,13 @@
 
 
 body {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display';
 }
 
 
 :root {
   --primary-text: #0d0125;
-  --secondary: #8e7fff;
+  --secondary: #B98D46;
   --dark-blue: #B98D46;
   --primary-background: #301963;
   --secondary-background: #f4f3ff;
@@ -33,13 +33,28 @@ body {
   --black:black;
   --signIn-header:#333333;
   --light-green: #dee9dd;
+  --pink:#FFF1D9;
+  --lightpink:#FFFCF6;
 }
+/* color classes */
 
 .bg-lightgreen{
 
 background-color: var(--light-green);
 
 }
+.bgpink{
+  background-color: var(--pink);
+}
+.bg-lightpink{
+  background-color: var(--lightpink);
+}
+
+.bgbrown{
+  background-color: var(--dark-blue);
+}
+
+
 
 /* NavBar */
 .nav-styling {
@@ -1142,33 +1157,6 @@ input:focus {
 
 
 
-/* Dream-job */
-
-
-/* .dream-job-font {
-  font-family: Playfair Display;
-}
-.job {
-  color: var(--dark-blue);
-}
-.dream-job-header {
-  font-size: 56px;
-  color: var(--primary-text);
-}
-.more-jobs {
-  background-color: var(--dark-blue);
-}
-
-
-.footer-background {
-  background-color: var(--primary-text);
-}
-.footer-info,
-.quick-links a,
-.legal a,
-.copyrights {
-  color: var(--footer-text);
-} */
 
 /* ========================================
    DREAM JOB SECTION - BASE STYLES

@@ -1,184 +1,82 @@
-input::placeholder {
-  color: #beb7ce;
-  outline: none;
-}
-input {
-  color: white;
-}
-input:focus {
-  outline: 0;
-}
-
 // Hero Section
 .hero-section {
-  background-attachment: fixed; // Parallax effect on desktop
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   
   @media (max-width: 768px) {
-    background-attachment: scroll; // Better performance on mobile
-    padding-top: 80px; // Account for navbar
-    padding-bottom: 40px;
+    background-attachment: scroll;
+    min-height: 100vh;
   }
 }
 
-
-
-// Features bar specific styles
-.features-bar {
-  @media (max-width: 768px) {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    width: 90%;
-    max-width: 350px;
-    margin: 0 auto;
-    padding: 1rem 1.5rem !important;
-    
-    span {
-      justify-content: center;
-    }
+// Search input styling
+.form-control {
+  &::placeholder {
+    color: #e7e9ec;
   }
   
-  @media (max-width: 480px) {
-    max-width: 90%;
-    padding: 0.85rem 1.25rem !important;
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 }
 
-.feature-text {
-  @media (max-width: 768px) {
-    font-size: 0.85rem;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 0.8rem;
-  }
-}
-
-// Responsive adjustments
+// Search bar responsive
 @media (max-width: 768px) {
-  .display-3 {
-    font-size: 2.5rem !important;
-  }
-  
-  .lead {
-    font-size: 1rem !important;
-  }
-  
-  .btn-lg {
-    width: 100%;
-    max-width: 300px;
-  }
-}
-
-// Mobile Responsive (Tablets & Phones)
-@media (max-width: 768px) {
-  // Badge
-  .badge {
-    font-size: 0.85rem !important;
-    padding: 0.5rem 1rem !important;
-  }
-  
-  // Main Heading
-  .display-3 {
-    font-size: 2rem !important;
-    line-height: 1.2;
-  }
-  
-  // Subtitle
-  .lead {
-    font-size: 0.95rem !important;
-    line-height: 1.5;
-  }
-  
-  // Features Bar - Stack vertically
-  .features-bar {
+  .d-flex.align-items-center.bg-white {
     flex-direction: column !important;
-    gap: 0.75rem !important;
-    width: 90%;
-    max-width: 350px;
-    margin: 0 auto;
+    border-radius: 1rem !important;
     padding: 1rem !important;
     
-    span {
-      font-size: 0.85rem;
+    .d-flex.align-items-center.flex-grow-1 {
+      width: 100%;
+      margin-bottom: 1rem;
     }
-  }
-  
-  // CTA Button
-  .btn-lg {
-    width: 90%;
-    max-width: 300px;
-    font-size: 0.95rem;
-    padding: 0.75rem 2rem !important;
+    
+    button {
+      width: 100%;
+    }
   }
 }
 
-// Small Mobile (iPhone SE, etc)
-@media (max-width: 480px) {
-  .display-3 {
+// Badge responsive
+@media (max-width: 576px) {
+  .badge {
+    font-size: 0.7rem !important;
+    padding: 0.5rem 1.5rem !important;
+  }
+}
+
+// Heading responsive
+.display-3 {
+  @media (max-width: 768px) {
+    font-size: 2rem !important;
+  }
+  
+  @media (max-width: 480px) {
     font-size: 1.75rem !important;
   }
-  
-  .lead {
-    font-size: 0.9rem !important;
+}
+
+// Subtitle responsive
+.lead {
+  @media (max-width: 768px) {
+    font-size: 0.95rem !important;
   }
   
-  .badge {
-    font-size: 0.8rem !important;
-  }
-  
-  .features-bar {
-    font-size: 0.75rem;
+  @media (max-width: 480px) {
+    font-size: 0.85rem !important;
   }
 }
 
-// Tablet Portrait
-@media (min-width: 769px) and (max-width: 991px) {
-  .display-3 {
-    font-size: 2.5rem !important;
-  }
-  
-  .lead {
-    font-size: 1.1rem !important;
-  }
-}
-
-// Large Desktop
-@media (min-width: 1400px) {
-  .display-3 {
-    font-size: 4rem !important;
-  }
-  
-  .lead {
-    font-size: 1.5rem !important;
-  }
-}
-
-// Optional: Smooth hover effect
-.card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  }
-}
-
-// Mobile responsive
+// Popular categories responsive
 @media (max-width: 576px) {
-  .card {
-    padding: 1.5rem !important;
+  .small {
+    font-size: 0.75rem !important;
     
-    h3 {
-      font-size: 2rem !important;
-    }
-    
-    .rounded-circle {
-      padding: 0.65rem !important;
-      
-      i {
-        font-size: 1.25rem !important;
-      }
+    span {
+      display: block;
+      margin-top: 0.25rem;
     }
   }
 }
-

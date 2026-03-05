@@ -1,7 +1,7 @@
 <div class="registration-container">
   <div class="registration-header">
-    <h2>Register your Company</h2>
-    <p>Enter Details to register Company</p>
+    <h2>Register your Hotel</h2>
+    <p>Enter Details to register Hotel</p>
   </div>
 
   <div class="registration-body">
@@ -10,7 +10,7 @@
       <div class="row mb-4">
         <div class="col-md-6 mb-3">
           <label class="form-label mb-2"
-            >Company Logo <span class="text-danger">*</span></label
+            >Hotel Logo <span class="text-danger">*</span></label
           >
           <div class="upload-area" (click)="fileInput.click()">
             <ng-container *ngIf="previewUrl; else uploadPlaceholder">
@@ -44,7 +44,7 @@
             class="text-danger"
             *ngIf="!selectedFile && companyForm.submitted"
           >
-            Company logo is required
+            Hotel logo is required
           </small>
           <small class="text-danger" *ngIf="logoSizeError">
             {{ logoSizeError }}
@@ -53,7 +53,7 @@
 
         <div class="col-md-6 mb-3">
           <label class="form-label mb-2"
-            >Company Banner <span class="text-danger">*</span></label
+            >Hotel Banner <span class="text-danger">*</span></label
           >
           <div class="upload-area" (click)="bannerInput.click()">
             <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
@@ -87,7 +87,7 @@
             class="text-danger"
             *ngIf="!selectedBannerFile && companyForm.submitted"
           >
-            Company banner is required
+           Hotel  banner is required
           </small>
           <small class="text-danger" *ngIf="bannerSizeError">
             {{ bannerSizeError }}
@@ -218,13 +218,13 @@
       <div class="row mb-3">
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2"
-            >Company Name <span class="text-danger">*</span></label
+            >Hotel Name <span class="text-danger">*</span></label
           >
           <input
             type="text"
             class="form-control"
             style="height: 42px;"
-            placeholder="Enter company name"
+            placeholder="Enter Hotel name"
             [(ngModel)]="companyName"
             name="companyName"
             required
@@ -237,7 +237,7 @@
               (companyNameModel.touched || companyForm.submitted)
             "
           >
-            Company name is required
+            Hotel name is required
           </small>
         </div>
 
@@ -272,7 +272,7 @@
 
         <div class="col-md-4 mb-3">
           <label class="form-label mb-2"
-            >Company Employees <span class="text-danger">*</span></label
+            >Hotel Employees <span class="text-danger">*</span></label
           >
           <ng-select
             name="employee"

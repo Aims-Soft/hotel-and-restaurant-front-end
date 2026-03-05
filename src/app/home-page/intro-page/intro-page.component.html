@@ -1,69 +1,55 @@
 <section class="hero-section position-relative min-vh-100 d-flex align-items-center text-white" 
-         style="background-image: url('../../../assets/images/icons/heroImage.svg'); background-size: cover; background-position: center; ">
+         style="background-image: url('../../../assets/images/icons/heroImage.svg'); background-size: cover; background-position: center;">
   
-  <div class="container text-center px-3 px-md-4">
+  <!-- Overlay for better text readability -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.5);"></div>
+  
+  <div class="container text-center px-3 px-md-4 position-relative" style="z-index: 2;">
+    
     <!-- Top Badge -->
-    <div class="mb-3 mb-md-4">
-
+    <div class="mb-4">
+      <span class="badge rounded-pill px-4 py-2" style="background-color: #B98D46; color: #1a1a1a; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;font-family: inter;">
+        PAKISTAN'S # 1 HOTEL INDUSTRY JOB PORTAL
+      </span>
     </div>
     
     <!-- Main Heading -->
-    <h1 class="display-3 fw-bold mb-3 mb-md-4">
-      Connecting Masjids,<br>
-      Empowering Communities.
+    <h1 class="display-3 fw-bold mb-3" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.2;">
+      Build Your Career in<br>
+      <span style="color: #B98D46;">Hospitality</span>
     </h1>
     
     <!-- Subtitle -->
-    <p class="lead mx-auto mb-4 mb-md-5 px-2 px-md-0" style="max-width: 800px;">
-      A unified digital bridge between Mother Masjids and their neighborhood branches. Manage 
-      resources, track attendance, and serve the Ummah with precision
+    <p class="lead mx-auto mb-5 px-2" style="max-width: 800px; font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(255, 255, 255, 0.9);">
+      Connect with Pakistan's top hotels. Find your dream job or hire <br> exceptional talent in the hospitality industry.
     </p>
     
-    <!-- CTA Button -->
-    <div class="mb-4 mb-md-5">
-      <a href="#" routerLink="registeration" class="btn themecolor btn-lg px-4 px-md-5 py-3 rounded-pill fw-semibold text-white">
-        Register Mosque <span class="fw-bold">→</span>
-      </a>
-    </div>
-
-    <!-- Search bar -->
-      <div class="row">
-          <div
-            class="col-md-10 mt-5 ps-3 py-2 d-flex align-items-center search-box"
-          >
-            <i class="bi bi-search ms-2"></i>
-            <input
-              type="search"
-              placeholder="Search Job here..."
-              class="bg-transparent border-0 ms-3 me-4"
-              [(ngModel)]="searchQuery"
-              (input)="onSearchInput()"
-              (keyup.enter)="findJobs()"
-            />
-            <button
-              class="border-0 px-3 py-2 ms-5 fw-bold search-box-btn"
-              (click)="findJobs()"
-            >
-              Find Your Job
-            </button>
-          </div>
+    <!-- Search Bar -->
+    <div class="mx-auto mb-4" style="max-width: 500px;">
+     <div class="d-flex align-items-center bg-transparent rounded-pill p-2 shadow-lg border border-2 border-white">
+        <div class="d-flex align-items-center flex-grow-1 px-3">
+          <i class="bi bi-search  fs-5 text-white"></i>
+          <input type="search" 
+                 placeholder="Job Title & Keyword..." 
+                 class="form-control border-0 shadow-none ms-3 bg-transparent text-white"
+                 [(ngModel)]="searchQuery"
+                 (input)="onSearchInput()"
+                 (keyup.enter)="findJobs()"
+                 style="color: #1a1a1a; font-size: 1rem;">
         </div>
+        <button class="btn rounded-pill px-4 py-2 fw-semibold" 
+                (click)="findJobs()"
+                style="background-color: #B98D46; color: #000000; border: none; white-space: nowrap;">
+          Find Your Job
+        </button>
+      </div>
+    </div>
     
-<!-- Features Bar -->
-<div class="features-bar d-inline-flex gap-3 gap-md-4 herogrey  px-3 px-md-5 py-3 rounded-pill">
-  <span class="d-flex align-items-center gap-2">
-    <span class="text-warning">●</span> 
-    <span class="feature-text">End-to-End Encryption</span>
-  </span>
-  <span class="d-flex align-items-center gap-2">
-    <span class="text-warning">●</span> 
-    <span class="feature-text">99.9% Uptime</span>
-  </span>
-  <span class="d-flex align-items-center gap-2">
-    <span class="text-warning">●</span> 
-    <span class="feature-text">Free to Use</span>
-  </span>
-</div>
+    <!-- Popular Categories -->
+    <div class="text-white-50 small">
+      <span class="me-2" style="color: rgba(255, 255, 255, 0.7);">Popular Categories:</span>
+      <span class="text-white">Product Designer, Developer, Designer</span>
+    </div>
     
   </div>
 </section>
