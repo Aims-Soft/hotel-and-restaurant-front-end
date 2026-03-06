@@ -6,120 +6,81 @@
 
 <!-- Job Cards Container -->
 <div class="container-fluid px-3 px-md-4 mt-4">
-  <div class="row">
-    <div class="col-12">
-      <!-- Individual Job Card -->
-      <div class="job-card" *ngFor="let job of displayedJobs">
-        <div class="row">
-          <!-- Left Section: Job Details -->
-          <div class="col-12 col-md-7 job-content-left">
-            <!-- Job Title -->
-            <h2 class="job-title">{{ job.jobTitle }}</h2>
-
-            <!-- Job Badges -->
-            <div class="job-badge-container">
-              <span class="job-badge">
-                <i class="bi bi-briefcase me-1"></i>
-                {{ job.experienceRange }} Years
-              </span>
-              <span class="job-badge">
-                <i class="bi bi-clock me-1"></i>
-                {{ job.jobTypeTitle }}
-              </span>
-              <span class="job-badge">
-                <i class="bi bi-building me-1"></i>
-                {{ job.jobSpaceTitle }}
-              </span>
-            </div>
-
-            <!-- Company Info -->
-            <div class="company-info">
+  <div class="row g-3 g-md-4">
+    <!-- Individual Job Card -->
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let job of displayedJobs">
+      <div class="job-card-new">
+        <!-- Card Header -->
+        <div class="card-header-new">
+          <div class="d-flex align-items-start gap-3">
+            <div class="company-logo-wrapper">
               <img
                 [src]="job.eLogo"
                 [alt]="job.companyName + ' logo'"
-                class="company-logo"
+                class="company-logo-new"
                 onerror="this.src='assets/images/default-company.png'"
               />
-              <h3 class="company-name">{{ job.companyName }}</h3>
+            </div>
+            <div class="flex-grow-1">
+              <h3 class="job-title-new">{{ job.jobTitle }}</h3>
+              <p class="company-name-new">{{ job.companyName }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body-new">
+          <!-- Location & Time -->
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <div class="d-flex align-items-center gap-1 text-muted small">
+              <i class="bi bi-geo-alt"></i>
+              <span>{{ job.cityName }}</span>
+            </div>
+            <div class="d-flex align-items-center gap-1 text-muted small">
+              <i class="bi bi-clock"></i>
+              <span>{{ job.displayTime }}</span>
             </div>
           </div>
 
-          <!-- Right Section: Job Meta & Actions -->
-          <div class="col-12 col-md-5 job-content-right">
-            <div class="job-meta-section">
-              <!-- Posted Time -->
-              <div class="job-meta-item">
-                <i class="bi bi-clock-history"></i>
-                <span>{{ job.displayTime }}</span>
-              </div>
+          <!-- Salary & Job Type Badges -->
+          <div class="d-flex gap-2 mb-3">
+            <span class="badge-pill-new">{{ job.salaryRange }}/Month</span>
+            <span class="badge-pill-new">{{ job.jobTypeTitle }}</span>
+          </div>
+        </div>
 
-              <!-- Salary -->
-              <div>
-                <!-- <p class="salary-label mb-0">Salary</p> -->
-                <p class="salary mb-0">PKR {{ job.salaryRange }}/Monthly</p>
-              </div>
+        <!-- Card Footer -->
+        <div class="card-footer-new">
+          <button class="share-btn-new" (click)="toggleShareDropdown(job.jobID, $event)">
+            <i class="bi bi-share"></i>
+            <span>Share</span>
+          </button>
+          
+          <button class="view-details-btn-new" (click)="goToApply(job.jobID)">
+            View Details
+          </button>
 
-              <!-- Location -->
-              <div class="location">
-                <i class="bi bi-geo-alt-fill"></i>
-                <span>{{ job.cityName }}</span>
-              </div>
-
-              <!-- Apply Button -->
-
-              <!-- Apply & Share Buttons -->
-              <div class="action-buttons">
-                <button class="apply-btn" (click)="goToApply(job.jobID)">
-                  <i class="bi bi-eye me-2"></i>
-                  View Details
-                </button>
-
-                <!-- Custom Share Dropdown (No Bootstrap JS needed) -->
-                <div class="share-dropdown-container">
-                  <button
-                    class="share-btn"
-                    (click)="toggleShareDropdown(job.jobID, $event)"
-                  >
-                    <i class="bi bi-share"></i>
-                  </button>
-
-                  <!-- Dropdown Menu -->
-                  <div
-                    class="share-dropdown-menu"
-                    [class.show]="isDropdownOpen(job.jobID)"
-                  >
-                    <a
-                      class="share-dropdown-item"
-                      (click)="shareJob(job, $event)"
-                    >
-                      <i class="bi bi-link-45deg"></i>
-                      <span>Copy Link</span>
-                    </a>
-                    <a
-                      class="share-dropdown-item"
-                      (click)="shareViaWhatsApp(job, $event)"
-                    >
-                      <i class="bi bi-whatsapp"></i>
-                      <span>WhatsApp</span>
-                    </a>
-                    <a
-                      class="share-dropdown-item"
-                      (click)="shareViaLinkedIn(job, $event)"
-                    >
-                      <i class="bi bi-linkedin"></i>
-                      <span>LinkedIn</span>
-                    </a>
-                    <a
-                      class="share-dropdown-item"
-                      (click)="shareViaEmail(job, $event)"
-                    >
-                      <i class="bi bi-envelope"></i>
-                      <span>Email</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- Share Dropdown -->
+          <div
+            class="share-dropdown-menu-new"
+            [class.show]="isDropdownOpen(job.jobID)"
+          >
+            <a class="share-dropdown-item" (click)="shareJob(job, $event)">
+              <i class="bi bi-link-45deg"></i>
+              <span>Copy Link</span>
+            </a>
+            <a class="share-dropdown-item" (click)="shareViaWhatsApp(job, $event)">
+              <i class="bi bi-whatsapp"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a class="share-dropdown-item" (click)="shareViaLinkedIn(job, $event)">
+              <i class="bi bi-linkedin"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a class="share-dropdown-item" (click)="shareViaEmail(job, $event)">
+              <i class="bi bi-envelope"></i>
+              <span>Email</span>
+            </a>
           </div>
         </div>
       </div>
@@ -131,12 +92,12 @@
 <div *ngIf="displayedJobs.length === 0 && !isLoading" class="empty-state">
   <i class="bi bi-briefcase"></i>
   <p>No jobs found matching your criteria.</p>
-  <small class="text-muted"
-    >Try adjusting your filters or check back later for new
-    opportunities.</small
-  >
+  <small class="text-muted">
+    Try adjusting your filters or check back later for new opportunities.
+  </small>
 </div>
 
+<!-- More Jobs Button -->
 <div class="more-jobs-container" *ngIf="jobs.length > 3 && !isLoading">
   <p class="jobs-counter">
     Showing <strong>{{ displayedJobs.length }}</strong> of

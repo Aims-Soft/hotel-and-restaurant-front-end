@@ -1,5 +1,5 @@
-<div style="font-family: Hanken_grostek">
-  <div style="background-color: #f2f1fe" class="py-4 text-center">
+<div style="font-family: Playfair Display; " >
+  <div  class="py-4 text-center  bgpink">
     <h1 class="fw-bold" style="color: #0d0125; font-size: 4.5em">
       {{ job?.companyName }}
     </h1>
@@ -12,8 +12,8 @@
   <!-- job Apply Box -->
   <div class="container">
     <div
-      class="row mx-4 mt-3 px-3 py-2 rounded"
-      style="box-shadow: 0 0 2px rgb(195, 192, 192); background-color: #f2f1fe"
+      class="row mx-4 mt-3 px-3 py-2 rounded bgpink"
+      style="box-shadow: 0 0 2px rgb(195, 192, 192); "
     >
     
       <div class="col-md-5 mt-2">
@@ -26,21 +26,20 @@
           />
           
 
-          <h2 style="color: #0d0125; font-size: 1.4em" class="ms-3">
+          <h2 style=" font-size: 1.4em" class="ms-3 text-dark">
            
             {{job?.jobTitle}} 
             <br>
-            <span class="text-muted small">{{job?.companyName}}</span>
+            <span class="text-dark small">{{job?.companyName}}</span>
            
           </h2>
         </div>
         <h2 style="color: #0d0125; font-size: 1.2em" class="ms-2 fw-bold"></h2>
         <div class="d-flex">
           <p
-            class="px-3 py-2"
+            class="px-3 py-2 border border-1 border-bgbrown"
             style="
-              color: #0d0125;
-              border: 1px solid #8e7fff;
+           
               border-radius: 1.5em;
               color: #0f1d1f;
             "
@@ -48,9 +47,9 @@
             {{ job?.experienceRange }} Years Experience
           </p>
           <p
-            class="ms-3 px-3 py-2"
+            class="ms-3 px-3 py-2 border border-1 border-bgbrown"
             style="
-              border: 1px solid #8e7fff;
+           
               border-radius: 1.3em;
               color: #0f1d1f;
             "
@@ -58,9 +57,9 @@
             {{ job?.jobTypeTitle }}
           </p>
           <p
-            class="ms-3 px-3 py-2"
+            class="ms-3 px-3 py-2 border border-1 border-bgbrown"
             style="
-              border: 1px solid #8e7fff;
+              
               border-radius: 1.3em;
               color: #0f1d1f;
             "
@@ -71,7 +70,7 @@
        
       </div>
       <div class="col-md-4 offset-md-3 ps-5">
-        <p class="ps-5 ms-4" style="color: #8e7fff">
+        <p class="ps-5 ms-4 text-dark" >
           <i class="bi bi-alarm"></i>
           <small class="ms-2" style="font-size: 1em">
             {{ job?.displayTime }}</small
@@ -88,8 +87,8 @@
         </p>
         <div class="ms-4">
           <button
-            class="px-3 py-2 ms-5 rounded border-0"
-            style="background-color: #8e7fff; color: white"
+            class="px-3 py-2 ms-5 rounded border-0 bgbrown text-dark"
+           
           (click)="goToApply(job.jobID)"
           >
             <!-- routerLink="/applyForm" -->
@@ -143,7 +142,7 @@
         </div>
       </div>
     </div>
-     <button class="btn text-white mb-2"  routerLink="/jobListing" style="background-color: #1a0052">
+     <button class="btn text-dark mb-2 bgbrown"  routerLink="/jobListing" >
           Go back
         </button>
   </div>

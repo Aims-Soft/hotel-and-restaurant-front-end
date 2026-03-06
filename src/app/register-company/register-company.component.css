@@ -182,8 +182,8 @@
 
 /* Buttons */
 .btn-register {
-  background: #4e73df;
-  color: white;
+  background: var(--dark-blue);
+  color: rgb(5, 5, 5);
   border: none;
   padding: 12px 30px;
   border-radius: 8px;
@@ -192,18 +192,19 @@
 }
 
 .btn-register:hover {
-  background: #3a56c4;
+  background: var(--dark-blue);
   transform: translateY(-2px);
 }
 
 .btn-cancel {
-  background: #6c757d;
-  color: white;
+  background:transparent;
+  color: black;
   border: none;
   padding: 12px 30px;
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.3s;
+  border: 1px solid #5a6268;
 }
 
 .btn-cancel:hover {
