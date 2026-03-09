@@ -43,7 +43,8 @@ export class AppComponent {
         '/forgetPassword',
         '/enterCode',
         '/resetPassword',
-        '/contactMessage'
+        '/contactMessage',
+        '/configuration'
       ].includes(url)
     );
   }
@@ -69,6 +70,7 @@ export class AppComponent {
         '/companyjobuser',
         '/resume',
         '/contactMessage',
+        '/configuration',
       
       ].includes(url)
     );

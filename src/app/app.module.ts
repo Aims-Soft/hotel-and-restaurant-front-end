@@ -63,6 +63,7 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
 import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
 import { FilePickerComponent } from './file-picker/file-picker.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { FilePickerComponent } from './file-picker/file-picker.component';
     ContactMessagesComponent,
     FilterMessagesPipe,
     FilePickerComponent,
+    ConfigurationComponent,
   ],
   imports: [
     BrowserModule,

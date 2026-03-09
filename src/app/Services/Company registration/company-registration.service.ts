@@ -17,6 +17,18 @@ export class CompanyRegistrationService {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getIndustryType`);
   }
 
+    getCompanyTypeDomain(): Observable<any> {
+    return this.http.get(`${this.apiUrl}job-api/Admin/getCompanyTypeDomain`);
+  }
+
+    saveIndustry(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}job-api/Admin/saveCompanyType`, data);
+  }
+
+    saveDomain(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}job-api/Admin/saveDomain`, data);
+  }
+
   getEmployees(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/company/getCompanyEmpolyee`);
   }

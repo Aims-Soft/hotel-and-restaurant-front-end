@@ -35,6 +35,7 @@ import { EnterCodeComponent } from './sign-in/forget-password/enter-code/enter-c
 import { ResetPasswordComponent } from './sign-in/forget-password/enter-code/reset-password/reset-password.component';
 import { UserProfileComponent } from './home-page/user-profile/user-profile.component';
 import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -71,6 +72,7 @@ const routes: Routes = [
       { path: 'resume', component: ResumeComponent },
       { path: 'companyjobuser', component: CompanyJobUserComponent },
       {path: 'contactMessage',component:ContactMessagesComponent},
+      {path:'configuration', component:ConfigurationComponent}
     ],
   },
 
