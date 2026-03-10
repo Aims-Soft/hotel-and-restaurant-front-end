@@ -237,7 +237,7 @@
     font-size: clamp(0.85rem, 0.9vw, 1rem);
     font-weight: 600;
     color: #ffffff;
-    background: #4f46e5;
+    background: #B98D46;
     border: none;
     border-radius: 0.6vw;
     cursor: pointer;
@@ -246,7 +246,7 @@
   }
 
   .login-button:hover:not(:disabled) {
-    background: #4338ca;
+    background: #B98D46;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
   }
