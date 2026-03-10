@@ -280,11 +280,7 @@
   transition: all 0.3s ease;
 }
 
-/* .date-input:focus ~ .date-input-wrapper::before,
-.date-input:hover ~ .date-input-wrapper::before {
-  color: #0056b3;
-  transform: translateY(-50%) scale(1.1);
-} */
+
 
 /* Enhanced calendar picker indicator */
 .date-input::-webkit-calendar-picker-indicator {
