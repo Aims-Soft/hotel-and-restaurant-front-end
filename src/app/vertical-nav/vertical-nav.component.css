@@ -8,29 +8,6 @@
   color: white !important;
 }
 
-
-
-/* .sidebar {
-  height: auto;          
-  overflow-y: hidden;       
-  overflow-x: hidden;    
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-} */
-
-/* optional: prettier scrollbars for Chrome/Edge */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-.sidebar::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 4px;
-}
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
-
 /* Menu Item Styling */
 .menu-item {
   color: #333;
@@ -43,12 +20,50 @@
 }
 
 .active-link {
-  background-color: #7c3aed !important;
+  background-color: #1E395B !important;
+}
+
+.active-link,
+.active-link i,
+.active-link span {
   color: white !important;
 }
 
 .active-link i {
   color: white !important;
+}
+
+/* ========================================
+   ICON WHITE FILTER FOR ACTIVE STATE
+   ======================================== */
+
+/* Make background image icons white when active */
+.active-link .dashboard,
+.active-link .createJob,
+.active-link .application,
+.active-link .setting,
+.active-link .jobs,
+.active-link .employees,
+.active-link .company,
+.active-link .message,
+.active-link .quote,
+.active-link .config {
+  filter: brightness(0) invert(1);
+  /* This converts black SVG icons to white */
+}
+
+/* Optional: Add smooth transition */
+.dashboard,
+.createJob,
+.application,
+.setting,
+.jobs,
+.employees,
+.company,
+.message,
+.quote,
+.config {
+  transition: filter 0.3s ease;
 }
 
 /* Ensure icons are same size */
@@ -103,7 +118,7 @@
   border-right: 1px solid #e0e0e0;
 }
 
-
+/* Badge Styling */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -163,9 +178,3 @@
     height: 18px;
   }
 }
-
-
-
-
-
-

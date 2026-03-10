@@ -80,7 +80,7 @@
         <!-- View Documents Section -->
         <div *ngIf="getAvailableDocuments().length > 0" class="mb-4">
           <h6 class="fw-bold mb-3">
-            <i class="bi bi-file-earmark-check me-2"></i>Company Documents
+            <i class="bi bi-file-earmark-check me-2"></i>Hotel Documents
           </h6>
           <div class="row">
             <div 
@@ -128,12 +128,12 @@
         <!-- No Documents Message -->
         <div *ngIf="getAvailableDocuments().length === 0" class="alert alert-info mb-4">
           <i class="bi bi-info-circle me-2"></i>
-          No documents available for this company.
+          No documents available for this Hotel.
         </div>
 
         <!-- About -->
         <div>
-          <h6 class="fw-bold">About The Company</h6>
+          <h6 class="fw-bold">About The Hotel</h6>
           <p class="text-muted small">
             {{ company.description }}
           </p>
@@ -149,11 +149,11 @@
           alt=""
         />
         <p class="mt-2 ms-2" style="font-style: 1.1em; color: #004643">
-          Browse More Internships
+          Browse More Jobs
         </p>
       </div>
       <h3 class="fw-bold" style="font-size: 56px; color: #0d0125">
-        Internships In this Company
+        Jobs In this Hotel
       </h3>
     </div>
 
@@ -191,7 +191,7 @@
         <p class="ps-5 city">{{ job.cityName }}</p>
         <div class="ms-4">
           <button
-            class="px-3 py-2 ms-5 rounded border-0 applyBtn text-white"
+            class="px-3 py-2 ms-5 rounded border-0 applyBtn text-dark"
             (click)="goToApply(job.jobID)"
           >
             Details

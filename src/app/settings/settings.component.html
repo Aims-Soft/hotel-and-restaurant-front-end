@@ -7,7 +7,7 @@
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <p>Loading company details...</p>
+      <p>Loading Hotel details...</p>
     </div>
      
     <!-- <div *ngIf="hasData" class="alert alert-info mb-3 col-md-4 offset-md-4">
@@ -15,8 +15,8 @@
     </div> -->
 
     <div class="registration-header">
-      <h2>Update Company Information</h2>
-      <p>Update your company details</p>
+      <h2>Update Hotel Information</h2>
+      <p>Update your Hotel details</p>
     </div>
 
     <div class="registration-body">
@@ -25,7 +25,7 @@
         <div class="row mb-4">
           <div class="col-md-6 mb-3">
             <label class="form-label"
-              >Company Logo <span class="text-danger">*</span></label
+              >Hotel Logo <span class="text-danger">*</span></label
             >
             <div class="upload-area" (click)="fileInput.click()">
               <ng-container *ngIf="previewUrl; else uploadPlaceholder">
@@ -67,7 +67,7 @@
           </div>
 
           <div class="col-md-6 mb-3">
-            <label class="form-label">Company Banner</label>
+            <label class="form-label">Hotel Banner</label>
             <div class="upload-area" (click)="bannerInput.click()">
               <ng-container *ngIf="bannerPreviewUrl; else bannerPlaceholder">
                 <img
@@ -106,12 +106,12 @@
         <div class="row mb-4">
           <div class="col-md-4 mb-3">
             <label class="form-label"
-              >Company Name <span class="text-danger">*</span></label
+              >Hotel Name <span class="text-danger">*</span></label
             >
             <input
               type="text"
               class="form-control"
-              placeholder="Enter company name"
+              placeholder="Enter hotel name"
               [(ngModel)]="companyName"
               name="companyName"
               required
@@ -124,7 +124,7 @@
                 (companyNameModel.touched || companyForm.submitted)
               "
             >
-              Company name is required
+              Hotel name is required
             </small>
           </div>
 
@@ -158,7 +158,7 @@
 
           <div class="col-md-4 mb-3">
             <label class="form-label"
-              >Company Employees <span class="text-danger">*</span></label
+              >Hotel Employees <span class="text-danger">*</span></label
             >
             <select
               class="form-select"
@@ -382,7 +382,7 @@
 
         <!-- Description -->
         <div class="mb-4">
-          <label class="form-label">Company Description</label>
+          <label class="form-label">Hotel Description</label>
           <textarea
             class="form-control"
             rows="5"
@@ -407,7 +407,7 @@
             Cancel
           </button>
           <button type="submit" class="btn btn-register" [disabled]="isLoading">
-            {{ isLoading ? 'Updating...' : 'Update Company' }}
+            {{ isLoading ? 'Updating...' : 'Update Hotel' }}
           </button>
         </div>
       </form>

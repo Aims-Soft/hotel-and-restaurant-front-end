@@ -178,8 +178,8 @@
 
 /* Buttons */
 .btn-register {
-  background: #4e73df;
-  color: white;
+  background: #B98D46 !important;
+  color: black;
   border: none;
   padding: 12px 30px;
   border-radius: 8px;
@@ -188,7 +188,7 @@
 }
 
 .btn-register:hover {
-  background: #3a56c4;
+  background:  #B98D46;
   transform: translateY(-2px);
 }
 

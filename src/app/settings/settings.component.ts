@@ -116,11 +116,11 @@ eAgreement : string= '';
       (response) => {
         this.isLoading = false;
         this.companyDomains = response;
-        console.log('Company Domains for type', companyTypeID, ':', response);
+        console.log('Hotel Domains for type', companyTypeID, ':', response);
       },
       (error) => {
         this.isLoading = false;
-        console.error('Error fetching company domains:', error);
+        console.error('Error fetching Hotel domains:', error);
         this.companyDomains = [];
       }
     );
@@ -157,10 +157,10 @@ eAgreement : string= '';
   getCompanyDetail(): void {
     this.isLoading = true;
     this.hasData = false;
-    console.log('Fetching company details...');
+    console.log('Fetching hotel details...');
 
     const currentCompanyId = this.userSessionService.getCompanyID();
-    console.log('Current Company ID:', currentCompanyId);
+    console.log('Current hotel ID:', currentCompanyId);
 
     this.CompanyRegistrationService.getCompanyDetail().subscribe(
       (response: any) => {
@@ -174,7 +174,7 @@ eAgreement : string= '';
 
           if (companyData) {
             this.hasData = true;
-            console.log('Filtered Company Data:', companyData);
+            console.log('Filtered Hotel Data:', companyData);
 
             // Map API response to form fields
             this.companyName = companyData.companyName || '';
@@ -218,8 +218,8 @@ eAgreement : string= '';
               this.selectedDomains = [];
             }
           } else {
-            console.warn('No company data found for current user');
-            this.errorMessage = 'No company data found for your account';
+            console.warn('No Hotel data found for current user');
+            this.errorMessage = 'No Hotel data found for your account';
           }
         } else {
           console.warn('Invalid API response format');
@@ -228,8 +228,8 @@ eAgreement : string= '';
       },
       (error: any) => {
         this.isLoading = false;
-        console.error('Error fetching Company Details:', error);
-        this.errorMessage = 'Failed to load company details. Please try again.';
+        console.error('Error fetching hotel Details:', error);
+        this.errorMessage = 'Failed to load Hotel details. Please try again.';
       }
     );
   }
@@ -464,7 +464,7 @@ eAgreement : string= '';
             if (Array.isArray(res) && res.length > 0) {
               const responseStr = res[0];
               if (responseStr.split('|||')[0] === 'Success') {
-                this.successMessage = 'Company updated successfully!';
+                this.successMessage = 'Hotel updated successfully!';
                 setTimeout(() => {
                   this.getCompanyDetail(); // Refresh data
                 }, 1000);
@@ -484,7 +484,7 @@ eAgreement : string= '';
               this.errorMessage = err.error.message;
             } else {
               this.errorMessage =
-                'Failed to update company. Please try again.';
+                'Failed to update Hotel. Please try again.';
             }
           },
         });

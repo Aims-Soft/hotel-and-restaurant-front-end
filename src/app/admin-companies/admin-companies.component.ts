@@ -51,11 +51,11 @@ export class AdminCompaniesComponent implements OnInit {
           toggleStatus: company.companyStatusID === 1
         }));
 
-        console.log(this.jobApplications, 'Admin Company Details with toggleStatus');
+        console.log(this.jobApplications, 'Admin Hotels Details with toggleStatus');
       },
       (error: any) => {
         this.isLoading = false;
-        console.error('Error fetching Companies Details:', error);
+        console.error('Error fetching Hotels Details:', error);
       }
     );
   }
@@ -83,8 +83,8 @@ export class AdminCompaniesComponent implements OnInit {
 
     this.admindashboardservice.updateCompanyStatus(payload).subscribe(
       (res) => {
-        console.log(res, 'company status');
-        this.successMessage = `Company status updated to ${
+        console.log(res, 'Hotel status');
+        this.successMessage = `Hotel status updated to ${
           company.toggleStatus ? 'Approved' : 'Updated'
         } successfully!`;
         this.errorMessage = null;
@@ -96,7 +96,7 @@ export class AdminCompaniesComponent implements OnInit {
         setTimeout(() => (this.successMessage = null), 3000);
       },
       (error) => {
-        this.errorMessage = 'Failed to update company status. Please try again.';
+        this.errorMessage = 'Failed to update hotel status. Please try again.';
         this.successMessage = null;
 
         // Revert toggle if API call fails
@@ -169,13 +169,13 @@ export class AdminCompaniesComponent implements OnInit {
       // Generate filename with current date
       const date = new Date();
       const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-      const filename = `Registered Companies_${dateStr}.xlsx`;
+      const filename = `Registered Hotels_${dateStr}.xlsx`;
 
       // Save file
       XLSX.writeFile(wb, filename);
 
       // Show success message
-      this.successMessage = `Successfully exported ${filteredData.length} company/companies`;
+      this.successMessage = `Successfully exported ${filteredData.length} Hotels/Hotels`;
       setTimeout(() => this.successMessage = null, 3000);
 
     } catch (error) {

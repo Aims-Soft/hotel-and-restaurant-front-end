@@ -1,11 +1,4 @@
-<!-- <div class="dashborad-position">
-  <div class="py-3 d-flex align-items-center justify-content-end bottom-border">
-    <i class="bi bi-bell fs-4"></i>
-    <div class="d-flex align-items-center profile-border px-2 py-1 ms-2">
-      <img src="../../assets/images/profilePic.png" class="img-fluid" alt="" />
-      <i class="bi bi-chevron-down ms-2 fs-5"></i>
-    </div>
-  </div> -->
+
 
   <div class="container mt-3 ">
     <div class="container" *ngFor="let job of Activejobs">
@@ -222,7 +215,7 @@
 
               <td class="text-center">
                 <button
-                  class="px-2 py-2 application-custom-btn text-white border-0 rounded"(click)=" onViewJob(job)"
+                  class="px-2 py-2 application-custom-btn text-dark border-0 rounded"(click)=" onViewJob(job)"
                 >
                   View Details
                 </button>
@@ -355,7 +348,7 @@
               </td>
               <td class="text-center">
                 <button
-                  class="px-2 py-2 application-custom-btn text-white border-0 rounded"
+                  class="px-2 py-2 application-custom-btn text-dark border-0 rounded"
                   (click)="CompanyDetails(company)"
                 >
                   View Details
