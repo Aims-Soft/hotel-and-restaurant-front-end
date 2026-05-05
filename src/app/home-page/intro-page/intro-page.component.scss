@@ -1,82 +1,207 @@
-// Hero Section
+// ═══════════════════════════════════════════════════
+// Departments Modal — matches design images exactly
+// ═══════════════════════════════════════════════════
+
+// Google Fonts — Playfair Display + Inter
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
+
+// ── Variables ──────────────────────────────────────
+$gold:        #C19A6B;
+$gold-dark:   #B98D46;
+$text-dark:   #1a1a1a;
+$text-body:   #374151;
+$text-muted:  #6b7280;
+$border:      #e5e7eb;
+$bg-white:    #ffffff;
+$bg-light:    #f9fafb;
+$row-alt:     #f9f9f9;
+
+// ── Close Button ──────────────────────────────────
+.dept-close-btn {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 10;
+  width: 28px;
+  height: 28px;
+  opacity: 0.6;
+  font-size: 0.85rem;
+
+  &:hover { opacity: 1; }
+}
+
+// ── Modal sizing — no scroll ──────────────────────
+.modal-dialog.modal-xl {
+  max-width: 1320px !important;
+
+  @media (min-width: 1200px) {
+    margin: 1.5rem auto;
+  }
+}
+
+.modal-content {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+// ── Title ─────────────────────────────────────────
+.dept-main-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 2rem;
+  color: $text-dark;
+  line-height: 1.25;
+
+  .dept-title-gold {
+    color: $gold;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
+
+.dept-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: $text-muted;
+}
+
+// ── Department Card ───────────────────────────────
+.dept-card {
+  background: $bg-white;
+  border: 1px solid $border;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+// ── Department Header (gold bar) ──────────────────
+.dept-header {
+  background-color: $gold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+
+  .dept-head-en {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+  }
+
+  .dept-head-ur {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    direction: rtl;
+  }
+}
+
+// ── Department List ───────────────────────────────
+.dept-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.28rem 0.85rem;       // compact — matches images
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;              // small text like images
+    color: $text-body;
+    border-bottom: 1px solid $border;
+    line-height: 1.4;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    // Alternate row tint (visible in images)
+    &:nth-child(even) {
+      background-color: $row-alt;
+    }
+
+    // English name — left aligned
+    > span:first-child {
+      font-weight: 400;
+      color: #1f2937;
+      white-space: nowrap;
+    }
+
+    // Urdu name — right aligned
+    .ur {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-size: 0.8rem;
+      direction: rtl;
+      text-align: right;
+      color: #374151;
+      white-space: nowrap;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+// ── Responsive ────────────────────────────────────
+@media (max-width: 992px) {
+  .dept-card {
+    margin-bottom: 0.75rem;
+  }
+
+  .dept-header {
+    .dept-head-ur {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .dept-main-title {
+    font-size: 1.2rem;
+  }
+
+  .dept-list li {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+
+    .ur {
+      font-size: 0.72rem;
+    }
+  }
+}
+
+// ── Hero Section (unchanged) ──────────────────────
 .hero-section {
   background-attachment: fixed;
   background-repeat: no-repeat;
-  
+
   @media (max-width: 768px) {
     background-attachment: scroll;
     min-height: 100vh;
   }
 }
 
-// Search input styling
 .form-control {
   &::placeholder {
     color: #e7e9ec;
   }
-  
+
   &:focus {
     outline: none;
     box-shadow: none;
   }
 }
 
-// Search bar responsive
-@media (max-width: 768px) {
-  .d-flex.align-items-center.bg-white {
-    flex-direction: column !important;
-    border-radius: 1rem !important;
-    padding: 1rem !important;
-    
-    .d-flex.align-items-center.flex-grow-1 {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    
-    button {
-      width: 100%;
-    }
-  }
-}
-
-// Badge responsive
-@media (max-width: 576px) {
-  .badge {
-    font-size: 0.7rem !important;
-    padding: 0.5rem 1.5rem !important;
-  }
-}
-
-// Heading responsive
-.display-3 {
-  @media (max-width: 768px) {
-    font-size: 2rem !important;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 1.75rem !important;
-  }
-}
-
-// Subtitle responsive
-.lead {
-  @media (max-width: 768px) {
-    font-size: 0.95rem !important;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 0.85rem !important;
-  }
-}
-
-// Popular categories responsive
-@media (max-width: 576px) {
-  .small {
-    font-size: 0.75rem !important;
-    
-    span {
-      display: block;
-      margin-top: 0.25rem;
-    }
-  }
+.urdu-text {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.875rem;
+  direction: rtl;
+  text-align: right;
 }

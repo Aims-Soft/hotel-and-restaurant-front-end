@@ -1,3 +1,4 @@
+<!-- Hero Section -->
 <section class="hero-section position-relative min-vh-100 d-flex align-items-center text-white" 
          style="background-image: url('../../../assets/images/icons/heroImage.svg'); background-size: cover; background-position: center;">
   
@@ -8,7 +9,7 @@
     
     <!-- Top Badge -->
     <div class="mb-4">
-      <span class="badge rounded-pill px-4 py-2" style="background-color: #B98D46; color: #1a1a1a; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;font-family: inter;">
+      <span class="badge rounded-pill px-4 py-2" style="background-color: #B98D46; color: #1a1a1a; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; font-family: inter;">
         PAKISTAN'S # 1 HOTEL INDUSTRY JOB PORTAL
       </span>
     </div>
@@ -26,9 +27,9 @@
     
     <!-- Search Bar -->
     <div class="mx-auto mb-4" style="max-width: 500px;">
-     <div class="d-flex align-items-center bg-transparent rounded-pill p-2 shadow-lg border border-2 border-white">
+      <div class="d-flex align-items-center bg-transparent rounded-pill p-2 shadow-lg border border-2 border-white">
         <div class="d-flex align-items-center flex-grow-1 px-3">
-          <i class="bi bi-search  fs-5 text-white"></i>
+          <i class="bi bi-search fs-5 text-white"></i>
           <input type="search" 
                  placeholder="Job Title & Keyword..." 
                  class="form-control border-0 shadow-none ms-3 bg-transparent text-white"
@@ -54,29 +55,142 @@
   </div>
 </section>
 
+<!-- Departments Modal -->
+<!-- Departments Modal — exact match to design images -->
+<div class="modal fade" id="departmentsModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-xl modal-dialog-centered" style="max-width: 1320px;">
+    <div class="modal-content border-0" style="border-radius: 12px; background: #ffffff;">
 
+      <!-- Close Button (top-right, outside header) -->
+      <button type="button"
+              class="btn-close dept-close-btn"
+              (click)="closeModal()"
+              aria-label="Close">
+      </button>
 
+      <!-- Modal Body (no separate header — title is inside body like the images) -->
+      <div class="modal-body p-4" style="overflow: hidden;">
 
+        <!-- Title Block -->
+        <div class="mb-3">
+          <h2 class="dept-main-title mb-1">
+            Departments &amp; Staff in
+            <span class="dept-title-gold">Hotel &amp; Restaurant Industry</span>
+          </h2>
+          <p class="dept-subtitle mb-0">
+            Discover every role we hire for — across Front Office, F&amp;B, Housekeeping, and Administration.
+          </p>
+        </div>
 
-<!-- 
-        <div class="row">
-          <div
-            class="col-md-10 mt-5 ps-3 py-2 d-flex align-items-center search-box"
-          >
-            <i class="bi bi-search ms-2"></i>
-            <input
-              type="search"
-              placeholder="Search Job here..."
-              class="bg-transparent border-0 ms-3 me-4"
-              [(ngModel)]="searchQuery"
-              (input)="onSearchInput()"
-              (keyup.enter)="findJobs()"
-            />
-            <button
-              class="border-0 px-3 py-2 ms-5 fw-bold search-box-btn"
-              (click)="findJobs()"
-            >
-              Find Your Job
-            </button>
+        <!-- Four Columns -->
+        <div class="row g-3">
+
+          <!-- ── Front Office ── -->
+          <div class="col-12 col-lg-3">
+            <div class="dept-card">
+              <div class="dept-header">
+                <span class="dept-head-en">Front Office</span>
+                <span class="dept-head-ur">فرنٹ آفس</span>
+              </div>
+              <ul class="dept-list">
+                <li><span>General Manager (GM)</span><span class="ur">جنرل منیجر (جی ایم)</span></li>
+                <li><span>Resident Manager</span><span class="ur">رہائشی منیجر</span></li>
+                <li><span>Front Office Manager</span><span class="ur">فرنٹ آفس منیجر</span></li>
+                <li><span>Exe. Assistant Manager</span><span class="ur">ایگزیکٹو اسسٹنٹ منیجر</span></li>
+                <li><span>Revenue Manager</span><span class="ur">ریونیو منیجر</span></li>
+                <li><span>Receptionist</span><span class="ur">استقبالیہ/ریسپشنسٹ</span></li>
+                <li><span>Front Desk Assistant</span><span class="ur">فرنٹ ڈیسک اسسٹنٹ</span></li>
+                <li><span>Concierge</span><span class="ur">کنسرج</span></li>
+                <li><span>GRO</span><span class="ur">جی آر او</span></li>
+                <li><span>Reservation Manager</span><span class="ur">بکنگ منیجر</span></li>
+                <li><span>Doorman</span><span class="ur">دربان</span></li>
+                <li><span>Night Auditor</span><span class="ur">نائٹ آڈیٹر</span></li>
+                <li><span>Porter</span><span class="ur">پورٹر</span></li>
+                <li><span>Butler</span><span class="ur">بٹلر</span></li>
+              </ul>
+            </div>
           </div>
-        </div> -->
+
+          <!-- ── Food & Beverage ── -->
+          <div class="col-12 col-lg-3">
+            <div class="dept-card">
+              <div class="dept-header">
+                <span class="dept-head-en">Food &amp; Beverage</span>
+                <span class="dept-head-ur">فوڈ اینڈ بیوریج</span>
+              </div>
+              <ul class="dept-list">
+                <li><span>F&amp;B Manager</span><span class="ur">ایف اینڈ بی منیجر</span></li>
+                <li><span>Restaurant Manager</span><span class="ur">ریسٹورنٹ منیجر</span></li>
+                <li><span>Executive Chef</span><span class="ur">ایگزیکٹو شیف</span></li>
+                <li><span>Sous Chef</span><span class="ur">سُوس شیف</span></li>
+                <li><span>Chef de Partie</span><span class="ur">شیف دی پارٹی</span></li>
+                <li><span>Junior Chef</span><span class="ur">جونیئر شیف</span></li>
+                <li><span>Kitchen Stewarding</span><span class="ur">کچن سٹیورڈ</span></li>
+                <li><span>Banquet Manager</span><span class="ur">بینکویٹ منیجر</span></li>
+                <li><span>Captain</span><span class="ur">کیپٹن</span></li>
+                <li><span>Head Waiter</span><span class="ur">ہیڈ ویٹر</span></li>
+                <li><span>Waiter</span><span class="ur">ویٹر</span></li>
+                <li><span>Waitress</span><span class="ur">ویٹرس</span></li>
+                <li><span>Bartender</span><span class="ur">شراب بنانے والا</span></li>
+                <li><span>Barista</span><span class="ur">کافی بنانے والا</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ── Housekeeping ── -->
+          <div class="col-12 col-lg-3">
+            <div class="dept-card">
+              <div class="dept-header">
+                <span class="dept-head-en">Housekeeping</span>
+                <span class="dept-head-ur">ہاؤس کیپنگ</span>
+              </div>
+              <ul class="dept-list">
+                <li><span>Exe. Housekeeper</span><span class="ur">ایگزیکٹو ہاؤس کیپر</span></li>
+                <li><span>Asst. Housekeeper</span><span class="ur">اسسٹنٹ ہاؤس کیپر</span></li>
+                <li><span>Floor Supervisor</span><span class="ur">فلور سپروائزر</span></li>
+                <li><span>Room Attendant</span><span class="ur">روم اٹینڈنٹ</span></li>
+                <li><span>Public Area Attendant</span><span class="ur">پبلک ایریا اٹینڈنٹ</span></li>
+                <li><span>Laundry Manager</span><span class="ur">لانڈری منیجر</span></li>
+                <li><span>Linen Supervisor</span><span class="ur">لینن سپروائزر</span></li>
+                <li><span>Tailor</span><span class="ur">درزی</span></li>
+                <li><span>Security Manager</span><span class="ur">سیکیورٹی منیجر</span></li>
+                <li><span>Security Guard</span><span class="ur">سیکیورٹی گارڈ</span></li>
+                <li><span>Driver / Valet</span><span class="ur">ڈرائیور/والیٹ پارکنگ</span></li>
+                <li><span>Electrician</span><span class="ur">الیکٹریشن</span></li>
+                <li><span>Plumber</span><span class="ur">پلمبر</span></li>
+                <li><span>Carpenter</span><span class="ur">کارپینٹر/بڑھئی</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ── Admin Departments ── -->
+          <div class="col-12 col-lg-3">
+            <div class="dept-card">
+              <div class="dept-header">
+                <span class="dept-head-en">Admin Departments</span>
+                <span class="dept-head-ur">انتظامی شعبہ</span>
+              </div>
+              <ul class="dept-list">
+                <li><span>HR Manager</span><span class="ur">ایچ آر منیجر</span></li>
+                <li><span>Finance Manager</span><span class="ur">فنانس منیجر</span></li>
+                <li><span>Accounts Manager</span><span class="ur">اکاؤنٹس منیجر</span></li>
+                <li><span>Sales Manager</span><span class="ur">سیلز منیجر</span></li>
+                <li><span>Marketing Manager</span><span class="ur">مارکیٹنگ منیجر</span></li>
+                <li><span>Purchase Manager</span><span class="ur">پرچیز منیجر</span></li>
+                <li><span>IT Manager</span><span class="ur">آئی ٹی منیجر</span></li>
+                <li><span>Engineering Manager</span><span class="ur">انجینئر منیجر</span></li>
+                <li><span>Maintenance Manager</span><span class="ur">مینٹیننس منیجر</span></li>
+                <li><span>A/C Technician</span><span class="ur">اے سی ٹیکنیشن</span></li>
+                <li><span>Spa Manager</span><span class="ur">سپا/مساج منیجر</span></li>
+                <li><span>Recreation Manager</span><span class="ur">تفریح منیجر</span></li>
+                <li><span>Room Boy</span><span class="ur">روم بوائے</span></li>
+                <li><span>Bell Boy</span><span class="ur">بیل بوائے</span></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /modal-body -->
+    </div>
+  </div>
+</div>

@@ -65,53 +65,70 @@
       </ng-container>
 
       <!-- Profile Section if Logged In -->
-      <ng-template #profileSection>
-        <div ngbDropdown class="d-inline-block">
-          <!-- Profile Image Button -->
-          <button
-            class="btn p-0 border-0 bg-transparent"
-            id="profileDropdown"
-            ngbDropdownToggle
-          >
-            <img
-              src="../../assets/images/1.png"
-              alt="Profile"
-              class="rounded-5"
-              width="60"
-              height="40"
-            />
-          </button>
-
-          <!-- Dropdown Menu -->
-          <div ngbDropdownMenu aria-labelledby="profileDropdown" class="dropdown-menu-end">
-            <!-- Show "My Profile" only for Role ID 1 (Candidate) -->
-            <button 
-              *ngIf="shouldShowCandidateButton()" 
-              class="dropdown-item" 
-              (click)="goToCandidateProfile()"
-            >
-              <i class="bi bi-person-circle me-2"></i>My Profile
-            </button>
-
-            <!-- Show "Go to Dashboard" only for Role ID 2 (Company) or 3 (Admin) -->
-            <button 
-              *ngIf="shouldShowDashboardButton()" 
-              class="dropdown-item" 
-              (click)="goToDashboard()"
-            >
-              <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
-            </button>
-            
-            <!-- Divider only if any button above is shown -->
-            <div *ngIf="shouldShowDashboardButton() || shouldShowCandidateButton()" class="dropdown-divider"></div>
-            
-            <!-- Logout button for all users -->
-            <button class="dropdown-item text-danger" (click)="logout()">
-              <i class="bi bi-box-arrow-right me-2"></i>Logout
-            </button>
-          </div>
+    <!-- Desktop Profile Section -->
+<ng-template #profileSection>
+  <div ngbDropdown class="d-inline-block">
+    <!-- Profile Image Button with loading state -->
+    <button
+      class="btn p-0 border-0 bg-transparent"
+      id="profileDropdown"
+      ngbDropdownToggle
+      [disabled]="isLoadingProfile"
+    >
+      <div *ngIf="isLoadingProfile; else profileImage">
+        <div class="spinner-border spinner-border-sm text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+      </div>
+      
+      <ng-template #profileImage>
+        <img
+          [src]="profileImageUrl"
+          alt="Profile"
+          class="rounded-circle"
+          width="40"
+          height="40"
+          style="object-fit: cover; border: 2px solid #4CAF50; cursor: pointer;"
+          (error)="handleImageError($event)"
+        />
       </ng-template>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div ngbDropdownMenu aria-labelledby="profileDropdown" class="dropdown-menu-end">
+      <!-- Show user info header -->
+      <div class="dropdown-item-text border-bottom pb-2 mb-2">
+        <div class=" small">{{ fullName || 'User' }}</div>
+        <small class="text-muted">
+          {{ roleId === 1 ? 'Candidate' : roleId === 2 ? 'Hotel' : 'Admin' }}
+        </small>
+      </div>
+      
+      <!-- Rest of your dropdown items -->
+      <button 
+        *ngIf="shouldShowCandidateButton()" 
+        class="dropdown-item" 
+        (click)="goToCandidateProfile()"
+      >
+        <i class="bi bi-person-circle me-2"></i>My Profile
+      </button>
+
+      <button 
+        *ngIf="shouldShowDashboardButton()" 
+        class="dropdown-item" 
+        (click)="goToDashboard()"
+      >
+        <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+      </button>
+      
+      <div *ngIf="shouldShowDashboardButton() || shouldShowCandidateButton()" class="dropdown-divider"></div>
+      
+      <button class="dropdown-item text-danger" (click)="logout()">
+        <i class="bi bi-box-arrow-right me-2"></i>Logout
+      </button>
+    </div>
+  </div>
+</ng-template>
     </div>
 
     <!-- Mobile Menu Sidebar (Full Screen Overlay) -->

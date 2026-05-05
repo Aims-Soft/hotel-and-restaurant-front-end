@@ -69,16 +69,38 @@
 //   }
 // }
 
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-intro-page',
   templateUrl: './intro-page.component.html',
   styleUrl: './intro-page.component.scss',
 })
-export class IntroPageComponent {
+export class IntroPageComponent implements OnInit {
   searchQuery: string = '';
   @Output() searchChange = new EventEmitter<string>();
+
+  ngOnInit(): void {
+    // Show modal on page load
+    this.showDepartmentsModal();
+  }
+
+  showDepartmentsModal(): void {
+    const modalElement = document.getElementById('departmentsModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  closeModal(): void {
+    const modalElement = document.getElementById('departmentsModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal?.hide();
+    }
+  }
 
   onSearchInput(): void {
     this.searchChange.emit(this.searchQuery);
