@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebsiteService } from '../../Services/website/website.service';
 
@@ -11,8 +11,8 @@ export class CatagoriesComponent implements OnInit {
 
   @Output() categoriesSelected = new EventEmitter<string[]>();
 
-  categories: any[] = [];          // all unique categories from API
-  displayedCategories: any[] = []; // 8 shown by default
+  categories: any[] = [];
+  displayedCategories: any[] = [];
   selectedCategory: string = '';
   filteredJobs: any[] = [];
   isLoadingCategories = false;
@@ -29,14 +29,12 @@ export class CatagoriesComponent implements OnInit {
     this.getAllCategories();
   }
 
-  // ── Load all categories ──────────────────────────────────
   getAllCategories(): void {
     this.isLoadingCategories = true;
     this.websiteService.getcategory().subscribe(
       (res: any) => {
         this.isLoadingCategories = false;
 
-        // Extract unique categories from the jobs list
         const seen = new Set<string>();
         const unique: any[] = [];
         res.forEach((job: any) => {
@@ -60,7 +58,6 @@ export class CatagoriesComponent implements OnInit {
     );
   }
 
-  // ── Toggle show all / show 8 ─────────────────────────────
   toggleShowAll(): void {
     this.showAll = !this.showAll;
     this.displayedCategories = this.showAll
@@ -68,25 +65,13 @@ export class CatagoriesComponent implements OnInit {
       : this.categories.slice(0, 8);
   }
 
-  // ── On category click → filter jobs by category ──────────
-  goToCategory(jobCategoryTitle: string): void {
-    this.selectedCategory = jobCategoryTitle;
-    this.isLoadingJobs = true;
-    this.filteredJobs = [];
-
-   this.websiteService.getselectedcategory(jobCategoryTitle).subscribe(
-        (res: any) => {
-          this.isLoadingJobs = false;
-          this.filteredJobs = res;
-        },
-        (err: any) => {
-          this.isLoadingJobs = false;
-          console.error('Error fetching jobs by category:', err);
-        }
-      );
+  // ✅ Navigate to job listing page with jobCategoryID as query param
+  goToCategory(item: any): void {
+    this.router.navigate(['/jobListing'], {
+      queryParams: { jobCategoryID: item.jobCategoryID }
+    });
   }
 
-  // ── Icon map ─────────────────────────────────────────────
   getCategoryIcon(category: string): string {
     const iconMap: { [key: string]: string } = {
       'Front Desk':      'bi bi-reception-4',
@@ -110,20 +95,12 @@ export class CatagoriesComponent implements OnInit {
     return iconMap[category] || 'bi bi-briefcase';
   }
 
-  // ── Clear selection ───────────────────────────────────────
   clearFilter(): void {
     this.selectedCategory = '';
     this.filteredJobs = [];
   }
-   goToApply(jobId: number): void {
 
-       this.router.navigate(['/companyDiscription', jobId])
-    // const user = this.usersessionservice.getUserID();
-
-    // if (user) {
-    //   this.router.navigate(['/companyDiscription', jobId]);
-    // } else {
-    //   this.router.navigate(['/signIn']);
-    // }
+  goToApply(jobId: number): void {
+    this.router.navigate(['/companyDiscription', jobId]);
   }
 }

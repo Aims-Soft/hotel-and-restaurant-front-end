@@ -3,6 +3,22 @@
   <i class="fas fa-spinner fa-spin"></i>
   <p class="mt-3 text-muted">Loading jobs...</p>
 </div>
+<div *ngIf="activeCategoryID && activeCategoryTitle"
+     class="d-flex align-items-center justify-content-between px-3 px-md-4 mb-3 py-2 rounded-3"
+     style="background: #fff8ee; border: 1px solid #f0d9b5; max-width: 100%;">
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-funnel-fill" style="color: #C19A6B;"></i>
+    <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #374151;">
+      Showing jobs in:
+      <strong style="color: #C19A6B;">{{ activeCategoryTitle }}</strong>
+    </span>
+  </div>
+  <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+          style="font-size: 0.8rem;"
+          (click)="clearCategoryFilter()">
+    <i class="bi bi-x me-1"></i> Clear Filter
+  </button>
+</div>
 
 <!-- Job Cards Container -->
 <div class="container-fluid px-3 px-md-4 mt-4">

@@ -1,4 +1,4 @@
-<div class="container-fluid py-5" >
+<div class="container-fluid py-5">
 
   <!-- Section Header -->
   <div class="text-center mb-5">
@@ -26,9 +26,11 @@
 
     <div class="col-12 col-sm-6 col-md-3"
          *ngFor="let item of displayedCategories">
+
+      <!-- ✅ Pass full item object (has jobCategoryID) -->
       <div class="category-card rounded-4 p-4 d-flex align-items-center gap-3 h-100"
            [class.selected]="selectedCategory === item.jobCategoryTitle"
-           (click)="goToCategory(item.jobCategoryTitle)"
+           (click)="goToCategory(item)"
            style="background-color: white; cursor: pointer;
                   transition: all 0.3s ease; border: 2px solid transparent;">
 
@@ -63,114 +65,6 @@
             (click)="toggleShowAll()">
       {{ showAll ? 'Show Less' : 'View All (' + categories.length + ' Categories)' }}
     </button>
-  </div>
-
-  <!-- ── Filtered Jobs Section ── -->
-  <div *ngIf="selectedCategory" class="mx-auto mt-5" style="max-width: 1400px;">
-
-    <!-- Jobs Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 px-2">
-      <div>
-        <h4 class="fw-bold mb-1" style="color: #2d3748; font-family: 'Inter', sans-serif;">
-          Jobs in <span style="color: #C19A6B;">{{ selectedCategory }}</span>
-        </h4>
-        <p class="text-muted mb-0" style="font-size: 0.9rem;">
-          {{ filteredJobs.length }} {{ filteredJobs.length === 1 ? 'position' : 'positions' }} available
-        </p>
-      </div>
-      <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"
-              (click)="clearFilter()">
-        <i class="bi bi-x me-1"></i> Clear Filter
-      </button>
-    </div>
-
-    <!-- Jobs Loading -->
-    <div *ngIf="isLoadingJobs" class="text-center py-5">
-      <div class="spinner-border text-warning" role="status"></div>
-      <p class="text-muted mt-3">Loading jobs...</p>
-    </div>
-
-    <!-- No Jobs Found -->
-    <div *ngIf="!isLoadingJobs && filteredJobs.length === 0"
-         class="text-center py-5">
-      <i class="bi bi-briefcase text-muted" style="font-size: 3rem;"></i>
-      <p class="text-muted mt-3">No jobs found in this category</p>
-    </div>
-
-    <!-- Jobs Grid -->
-    <div *ngIf="!isLoadingJobs && filteredJobs.length > 0"
-         class="row g-3">
-      <div class="col-12 col-md-6 col-lg-4"
-           *ngFor="let job of filteredJobs">
-        <div class="card border-0 shadow-sm rounded-4 p-4 h-100"
-             style="transition: all 0.3s ease; cursor: pointer;"
-         >
-
-          <!-- Company Logo + Name -->
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <img [src]="job.eLogo"
-                 class="rounded-3"
-                 style="width: 48px; height: 48px; object-fit: cover;"
-                 onerror="this.src='assets/default-logo.png'"
-                 [alt]="job.companyName">
-            <div>
-              <p class="mb-0 fw-semibold" style="font-size: 0.9rem; color: #1a1a1a;">
-                {{ job.companyName }}
-              </p>
-              <small class="text-muted">{{ job.displayTime }}</small>
-            </div>
-            <!-- Status Badge -->
-            <span class="badge ms-auto rounded-pill"
-                  style="background-color: #d4edda; color: #155724; font-size: 0.75rem;">
-              {{ job.jobStatusTitle }}
-            </span>
-          </div>
-
-          <!-- Job Title -->
-          <h6 class="fw-bold mb-2"
-              style="color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 1rem;">
-            {{ job.jobTitle }}
-          </h6>
-
-          <!-- Tags Row -->
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="badge rounded-pill"
-                  style="background-color: #fff3e0; color: #C19A6B;
-                         font-size: 0.75rem; font-weight: 500;">
-              <i class="bi bi-briefcase me-1"></i>{{ job.jobTypeTitle }}
-            </span>
-            <span class="badge rounded-pill"
-                  style="background-color: #f0f4ff; color: #4a6cf7;
-                         font-size: 0.75rem; font-weight: 500;">
-              <i class="bi bi-laptop me-1"></i>{{ job.jobSpaceTitle }}
-            </span>
-            <span class="badge rounded-pill"
-                  style="background-color: #f0fff4; color: #38a169;
-                         font-size: 0.75rem; font-weight: 500;">
-              <i class="bi bi-clock-history me-1"></i>{{ job.experienceRange }} yrs exp
-            </span>
-          </div>
-
-          <!-- Location + Salary -->
-          <div class="d-flex justify-content-between align-items-center mt-auto pt-2"
-               style="border-top: 1px solid #f0f0f0;">
-            <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
-              <i class="bi bi-geo-alt me-1" style="color: #C19A6B;"></i>
-              {{ job.cityName }}, {{ job.countryName }}
-            </div>
-         
-
-            <div class="fw-semibold" style="color: #C19A6B; font-size: 0.9rem;">
-              Rs {{ job.salaryRange }}
-            </div>
-          </div>
-   <button class="view-details-btn-new" (click)="goToApply(job.jobID)">
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-
   </div>
 
 </div>
