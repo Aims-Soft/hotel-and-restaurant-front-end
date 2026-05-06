@@ -15,9 +15,9 @@ export class HomePageComponent {
 
 
   
-  //   selectedCategories: string[] = [];
+    selectedCategories: string[] = [];
 
-  // onCategoriesSelected(categories: string[]) {
-  //   this.selectedCategories = categories;
-  // }
+  onCategoriesSelected(categories: string[]) {
+    this.selectedCategories = categories;
+  }
 }

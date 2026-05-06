@@ -26,7 +26,13 @@ export class WebsiteService {
   getAllCompanies(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Website/getCompanies`);
   }
+getcategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getJobByCategory`);
+  }
 
+  getselectedcategory(jobCategoryTitle:any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getJobByCategory?jobCategoryTitle=${jobCategoryTitle}`);
+  }
 
    getAdminJobs(companyID: number): Observable<any> {
   return this.http.get<any>(

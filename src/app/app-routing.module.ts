@@ -43,6 +43,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'signIn', component: SignInComponent },
   { path: 'jobListing', component: JobListingComponent },
+    { path: 'jobDisplay', component: JobDisplayComponent },
   { path: 'companies', component: CompaniesComponent },
   { path: 'companyDetails/:id', component: CompanyDetailsComponent },
   { path: 'companyDiscription/:id', component: CompanyDiscriptionComponent },
