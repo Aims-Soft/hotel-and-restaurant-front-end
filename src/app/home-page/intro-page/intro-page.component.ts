@@ -70,6 +70,7 @@
 // }
 
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { WebsiteService } from '../../Services/website/website.service';
 declare var bootstrap: any;
 
 @Component({
@@ -79,12 +80,18 @@ declare var bootstrap: any;
 })
 export class IntroPageComponent implements OnInit {
   searchQuery: string = '';
+  popularCategories: any[] = [];
+  isLoading: boolean = false;
   @Output() searchChange = new EventEmitter<string>();
 
   ngOnInit(): void {
     // Show modal on page load
     this.showDepartmentsModal();
+    this.getPopularCategories();
   }
+  constructor(
+    private websiteservice: WebsiteService,
+  ) {}
 
   showDepartmentsModal(): void {
     const modalElement = document.getElementById('departmentsModal');
@@ -116,5 +123,21 @@ export class IntroPageComponent implements OnInit {
     if (jobSection) {
       jobSection.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  getPopularCategories(): void {
+    this.isLoading = true;
+    this.websiteservice.getPopularCategories().subscribe(
+      (response: any[]) => {
+        this.isLoading = false;
+        this.popularCategories = response;
+        // this.showAll = false;
+        
+      },
+      (error: any) => {
+        this.isLoading = false;
+        console.error('Error fetching Jobs:', error);
+      }
+    );
   }
 }

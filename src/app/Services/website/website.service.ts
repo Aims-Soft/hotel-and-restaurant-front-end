@@ -45,6 +45,10 @@ getcategory(): Observable<any[]> {
   );
 }
 
+ getPopularCategories(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}job-api/Dashboard/getPopularJobs`);
+  }
+
     getAlljobs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}job-api/Admin/AllJobs`);
   }

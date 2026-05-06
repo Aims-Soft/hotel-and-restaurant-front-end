@@ -50,7 +50,11 @@
     <!-- Popular Categories -->
     <div class="small mb-2" style="font-family: 'Inter', sans-serif;">
       <span class="me-2" style="color: rgba(255, 255, 255, 0.7);">Popular Categories:</span>
-      <span class="text-white">Product Designer, Developer, Designer</span>
+      <span class="text-white">
+        <ng-container *ngFor="let category of popularCategories; let last = last">
+          {{ category.jobCategoryTitle }}<span *ngIf="!last">, </span>
+        </ng-container>
+      </span>
     </div>
 
     <!-- Action Cards Row -->
