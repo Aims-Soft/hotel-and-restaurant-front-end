@@ -1,7 +1,7 @@
 <div class="container-fluid bg-white   nav-styling">
-  <div class="row ms-md-4  py-3 d-flex align-items-center">
+  <div class="row ms-md-4  py-2 d-flex align-items-center">
     <!-- Logo -->
-    <div class="col-6 col-md-2">
+    <div class="col-4 col-md-2">
       <a routerLink="/">
         <img
           src="../../assets/images/icons/wesiteLogo.svg"
@@ -24,10 +24,16 @@
     </div>
 
     <!-- Desktop Navigation Links -->
-    <div class="col-md-4 offset-md-2 d-none d-md-block">
-      <a
+    <div class="col-md-6  offset-md-1 text-center d-none d-md-block ">
+       <a
         href="#"
         class="text-decoration-none custom-link"
+        routerLink="/"
+        >Home</a
+      >
+      <a
+        href="#"
+        class="text-decoration-none custom-link ms-5"
         routerLink="/jobListing"
         >Find Jobs</a
       >
@@ -37,16 +43,22 @@
         routerLink="/companies"
         >Hotels</a
       >
+       <a
+        href="#"
+        class="text-decoration-none ms-5 custom-link"
+        routerLink="/contact"
+        >Categories</a
+      >
       <a
         href="#"
         class="text-decoration-none ms-5 custom-link"
         routerLink="/contact"
-        >Contact</a
+        >Contact us</a
       >
     </div>
 
     <!-- Desktop Auth Buttons -->
-    <div class="col-md-3 offset-md-1 text-end d-none d-md-block">
+    <div class="col-md-3  text-end d-none d-md-block">
       <!-- Show Register & Sign In if NOT logged in -->
       <ng-container *ngIf="!isLoggedIn; else profileSection">
         <button
