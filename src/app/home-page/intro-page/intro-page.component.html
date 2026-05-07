@@ -59,72 +59,65 @@
 
     <!-- Action Cards Row -->
     <div class="row g-3 mt-2 justify-content-center">
-      
-      <!-- Apply for a Job Card -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="action-card card border-0 rounded-4 p-4 h-100" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-          <h5 class="fw-bold mb-2 text-start" style="color: #1a1a1a;  font-size: 1.5rem;">Apply for a Job</h5>
-          <p class="text-muted mb-3 text-start" style="font-size: 0.875rem; ">Apply for a Job</p>
-          <p class="urdu-text text-muted mb-4" style="font-size: 0.9rem; line-height: 1.8;">
-            ملازمت کے لیے اپلائی کریں
-          </p>
-          <a href="#" [routerLink]="['/jobListing']" routerLinkActive="router-link-active"  class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto" 
-             style="color: #C19A6B; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif;">
-            Continue <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
+  
+  <!-- Apply for a Job Card -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="action-card card border-0 rounded-4 p-4 h-100">
+      <div class="card-icon mb-3">
+        <i class="applyjob"></i>
       </div>
-
-      <!-- Get Training Card -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="action-card card border-0 rounded-4 p-4 h-100" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-          <h5 class="fw-bold mb-2 text-start" style="color: #1a1a1a;  font-size: 1.5rem;">Get Training</h5>
-          <p class="text-muted text-start mb-3" style="font-size: 0.875rem; ">
-            If you want to get training for job in Hotel & Restaurant Apply here
-          </p>
-          <p class="urdu-text text-muted mb-4" style="font-size: 0.9rem; line-height: 1.8;">
-            اگر آپ ہوٹل اور ریسٹورنٹ میں ملازمت کے لیے تربیت حاصل کرنا چاہتے ہیں تو یہاں اپلائی کریں
-          </p>
-          <a href="#" class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto" 
-             style="color: #C19A6B; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif;">
-            Continue <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Register Property Card -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="action-card card border-0 rounded-4 p-4 h-100" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-          <h5 class="fw-bold mb-2 text-start" style="color: #1a1a1a;  font-size: 1.5rem;">Register Property</h5>
-          <p class="text-muted mb-3 text-start" style="font-size: 0.875rem; ">
-            Register your property (Hotels, Restaurants, Guest Houses)
-          </p>
-          <p class="urdu-text text-muted mb-4" style="font-size: 0.9rem; line-height: 1.8;">
-            اپنی پراپرٹی کو رجسٹر کریں (ہوٹل، ریسٹورنٹ، گیسٹ ہاؤسز)
-          </p>
-          <a href="#"  [routerLink]="['/registercompany']" routerLinkActive="router-link-active" class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto" 
-             style="color: #C19A6B; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif;">
-            Continue <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Post a Job Card -->
-      <!-- <div class="col-12 col-md-6 col-lg-3">
-        <div class="action-card card border-0 rounded-4 p-4 h-100" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-          <h5 class="fw-bold mb-2" style="color: #1a1a1a; font-family: 'Playfair Display', serif; font-size: 1.5rem;">Post a Job</h5>
-          <p class="text-muted mb-3" style="font-size: 0.875rem; font-family: 'Inter', sans-serif;">Post a Job</p>
-          <p class="urdu-text text-muted mb-4" style="font-size: 0.9rem; line-height: 1.8;">
-            نوکری پوسٹ کریں
-          </p>
-          <a href="#" class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto" 
-             style="color: #C19A6B; font-weight: 600; font-size: 0.875rem; font-family: 'Inter', sans-serif;">
-            Continue <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-      </div> -->
-
+      <h5 class="fw-bold mb-2 text-start card-title-text">Apply for a Job</h5>
+      <p class="card-desc mb-3 text-start">Apply for a Job</p>
+      <p class="urdu-text card-urdu mb-4">
+        ملازمت کے لیے اپلائی کریں
+      </p>
+      <a href="#" [routerLink]="['/jobListing']" routerLinkActive="router-link-active"
+         class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto card-link">
+        Continue <i class="bi bi-arrow-right"></i>
+      </a>
     </div>
+  </div>
+
+  <!-- Get Training Card -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="action-card card border-0 rounded-4 p-4 h-100">
+      <div class="card-icon mb-3">
+        <i class="training"></i>
+      </div>
+      <h5 class="fw-bold mb-2 text-start card-title-text">Get Training</h5>
+      <p class="card-desc mb-3 text-start">
+        If you want to get training for job in Hotel & Restaurant Apply here
+      </p>
+      <p class="urdu-text card-urdu mb-4">
+        اگر آپ ہوٹل اور ریسٹورنٹ میں ملازمت کے لیے تربیت حاصل کرنا چاہتے ہیں تو یہاں اپلائی کریں
+      </p>
+      <a href="#" class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto card-link">
+        Continue <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Register Property Card -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="action-card card border-0 rounded-4 p-4 h-100">
+      <div class="card-icon mb-3">
+        <i class="registration"></i>
+      </div>
+      <h5 class="fw-bold mb-2 text-start card-title-text">Register Property</h5>
+      <p class="card-desc mb-3 text-start">
+        Register your property (Hotels, Restaurants, Guest Houses)
+      </p>
+      <p class="urdu-text card-urdu mb-4">
+        اپنی پراپرٹی کو رجسٹر کریں (ہوٹل، ریسٹورنٹ، گیسٹ ہاؤسز)
+      </p>
+      <a href="#" [routerLink]="['/registercompany']" routerLinkActive="router-link-active"
+         class="text-decoration-none d-inline-flex align-items-center gap-2 mt-auto card-link">
+        Continue <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+
+</div>
     
   </div>
 </section>

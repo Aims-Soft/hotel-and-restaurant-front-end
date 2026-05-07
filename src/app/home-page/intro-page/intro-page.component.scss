@@ -210,59 +210,71 @@ $row-alt:     #f9f9f9;
 
 // Action Cards
 .action-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(143.44deg, rgba(21, 43, 71, 0.85) 85%, rgba(15, 29, 46, 0.92) 92%) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(193, 154, 107, 0.2) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(193, 154, 107, 0.5) !important;
+
+    // .card-icon {
+    //   background-color: #C19A6B;
+    //   i { color: #1a1a1a; }
+    // }
   }
 
-  a {
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    // background-color: #C19A6B;
+    // border: 1px solid rgba(193, 154, 107, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+
+    i {
+      font-size: 1.4rem;
+      // color: #C19A6B;
+      transition: color 0.3s ease;
+    }
+  }
+
+  .card-title-text {
+    color: #ffffff;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+  }
+
+  .card-desc {
+    color: white;
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+
+  .card-urdu {
+    color: #C19A6B !important;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .card-link {
+    color: #C19A6B !important;
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
     transition: gap 0.3s ease;
 
     &:hover {
       gap: 0.75rem !important;
-    }
-  }
-}
-
-// Responsive
-@media (max-width: 768px) {
-  .d-flex.align-items-center.rounded-pill {
-    flex-direction: column !important;
-    border-radius: 1rem !important;
-    padding: 1rem !important;
-
-    .d-flex.align-items-center.flex-grow-1 {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      width: 100%;
-    }
-  }
-
-  .action-card {
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .badge {
-    font-size: 0.65rem !important;
-    padding: 0.5rem 1.25rem !important;
-  }
-
-  .small {
-    font-size: 0.75rem !important;
-
-    span {
-      display: block;
-      margin-top: 0.25rem;
     }
   }
 }
