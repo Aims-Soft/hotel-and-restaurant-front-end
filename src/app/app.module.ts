@@ -64,6 +64,8 @@ import { ContactMessagesComponent } from './contact-messages/contact-messages.co
 import { FilterMessagesPipe } from './pipes/filter-messages.pipe';
 import { FilePickerComponent } from './file-picker/file-picker.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+  import { CategoryDisplayComponent } from './category-display/category-display.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,9 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     FilterMessagesPipe,
     FilePickerComponent,
     ConfigurationComponent,
+    CategoryDisplayComponent,
+    CatagoriesComponent,
+    CategoryListComponent,
   ],
   imports: [
     BrowserModule,

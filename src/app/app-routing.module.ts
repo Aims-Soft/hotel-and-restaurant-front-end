@@ -37,6 +37,8 @@ import { UserProfileComponent } from './home-page/user-profile/user-profile.comp
 import { ContactMessagesComponent } from './contact-messages/contact-messages.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { CatagoriesComponent } from './home-page/catagories/catagories.component';
+import { CategoryDisplayComponent } from './category-display/category-display.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -55,6 +57,8 @@ const routes: Routes = [
   { path: 'resetPassword',component: ResetPasswordComponent},
   {path:'userprofile',component:UserProfileComponent},
   {path:'categories',component:CatagoriesComponent},
+  {path:'category',component:CategoryDisplayComponent},
+  {path:'categoryList',component:CategoryListComponent},
 
   
 
